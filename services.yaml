@@ -1,0 +1,1218 @@
+swagger: '2.0'
+info:
+  version: 'v1'
+  title: 'Services API'
+  contact:
+    email: hello@overops.com
+  description: |
+    Main OverOps API for environments. All calls must be authenticated using `username:password`.
+securityDefinitions:
+  basicAuth:
+    type: basic
+security:
+  - basicAuth: []
+host: api.overops.com
+basePath: /api/v1/services
+tags: 
+  - name: General
+    description: Fetching general information about services
+  - name: Data Redaction
+    description: Fetching and manipulating the data redaction (PII) settings of the service
+  - name: Code Redaction
+    description: Fetching and manipulating the 3rd party and utility classes settings.
+  - name: Views
+    description: Fetching information about the views (groups of filters)
+  - name: View Metrics
+    description: Fetching data points and metrics about the views in order to plot graphs
+schemes:
+- "https"
+paths:
+  /:
+    get:
+      tags:
+        - General
+      description: "List all services"
+      responses:
+        200:
+          description: TBD
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}:
+    get:
+      tags:
+        - General
+      summary: "Get information about the service"
+      description: "Get information about the service"
+      parameters:
+          - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings:
+    get:
+      tags:
+        - General
+      summary: "Get service settings"
+      description: "Get service settings"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction:
+    get:
+      tags:
+        - Code Redaction
+      summary: "List all code redaction"
+      description: "List all code exclusions and inclusions"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of included and excluded classes and packages
+          schema:
+            properties: 
+              exclude: 
+                type: "object"
+                properties:
+                  classes:
+                    type: "array"
+                    items:
+                      $ref: "#/definitions/ExcludedClassName"
+                  packages:
+                    type: "array"
+                    items:
+                      $ref: "#/definitions/ExcludedPackageName"
+              include: 
+                type: "object"
+                properties:
+                  classes:
+                    type: "array"
+                    items:
+                      $ref: "#/definitions/IncludedClassName"
+                  packages:
+                    type: "array"
+                    items:
+                      $ref: "#/definitions/IncludedPackageName"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/exclude:
+    get:
+      tags: 
+        - Code Redaction
+      summary: "List all code exclusions"
+      description: "List all code exclusions"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of excluded classes and packages
+          schema:
+            properties: 
+              classes:
+                type: "array"
+                items:
+                  $ref: "#/definitions/ExcludedClassName"
+              packages:
+                type: "array"
+                items:
+                  $ref: "#/definitions/ExcludedPackageName"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/exclude/classes:
+    get:
+      tags: 
+        - Code Redaction
+      summary: "List all excluded classes"
+      description: "List all excluded classes"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of excluded classes
+          schema:
+            properties: 
+              classes:
+                type: "array"
+                items:
+                  $ref: "#/definitions/ExcludedClassName"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/exclude/classes/{class_name}:
+    parameters:
+      - $ref: "#/parameters/service_id"
+        descrption: "hello"
+      - $ref: "#/parameters/class_name"
+    get:
+      tags: 
+        - Code Redaction
+      summary: "Retrieve an excluded class"
+      description: "Retrieve an excluded class"
+      responses:
+        200:
+          description: An excluded class
+          schema:
+            properties:
+              name:
+                $ref: "#/definitions/ExcludedClassName"
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    put:
+      tags: 
+        - Code Redaction
+      summary: "Add a class to the exclusion list"
+      description: "Add a class to the exclusion list. The body class name must match the resource identifier"
+      parameters: 
+       - in: body
+         name: class
+         schema:
+           properties:
+              name:
+                $ref: "#/definitions/ExcludedClassName"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags: 
+        - Code Redaction
+      summary: "Remove a class from exclusion"
+      description: "Remove a class from the exclusion list"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/exclude/packages:
+    get:
+      tags: 
+        - Code Redaction
+      summary: "List all excluded packages"
+      description: "List all excluded packages"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of excluded packages
+          schema:
+            properties: 
+              packages:
+                type: "array"
+                items:
+                  $ref: "#/definitions/ExcludedPackageName"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/exclude/packages/{package_name}:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - $ref: "#/parameters/package_name"
+    get:
+      tags: 
+        - Code Redaction
+      summary: "Retrieve an excluded package"
+      description: "Retrieve an excluded package"
+      responses:
+        200:
+          description: An excluded package
+          schema:
+            properties:
+              name:
+                $ref: "#/definitions/ExcludedPackageName"
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    put:
+      tags: 
+        - Code Redaction
+      summary: "Add a package to the exclusion list"
+      description: "Add a package to the exclusion list. The body package name must match the resource identifier"
+      parameters: 
+       - in: body
+         name: package
+         schema:
+           properties:
+              name:
+                $ref: "#/definitions/ExcludedPackageName"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags: 
+        - Code Redaction
+      summary: "Remove a package from the exclusion list"
+      description: "Remove a package from the exclusion list"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/include:
+    get:
+      tags: 
+        - Code Redaction
+      summary: "List all code inclusions"
+      description: "List all code inclusions"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of included classes and packages
+          schema:
+            properties: 
+              classes:
+                type: "array"
+                items:
+                  $ref: "#/definitions/IncludedClassName"
+              packages:
+                type: "array"
+                items:
+                  $ref: "#/definitions/IncludedPackageName"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/include/classes:
+    get:
+      tags: 
+        - Code Redaction
+      summary: "List all included classes"
+      description: "List all included classes"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of included classes
+          schema:
+            properties: 
+              classes:
+                type: "array"
+                items:
+                  $ref: "#/definitions/IncludedClassName"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/include/classes/{class_name}:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - $ref: "#/parameters/class_name"
+    get:
+      tags: 
+        - Code Redaction
+      summary: "Retrieve an included class"
+      description: "Retrieve an included class"
+      responses:
+        200:
+          description: An included class
+          schema:
+            properties:
+              name:
+                $ref: "#/definitions/IncludedClassName"
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    put:
+      tags: 
+        - Code Redaction
+      summary: "Add a class to the inclusion list"
+      description: "Add a class to the inclusion list. The body class name must match the resource identifier"
+      parameters: 
+       - in: body
+         name: class
+         schema:
+           properties:
+              name:
+                $ref: "#/definitions/IncludedClassName"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags: 
+        - Code Redaction
+      summary: "Remove a class from the inclusion list"
+      description: "Remove a class from the inclusion list"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/include/packages:
+    get:
+      tags: 
+        - Code Redaction
+      summary: "List all included packages"
+      description: "List all included packages"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of included packages
+          schema:
+            properties: 
+              packages:
+                type: "array"
+                items:
+                  $ref: "#/definitions/IncludedPackageName"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/code-redaction/include/packages/{package_name}:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - $ref: "#/parameters/package_name"
+    get:
+      tags: 
+        - Code Redaction
+      summary: "Retrieve an included package"
+      description: "Retrieve an included package"
+      responses:
+        200:
+          description: An included package
+          schema:
+            properties:
+              name:
+                $ref: "#/definitions/IncludedPackageName"
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    put:
+      tags: 
+        - Code Redaction
+      summary: "Add a package to the inclusion list"
+      description: "Add a package to the inclusion list. The body package name must match the resource identifier"
+      parameters: 
+       - in: body
+         name: package
+         schema:
+           properties:
+              name:
+                $ref: "#/definitions/IncludedPackageName"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags: 
+        - Code Redaction
+      summary: "Remove a package from the inclusion list"
+      description: "Remove a package from the inclusion list"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/data-redaction:
+    get:
+      tags: 
+        - Data Redaction
+      summary: "List all data redactions"
+      description: "List all data redactions"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of data redaction
+          schema:
+            properties: 
+              packages: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    name: 
+                      type: "string"
+                      example: "com.example"
+              patterns: 
+                type: "array"
+                items: 
+                  $ref: "#/definitions/Pattern"
+              identifiers: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    name: 
+                      type: "string"
+                      example: "password"
+              classes: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    name: 
+                      type: "string"
+                      example: "IPv4"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/data-redaction/patterns:
+    get:
+      tags: 
+        - Data Redaction
+      summary: "List all regex patterns"
+      description: "List all regex patterns"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of regex patterns
+          schema:
+            properties: 
+              patterns: 
+                type: "array"
+                items: 
+                  $ref: "#/definitions/Pattern"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/data-redaction/patterns/{pattern}:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - in: path
+        name: pattern
+        type: string
+        required: true
+    get:
+      tags: 
+        - Data Redaction
+      summary: "Retrieve a pattern"
+      description: "Retrieve a pattern"
+      responses:
+        200:
+          description: A pattern
+          schema:
+            $ref: '#/definitions/Pattern'
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    put:
+      tags: 
+        - Data Redaction
+      summary: "Create a pattern"
+      description: "Add a RegEx pattern to be redacted. The pattern name must match the resource identifier"
+      parameters: 
+        - in: body
+          name: pattern
+          schema:
+            $ref: '#/definitions/Pattern'
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags: 
+        - Data Redaction
+      summary: "Delete a pattern"
+      description: "Removes a pattern from the redaction list"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/data-redaction/identifiers:
+    get:
+      tags: 
+        - Data Redaction
+      summary: "List all identifiers"
+      description: "List all identifiers"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of identifiers
+          schema:
+            properties: 
+              identifiers: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    name: 
+                      type: "string"
+                      example: "password"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/data-redaction/identifiers/{identifier}:
+    get:
+      parameters:
+        - $ref: "#/parameters/service_id"
+        - in: path
+          name: identifier
+          type: string
+          required: true
+      tags: 
+        - Data Redaction
+      summary: "Retrieve an identifier"
+      description: "Retrieve an identifier"
+      responses:
+        200:
+          description: If the redaction exists
+          schema:
+            properties: 
+              name: 
+                type: "string"
+                example: "password"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    put:
+      tags: 
+        - Data Redaction
+      summary: "Add an identifier"
+      description: "Add an identifier. The body identifier name must match the resource identifier"
+      operationId: addIdentifier
+      parameters: 
+        - $ref: "#/parameters/service_id"
+          description: "Service Id"
+        - in: path
+          name: identifier
+          description: The identifier to add
+          type: string
+          required: true
+        - name: name
+          in: body
+          description: Identifier object
+          schema:
+           properties: 
+             name: 
+               type: "string"
+               example: "password"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags: 
+        - Data Redaction
+      summary:  "Delete identifier"
+      description: "Delete identifier"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/data-redaction/classes:
+    get:
+      tags: 
+        - Data Redaction
+      summary: "List all classes"
+      description: "List all classes"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of classes
+          schema:
+            properties: 
+              classes: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    name: 
+                      type: "string"
+                      example: "IPv4"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/data-redaction/classes/{class_name}:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - in: path
+        name: class_name
+        description: Class name to redact.
+        type: string
+        required: true
+    get:
+      tags: 
+        - Data Redaction
+      summary: "Retrieve a class"
+      description: "Retrieve a class from the data redaction list"
+      responses:
+        200:
+          description: If the redaction exists
+          schema:
+            properties: 
+              name: 
+                type: "string"
+                example: "IPv4"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    put:
+      tags: 
+        - Data Redaction
+      summary: "Add a class for data redaction"
+      description: "Add a class to the redaction list. The body class name must match the resource identifier"
+      parameters: 
+       - in: body
+         description: A JSON representing a class to add for redaction
+         name: name
+         schema:
+          properties: 
+            name: 
+              type: "string"
+              example: "IPv4"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags: 
+        - Data Redaction
+      summary:  "Delete a class"
+      description: "Delete a class"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/data-redaction/packages:
+    get:
+      tags: 
+        - Data Redaction
+      summary: "List all packages"
+      description: "List all packages"
+      parameters:
+        - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: List of packages
+          schema:
+            properties: 
+              packages: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    name: 
+                      type: "string"
+                      example: "com.example"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/settings/data-redaction/packages/{package_name}:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - in: path
+        name: package_name
+        type: string
+        required: true
+    get:
+      tags: 
+        - Data Redaction
+      summary: "Retrieve a package"
+      description: "Retrieve a package"
+      responses:
+        200:
+          description: If the redaction exists
+          schema:
+            properties: 
+              name: 
+                type: "string"
+                example: "com.example"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    put:
+      tags: 
+        - Data Redaction
+      summary: "Create a package"
+      description: "Create a package. The body package name must match the resource identifier"
+      parameters: 
+       - in: body
+         name: name
+         schema:
+          properties: 
+            name: 
+              type: "string"
+              example: "com.example"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags: 
+        - Data Redaction
+      summary: "Delete package"
+      description: "Delete package"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views:
+    get:
+      tags:
+        - Views
+      summary: "Get service views"
+      description: "Get service views"
+      parameters:
+          - $ref: "#/parameters/service_id"
+      responses:
+        200:
+          description: TBD
+        401:
+          $ref: "#/definitions/UnauthorizedError"  
+  /{service_id}/views/{view_id}:
+    get:
+      tags:
+        - Views
+      summary: "Get view"
+      description: "Get view"
+      parameters:
+          - $ref: "#/parameters/service_id"
+          - $ref: "#/parameters/view_id"
+      responses:
+        200:
+          description: TBD
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics:
+    get:
+      tags:
+        - View Metrics
+      summary: "Get view metrics"
+      description: "Get view aggregated metrics"
+      parameters:
+          - $ref: "#/parameters/service_id"
+          - $ref: "#/parameters/view_id"
+          - $ref: "#/parameters/start_date"
+          - $ref: "#/parameters/end_date"
+      responses:
+        200:
+          description: View metrics
+          schema:
+            properties: 
+              throughputs: 
+                type: "number"
+                example: 42
+              errors: 
+                type: "number"
+                example: 22
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/throughputs:
+    get:
+      tags:
+        - View Metrics
+      summary: "Get throughputs count"
+      description: "Get throughputs count"
+      parameters:
+          - $ref: "#/parameters/service_id"
+          - $ref: "#/parameters/view_id"
+          - $ref: "#/parameters/start_date"
+          - $ref: "#/parameters/end_date"
+      responses:
+        200:
+          description: Throughput aggregated data
+          schema:
+            properties: 
+              throughputs: 
+                type: "number"
+                example: 42
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/throughputs/data-points:
+    get:
+      tags:
+        - View Metrics
+      summary: "Get entry points throughput metrics"
+      description: "Get entry points throughput metrics"
+      parameters:
+          - $ref: "#/parameters/service_id"
+          - $ref: "#/parameters/view_id"
+          - $ref: "#/parameters/start_date"
+          - $ref: "#/parameters/end_date"
+          - $ref: "#/parameters/data_points_count"
+      responses:
+        200:
+          description: Throughputs data points
+          schema:
+            properties: 
+              data_points: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    time: 
+                      type: "number"
+                      example: 1518221239
+                    throughput: 
+                      type: "number"
+                      example: 42
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/throughputs/entry-points:
+    get:
+      tags:
+        - View Metrics
+      summary: "Get entry points throughput metrics"
+      description: "Get entry points throughput metrics"
+      parameters:
+          - $ref: "#/parameters/service_id"
+          - $ref: "#/parameters/view_id"
+          - $ref: "#/parameters/start_date"
+          - $ref: "#/parameters/end_date"
+      responses:
+        200:
+          description: Throughputs data points
+          schema:
+            properties: 
+              entry_points: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    entry_point_id: 
+                      type: "number"
+                      example: 12
+                    throughput: 
+                      type: "number"
+                      example: 42
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/throughputs/entry-points/data-points:
+    get:
+      tags:
+        - View Metrics
+      summary: "Get entry point throughput data points"
+      description: "Get entry point throughput data points"
+      parameters:
+          - $ref: "#/parameters/service_id"
+          - $ref: "#/parameters/view_id"
+          - $ref: "#/parameters/start_date"
+          - $ref: "#/parameters/end_date"
+          - $ref: "#/parameters/data_points_count"
+      responses:
+        200:
+          description: Entry points throughput data points
+          schema:
+            properties: 
+              entry_points: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    entry_point_id: 
+                      type: "number"
+                      example: 12
+                    data_points: 
+                      type: "array"
+                      items: 
+                        type: "object"
+                        properties: 
+                          time: 
+                            type: "number"
+                            example: 1518221239
+                          throughput: 
+                            type: "number"
+                            example: 42
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/errors:
+    get:
+      tags:
+        - View Metrics
+      summary: "Get errors count"
+      description: "Get errors count"
+      parameters:
+          - $ref: "#/parameters/service_id"
+          - $ref: "#/parameters/view_id"
+          - $ref: "#/parameters/start_date"
+          - $ref: "#/parameters/end_date"
+      responses:
+        200:
+          description: Errors count
+          schema:
+            properties: 
+              errors: 
+                type: "number"
+                example: 12
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/errors/data-points:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - $ref: "#/parameters/view_id"
+      - $ref: "#/parameters/start_date"
+      - $ref: "#/parameters/end_date"
+      - $ref: "#/parameters/data_points_count"
+    get:
+      summary: "Errors data points"
+      description: "Errors data points"
+      tags:
+        - View Metrics
+      responses:
+        200:
+          description: Errors data points
+          schema:
+            properties: 
+              data_points: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    time: 
+                      type: "number"
+                      example: 1518221239
+                    value: 
+                      type: "number"
+                      example: 42
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/errors/events:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - $ref: "#/parameters/view_id"
+      - $ref: "#/parameters/start_date"
+      - $ref: "#/parameters/end_date"
+    get:
+      summary: "Events error counts"
+      description: "Events error counts"
+      tags:
+        - View Metrics
+      responses:
+        200:
+          description: Events error counts
+          schema:
+            properties: 
+              events: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    event_id: 
+                      type: "number"
+                      example: 12
+                    errors: 
+                      type: "number"
+                      example: 42
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/errors/events/data-points:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - $ref: "#/parameters/view_id"
+      - $ref: "#/parameters/start_date"
+      - $ref: "#/parameters/end_date"
+      - $ref: "#/parameters/data_points_count"
+    get:
+      summary: "Events errors data points"
+      description: "Multiple series of errors metric data points grouped by events"
+      tags:
+        - View Metrics
+      responses:
+        200:
+          description: Events data points
+          schema:
+            properties: 
+              events: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    event_id: 
+                      type: "number"
+                      example: 12
+                    data_points: 
+                      type: "array"
+                      items: 
+                        type: "object"
+                        properties: 
+                          time: 
+                            type: "number"
+                            example: 1518221239
+                          errors: 
+                            type: "number"
+                            example: 42
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/errors/entry-points:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - $ref: "#/parameters/view_id"
+      - $ref: "#/parameters/start_date"
+      - $ref: "#/parameters/end_date"
+    get:
+      summary: "Entry points errors count"
+      description: "Entry points errors count"
+      tags:
+        - View Metrics
+      responses:
+        200:
+          description: Entry points errors count
+          schema:
+            properties: 
+              entry_points: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    entry_point_id: 
+                      type: "number"
+                      example: 12
+                    errors: 
+                      type: "number"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /{service_id}/views/{view_id}/metrics/errors/entry-points/data-points:
+    parameters:
+      - $ref: "#/parameters/service_id"
+      - $ref: "#/parameters/view_id"
+      - $ref: "#/parameters/start_date"
+      - $ref: "#/parameters/end_date"
+      - $ref: "#/parameters/data_points_count"
+    get:
+      summary: "Entry points errors data points"
+      description: "Multiple series of errors metric data points grouped by entry points"
+      tags:
+        - View Metrics
+      responses:
+        200:
+          description: Entry points data points
+          schema:
+            properties: 
+              entry_points: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    entry_point_id: 
+                      type: "number"
+                      example: 12
+                    data_points: 
+                      type: "array"
+                      items: 
+                        type: "object"
+                        properties: 
+                          time: 
+                            type: "number"
+                            example: 1518221239
+                          errors: 
+                            type: "number"
+                            example: 42
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+parameters:
+  service_id:
+      in: path
+      name: service_id
+      type: string
+      required: true
+      description: Service Id
+  view_id:
+      in: path
+      name: view_id
+      type: string
+      required: true
+      description: View Id
+  class_name:
+      in: path
+      name: class_name
+      type: string
+      required: true
+      description: Fully qualified Java class name
+  package_name:
+      in: path
+      name: package_name
+      type: string
+      required: true
+      description: Fully qualified Java package name
+  start_date:
+      in: query
+      name: start_date
+      type: integer
+      description: An epoch timestamp, in seconds 
+  end_date:
+      in: query
+      name: end_date
+      type: integer
+      description: An epoch timestamp, in seconds 
+  data_points_count:
+      in: query
+      name: data_points_count
+      type: integer
+      description: Number of data points to return within the interval
+definitions:
+  UnauthorizedError:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        example: 401
+      type:
+        type: string
+        example: Unauthorized
+      message:
+        type: string
+        example: Not authorized to perform action
+  Pattern:
+    description: A data redaction pattern used to define PII RegEx
+    type: object
+    properties:
+      name: 
+        type: "string"
+        example: "Visa"
+      category: 
+        type: "string"
+        example: "Credit Card"
+      regex: 
+        type: "string"
+        example: "\\b4\\d{3}([\\-\\ ]?)(?:\\d{4}\\1){2}\\d(?:\\d{3})?\\b"
+      is_active: 
+        type: "boolean"
+        example: true
+  IncludedClassName:
+    type: string
+    example: "com.company.GoodClassName"
+  IncludedPackageName:
+    type: string
+    example: "com.company.package.good"
+  ExcludedClassName:
+    type: string
+    example: "com.company.BadClassName"
+  ExcludedPackageName:
+    type: string
+    example: "com.company.package.bad"
