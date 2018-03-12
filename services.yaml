@@ -5,14 +5,16 @@ info:
   contact:
     email: hello@overops.com
   description: |
-    Main OverOps API for environments. All calls must be authenticated using `username:password`.
+    Main OverOps API.
+    
+    All calls must be authenticated using `username:password`.
 securityDefinitions:
   basicAuth:
     type: basic
 security:
   - basicAuth: []
 host: api.overops.com
-basePath: /api/v1/services
+basePath: /api/v1
 tags: 
   - name: General
     description: Fetching general information about services (Not yet implemented)
@@ -27,7 +29,7 @@ tags:
 schemes:
 - "https"
 paths:
-  /:
+  /services:
     get:
       tags:
         - General
@@ -38,7 +40,7 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}:
+  /services/{service_id}:
     get:
       tags:
         - General
@@ -56,7 +58,7 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings:
+  /services/{service_id}/settings:
     get:
       tags:
         - General
@@ -73,7 +75,7 @@ paths:
           description: OK
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction:
+  /services/{service_id}/settings/code-redaction:
     get:
       tags:
         - Code Redaction
@@ -114,7 +116,7 @@ paths:
                       $ref: "#/definitions/IncludedPackageName"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/exclude:
+  /services/{service_id}/settings/code-redaction/exclude:
     get:
       tags: 
         - Code Redaction
@@ -141,7 +143,7 @@ paths:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/exclude/classes:
+  /services/{service_id}/settings/code-redaction/exclude/classes:
     get:
       tags: 
         - Code Redaction
@@ -164,7 +166,7 @@ paths:
                   $ref: "#/definitions/ExcludedClassName"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/exclude/classes/{class_name}:
+  /services/{service_id}/settings/code-redaction/exclude/classes/{class_name}:
     parameters:
       - in: path
         name: service_id
@@ -228,7 +230,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/exclude/packages:
+  /services/{service_id}/settings/code-redaction/exclude/packages:
     get:
       tags: 
         - Code Redaction
@@ -251,7 +253,7 @@ paths:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/exclude/packages/{package_name}:
+  /services/{service_id}/settings/code-redaction/exclude/packages/{package_name}:
     parameters:
       - in: path
         name: service_id
@@ -310,7 +312,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/include:
+  /services/{service_id}/settings/code-redaction/include:
     get:
       tags: 
         - Code Redaction
@@ -337,7 +339,7 @@ paths:
                   $ref: "#/definitions/IncludedPackageName"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/include/classes:
+  /services/{service_id}/settings/code-redaction/include/classes:
     get:
       tags: 
         - Code Redaction
@@ -360,7 +362,7 @@ paths:
                   $ref: "#/definitions/IncludedClassName"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/include/classes/{class_name}:
+  /services/{service_id}/settings/code-redaction/include/classes/{class_name}:
     parameters:
       - in: path
         name: service_id
@@ -419,7 +421,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/include/packages:
+  /services/{service_id}/settings/code-redaction/include/packages:
     get:
       tags: 
         - Code Redaction
@@ -442,7 +444,7 @@ paths:
                   $ref: "#/definitions/IncludedPackageName"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/code-redaction/include/packages/{package_name}:
+  /services/{service_id}/settings/code-redaction/include/packages/{package_name}:
     parameters:
       - in: path
         name: service_id
@@ -501,7 +503,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/data-redaction:
+  /services/{service_id}/settings/data-redaction:
     get:
       tags: 
         - Data Redaction
@@ -548,7 +550,7 @@ paths:
                       example: "IPv4"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/data-redaction/patterns:
+  /services/{service_id}/settings/data-redaction/patterns:
     get:
       tags: 
         - Data Redaction
@@ -571,7 +573,7 @@ paths:
                   $ref: "#/definitions/Pattern"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/data-redaction/patterns/{pattern}:
+  /services/{service_id}/settings/data-redaction/patterns/{pattern}:
     parameters:
       - in: path
         name: service_id
@@ -624,7 +626,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/data-redaction/identifiers:
+  /services/{service_id}/settings/data-redaction/identifiers:
     get:
       tags: 
         - Data Redaction
@@ -651,7 +653,7 @@ paths:
                       example: "password"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/data-redaction/identifiers/{identifier}:
+  /services/{service_id}/settings/data-redaction/identifiers/{identifier}:
     get:
       parameters:
         - in: path
@@ -722,7 +724,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/data-redaction/classes:
+  /services/{service_id}/settings/data-redaction/classes:
     get:
       tags: 
         - Data Redaction
@@ -749,7 +751,7 @@ paths:
                       example: "IPv4"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/data-redaction/classes/{class_name}:
+  /services/{service_id}/settings/data-redaction/classes/{class_name}:
     parameters:
       - in: path
         name: service_id
@@ -809,7 +811,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/data-redaction/packages:
+  /services/{service_id}/settings/data-redaction/packages:
     get:
       tags: 
         - Data Redaction
@@ -836,7 +838,7 @@ paths:
                       example: "com.example"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/settings/data-redaction/packages/{package_name}:
+  /services/{service_id}/settings/data-redaction/packages/{package_name}:
     parameters:
       - in: path
         name: service_id
@@ -895,7 +897,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views:
+  /services/{service_id}/views:
     get:
       tags:
         - Views
@@ -912,7 +914,7 @@ paths:
           description: TBD
         401:
           $ref: "#/definitions/UnauthorizedError"  
-  /{service_id}/views/{view_id}:
+  /services/{service_id}/views/{view_id}:
     get:
       tags:
         - Views
@@ -934,7 +936,7 @@ paths:
           description: TBD
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics:
+  /services/{service_id}/views/{view_id}/metrics:
     get:
       tags:
         - View Metrics
@@ -972,7 +974,7 @@ paths:
                 example: 22
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/throughputs:
+  /services/{service_id}/views/{view_id}/metrics/throughputs:
     get:
       tags:
         - View Metrics
@@ -1007,7 +1009,7 @@ paths:
                 example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/throughputs/data-points:
+  /services/{service_id}/views/{view_id}/metrics/throughputs/data-points:
     get:
       tags:
         - View Metrics
@@ -1058,7 +1060,7 @@ paths:
                       example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/throughputs/entry-points:
+  /services/{service_id}/views/{view_id}/metrics/throughputs/entry-points:
     get:
       tags:
         - View Metrics
@@ -1101,7 +1103,7 @@ paths:
                       example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/throughputs/entry-points/data-points:
+  /services/{service_id}/views/{view_id}/metrics/throughputs/entry-points/data-points:
     get:
       tags:
         - View Metrics
@@ -1156,7 +1158,7 @@ paths:
                             example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/errors:
+  /services/{service_id}/views/{view_id}/metrics/errors:
     get:
       tags:
         - View Metrics
@@ -1191,7 +1193,7 @@ paths:
                 example: 12
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/errors/data-points:
+  /services/{service_id}/views/{view_id}/metrics/errors/data-points:
     parameters:
       - in: path
         name: service_id
@@ -1238,7 +1240,7 @@ paths:
                       example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/errors/events:
+  /services/{service_id}/views/{view_id}/metrics/errors/events:
     parameters:
       - in: path
         name: service_id
@@ -1281,7 +1283,7 @@ paths:
                       example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/errors/events/data-points:
+  /services/{service_id}/views/{view_id}/metrics/errors/events/data-points:
     parameters:
       - in: path
         name: service_id
@@ -1336,7 +1338,7 @@ paths:
                             example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/errors/entry-points:
+  /services/{service_id}/views/{view_id}/metrics/errors/entry-points:
     parameters:
       - in: path
         name: service_id
@@ -1378,7 +1380,7 @@ paths:
                       type: "number"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /{service_id}/views/{view_id}/metrics/errors/entry-points/data-points:
+  /services/{service_id}/views/{view_id}/metrics/errors/entry-points/data-points:
     parameters:
       - in: path
         name: service_id
