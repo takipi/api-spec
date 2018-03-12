@@ -15,7 +15,7 @@ host: api.overops.com
 basePath: /api/v1/services
 tags: 
   - name: General
-    description: Fetching general information about services
+    description: Fetching general information about services (Not yet implemented)
   - name: Data Redaction
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
@@ -45,7 +45,11 @@ paths:
       summary: "Get information about the service"
       description: "Get information about the service"
       parameters:
-          - $ref: "#/parameters/service_id"
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
       responses:
         200:
           description: OK
@@ -59,7 +63,11 @@ paths:
       summary: "Get service settings"
       description: "Get service settings"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: OK
@@ -72,7 +80,11 @@ paths:
       summary: "List all code redaction"
       description: "List all code exclusions and inclusions"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of included and excluded classes and packages
@@ -109,7 +121,11 @@ paths:
       summary: "List all code exclusions"
       description: "List all code exclusions"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of excluded classes and packages
@@ -132,7 +148,11 @@ paths:
       summary: "List all excluded classes"
       description: "List all excluded classes"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of excluded classes
@@ -146,9 +166,21 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/settings/code-redaction/exclude/classes/{class_name}:
     parameters:
-      - $ref: "#/parameters/service_id"
-        descrption: "hello"
-      - $ref: "#/parameters/class_name"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: class_name
+        type: string
+        required: true
+        description: Fully qualified Java class name
+      - in: path
+        name: class_name
+        type: string
+        required: true
+        description: Fully qualified Java class name
     get:
       tags: 
         - Code Redaction
@@ -203,7 +235,11 @@ paths:
       summary: "List all excluded packages"
       description: "List all excluded packages"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of excluded packages
@@ -217,8 +253,16 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/settings/code-redaction/exclude/packages/{package_name}:
     parameters:
-      - $ref: "#/parameters/service_id"
-      - $ref: "#/parameters/package_name"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: package_name
+        type: string
+        required: true
+        description: Fully qualified Java package name
     get:
       tags: 
         - Code Redaction
@@ -273,7 +317,11 @@ paths:
       summary: "List all code inclusions"
       description: "List all code inclusions"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of included classes and packages
@@ -296,7 +344,11 @@ paths:
       summary: "List all included classes"
       description: "List all included classes"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of included classes
@@ -310,8 +362,16 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/settings/code-redaction/include/classes/{class_name}:
     parameters:
-      - $ref: "#/parameters/service_id"
-      - $ref: "#/parameters/class_name"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: class_name
+        type: string
+        required: true
+        description: Fully qualified Java class name
     get:
       tags: 
         - Code Redaction
@@ -366,7 +426,11 @@ paths:
       summary: "List all included packages"
       description: "List all included packages"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of included packages
@@ -380,8 +444,16 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/settings/code-redaction/include/packages/{package_name}:
     parameters:
-      - $ref: "#/parameters/service_id"
-      - $ref: "#/parameters/package_name"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: package_name
+        type: string
+        required: true
+        description: Fully qualified Java package name
     get:
       tags: 
         - Code Redaction
@@ -436,7 +508,11 @@ paths:
       summary: "List all data redactions"
       description: "List all data redactions"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of data redaction
@@ -479,7 +555,11 @@ paths:
       summary: "List all regex patterns"
       description: "List all regex patterns"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of regex patterns
@@ -493,9 +573,14 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/settings/data-redaction/patterns/{pattern}:
     parameters:
-      - $ref: "#/parameters/service_id"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
       - in: path
         name: pattern
+        description: A RegEx pattern name
         type: string
         required: true
     get:
@@ -546,7 +631,11 @@ paths:
       summary: "List all identifiers"
       description: "List all identifiers"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of identifiers
@@ -565,9 +654,14 @@ paths:
   /{service_id}/settings/data-redaction/identifiers/{identifier}:
     get:
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
         - in: path
           name: identifier
+          description: A code identifier
           type: string
           required: true
       tags: 
@@ -591,11 +685,14 @@ paths:
       description: "Add an identifier. The body identifier name must match the resource identifier"
       operationId: addIdentifier
       parameters: 
-        - $ref: "#/parameters/service_id"
-          description: "Service Id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
         - in: path
           name: identifier
-          description: The identifier to add
+          description: A code identifier
           type: string
           required: true
         - name: name
@@ -632,7 +729,11 @@ paths:
       summary: "List all classes"
       description: "List all classes"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of classes
@@ -650,7 +751,11 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/settings/data-redaction/classes/{class_name}:
     parameters:
-      - $ref: "#/parameters/service_id"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
       - in: path
         name: class_name
         description: Class name to redact.
@@ -711,7 +816,11 @@ paths:
       summary: "List all packages"
       description: "List all packages"
       parameters:
-        - $ref: "#/parameters/service_id"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of packages
@@ -729,9 +838,14 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/settings/data-redaction/packages/{package_name}:
     parameters:
-      - $ref: "#/parameters/service_id"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
       - in: path
         name: package_name
+        description: Fully qualified Java package name
         type: string
         required: true
     get:
@@ -788,7 +902,11 @@ paths:
       summary: "Get service views"
       description: "Get service views"
       parameters:
-          - $ref: "#/parameters/service_id"
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
       responses:
         200:
           description: TBD
@@ -801,8 +919,16 @@ paths:
       summary: "Get view"
       description: "Get view"
       parameters:
-          - $ref: "#/parameters/service_id"
-          - $ref: "#/parameters/view_id"
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
       responses:
         200:
           description: TBD
@@ -815,10 +941,24 @@ paths:
       summary: "Get view metrics"
       description: "Get view aggregated metrics"
       parameters:
-          - $ref: "#/parameters/service_id"
-          - $ref: "#/parameters/view_id"
-          - $ref: "#/parameters/start_date"
-          - $ref: "#/parameters/end_date"
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: query
+            name: start_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: end_date
+            type: integer
+            description: An epoch timestamp, in seconds
       responses:
         200:
           description: View metrics
@@ -839,10 +979,24 @@ paths:
       summary: "Get throughputs count"
       description: "Get throughputs count"
       parameters:
-          - $ref: "#/parameters/service_id"
-          - $ref: "#/parameters/view_id"
-          - $ref: "#/parameters/start_date"
-          - $ref: "#/parameters/end_date"
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: query
+            name: start_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: end_date
+            type: integer
+            description: An epoch timestamp, in seconds
       responses:
         200:
           description: Throughput aggregated data
@@ -860,11 +1014,32 @@ paths:
       summary: "Get entry points throughput metrics"
       description: "Get entry points throughput metrics"
       parameters:
-          - $ref: "#/parameters/service_id"
-          - $ref: "#/parameters/view_id"
-          - $ref: "#/parameters/start_date"
-          - $ref: "#/parameters/end_date"
-          - $ref: "#/parameters/data_points_count"
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: query
+            name: start_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: end_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: data_points_count
+            type: integer
+            description: Number of data points to return within the interval
+          - in: query
+            name: data_points_count
+            type: integer
+            description: Number of data points to return within the interval
       responses:
         200:
           description: Throughputs data points
@@ -890,10 +1065,24 @@ paths:
       summary: "Get entry points throughput metrics"
       description: "Get entry points throughput metrics"
       parameters:
-          - $ref: "#/parameters/service_id"
-          - $ref: "#/parameters/view_id"
-          - $ref: "#/parameters/start_date"
-          - $ref: "#/parameters/end_date"
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: query
+            name: start_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: end_date
+            type: integer
+            description: An epoch timestamp, in seconds
       responses:
         200:
           description: Throughputs data points
@@ -919,11 +1108,28 @@ paths:
       summary: "Get entry point throughput data points"
       description: "Get entry point throughput data points"
       parameters:
-          - $ref: "#/parameters/service_id"
-          - $ref: "#/parameters/view_id"
-          - $ref: "#/parameters/start_date"
-          - $ref: "#/parameters/end_date"
-          - $ref: "#/parameters/data_points_count"
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: query
+            name: start_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: end_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: data_points_count
+            type: integer
+            description: Number of data points to return within the interval
       responses:
         200:
           description: Entry points throughput data points
@@ -957,10 +1163,24 @@ paths:
       summary: "Get errors count"
       description: "Get errors count"
       parameters:
-          - $ref: "#/parameters/service_id"
-          - $ref: "#/parameters/view_id"
-          - $ref: "#/parameters/start_date"
-          - $ref: "#/parameters/end_date"
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: query
+            name: start_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: end_date
+            type: integer
+            description: An epoch timestamp, in seconds
       responses:
         200:
           description: Errors count
@@ -973,11 +1193,28 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/views/{view_id}/metrics/errors/data-points:
     parameters:
-      - $ref: "#/parameters/service_id"
-      - $ref: "#/parameters/view_id"
-      - $ref: "#/parameters/start_date"
-      - $ref: "#/parameters/end_date"
-      - $ref: "#/parameters/data_points_count"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: view_id
+        description: View to use
+        type: string
+        required: true
+      - in: query
+        name: start_date
+        type: integer
+        description: An epoch timestamp, in seconds
+      - in: query
+        name: end_date
+        type: integer
+        description: An epoch timestamp, in seconds
+      - in: query
+        name: data_points_count
+        type: integer
+        description: Number of data points to return within the interval
     get:
       summary: "Errors data points"
       description: "Errors data points"
@@ -1003,10 +1240,24 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/views/{view_id}/metrics/errors/events:
     parameters:
-      - $ref: "#/parameters/service_id"
-      - $ref: "#/parameters/view_id"
-      - $ref: "#/parameters/start_date"
-      - $ref: "#/parameters/end_date"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: view_id
+        description: View to use
+        type: string
+        required: true
+      - in: query
+        name: start_date
+        type: integer
+        description: An epoch timestamp, in seconds
+      - in: query
+        name: end_date
+        type: integer
+        description: An epoch timestamp, in seconds
     get:
       summary: "Events error counts"
       description: "Events error counts"
@@ -1032,11 +1283,28 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/views/{view_id}/metrics/errors/events/data-points:
     parameters:
-      - $ref: "#/parameters/service_id"
-      - $ref: "#/parameters/view_id"
-      - $ref: "#/parameters/start_date"
-      - $ref: "#/parameters/end_date"
-      - $ref: "#/parameters/data_points_count"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: view_id
+        description: View to use
+        type: string
+        required: true
+      - in: query
+        name: start_date
+        type: integer
+        description: An epoch timestamp, in seconds
+      - in: query
+        name: end_date
+        type: integer
+        description: An epoch timestamp, in seconds
+      - in: query
+        name: data_points_count
+        type: integer
+        description: Number of data points to return within the interval
     get:
       summary: "Events errors data points"
       description: "Multiple series of errors metric data points grouped by events"
@@ -1070,10 +1338,24 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/views/{view_id}/metrics/errors/entry-points:
     parameters:
-      - $ref: "#/parameters/service_id"
-      - $ref: "#/parameters/view_id"
-      - $ref: "#/parameters/start_date"
-      - $ref: "#/parameters/end_date"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: view_id
+        description: View to use
+        type: string
+        required: true
+      - in: query
+        name: start_date
+        type: integer
+        description: An epoch timestamp, in seconds
+      - in: query
+        name: end_date
+        type: integer
+        description: An epoch timestamp, in seconds
     get:
       summary: "Entry points errors count"
       description: "Entry points errors count"
@@ -1098,11 +1380,28 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /{service_id}/views/{view_id}/metrics/errors/entry-points/data-points:
     parameters:
-      - $ref: "#/parameters/service_id"
-      - $ref: "#/parameters/view_id"
-      - $ref: "#/parameters/start_date"
-      - $ref: "#/parameters/end_date"
-      - $ref: "#/parameters/data_points_count"
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: view_id
+        description: View to use
+        type: string
+        required: true
+      - in: query
+        name: start_date
+        type: integer
+        description: An epoch timestamp, in seconds
+      - in: query
+        name: end_date
+        type: integer
+        description: An epoch timestamp, in seconds
+      - in: query
+        name: data_points_count
+        type: integer
+        description: Number of data points to return within the interval
     get:
       summary: "Entry points errors data points"
       description: "Multiple series of errors metric data points grouped by entry points"
@@ -1134,46 +1433,6 @@ paths:
                             example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-parameters:
-  service_id:
-      in: path
-      name: service_id
-      type: string
-      required: true
-      description: Service Id
-  view_id:
-      in: path
-      name: view_id
-      type: string
-      required: true
-      description: View Id
-  class_name:
-      in: path
-      name: class_name
-      type: string
-      required: true
-      description: Fully qualified Java class name
-  package_name:
-      in: path
-      name: package_name
-      type: string
-      required: true
-      description: Fully qualified Java package name
-  start_date:
-      in: query
-      name: start_date
-      type: integer
-      description: An epoch timestamp, in seconds 
-  end_date:
-      in: query
-      name: end_date
-      type: integer
-      description: An epoch timestamp, in seconds 
-  data_points_count:
-      in: query
-      name: data_points_count
-      type: integer
-      description: Number of data points to return within the interval
 definitions:
   UnauthorizedError:
     type: object
