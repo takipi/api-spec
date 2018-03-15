@@ -23,9 +23,9 @@ tags:
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
   - name: Views
-    description: Fetching information about the views (groups of filters)
+    description: Fetching information about the views (Not yet implemented)
   - name: View Metrics
-    description: Fetching data points and metrics about the views in order to plot graphs
+    description: Fetching data points and metrics about the views in order to plot graphs (Not yet implemented)
 schemes:
 - "https"
 paths:
@@ -909,9 +909,29 @@ paths:
             description: Environment to use
             type: string
             required: true
+          - in: query
+            name: name
+            description: Name of view(s) to fetch
+            type: string
       responses:
         200:
-          description: TBD
+          description: List of views
+          schema:
+            properties: 
+              views: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    id: 
+                      type: "string"
+                      example: P12
+                    name: 
+                      type: "string"
+                      example: DB Errors
+                    shared:
+                      type: boolean
+                      example: false
         401:
           $ref: "#/definitions/UnauthorizedError"  
   /services/{service_id}/views/{view_id}:
@@ -1378,6 +1398,7 @@ paths:
                       example: 12
                     errors: 
                       type: "number"
+                      example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views/{view_id}/metrics/errors/entry-points/data-points:
