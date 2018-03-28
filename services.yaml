@@ -940,8 +940,8 @@ paths:
     get:
       tags:
         - View Metrics
-      summary: "Fetch metrics per entrypoint"
-      description: "Fetch metrics per entrypoint"
+      summary: "Fetch error metrics split by entrypoint"
+      description: "Fetch error metrics split by entrypoint"
       parameters:
           - in: path
             name: service_id
@@ -979,7 +979,7 @@ paths:
             description: Deployment(s) added to the filter
       responses:
         200:
-          description: Metrics by entry point
+          description: Error metrics split by entry point
           schema:
             properties: 
               graphs: 
@@ -1023,8 +1023,8 @@ paths:
     get:
       tags:
         - View Metrics
-      summary: "Fetch metrics per event"
-      description: "Fetch metrics per event"
+      summary: "Fetch error metrics split by event"
+      description: "Fetch error metrics split by event"
       parameters:
           - in: path
             name: service_id
@@ -1062,7 +1062,7 @@ paths:
             description: Deployment(s) added to the filter
       responses:
         200:
-          description: Data points metrics per event
+          description: Error metrics split by event
           schema:
             properties: 
               graphs: 
@@ -1106,8 +1106,8 @@ paths:
     get:
       tags:
         - View Metrics
-      summary: "Fetch data points metrics"
-      description: "Fetch data points metrics"
+      summary: "Fetch error metrics"
+      description: "Fetch error metrics"
       parameters:
           - in: path
             name: service_id
@@ -1145,7 +1145,7 @@ paths:
             description: Deployment(s) added to the filter
       responses:
         200:
-          description: Data points metrics per event
+          description: Error metrics
           schema:
             properties: 
               graphs: 
