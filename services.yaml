@@ -23,9 +23,11 @@ tags:
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
   - name: Views
-    description: Fetching information about the views (Not yet implemented)
+    description: Fetching information about the views
   - name: View Metrics
-    description: Fetching data points and metrics about the views in order to plot graphs (Not yet implemented)
+    description: Fetching data points about views in order to plot graphs
+  - name: Alerts
+    description: APIs related to the alerting mechanism
 schemes:
 - "https"
 paths:
@@ -54,7 +56,7 @@ paths:
             required: true
       responses:
         200:
-          description: OK
+          description: TBD
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
@@ -72,15 +74,15 @@ paths:
           required: true
       responses:
         200:
-          description: OK
+          description: TBD
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
     get:
       tags:
         - Code Redaction
-      summary: "List all code redaction"
-      description: "List all code exclusions and inclusions"
+      summary: "List all environment code redaction"
+      description: "List all environment code exclusions and inclusions"
       parameters:
         - in: path
           name: service_id
@@ -901,8 +903,8 @@ paths:
     get:
       tags:
         - Views
-      summary: "Get service views"
-      description: "Get service views"
+      summary: "List views"
+      description: "List views"
       parameters:
           - in: path
             name: service_id
@@ -933,108 +935,13 @@ paths:
                       type: boolean
                       example: false
         401:
-          $ref: "#/definitions/UnauthorizedError"  
-  /services/{service_id}/views/{view_id}:
-    get:
-      tags:
-        - Views
-      summary: "Get view"
-      description: "Get view"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-      responses:
-        200:
-          description: TBD
-        401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics:
+  /services/{service_id}/views/{view_id}/metrics/entrypoint/graph:
     get:
       tags:
         - View Metrics
-      summary: "Get view metrics"
-      description: "Get view aggregated metrics"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: start_date
-            type: integer
-            description: An epoch timestamp, in seconds
-          - in: query
-            name: end_date
-            type: integer
-            description: An epoch timestamp, in seconds
-      responses:
-        200:
-          description: View metrics
-          schema:
-            properties: 
-              throughputs: 
-                type: "number"
-                example: 42
-              errors: 
-                type: "number"
-                example: 22
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/throughputs:
-    get:
-      tags:
-        - View Metrics
-      summary: "Get throughputs count"
-      description: "Get throughputs count"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: start_date
-            type: integer
-            description: An epoch timestamp, in seconds
-          - in: query
-            name: end_date
-            type: integer
-            description: An epoch timestamp, in seconds
-      responses:
-        200:
-          description: Throughput aggregated data
-          schema:
-            properties: 
-              throughputs: 
-                type: "number"
-                example: 42
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/throughputs/data-points:
-    get:
-      tags:
-        - View Metrics
-      summary: "Get entry points throughput metrics"
-      description: "Get entry points throughput metrics"
+      summary: "Fetch metrics per entrypoint"
+      description: "Fetch metrics per entrypoint"
       parameters:
           - in: path
             name: service_id
@@ -1055,135 +962,69 @@ paths:
             type: integer
             description: An epoch timestamp, in seconds
           - in: query
-            name: data_points_count
+            name: points
             type: integer
             description: Number of data points to return within the interval
           - in: query
-            name: data_points_count
-            type: integer
-            description: Number of data points to return within the interval
+            name: server
+            type: string
+            description: Server(s) added to the filter
+          - in: query
+            name: app
+            type: string
+            description: Application(s) added to the filter
+          - in: query
+            name: deployment
+            type: string
+            description: Deployment(s) added to the filter
       responses:
         200:
-          description: Throughputs data points
+          description: Metrics by entry point
           schema:
             properties: 
-              data_points: 
+              graphs: 
                 type: "array"
                 items: 
                   type: "object"
                   properties: 
-                    time: 
-                      type: "number"
-                      example: 1518221239
-                    throughput: 
-                      type: "number"
-                      example: 42
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/throughputs/entry-points:
-    get:
-      tags:
-        - View Metrics
-      summary: "Get entry points throughput metrics"
-      description: "Get entry points throughput metrics"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: start_date
-            type: integer
-            description: An epoch timestamp, in seconds
-          - in: query
-            name: end_date
-            type: integer
-            description: An epoch timestamp, in seconds
-      responses:
-        200:
-          description: Throughputs data points
-          schema:
-            properties: 
-              entry_points: 
-                type: "array"
-                items: 
-                  type: "object"
-                  properties: 
-                    entry_point_id: 
-                      type: "number"
-                      example: 12
-                    throughput: 
-                      type: "number"
-                      example: 42
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/throughputs/entry-points/data-points:
-    get:
-      tags:
-        - View Metrics
-      summary: "Get entry point throughput data points"
-      description: "Get entry point throughput data points"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: start_date
-            type: integer
-            description: An epoch timestamp, in seconds
-          - in: query
-            name: end_date
-            type: integer
-            description: An epoch timestamp, in seconds
-          - in: query
-            name: data_points_count
-            type: integer
-            description: Number of data points to return within the interval
-      responses:
-        200:
-          description: Entry points throughput data points
-          schema:
-            properties: 
-              entry_points: 
-                type: "array"
-                items: 
-                  type: "object"
-                  properties: 
-                    entry_point_id: 
-                      type: "number"
-                      example: 12
-                    data_points: 
+                    type: 
+                      type: "string"
+                      example: "event"
+                    id: 
+                      type: "string"
+                      example: "42"
+                    points: 
                       type: "array"
                       items: 
                         type: "object"
                         properties: 
                           time: 
-                            type: "number"
-                            example: 1518221239
-                          throughput: 
+                            type: "string"
+                            example: "2018-02-28T22:47:09.038+02:00"
+                          value: 
                             type: "number"
                             example: 42
+                          contributors: 
+                            type: "array"
+                            items: 
+                              type: "object"
+                              properties: 
+                                id: 
+                                  type: "string"
+                                  example: "42"
+                                value: 
+                                  type: "number"
+                                  example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/errors:
+        404:
+          $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/views/{view_id}/metrics/event/graph:
     get:
       tags:
         - View Metrics
-      summary: "Get errors count"
-      description: "Get errors count"
+      summary: "Fetch metrics per event"
+      description: "Fetch metrics per event"
       parameters:
           - in: path
             name: service_id
@@ -1203,259 +1044,221 @@ paths:
             name: end_date
             type: integer
             description: An epoch timestamp, in seconds
+          - in: query
+            name: points
+            type: integer
+            description: Number of data points to return within the interval
+          - in: query
+            name: server
+            type: string
+            description: Server(s) added to the filter
+          - in: query
+            name: app
+            type: string
+            description: Application(s) added to the filter
+          - in: query
+            name: deployment
+            type: string
+            description: Deployment(s) added to the filter
       responses:
         200:
-          description: Errors count
+          description: Data points metrics per event
           schema:
             properties: 
-              errors: 
-                type: "number"
-                example: 12
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/errors/data-points:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: view_id
-        description: View to use
-        type: string
-        required: true
-      - in: query
-        name: start_date
-        type: integer
-        description: An epoch timestamp, in seconds
-      - in: query
-        name: end_date
-        type: integer
-        description: An epoch timestamp, in seconds
-      - in: query
-        name: data_points_count
-        type: integer
-        description: Number of data points to return within the interval
-    get:
-      summary: "Errors data points"
-      description: "Errors data points"
-      tags:
-        - View Metrics
-      responses:
-        200:
-          description: Errors data points
-          schema:
-            properties: 
-              data_points: 
+              graphs: 
                 type: "array"
                 items: 
                   type: "object"
                   properties: 
-                    time: 
-                      type: "number"
-                      example: 1518221239
-                    value: 
-                      type: "number"
-                      example: 42
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/errors/events:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: view_id
-        description: View to use
-        type: string
-        required: true
-      - in: query
-        name: start_date
-        type: integer
-        description: An epoch timestamp, in seconds
-      - in: query
-        name: end_date
-        type: integer
-        description: An epoch timestamp, in seconds
-    get:
-      summary: "Events error counts"
-      description: "Events error counts"
-      tags:
-        - View Metrics
-      responses:
-        200:
-          description: Events error counts
-          schema:
-            properties: 
-              events: 
-                type: "array"
-                items: 
-                  type: "object"
-                  properties: 
-                    event_id: 
-                      type: "number"
-                      example: 12
-                    errors: 
-                      type: "number"
-                      example: 42
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/errors/events/data-points:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: view_id
-        description: View to use
-        type: string
-        required: true
-      - in: query
-        name: start_date
-        type: integer
-        description: An epoch timestamp, in seconds
-      - in: query
-        name: end_date
-        type: integer
-        description: An epoch timestamp, in seconds
-      - in: query
-        name: data_points_count
-        type: integer
-        description: Number of data points to return within the interval
-    get:
-      summary: "Events errors data points"
-      description: "Multiple series of errors metric data points grouped by events"
-      tags:
-        - View Metrics
-      responses:
-        200:
-          description: Events data points
-          schema:
-            properties: 
-              events: 
-                type: "array"
-                items: 
-                  type: "object"
-                  properties: 
-                    event_id: 
-                      type: "number"
-                      example: 12
-                    data_points: 
+                    type: 
+                      type: "string"
+                      example: "event"
+                    id: 
+                      type: "string"
+                      example: "42"
+                    points: 
                       type: "array"
                       items: 
                         type: "object"
                         properties: 
                           time: 
-                            type: "number"
-                            example: 1518221239
-                          errors: 
+                            type: "string"
+                            example: "2018-02-28T22:47:09.038+02:00"
+                          value: 
                             type: "number"
                             example: 42
+                          contributors: 
+                            type: "array"
+                            items: 
+                              type: "object"
+                              properties: 
+                                id: 
+                                  type: "string"
+                                  example: "42"
+                                value: 
+                                  type: "number"
+                                  example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/errors/entry-points:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: view_id
-        description: View to use
-        type: string
-        required: true
-      - in: query
-        name: start_date
-        type: integer
-        description: An epoch timestamp, in seconds
-      - in: query
-        name: end_date
-        type: integer
-        description: An epoch timestamp, in seconds
+        404:
+          $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
-      summary: "Entry points errors count"
-      description: "Entry points errors count"
       tags:
         - View Metrics
+      summary: "Fetch data points metrics"
+      description: "Fetch data points metrics"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: query
+            name: start_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: end_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: points
+            type: integer
+            description: Number of data points to return within the interval
+          - in: query
+            name: server
+            type: string
+            description: Server(s) added to the filter
+          - in: query
+            name: app
+            type: string
+            description: Application(s) added to the filter
+          - in: query
+            name: deployment
+            type: string
+            description: Deployment(s) added to the filter
       responses:
         200:
-          description: Entry points errors count
+          description: Data points metrics per event
           schema:
             properties: 
-              entry_points: 
+              graphs: 
                 type: "array"
                 items: 
                   type: "object"
                   properties: 
-                    entry_point_id: 
-                      type: "number"
-                      example: 12
-                    errors: 
-                      type: "number"
-                      example: 42
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/metrics/errors/entry-points/data-points:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: view_id
-        description: View to use
-        type: string
-        required: true
-      - in: query
-        name: start_date
-        type: integer
-        description: An epoch timestamp, in seconds
-      - in: query
-        name: end_date
-        type: integer
-        description: An epoch timestamp, in seconds
-      - in: query
-        name: data_points_count
-        type: integer
-        description: Number of data points to return within the interval
-    get:
-      summary: "Entry points errors data points"
-      description: "Multiple series of errors metric data points grouped by entry points"
-      tags:
-        - View Metrics
-      responses:
-        200:
-          description: Entry points data points
-          schema:
-            properties: 
-              entry_points: 
-                type: "array"
-                items: 
-                  type: "object"
-                  properties: 
-                    entry_point_id: 
-                      type: "number"
-                      example: 12
-                    data_points: 
+                    type: 
+                      type: "string"
+                      example: "event"
+                    id: 
+                      type: "string"
+                      example: "42"
+                    points: 
                       type: "array"
                       items: 
                         type: "object"
                         properties: 
                           time: 
-                            type: "number"
-                            example: 1518221239
-                          errors: 
+                            type: "string"
+                            example: "2018-02-28T22:47:09.038+02:00"
+                          value: 
                             type: "number"
                             example: 42
+                          contributors: 
+                            type: "array"
+                            items: 
+                              type: "object"
+                              properties: 
+                                id: 
+                                  type: "string"
+                                  example: "42"
+                                value: 
+                                  type: "number"
+                                  example: 42
         401:
           $ref: "#/definitions/UnauthorizedError"
+        404:
+          $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/views/{view_id}/anomaly:
+    post:
+      tags:
+        - Alerts
+      summary: "Alert on anomalies"
+      description: "Alert on anomalies"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: body
+            name: anomaly
+            description: "the anomaly object"
+            schema:
+              type: "object"
+              properties: 
+                desc: 
+                  type: "string"
+                  example: "Description"
+                timeframe: 
+                  type: "object"
+                  properties: 
+                    from: 
+                      type: "string"
+                      example: "2018-02-28T22:47:09.038+02:00"
+                    to: 
+                      type: "string"
+                      example: "2018-03-01T22:47:09.038+02:00"
+                    name: 
+                      type: "string"
+                      example: "Last day"
+                anomaly: 
+                  type: "object"
+                  properties: 
+                    periods: 
+                      type: "array"
+                      items: 
+                        type: "object"
+                        properties: 
+                          id: 
+                            type: "string"
+                            example: "1"
+                          from: 
+                            type: "string"
+                            example: "2018-03-01T23:10:00.000+02:00"
+                          to: 
+                            type: "string"
+                            example: "2018-03-01T24:10:00.000+02:00"
+                    contributors: 
+                      type: "array"
+                      items: 
+                        type: "object"
+                        properties: 
+                          id: 
+                            type: "number"
+                            example: 1
+                          value: 
+                            type: "number"
+                            example: 42
+      responses:
+        200:
+          OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          $ref: "#/definitions/NotFoundError"
+              
 definitions:
   UnauthorizedError:
     type: object
@@ -1470,6 +1273,19 @@ definitions:
       message:
         type: string
         example: Not authorized to perform action
+  NotFoundError:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        example: 404
+      type:
+        type: string
+        example: Resource Not Found
+      message:
+        type: string
+        example: Resource Not Found
   Pattern:
     description: A data redaction pattern used to define PII RegEx
     type: object
