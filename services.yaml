@@ -28,6 +28,8 @@ tags:
     description: Fetching data points about views in order to plot graphs
   - name: Alerts
     description: APIs related to the alerting mechanism
+  - name: Events
+    description: Event data
 schemes:
 - "https"
 paths:
@@ -936,6 +938,89 @@ paths:
                       example: false
         401:
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/views/{view_id}/metrics/view/graph:
+    get:
+      tags:
+        - View Metrics
+      summary: "Fetch error metrics"
+      description: "Fetch error metrics"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: query
+            name: start_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: end_date
+            type: integer
+            description: An epoch timestamp, in seconds
+          - in: query
+            name: points
+            type: integer
+            description: Number of data points to return within the interval
+          - in: query
+            name: server
+            type: string
+            description: Server(s) added to the filter
+          - in: query
+            name: app
+            type: string
+            description: Application(s) added to the filter
+          - in: query
+            name: deployment
+            type: string
+            description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: Error metrics
+          schema:
+            properties: 
+              graphs: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    type: 
+                      type: "string"
+                      example: "event"
+                    id: 
+                      type: "string"
+                      example: "42"
+                    points: 
+                      type: "array"
+                      items: 
+                        type: "object"
+                        properties: 
+                          time: 
+                            type: "string"
+                            example: "2018-02-28T22:47:09.038+02:00"
+                          value: 
+                            type: "number"
+                            example: 42
+                          contributors: 
+                            type: "array"
+                            items: 
+                              type: "object"
+                              properties: 
+                                id: 
+                                  type: "string"
+                                  example: "42"
+                                value: 
+                                  type: "number"
+                                  example: 42
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          $ref: "#/definitions/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/entrypoint/graph:
     get:
       tags:
@@ -1102,89 +1187,6 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
-  /services/{service_id}/views/{view_id}/metrics/view/graph:
-    get:
-      tags:
-        - View Metrics
-      summary: "Fetch error metrics"
-      description: "Fetch error metrics"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: start_date
-            type: integer
-            description: An epoch timestamp, in seconds
-          - in: query
-            name: end_date
-            type: integer
-            description: An epoch timestamp, in seconds
-          - in: query
-            name: points
-            type: integer
-            description: Number of data points to return within the interval
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
-      responses:
-        200:
-          description: Error metrics
-          schema:
-            properties: 
-              graphs: 
-                type: "array"
-                items: 
-                  type: "object"
-                  properties: 
-                    type: 
-                      type: "string"
-                      example: "event"
-                    id: 
-                      type: "string"
-                      example: "42"
-                    points: 
-                      type: "array"
-                      items: 
-                        type: "object"
-                        properties: 
-                          time: 
-                            type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
-                          value: 
-                            type: "number"
-                            example: 42
-                          contributors: 
-                            type: "array"
-                            items: 
-                              type: "object"
-                              properties: 
-                                id: 
-                                  type: "string"
-                                  example: "42"
-                                value: 
-                                  type: "number"
-                                  example: 42
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-        404:
-          $ref: "#/definitions/NotFoundError"
   /services/{service_id}/views/{view_id}/anomaly:
     post:
       tags:
@@ -1258,7 +1260,32 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
-              
+  /services/{service_id}/events/{event_id}:
+    get:
+      tags:
+        - Events
+      summary: "Fetch event data"
+      description: "Fetch event data"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: event_id
+            description: Event to use
+            type: string
+            required: true
+      responses:
+        200:
+          description: Event data
+          schema:
+            $ref: "#/definitions/Event"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          $ref: "#/definitions/NotFoundError"            
 definitions:
   UnauthorizedError:
     type: object
@@ -1314,3 +1341,52 @@ definitions:
   ExcludedPackageName:
     type: string
     example: "com.company.package.bad"
+  Event:
+    description: An exception, logged error and more
+    type: object
+    properties:
+      id: 
+        type: "string"
+        example: "1"
+      summary: 
+        type: "string"
+        example: "NullPointerException in Main.main"
+      type: 
+        type: "string"
+        example: "NullPointerException"
+      first_seen: 
+        type: "string"
+        example: "2018-02-28T22:47:09.038+02:00"
+      introduced_by:
+        type: "string"
+        example: "1.201.1"
+      labels:
+        type: "array"
+        items: 
+          type: "string"
+          example: "Critical"
+      similar_event_ids:
+        type: "array"
+        items: 
+          type: "string"
+          example: "K2"
+      error_location:
+        $ref: "#/definitions/CodeLocation"
+      entry_point:
+        $ref: "#/definitions/CodeLocation"
+  CodeLocation:
+    description: A code location, for error location, etc
+    type: object
+    properties:
+      prettified_name: 
+        type: "string"
+        example: "Main.main"
+      class_name:
+        type: "string"
+        example: "com.company.Main"
+      method_name:
+        type: "string"
+        example: "main"
+      method_desc:
+        type: "string"
+        example: "([Ljava/lang/String;)V"
