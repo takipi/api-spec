@@ -1042,13 +1042,15 @@ paths:
             type: string
             required: true
           - in: query
-            name: start_date
-            type: integer
-            description: An epoch timestamp, in seconds
+            name: from
+            type: string
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            required: true
           - in: query
-            name: end_date
+            name: to
             type: integer
-            description: An epoch timestamp, in seconds
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            required: true
           - in: query
             name: points
             type: integer
@@ -1125,13 +1127,15 @@ paths:
             type: string
             required: true
           - in: query
-            name: start_date
-            type: integer
-            description: An epoch timestamp, in seconds
+            name: from
+            type: string
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            required: true
           - in: query
-            name: end_date
+            name: to
             type: integer
-            description: An epoch timestamp, in seconds
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            required: true
           - in: query
             name: points
             type: integer
@@ -1288,7 +1292,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"            
+          $ref: "#/definitions/NotFoundError"           
 definitions:
   UnauthorizedError:
     type: object
