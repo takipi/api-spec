@@ -1288,7 +1288,106 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"            
+          $ref: "#/definitions/NotFoundError" /services/{service_id}/events/${event_id}/snapshot:
+            get:
+              tags:
+                - Events
+              summary: "Fetch event snapshot"
+              description: "Fetch event snapshot.
+                Fetches the last relevant snapshot for the specific filters provided.
+                All filters are optional."
+              parameters:
+                  - in: path
+                    name: service_id
+                    description: Environment to use
+                    type: string
+                    required: true
+                  - in: path
+                    name: event_id
+                    description: Event to use
+                    type: string
+                    required: true
+                  - in: query
+                    name: from
+                    type: string
+                    description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                  - in: query
+                    name: to
+                    type: integer
+                    description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                  - in: query
+                    name: server
+                    type: string
+                    description: Server(s) added to the filter
+                  - in: query
+                    name: app
+                    type: string
+                    description: Application(s) added to the filter
+                  - in: query
+                    name: deployment
+                    type: string
+                    description: Deployment(s) added to the filter
+                  - in: query
+                    name: similar_event_id
+                    type: string
+                    description: Event(s) added to the filter
+              responses:
+                200:
+                  description: Link to a snapshot (e.g. https://app.overops.com/tale.html?event=Ux42fkaa--)
+                401:
+                  $ref: "#/definitions/UnauthorizedError"
+                404:
+                  $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/events/${event_id}/snapshot:
+    get:
+      tags:
+        - Events
+      summary: "Fetch event snapshot"
+      description: "Fetch event snapshot.
+        Fetches the last relevant snapshot for the specific filters provided.
+        All filters are optional."
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: event_id
+            description: Event to use
+            type: string
+            required: true
+          - in: query
+            name: from
+            type: string
+            description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          - in: query
+            name: to
+            type: integer
+            description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          - in: query
+            name: server
+            type: string
+            description: Server(s) added to the filter
+          - in: query
+            name: app
+            type: string
+            description: Application(s) added to the filter
+          - in: query
+            name: deployment
+            type: string
+            description: Deployment(s) added to the filter
+          - in: query
+            name: similar_event_id
+            type: string
+            description: Event(s) added to the filter
+      responses:
+        200:
+          description: Link to a snapshot (e.g. https://app.overops.com/tale.html?event=Ux42fkaa--)
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          $ref: "#/definitions/NotFoundError"           
 definitions:
   UnauthorizedError:
     type: object
