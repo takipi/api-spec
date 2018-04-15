@@ -1338,7 +1338,13 @@ paths:
             description: Event(s) added to the filter
       responses:
         200:
-          description: Link to a snapshot (e.g. https://app.overops.com/tale.html?event=Ux42fkaa--)
+          description: Link to snapshot
+          schema:
+            type: "object"
+            properties: 
+              link: 
+                type: "string"
+                example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
         401:
           $ref: "#/definitions/UnauthorizedError"
         404:
