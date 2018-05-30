@@ -1349,6 +1349,78 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/events/{event_id}/inbox:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Labels
+      summary: "Move to inbox"
+      description: "Move the specified event into Inbox"
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          description: NOT FOUND
+  /services/{service_id}/events/{event_id}/delete:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Labels
+      summary: "Move to trash"
+      description: "Move the specified event into Trash"
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          description: NOT FOUND
+  /services/{service_id}/events/{event_id}/resolve:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Labels
+      summary: "Mark resolved"
+      description: "Marks the specified event as resolved"
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          description: NOT FOUND
   /services/{service_id}/events/{event_id}/labels:
     parameters:
         - in: path
