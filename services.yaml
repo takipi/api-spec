@@ -901,22 +901,72 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/folders:
+    parameters:
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+    get:
+      tags:
+        - View Folders
+        - VFs
+      summary: "List View Folders"
+      description: "List View Folders"
+      responses:
+        200:
+          description: List of VF names
+          schema:
+            properties:
+              vf_names:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    name:
+                      $ref: "#/definitions/ViewFolder"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/folders/{folder_name}/views:
+    parameters:
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: vf_name
+        description: View to use
+        type: string
+        required: true
+    post:
+      tags:
+        - View Folders
+        - VFs
+      summary: "Add view to selected folder"
+      description: "Add view to selected folder"
+      parameters:
+        - in: body
+          name: view_id
+          description: View ID
+          type: int
+          required: true
+      responses:
+        201:
+          description: CREATED
+        400:
+          description: BAD INPUT
+        409:
+          description: CONFLICT #view already exists
+        401:
+          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
     get:
       tags:
         - Views
-      summary: "List views"
-      description: "List views"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: query
-            name: name
-            description: Name of view(s) to fetch
-            type: string
+      summary: "List Views"
+      description: "List Views"
       responses:
         200:
           description: List of views
@@ -925,17 +975,59 @@ paths:
               views:
                 type: "array"
                 items:
-                  type: "object"
-                  properties:
-                    id:
-                      type: "string"
-                      example: P12
-                    name:
-                      type: "string"
-                      example: DB Errors
-                    shared:
-                      type: boolean
-                      example: false
+                  $ref: "#/definitions/ViewFull"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - Views
+      summary: "Create View"
+      description: "Create View"
+      parameters:
+        - in: body
+          name: view
+          description: Single view basic properties
+          schema:
+            properties:
+              $ref: "#/definitions/ViewBasic"
+      responses:
+        201:
+          description: CREATED
+        400:
+          description: BAD INPUT
+        409:
+          description: CONFLICT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/views/{view_id}:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Views
+      summary: "Edit view data"
+      description: "Edit view data"
+      parameters:
+        - in: body
+          name: view
+          description: Single view basic properties
+          schema:
+            properties:
+              $ref: "#/definitions/ViewBasic"
+      responses:
+        200:
+          description: OK
+        404:
+          $ref: "#/definitions/NotFoundError"
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
@@ -1516,6 +1608,71 @@ definitions:
   ExcludedPackageName:
     type: string
     example: "com.company.package.bad"
+  ViewBasic:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: DB Errors
+      description:
+        type: "string"
+        example: This is a DB Errors View
+      view_type:
+        type: "string"
+        enum:
+          - Private
+          - Shared
+          - Admin
+        example: Private
+  ViewFull:
+    description: Single view full properties
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: P12
+      name:
+        type: "string"
+        example: DB Errors
+      description:
+        type: "string"
+        example: This is a DB Errors View
+      view_type:
+        type: "string"
+        enum:
+          - Private
+          - Shared
+          - Admin
+        example: Private
+      default:
+        type: boolean
+        example: false
+      filters:
+        type: "array"
+        items:
+          $ref: "#/definitions/Filter"
+      alert_on_new:
+        type: boolean
+        example: true
+      alert_on_anomaly:
+        type: boolean
+        example: true
+  ViewFolder:
+    description: Single folder properties
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: My Folder
+      type:
+        type: "string"
+        enum:
+          - Private
+          - Shared
+          - Admin
+      icon: #icon url / enum
+        type: "string" #based 64 encoded svg
+  Filter: TBD
   Event:
     description: An exception, logged error and more
     type: object
