@@ -925,7 +925,7 @@ paths:
                   type: "object"
                   properties:
                     name:
-                      $ref: "#/definitions/ViewFolder"
+                      $ref: "#/definitions/Folder"
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/folders/{folder_name}/views:
@@ -1657,7 +1657,7 @@ definitions:
       alert_on_anomaly:
         type: boolean
         example: true
-  ViewFolder:
+  Folder:
     description: Single folder properties
     type: "object"
     properties:
