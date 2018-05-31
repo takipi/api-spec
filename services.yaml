@@ -1290,19 +1290,14 @@ paths:
                     $ref: "#/definitions/Label"
           401:
             $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/labels/create/{label_name}:
+  /services/{service_id}/labels/create:
     parameters:
         - in: path
           name: service_id
           description: Environment to use
           type: string
           required: true
-        - in: path
-          name: label_name
-          description: Label Name
-          type: string
-          required: true
-    put:
+    post:
       tags:
         - Labels
       summary: "Create New Label"
@@ -1349,6 +1344,53 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/events/{event_id}/labels:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Labels
+      summary: "Add/Remove labels"
+      description: "Append/Detach labels to/from event"
+      parameters:
+        - in: body
+          name: add
+          description: list of label names to append
+          schema:
+            properties:
+              add:
+                type: "array"
+                items:
+                  type: "string"
+                  example: "Critical"
+        - in: body
+          name: remove
+          description: list of label names to detach from event
+          schema:
+            properties:
+              remove:
+                type: "array"
+                items:
+                  type: "string"
+                  example: "Low"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          description: NOT FOUND
   /services/{service_id}/events/{event_id}/inbox:
     parameters:
         - in: path
@@ -1410,60 +1452,11 @@ paths:
           type: string
           required: true
     post:
-      tags:
-        - Labels
       summary: "Mark resolved"
       description: "Marks the specified event as resolved"
       responses:
         200:
           description: OK
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-        404:
-          description: NOT FOUND
-  /services/{service_id}/events/{event_id}/labels:
-    parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: event_id
-          description: Event to use
-          type: string
-          required: true
-    post:
-      tags:
-        - Labels
-      summary: "Add/Remove labels"
-      description: "Append/Detach labels to/from event"
-      parameters:
-        - in: body
-          name: add
-          description: list of label names to append
-          schema:
-            properties:
-              add:
-                type: "array"
-                items:
-                  type: "string"
-                  example: "Critical"
-        - in: body
-          name: remove
-          description: list of label names to detach from event
-          schema:
-            properties:
-              remove:
-                type: "array"
-                items:
-                  type: "string"
-                  example: "Low"
-      responses:
-        200:
-          description: OK
-        400:
-          description: BAD INPUT
         401:
           $ref: "#/definitions/UnauthorizedError"
         404:
