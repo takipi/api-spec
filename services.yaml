@@ -1675,12 +1675,12 @@ definitions:
       name:
         type: "string"
         example: My Folder
-      type:
-        type: "string"
-        enum:
-          - Private
-          - Shared
-          - Admin
+      shared:
+        type: boolean
+        example: false
+      admin:
+        type: boolean
+        example: true
       icon: #icon url / enum
         type: "string" #based 64 encoded svg
   Filter:
