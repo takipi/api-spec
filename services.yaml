@@ -1634,7 +1634,7 @@ definitions:
         type: "string"
         example: This is a DB Errors View
       shared:
-        type: "boolean"
+        type: boolean
         example: false
   ViewFull:
     description: Single view full properties
@@ -1649,13 +1649,12 @@ definitions:
       description:
         type: "string"
         example: This is a DB Errors View
-      view_type:
-        type: "string"
-        enum:
-          - Private
-          - Shared
-          - Admin
-        example: Private
+      shared:
+        type: boolean
+        example: false
+      admin:
+        type: boolean
+        example: true
       default:
         type: boolean
         example: false
