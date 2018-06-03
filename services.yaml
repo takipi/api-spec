@@ -969,13 +969,13 @@ paths:
       description: "List Views"
       responses:
         200:
-          description: List of views
+          description: List of views including basic info about each view.
           schema:
             properties:
               views:
                 type: "array"
                 items:
-                  $ref: "#/definitions/ViewFull"
+                  $ref: "#/definitions/ViewBasic"
         401:
           $ref: "#/definitions/UnauthorizedError"
     post:
@@ -1011,6 +1011,22 @@ paths:
           description: View to use
           type: string
           required: true
+    get:
+      tags:
+        - Views
+      summary: "Get View properties"
+      description: "Get full list of view properties"
+      responses:
+        200:
+          description: Full list of view properties
+          schema:
+            properties:
+              views:
+                type: "array"
+                items:
+                  $ref: "#/definitions/ViewFull"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
     post:
       tags:
         - Views
@@ -1022,7 +1038,7 @@ paths:
           description: Single view basic properties
           schema:
             properties:
-              $ref: "#/definitions/ViewBasic"
+              $ref: "#/definitions/ViewFull"
       responses:
         200:
           description: OK
@@ -1617,13 +1633,9 @@ definitions:
       description:
         type: "string"
         example: This is a DB Errors View
-      view_type:
-        type: "string"
-        enum:
-          - Private
-          - Shared
-          - Admin
-        example: Private
+      shared:
+        type: "boolean"
+        example: false
   ViewFull:
     description: Single view full properties
     type: "object"
@@ -1672,7 +1684,21 @@ definitions:
           - Admin
       icon: #icon url / enum
         type: "string" #based 64 encoded svg
-  Filter: TBD
+  Filter:
+    description: Filter properties
+    type: "object"
+    properties:
+      name:
+        type: "string" #consider adding an enum of allowed Filters
+        example: "Labels"
+      value:
+        type: "array"
+        items:
+          type: "string"
+          examples:
+            int_type: "5"
+            string_type: "High Priority"
+            timeframe_type: "2018-02-28T22:47:09.038+02:00" # Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
   Event:
     description: An exception, logged error and more
     type: object
