@@ -962,6 +962,12 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
     get:
       tags:
         - Views
@@ -1024,7 +1030,41 @@ paths:
               views:
                 type: "array"
                 items:
-                  $ref: "#/definitions/ViewFull"
+                  type: "object"
+                  description: Single view full properties
+                  properties:
+                    id:
+                      type: "string"
+                      example: P12
+                    name:
+                      type: "string"
+                      example: DB Errors
+                    description:
+                      type: "string"
+                      example: This is a DB Errors View
+                    shared:
+                      type: boolean
+                      example: false
+                    admin:
+                      type: boolean
+                      description: TBD - NOT YET IMPLEMENTED
+                      example: true
+                    default:
+                      type: boolean
+                      description: TBD - NOT YET IMPLEMENTED
+                      example: false
+                    filters:
+                      type: "array"
+                      items:
+                        $ref: "#/definitions/Filter"
+                    alert_on_new:
+                      type: boolean
+                      description: TBD - NOT YET IMPLEMENTED
+                      example: true
+                    alert_on_anomaly:
+                      type: boolean
+                      description: TBD - NOT YET IMPLEMENTED
+                      example: true
         401:
           $ref: "#/definitions/UnauthorizedError"
     post:
@@ -1050,8 +1090,8 @@ paths:
     get:
       tags:
         - View Metrics
-      summary: "Fetch error metrics"
-      description: "Fetch error metrics"
+      summary: "Fetch event metrics"
+      description: "Fetch event metrics"
       parameters:
           - in: path
             name: service_id
@@ -1092,7 +1132,7 @@ paths:
             description: Deployment(s) added to the filter
       responses:
         200:
-          description: Error metrics
+          description: Event metrics
           schema:
             properties:
               graphs:
@@ -1136,8 +1176,8 @@ paths:
     get:
       tags:
         - View Metrics
-      summary: "Fetch error metrics split by entrypoint"
-      description: "Fetch error metrics split by entrypoint"
+      summary: "Fetch Event metrics split by entrypoint"
+      description: "Fetch Event metrics split by entrypoint"
       parameters:
           - in: path
             name: service_id
@@ -1177,7 +1217,7 @@ paths:
             description: Deployment(s) added to the filter
       responses:
         200:
-          description: Error metrics split by entry point
+          description: Event metrics split by entry point
           schema:
             properties:
               graphs:
@@ -1221,8 +1261,8 @@ paths:
     get:
       tags:
         - View Metrics
-      summary: "Fetch error metrics split by event"
-      description: "Fetch error metrics split by event"
+      summary: "Fetch event metrics split by event"
+      description: "Fetch event metrics split by event"
       parameters:
           - in: path
             name: service_id
@@ -1262,7 +1302,7 @@ paths:
             description: Deployment(s) added to the filter
       responses:
         200:
-          description: Error metrics split by event
+          description: event metrics split by event
           schema:
             properties:
               graphs:
@@ -1627,22 +1667,19 @@ definitions:
   ViewBasic:
     type: "object"
     properties:
+      id:
+        type: "string"
+        example: P12
       name:
         type: "string"
         example: DB Errors
-      description:
-        type: "string"
-        example: This is a DB Errors View
       shared:
         type: boolean
         example: false
   ViewFull:
-    description: Single view full properties
     type: "object"
+    description: Single view full properties
     properties:
-      id:
-        type: "string"
-        example: P12
       name:
         type: "string"
         example: DB Errors
@@ -1654,9 +1691,11 @@ definitions:
         example: false
       admin:
         type: boolean
+        description: TBD - NOT YET IMPLEMENTED
         example: true
       default:
         type: boolean
+        description: TBD - NOT YET IMPLEMENTED
         example: false
       filters:
         type: "array"
@@ -1664,9 +1703,11 @@ definitions:
           $ref: "#/definitions/Filter"
       alert_on_new:
         type: boolean
+        description: TBD - NOT YET IMPLEMENTED
         example: true
       alert_on_anomaly:
         type: boolean
+        description: TBD - NOT YET IMPLEMENTED
         example: true
   Folder:
     description: Single folder properties
@@ -1697,7 +1738,8 @@ definitions:
           examples:
             int_type: "5"
             string_type: "High Priority"
-            timeframe_type: "2018-02-28T22:47:09.038+02:00" # Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            start_time_type: "start 2018-02-28T22:47:09.038+02:00" # Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            end_time_type: "end 2018-02-28T22:47:09.038+02:00" # Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
   Event:
     description: An exception, logged error and more
     type: object
