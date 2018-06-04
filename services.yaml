@@ -986,10 +986,10 @@ paths:
       parameters:
         - in: body
           name: view
-          description: Single view basic properties
+          description: Single view properties
           schema:
             properties:
-              $ref: "#/definitions/ViewBasic"
+              $ref: "#/definitions/ViewFull"
       responses:
         201:
           description: CREATED
@@ -1035,7 +1035,7 @@ paths:
       parameters:
         - in: body
           name: view
-          description: Single view basic properties
+          description: Single view properties
           schema:
             properties:
               $ref: "#/definitions/ViewFull"
