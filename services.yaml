@@ -1293,13 +1293,6 @@ paths:
                     $ref: "#/definitions/Label"
           401:
             $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/labels/create:
-    parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
     post:
       tags:
         - Labels
