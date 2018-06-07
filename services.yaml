@@ -14,8 +14,13 @@ info:
 securityDefinitions:
   basicAuth:
     type: basic
+  ApiKeyAuth:        
+      type: apiKey
+      in: header     
+      name: X-API-KEY
 security:
   - basicAuth: []
+  - ApiKeyAuth: []
 host: api.overops.com
 basePath: /api/v1
 tags:
