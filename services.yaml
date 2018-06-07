@@ -1296,12 +1296,12 @@ paths:
     post:
       tags:
         - Labels
-      summary: "Create New Label"
-      description: "Create New Label"
+      summary: "Create new label"
+      description: "Create new label"
       parameters:
         - in: body
           name: label
-          description: single label
+          description: Single label
           schema:
             properties:
               $ref: "#/definitions/Label"
@@ -1402,7 +1402,7 @@ paths:
     post:
       tags:
         - Labels
-      summary: "Move to inbox"
+      summary: "Move to Inbox"
       description: "Move the specified event into Inbox"
       responses:
         200:
@@ -1426,7 +1426,7 @@ paths:
     post:
       tags:
         - Labels
-      summary: "Move to trash"
+      summary: "Move to Trash"
       description: "Move the specified event into Trash"
       responses:
         200:
@@ -1448,7 +1448,9 @@ paths:
           type: string
           required: true
     post:
-      summary: "Mark resolved"
+      tags:
+        - Labels
+      summary: "Mark as resolved"
       description: "Marks the specified event as resolved"
       responses:
         200:
