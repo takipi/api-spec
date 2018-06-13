@@ -62,6 +62,23 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/deployments:
+    get:
+      tags:
+        - Deployments
+      summary: "List Deployments"
+      description: "List Deployments"
+      responses:
+        200:
+          description: List of deployments
+          schema:
+            properties:
+              views:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Deployment"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings:
     get:
       tags:
@@ -958,7 +975,7 @@ paths:
         400:
           description: BAD INPUT
         409:
-          description: CONFLICT #view already exists
+          description: CONFLICT - View Already Exists
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
@@ -1758,7 +1775,6 @@ definitions:
         name: SEARCH
         value: ["Can not find"]
         summary: use this example to define SEARCH filter - only single search value can be defined
-
   Event:
     description: An exception, logged error and more
     type: object
@@ -1807,6 +1823,15 @@ definitions:
       color: #consider adding available colors as enum
         type: string
         example: RED
+  Deployment:
+    type: object
+    properties:
+      name:
+        type: string
+        example: stage1.0.4
+      active:
+        type: boolean
+        example: true
   CodeLocation:
     description: A code location, for error location, etc
     type: object
