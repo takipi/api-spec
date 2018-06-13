@@ -1626,6 +1626,27 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
+  /services/{service_id}/events/{event_id}/snapshots:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Events
+      description: Reset snapshot
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
 definitions:
   UnauthorizedError:
     type: object
