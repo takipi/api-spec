@@ -1641,6 +1641,7 @@ paths:
     post:
       tags:
         - Events
+      summary: Reset Event Snapshot
       description: Reset snapshot
       responses:
         200:
