@@ -901,66 +901,6 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/folders:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-    get:
-      tags:
-        - View Folders
-        - VFs
-      summary: "List View Folders"
-      description: "List View Folders"
-      responses:
-        200:
-          description: List of VF names
-          schema:
-            properties:
-              vf_names:
-                type: "array"
-                items:
-                  type: "object"
-                  properties:
-                    name:
-                      $ref: "#/definitions/Folder"
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/folders/{folder_name}/views:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: vf_name
-        description: View to use
-        type: string
-        required: true
-    post:
-      tags:
-        - View Folders
-        - VFs
-      summary: "Add view to selected folder"
-      description: "Add view to selected folder"
-      parameters:
-        - in: body
-          name: view_id
-          description: View ID
-          type: int
-          required: true
-      responses:
-        201:
-          description: CREATED
-        400:
-          description: BAD INPUT
-        409:
-          description: CONFLICT #view already exists
-        401:
-          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
     parameters:
         - in: path
@@ -1709,22 +1649,6 @@ definitions:
         type: boolean
         description: TBD - NOT YET IMPLEMENTED
         example: true
-  Folder:
-    description: Single folder properties
-    type: "object"
-    properties:
-      name:
-        type: "string"
-        example: My Folder
-      shared:
-        type: boolean
-        example: false
-      admin:
-        type: boolean
-        example: true
-      icon:
-        type: "string"
-        description: based 64 encoded SVG
   Filter:
     description: Filter properties
     type: "object"
