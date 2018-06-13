@@ -942,7 +942,6 @@ paths:
           name: view
           description: Single view properties
           schema:
-            properties:
               $ref: "#/definitions/ViewFull"
       responses:
         201:
@@ -1025,7 +1024,6 @@ paths:
           name: view
           description: Single view properties
           schema:
-            properties:
               $ref: "#/definitions/ViewFull"
       responses:
         200:
