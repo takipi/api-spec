@@ -1722,24 +1722,43 @@ definitions:
       admin:
         type: boolean
         example: true
-      icon: #icon url / enum
-        type: "string" #based 64 encoded svg
+      icon:
+        type: "string"
+        description: based 64 encoded SVG
   Filter:
     description: Filter properties
     type: "object"
     properties:
       name:
-        type: "string" #consider adding an enum of allowed Filters
-        example: "Labels"
+        type: "string"
+        description: Use a filter name from the list above.
+        enum: [SERVERS, APPS, DEPLOYMENTS, FIRST SEEN CUSTOM, FIRST SEEN PRESET, EVENT TYPE, EVENT NAME, EVENT LOCATION, EVENT PACKAGE, ENTRY POINT, LABELS, INTRODUCED BY, SEARCH]
       value:
         type: "array"
+        description: The values that shall be filtered. Follow the examples to define proper value format that matches desired filter type.
         items:
           type: "string"
-          examples:
-            int_type: "5"
-            string_type: "High Priority"
-            start_time_type: "start 2018-02-28T22:47:09.038+02:00" # Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-            end_time_type: "end 2018-02-28T22:47:09.038+02:00" # Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+    example:
+      general_example:
+        name: LABELS
+        value: ["JIRA", "CRITICAL", "QA"]
+      event_type_example:
+        name: EVENT TYPE
+        value: ["Uncaught exceptions", "Swallowed Exceptions"]
+        summary: Supported values - Uncaught exceptions, Caught exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers.
+      first_seen_custom_example:
+        name: FIRST SEEN CUSTOM
+        value: ["from= 2018-02-28T22:47:09.038+02:00", "to=2018-02-28T22:47:09.038+02:00"]
+        summary: use this example to define FIRST SEEN CUSTOM filter with fixed time range
+      first_seen_preset_example:
+        name: FIRST SEEN PRESET
+        value: last_hour
+        summary: use this example to define FIRST SEEN PRESET filter. Available presets - last_hour, last_24h, last_7d, last_30d
+      search_example:
+        name: SEARCH
+        value: ["Can not find"]
+        summary: use this example to define SEARCH filter - only single search value can be defined
+
   Event:
     description: An exception, logged error and more
     type: object
