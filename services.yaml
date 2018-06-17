@@ -14,9 +14,9 @@ info:
 securityDefinitions:
   basicAuth:
     type: basic
-  ApiKeyAuth:        
+  ApiKeyAuth:
       type: apiKey
-      in: header     
+      in: header
       name: X-API-KEY
 security:
   - basicAuth: []
@@ -1658,7 +1658,7 @@ definitions:
         type: "string"
         description: Use a filter name from the list above.
         enum: [SERVERS, APPS, DEPLOYMENTS, FIRST SEEN CUSTOM, FIRST SEEN PRESET, EVENT TYPE, EVENT NAME, EVENT LOCATION, EVENT PACKAGE, ENTRY POINT, LABELS, INTRODUCED BY, SEARCH]
-      value:
+      values:
         type: "array"
         description: The values that shall be filtered. Follow the examples to define proper value format that matches desired filter type.
         items:
