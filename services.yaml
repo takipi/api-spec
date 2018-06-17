@@ -1626,7 +1626,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
-  /services/{service_id}/events/{event_id}/snapshots:
+  /services/{service_id}/events/{event_id}/reset_snapshot:
     parameters:
         - in: path
           name: service_id
