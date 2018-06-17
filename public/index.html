@@ -240,24 +240,19 @@
                 <a href="#operation--services--service_id--labels-get"> List labels </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--labels-create-post"> Create New Label </a>
+                <a href="#operation--services--service_id--labels-post"> Create new label </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--events--event_id--labels-post"> Add/Remove labels </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--events--event_id--inbox-post"> Move to inbox </a>
+                <a href="#operation--services--service_id--events--event_id--inbox-post"> Move to Inbox </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--events--event_id--delete-post"> Move to trash </a>
+                <a href="#operation--services--service_id--events--event_id--delete-post"> Move to Trash </a>
               </li>
-            </ul>
-          </section>
-          <section>
-            <a href="#tag-default">default</a>
-            <ul>
               <li>
-                <a href="#operation--services--service_id--events--event_id--resolve-post"> Mark resolved </a>
+                <a href="#operation--services--service_id--events--event_id--resolve-post"> Mark as resolved </a>
               </li>
             </ul>
           </section>
@@ -292,7 +287,11 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <p>Main OverOps API.</p>
-                <p>All calls must be authenticated using <code>username:password</code>.</p>
+                <p>All calls must be authenticated using one of the following methods:</p>
+                <ol>
+                  <li>Using <code>username:password</code>.</li>
+                  <li>Using <code>x-api-key</code> header (To generate the token, go to <code>Settings</code> --&gt; <code>Account Settings</code> in the OverOps App)</li>
+                </ol>
               </div>
               <div class="doc-examples">
                 <section>
@@ -327,6 +326,36 @@
                       <div class="prop-title security-definition-property-name">type</div>
                     </div>
                     <div class="prop-value security-definition-property-type"> basic </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="security-definition-ApiKeyAuth" class="panel">
+            <div class="doc-row">
+              <div class="doc-copy">
+                <h3 class="security-definition-title">
+                  <span class="security-name">ApiKeyAuth</span>
+                  <span class="swagger-security-definition-apiKey"></span>
+                </h3>
+                <section class="swagger-security-definition-properties">
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">type</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> apiKey </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">in</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> header </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">name</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> X-API-KEY </div>
                   </div>
                 </section>
               </div>
@@ -6192,7 +6221,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--labels-create-post" class="operation panel" data-traverse-target="operation--services--service_id--labels-create-post">
+          <div id="operation--services--service_id--labels-post" class="operation panel" data-traverse-target="operation--services--service_id--labels-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -6202,20 +6231,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Create New Label</span>
+              <span class="operation-summary">Create new label</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/labels/create</span>
+                  <span class="operation-path">/services/{service_id}/labels</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Create New Label</p>
+                  <p>Create new label</p>
                 </section>
               </div>
             </div>
@@ -6412,7 +6441,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Move to inbox</span>
+              <span class="operation-summary">Move to Inbox</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -6506,7 +6535,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Move to trash</span>
+              <span class="operation-summary">Move to Trash</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -6590,10 +6619,17 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <h1 id="tag-default" class="swagger-summary-tag" data-traverse-target="tag-default">default</h1>
           <div id="operation--services--service_id--events--event_id--resolve-post" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--resolve-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Labels">Labels</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Mark resolved</span>
+              <span class="operation-summary">Mark as resolved</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -7161,8 +7197,8 @@
                     <dd>
                       <p>Use a filter name from the list above.</p>
                     </dd>
-                    <dt data-property-name="value" class="has-description">
-                      <span class="json-property-name">value:</span>
+                    <dt data-property-name="values" class="has-description">
+                      <span class="json-property-name">values:</span>
                       <span class="json-property-type">string[]</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
