@@ -953,7 +953,7 @@ paths:
                       $ref: "#/definitions/Folder"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/folders/{folder_name}/views:
+  /services/{service_id}/folders/{folder_id}/views:
     parameters:
       - in: path
         name: service_id
@@ -975,7 +975,9 @@ paths:
         - in: body
           name: view_id
           description: View ID
-          type: int
+          schema:
+            type: String
+            example: P12
           required: true
       responses:
         201:
@@ -1755,6 +1757,9 @@ definitions:
     description: Single folder properties
     type: "object"
     properties:
+      id:
+        type: String
+        example: BDCICD
       name:
         type: "string"
         example: My Folder

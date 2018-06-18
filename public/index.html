@@ -218,7 +218,7 @@
                 <a href="#operation--services--service_id--folders-get"> List View Folders </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--folders--folder_name--views-post"> Add view to selected folder </a>
+                <a href="#operation--services--service_id--folders--folder_id--views-post"> Add view to selected folder </a>
               </li>
             </ul>
           </section>
@@ -229,7 +229,7 @@
                 <a href="#operation--services--service_id--folders-get"> List View Folders </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--folders--folder_name--views-post"> Add view to selected folder </a>
+                <a href="#operation--services--service_id--folders--folder_id--views-post"> Add view to selected folder </a>
               </li>
             </ul>
           </section>
@@ -5794,6 +5794,7 @@
   <span class="hljs-attr">&quot;vf_names&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;BDCICD&quot;</span>,
         <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
         <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
         <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
@@ -5808,7 +5809,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--folders--folder_name--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_name--views-post">
+          <div id="operation--services--service_id--folders--folder_id--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id--views-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -5826,7 +5827,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/folders/{folder_name}/views</span>
+                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/views</span>
                 </section>
               </div>
             </div>
@@ -5839,7 +5840,9 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <p>View ID</p>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -5874,7 +5877,7 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;int&quot;</span>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;P12&quot;</span>
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -6003,6 +6006,7 @@
   <span class="hljs-attr">&quot;vf_names&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;BDCICD&quot;</span>,
         <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
         <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
         <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
@@ -6017,7 +6021,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--folders--folder_name--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_name--views-post">
+          <div id="operation--services--service_id--folders--folder_id--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id--views-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -6035,7 +6039,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/folders/{folder_name}/views</span>
+                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/views</span>
                 </section>
               </div>
             </div>
@@ -6048,7 +6052,9 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <p>View ID</p>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -6083,7 +6089,7 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;int&quot;</span>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;P12&quot;</span>
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -7117,6 +7123,11 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
+                    <dt data-property-name="id">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">String</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                     <dt data-property-name="name">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
@@ -7147,6 +7158,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;BDCICD&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
   <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
