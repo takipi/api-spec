@@ -1574,11 +1574,11 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           - in: query
             name: to
             type: integer
-            description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           - in: query
             name: server
             type: string
