@@ -81,7 +81,7 @@ paths:
           description: List of deployments
           schema:
             properties:
-              views:
+              deployments:
                 type: "array"
                 items:
                   $ref: "#/definitions/Deployment"
@@ -1315,6 +1315,7 @@ paths:
             name: points
             type: integer
             description: Number of data points to return within the interval
+            required: true
           - in: query
             name: server
             type: string
@@ -1762,12 +1763,15 @@ definitions:
         example: BDCICD
       name:
         type: "string"
+        description: Folder Name
         example: My Folder
       shared:
         type: boolean
+        description: Indicates if this folder visible for all users under this key or only for the folder creator.
         example: false
       admin:
         type: boolean
+        description: marks the folder as visible only to key admins
         example: true
       icon:
         type: "string"

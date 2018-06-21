@@ -5060,6 +5060,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">points</div>
+                      <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in query </div>
                       <div class="prop-subtitle">
                         <span class="json-property-type">integer</span>
@@ -5698,7 +5699,7 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;views&quot;</span>: [
+  <span class="hljs-attr">&quot;deployments&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;stage1.0.4&quot;</span>,
       <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
@@ -7128,21 +7129,30 @@
                       <span class="json-property-type">String</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="name">
+                    <dt data-property-name="name" class="has-description">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="shared">
+                    <dd>
+                      <p>Folder Name</p>
+                    </dd>
+                    <dt data-property-name="shared" class="has-description">
                       <span class="json-property-name">shared:</span>
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="admin">
+                    <dd>
+                      <p>Indicates if this folder visible for all users under this key or only for the folder creator.</p>
+                    </dd>
+                    <dt data-property-name="admin" class="has-description">
                       <span class="json-property-name">admin:</span>
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>marks the folder as visible only to key admins</p>
+                    </dd>
                     <dt data-property-name="icon" class="has-description">
                       <span class="json-property-name">icon:</span>
                       <span class="json-property-type">string</span>
