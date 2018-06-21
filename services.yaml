@@ -1396,8 +1396,7 @@ paths:
           name: label
           description: Single label
           schema:
-            properties:
-              $ref: "#/definitions/Label"
+            $ref: "#/definitions/Label"
       responses:
         200:
           description: OK
