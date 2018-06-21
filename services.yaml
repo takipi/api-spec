@@ -6,16 +6,24 @@ info:
     email: hello@overops.com
   description: |
     Main OverOps API.
-    
-    All calls must be authenticated using `username:password`.
+
+    All calls must be authenticated using one of the following methods:
+      1. Using `username:password`.
+      2. Using `x-api-key` header (To generate the token, go to `Settings` --> `Account Settings` in the OverOps App)
+
 securityDefinitions:
   basicAuth:
     type: basic
+  ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
 security:
   - basicAuth: []
+  - ApiKeyAuth: []
 host: api.overops.com
 basePath: /api/v1
-tags: 
+tags:
   - name: General
     description: Fetching general information about services (Not yet implemented)
   - name: Data Redaction
@@ -95,8 +103,8 @@ paths:
         200:
           description: List of included and excluded classes and packages
           schema:
-            properties: 
-              exclude: 
+            properties:
+              exclude:
                 type: "object"
                 properties:
                   classes:
@@ -107,7 +115,7 @@ paths:
                     type: "array"
                     items:
                       $ref: "#/definitions/ExcludedPackageName"
-              include: 
+              include:
                 type: "object"
                 properties:
                   classes:
@@ -122,7 +130,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude:
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "List all code exclusions"
       description: "List all code exclusions"
@@ -136,7 +144,7 @@ paths:
         200:
           description: List of excluded classes and packages
           schema:
-            properties: 
+            properties:
               classes:
                 type: "array"
                 items:
@@ -149,7 +157,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/classes:
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "List all excluded classes"
       description: "List all excluded classes"
@@ -163,7 +171,7 @@ paths:
         200:
           description: List of excluded classes
           schema:
-            properties: 
+            properties:
               classes:
                 type: "array"
                 items:
@@ -188,7 +196,7 @@ paths:
         required: true
         description: Fully qualified Java class name
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Retrieve an excluded class"
       description: "Retrieve an excluded class"
@@ -204,11 +212,11 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     put:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Add a class to the exclusion list"
       description: "Add a class to the exclusion list. The body class name must match the resource identifier"
-      parameters: 
+      parameters:
        - in: body
          name: class
          schema:
@@ -223,7 +231,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     delete:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Remove a class from exclusion"
       description: "Remove a class from the exclusion list"
@@ -236,7 +244,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/packages:
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "List all excluded packages"
       description: "List all excluded packages"
@@ -250,7 +258,7 @@ paths:
         200:
           description: List of excluded packages
           schema:
-            properties: 
+            properties:
               packages:
                 type: "array"
                 items:
@@ -270,7 +278,7 @@ paths:
         required: true
         description: Fully qualified Java package name
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Retrieve an excluded package"
       description: "Retrieve an excluded package"
@@ -286,11 +294,11 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     put:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Add a package to the exclusion list"
       description: "Add a package to the exclusion list. The body package name must match the resource identifier"
-      parameters: 
+      parameters:
        - in: body
          name: package
          schema:
@@ -305,7 +313,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     delete:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Remove a package from the exclusion list"
       description: "Remove a package from the exclusion list"
@@ -318,7 +326,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include:
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "List all code inclusions"
       description: "List all code inclusions"
@@ -332,7 +340,7 @@ paths:
         200:
           description: List of included classes and packages
           schema:
-            properties: 
+            properties:
               classes:
                 type: "array"
                 items:
@@ -345,7 +353,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/classes:
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "List all included classes"
       description: "List all included classes"
@@ -359,7 +367,7 @@ paths:
         200:
           description: List of included classes
           schema:
-            properties: 
+            properties:
               classes:
                 type: "array"
                 items:
@@ -379,7 +387,7 @@ paths:
         required: true
         description: Fully qualified Java class name
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Retrieve an included class"
       description: "Retrieve an included class"
@@ -395,11 +403,11 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     put:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Add a class to the inclusion list"
       description: "Add a class to the inclusion list. The body class name must match the resource identifier"
-      parameters: 
+      parameters:
        - in: body
          name: class
          schema:
@@ -414,7 +422,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     delete:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Remove a class from the inclusion list"
       description: "Remove a class from the inclusion list"
@@ -427,7 +435,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/packages:
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "List all included packages"
       description: "List all included packages"
@@ -441,7 +449,7 @@ paths:
         200:
           description: List of included packages
           schema:
-            properties: 
+            properties:
               packages:
                 type: "array"
                 items:
@@ -461,7 +469,7 @@ paths:
         required: true
         description: Fully qualified Java package name
     get:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Retrieve an included package"
       description: "Retrieve an included package"
@@ -477,11 +485,11 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     put:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Add a package to the inclusion list"
       description: "Add a package to the inclusion list. The body package name must match the resource identifier"
-      parameters: 
+      parameters:
        - in: body
          name: package
          schema:
@@ -496,7 +504,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     delete:
-      tags: 
+      tags:
         - Code Redaction
       summary: "Remove a package from the inclusion list"
       description: "Remove a package from the inclusion list"
@@ -509,7 +517,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/data-redaction:
     get:
-      tags: 
+      tags:
         - Data Redaction
       summary: "List all data redactions"
       description: "List all data redactions"
@@ -523,40 +531,40 @@ paths:
         200:
           description: List of data redaction
           schema:
-            properties: 
-              packages: 
+            properties:
+              packages:
                 type: "array"
-                items: 
+                items:
                   type: "object"
-                  properties: 
-                    name: 
+                  properties:
+                    name:
                       type: "string"
                       example: "com.example"
-              patterns: 
+              patterns:
                 type: "array"
-                items: 
+                items:
                   $ref: "#/definitions/Pattern"
-              identifiers: 
+              identifiers:
                 type: "array"
-                items: 
+                items:
                   type: "object"
-                  properties: 
-                    name: 
+                  properties:
+                    name:
                       type: "string"
                       example: "password"
-              classes: 
+              classes:
                 type: "array"
-                items: 
+                items:
                   type: "object"
-                  properties: 
-                    name: 
+                  properties:
+                    name:
                       type: "string"
                       example: "IPv4"
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/patterns:
     get:
-      tags: 
+      tags:
         - Data Redaction
       summary: "List all regex patterns"
       description: "List all regex patterns"
@@ -570,10 +578,10 @@ paths:
         200:
           description: List of regex patterns
           schema:
-            properties: 
-              patterns: 
+            properties:
+              patterns:
                 type: "array"
-                items: 
+                items:
                   $ref: "#/definitions/Pattern"
         401:
           $ref: "#/definitions/UnauthorizedError"
@@ -590,7 +598,7 @@ paths:
         type: string
         required: true
     get:
-      tags: 
+      tags:
         - Data Redaction
       summary: "Retrieve a pattern"
       description: "Retrieve a pattern"
@@ -602,11 +610,11 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     put:
-      tags: 
+      tags:
         - Data Redaction
       summary: "Create a pattern"
       description: "Add a RegEx pattern to be redacted. The pattern name must match the resource identifier"
-      parameters: 
+      parameters:
         - in: body
           name: pattern
           schema:
@@ -619,7 +627,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     delete:
-      tags: 
+      tags:
         - Data Redaction
       summary: "Delete a pattern"
       description: "Removes a pattern from the redaction list"
@@ -632,7 +640,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/identifiers:
     get:
-      tags: 
+      tags:
         - Data Redaction
       summary: "List all identifiers"
       description: "List all identifiers"
@@ -646,13 +654,13 @@ paths:
         200:
           description: List of identifiers
           schema:
-            properties: 
-              identifiers: 
+            properties:
+              identifiers:
                 type: "array"
-                items: 
+                items:
                   type: "object"
-                  properties: 
-                    name: 
+                  properties:
+                    name:
                       type: "string"
                       example: "password"
         401:
@@ -670,7 +678,7 @@ paths:
           description: A code identifier
           type: string
           required: true
-      tags: 
+      tags:
         - Data Redaction
       summary: "Retrieve an identifier"
       description: "Retrieve an identifier"
@@ -678,19 +686,19 @@ paths:
         200:
           description: If the redaction exists
           schema:
-            properties: 
-              name: 
+            properties:
+              name:
                 type: "string"
                 example: "password"
         401:
           $ref: "#/definitions/UnauthorizedError"
     put:
-      tags: 
+      tags:
         - Data Redaction
       summary: "Add an identifier"
       description: "Add an identifier. The body identifier name must match the resource identifier"
       operationId: addIdentifier
-      parameters: 
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -705,8 +713,8 @@ paths:
           in: body
           description: Identifier object
           schema:
-           properties: 
-             name: 
+           properties:
+             name:
                type: "string"
                example: "password"
       responses:
@@ -717,7 +725,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     delete:
-      tags: 
+      tags:
         - Data Redaction
       summary:  "Delete identifier"
       description: "Delete identifier"
@@ -730,7 +738,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/classes:
     get:
-      tags: 
+      tags:
         - Data Redaction
       summary: "List all classes"
       description: "List all classes"
@@ -744,13 +752,13 @@ paths:
         200:
           description: List of classes
           schema:
-            properties: 
-              classes: 
+            properties:
+              classes:
                 type: "array"
-                items: 
+                items:
                   type: "object"
-                  properties: 
-                    name: 
+                  properties:
+                    name:
                       type: "string"
                       example: "IPv4"
         401:
@@ -768,7 +776,7 @@ paths:
         type: string
         required: true
     get:
-      tags: 
+      tags:
         - Data Redaction
       summary: "Retrieve a class"
       description: "Retrieve a class from the data redaction list"
@@ -776,24 +784,24 @@ paths:
         200:
           description: If the redaction exists
           schema:
-            properties: 
-              name: 
+            properties:
+              name:
                 type: "string"
                 example: "IPv4"
         401:
           $ref: "#/definitions/UnauthorizedError"
     put:
-      tags: 
+      tags:
         - Data Redaction
       summary: "Add a class for data redaction"
       description: "Add a class to the redaction list. The body class name must match the resource identifier"
-      parameters: 
+      parameters:
        - in: body
          description: A JSON representing a class to add for redaction
          name: name
          schema:
-          properties: 
-            name: 
+          properties:
+            name:
               type: "string"
               example: "IPv4"
       responses:
@@ -804,7 +812,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     delete:
-      tags: 
+      tags:
         - Data Redaction
       summary:  "Delete a class"
       description: "Delete a class"
@@ -817,7 +825,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/packages:
     get:
-      tags: 
+      tags:
         - Data Redaction
       summary: "List all packages"
       description: "List all packages"
@@ -831,13 +839,13 @@ paths:
         200:
           description: List of packages
           schema:
-            properties: 
-              packages: 
+            properties:
+              packages:
                 type: "array"
-                items: 
+                items:
                   type: "object"
-                  properties: 
-                    name: 
+                  properties:
+                    name:
                       type: "string"
                       example: "com.example"
         401:
@@ -855,7 +863,7 @@ paths:
         type: string
         required: true
     get:
-      tags: 
+      tags:
         - Data Redaction
       summary: "Retrieve a package"
       description: "Retrieve a package"
@@ -863,23 +871,23 @@ paths:
         200:
           description: If the redaction exists
           schema:
-            properties: 
-              name: 
+            properties:
+              name:
                 type: "string"
                 example: "com.example"
         401:
           $ref: "#/definitions/UnauthorizedError"
     put:
-      tags: 
+      tags:
         - Data Redaction
       summary: "Create a package"
       description: "Create a package. The body package name must match the resource identifier"
-      parameters: 
+      parameters:
        - in: body
          name: name
          schema:
-          properties: 
-            name: 
+          properties:
+            name:
               type: "string"
               example: "com.example"
       responses:
@@ -890,7 +898,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
     delete:
-      tags: 
+      tags:
         - Data Redaction
       summary: "Delete package"
       description: "Delete package"
@@ -902,48 +910,134 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
     get:
       tags:
         - Views
-      summary: "List views"
-      description: "List views"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: query
-            name: name
-            description: Name of view(s) to fetch
-            type: string
+      summary: "List Views"
+      description: "List Views"
       responses:
         200:
-          description: List of views
+          description: List of views including basic info about each view.
           schema:
-            properties: 
-              views: 
+            properties:
+              views:
                 type: "array"
-                items: 
+                items:
+                  $ref: "#/definitions/ViewBasic"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - Views
+      summary: "Create View"
+      description: "Create View"
+      parameters:
+        - in: body
+          name: view
+          description: Single view properties
+          schema:
+              $ref: "#/definitions/ViewFull"
+      responses:
+        201:
+          description: CREATED
+        400:
+          description: BAD INPUT
+        409:
+          description: CONFLICT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/views/{view_id}:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+    get:
+      tags:
+        - Views
+      summary: "Get View properties"
+      description: "Get full list of view properties"
+      responses:
+        200:
+          description: Full list of view properties
+          schema:
+            properties:
+              views:
+                type: "array"
+                items:
                   type: "object"
-                  properties: 
-                    id: 
+                  description: Single view full properties
+                  properties:
+                    id:
                       type: "string"
                       example: P12
-                    name: 
+                    name:
                       type: "string"
                       example: DB Errors
+                    description:
+                      type: "string"
+                      example: This is a DB Errors View
                     shared:
                       type: boolean
                       example: false
+                    admin:
+                      type: boolean
+                      description: TBD - NOT YET IMPLEMENTED
+                      example: true
+                    default:
+                      type: boolean
+                      description: TBD - NOT YET IMPLEMENTED
+                      example: false
+                    filters:
+                      type: "array"
+                      items:
+                        $ref: "#/definitions/Filter"
+                    alert_on_new:
+                      type: boolean
+                      description: TBD - NOT YET IMPLEMENTED
+                      example: true
+                    alert_on_anomaly:
+                      type: boolean
+                      description: TBD - NOT YET IMPLEMENTED
+                      example: true
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - Views
+      summary: "Edit view data"
+      description: "Edit view data"
+      parameters:
+        - in: body
+          name: view
+          description: Single view properties
+          schema:
+              $ref: "#/definitions/ViewFull"
+      responses:
+        200:
+          description: OK
+        404:
+          $ref: "#/definitions/NotFoundError"
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
         - View Metrics
-      summary: "Fetch error metrics"
-      description: "Fetch error metrics"
+      summary: "Fetch event metrics"
+      description: "Fetch event metrics"
       parameters:
           - in: path
             name: service_id
@@ -958,12 +1052,12 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: to
             type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: points
@@ -984,40 +1078,40 @@ paths:
             description: Deployment(s) added to the filter
       responses:
         200:
-          description: Error metrics
+          description: Event metrics
           schema:
-            properties: 
-              graphs: 
+            properties:
+              graphs:
                 type: "array"
-                items: 
+                items:
                   type: "object"
-                  properties: 
-                    type: 
+                  properties:
+                    type:
                       type: "string"
                       example: "event"
-                    id: 
+                    id:
                       type: "string"
                       example: "42"
-                    points: 
+                    points:
                       type: "array"
-                      items: 
+                      items:
                         type: "object"
-                        properties: 
-                          time: 
+                        properties:
+                          time:
                             type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
-                          value: 
+                            example: "2018-02-28T22:47:09.038Z"
+                          value:
                             type: "number"
                             example: 42
-                          contributors: 
+                          contributors:
                             type: "array"
-                            items: 
+                            items:
                               type: "object"
-                              properties: 
-                                id: 
+                              properties:
+                                id:
                                   type: "string"
                                   example: "42"
-                                value: 
+                                value:
                                   type: "number"
                                   example: 42
         401:
@@ -1028,8 +1122,8 @@ paths:
     get:
       tags:
         - View Metrics
-      summary: "Fetch error metrics split by entrypoint"
-      description: "Fetch error metrics split by entrypoint"
+      summary: "Fetch Event metrics split by entrypoint"
+      description: "Fetch Event metrics split by entrypoint"
       parameters:
           - in: path
             name: service_id
@@ -1044,17 +1138,18 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: to
             type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: points
             type: integer
             description: Number of data points to return within the interval
+            required: true
           - in: query
             name: server
             type: string
@@ -1069,40 +1164,40 @@ paths:
             description: Deployment(s) added to the filter
       responses:
         200:
-          description: Error metrics split by entry point
+          description: Event metrics split by entry point
           schema:
-            properties: 
-              graphs: 
+            properties:
+              graphs:
                 type: "array"
-                items: 
+                items:
                   type: "object"
-                  properties: 
-                    type: 
+                  properties:
+                    type:
                       type: "string"
                       example: "event"
-                    id: 
+                    id:
                       type: "string"
                       example: "42"
-                    points: 
+                    points:
                       type: "array"
-                      items: 
+                      items:
                         type: "object"
-                        properties: 
-                          time: 
+                        properties:
+                          time:
                             type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
-                          value: 
+                            example: "2018-02-28T22:47:09.038Z"
+                          value:
                             type: "number"
                             example: 42
-                          contributors: 
+                          contributors:
                             type: "array"
-                            items: 
+                            items:
                               type: "object"
-                              properties: 
-                                id: 
+                              properties:
+                                id:
                                   type: "string"
                                   example: "42"
-                                value: 
+                                value:
                                   type: "number"
                                   example: 42
         401:
@@ -1113,8 +1208,8 @@ paths:
     get:
       tags:
         - View Metrics
-      summary: "Fetch error metrics split by event"
-      description: "Fetch error metrics split by event"
+      summary: "Fetch event metrics split by event"
+      description: "Fetch event metrics split by event"
       parameters:
           - in: path
             name: service_id
@@ -1129,17 +1224,18 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: to
             type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: points
             type: integer
             description: Number of data points to return within the interval
+            required: true
           - in: query
             name: server
             type: string
@@ -1154,40 +1250,40 @@ paths:
             description: Deployment(s) added to the filter
       responses:
         200:
-          description: Error metrics split by event
+          description: event metrics split by event
           schema:
-            properties: 
-              graphs: 
+            properties:
+              graphs:
                 type: "array"
-                items: 
+                items:
                   type: "object"
-                  properties: 
-                    type: 
+                  properties:
+                    type:
                       type: "string"
                       example: "event"
-                    id: 
+                    id:
                       type: "string"
                       example: "42"
-                    points: 
+                    points:
                       type: "array"
-                      items: 
+                      items:
                         type: "object"
-                        properties: 
-                          time: 
+                        properties:
+                          time:
                             type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
-                          value: 
+                            example: "2018-02-28T22:47:09.038Z"
+                          value:
                             type: "number"
                             example: 42
-                          contributors: 
+                          contributors:
                             type: "array"
-                            items: 
+                            items:
                               type: "object"
-                              properties: 
-                                id: 
+                              properties:
+                                id:
                                   type: "string"
                                   example: "42"
-                                value: 
+                                value:
                                   type: "number"
                                   example: 42
         401:
@@ -1216,48 +1312,48 @@ paths:
             description: "the anomaly object"
             schema:
               type: "object"
-              properties: 
-                desc: 
+              properties:
+                desc:
                   type: "string"
                   example: "Description"
-                timeframe: 
+                timeframe:
                   type: "object"
-                  properties: 
-                    from: 
+                  properties:
+                    from:
                       type: "string"
-                      example: "2018-02-28T22:47:09.038+02:00"
-                    to: 
+                      example: "2018-02-28T22:47:09.038Z"
+                    to:
                       type: "string"
-                      example: "2018-03-01T22:47:09.038+02:00"
-                    name: 
+                      example: "2018-03-01T22:47:09.038Z"
+                    name:
                       type: "string"
                       example: "Last day"
-                anomaly: 
+                anomaly:
                   type: "object"
-                  properties: 
-                    periods: 
+                  properties:
+                    periods:
                       type: "array"
-                      items: 
+                      items:
                         type: "object"
-                        properties: 
-                          id: 
+                        properties:
+                          id:
                             type: "string"
                             example: "1"
-                          from: 
+                          from:
                             type: "string"
-                            example: "2018-03-01T23:10:00.000+02:00"
-                          to: 
+                            example: "2018-03-01T23:10:00.000Z"
+                          to:
                             type: "string"
-                            example: "2018-03-01T24:10:00.000+02:00"
-                    contributors: 
+                            example: "2018-03-01T24:10:00.000Z"
+                    contributors:
                       type: "array"
-                      items: 
+                      items:
                         type: "object"
-                        properties: 
-                          id: 
+                        properties:
+                          id:
                             type: "number"
                             example: 1
-                          value: 
+                          value:
                             type: "number"
                             example: 42
       responses:
@@ -1267,6 +1363,50 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/labels:
+    parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+    get:
+        tags:
+          - Labels
+        summary: "List labels"
+        description: "List all existing labels"
+        responses:
+          200:
+            description: List of labels
+            schema:
+              properties:
+                labels:
+                  type: "array"
+                  items:
+                    $ref: "#/definitions/Label"
+          401:
+            $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - Labels
+      summary: "Create new label"
+      description: "Create new label"
+      parameters:
+        - in: body
+          name: label
+          description: Single label
+          schema:
+            properties:
+              $ref: "#/definitions/Label"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        409:
+          description: CONFLICT
   /services/{service_id}/events/{event_id}:
     get:
       tags:
@@ -1293,6 +1433,125 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/events/{event_id}/labels:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Labels
+      summary: "Add/Remove labels"
+      description: "Append/Detach labels to/from event"
+      parameters:
+        - in: body
+          name: add
+          description: list of label names to append
+          schema:
+            properties:
+              add:
+                type: "array"
+                items:
+                  type: "string"
+                  example: "Critical"
+        - in: body
+          name: remove
+          description: list of label names to detach from event
+          schema:
+            properties:
+              remove:
+                type: "array"
+                items:
+                  type: "string"
+                  example: "Low"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          description: NOT FOUND
+  /services/{service_id}/events/{event_id}/inbox:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Labels
+      summary: "Move to Inbox"
+      description: "Move the specified event into Inbox"
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          description: NOT FOUND
+  /services/{service_id}/events/{event_id}/delete:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Labels
+      summary: "Move to Trash"
+      description: "Move the specified event into Trash"
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          description: NOT FOUND
+  /services/{service_id}/events/{event_id}/resolve:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Labels
+      summary: "Mark as resolved"
+      description: "Marks the specified event as resolved"
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          description: NOT FOUND
   /services/{service_id}/events/${event_id}/snapshot:
     get:
       tags:
@@ -1348,7 +1607,7 @@ paths:
         401:
           $ref: "#/definitions/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"           
+          $ref: "#/definitions/NotFoundError"
 definitions:
   UnauthorizedError:
     type: object
@@ -1380,16 +1639,16 @@ definitions:
     description: A data redaction pattern used to define PII RegEx
     type: object
     properties:
-      name: 
+      name:
         type: "string"
         example: "Visa"
-      category: 
+      category:
         type: "string"
         example: "Credit Card"
-      regex: 
+      regex:
         type: "string"
         example: "\\b4\\d{3}([\\-\\ ]?)(?:\\d{4}\\1){2}\\d(?:\\d{3})?\\b"
-      is_active: 
+      is_active:
         type: "boolean"
         example: true
   IncludedClassName:
@@ -1404,44 +1663,137 @@ definitions:
   ExcludedPackageName:
     type: string
     example: "com.company.package.bad"
+  ViewBasic:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: P12
+      name:
+        type: "string"
+        example: DB Errors
+      shared:
+        type: boolean
+        example: false
+  ViewFull:
+    type: "object"
+    description: Single view full properties
+    properties:
+      name:
+        type: "string"
+        example: DB Errors
+      description:
+        type: "string"
+        example: This is a DB Errors View
+      shared:
+        type: boolean
+        example: false
+      admin:
+        type: boolean
+        description: TBD - NOT YET IMPLEMENTED
+        example: true
+      default:
+        type: boolean
+        description: TBD - NOT YET IMPLEMENTED
+        example: false
+      filters:
+        type: "array"
+        items:
+          $ref: "#/definitions/Filter"
+      alert_on_new:
+        type: boolean
+        description: TBD - NOT YET IMPLEMENTED
+        example: true
+      alert_on_anomaly:
+        type: boolean
+        description: TBD - NOT YET IMPLEMENTED
+        example: true
+  Filter:
+    description: Filter properties
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: Use a filter name from the list above.
+        enum: [SERVERS, APPS, DEPLOYMENTS, FIRST SEEN CUSTOM, FIRST SEEN PRESET, EVENT TYPE, EVENT NAME, EVENT LOCATION, EVENT PACKAGE, ENTRY POINT, LABELS, INTRODUCED BY, SEARCH]
+      values:
+        type: "array"
+        description: The values that shall be filtered. Follow the examples to define proper value format that matches desired filter type.
+        items:
+          type: "string"
+    example:
+      general_example:
+        name: LABELS
+        value: ["JIRA", "CRITICAL", "QA"]
+      event_type_example:
+        name: EVENT TYPE
+        value: ["Uncaught exceptions", "Swallowed Exceptions"]
+        summary: Supported values - Uncaught exceptions, Caught exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers.
+      first_seen_custom_example:
+        name: FIRST SEEN CUSTOM
+        value: ["from= 2018-02-28T22:47:09.038Z", "to=2018-03-01T22:47:09.038Z"]
+        summary: use this example to define FIRST SEEN CUSTOM filter with fixed time range (ISO8601 format)
+      first_seen_preset_example:
+        name: FIRST SEEN PRESET
+        value: last_hour
+        summary: use this example to define FIRST SEEN PRESET filter. Available presets - last_hour, last_24h, last_7d, last_30d
+      search_example:
+        name: SEARCH
+        value: ["Can not find"]
+        summary: use this example to define SEARCH filter - only single search value can be defined
   Event:
     description: An exception, logged error and more
     type: object
     properties:
-      id: 
+      id:
         type: "string"
         example: "1"
-      summary: 
+      summary:
         type: "string"
         example: "NullPointerException in Main.main"
-      type: 
+      type:
         type: "string"
         example: "NullPointerException"
-      first_seen: 
+      first_seen:
         type: "string"
-        example: "2018-02-28T22:47:09.038+02:00"
+        example: "2018-02-28T22:47:09.038Z"
       introduced_by:
         type: "string"
         example: "1.201.1"
       labels:
         type: "array"
-        items: 
+        items:
           type: "string"
           example: "Critical"
       similar_event_ids:
         type: "array"
-        items: 
+        items:
           type: "string"
           example: "K2"
       error_location:
         $ref: "#/definitions/CodeLocation"
       entry_point:
         $ref: "#/definitions/CodeLocation"
+  Label:
+    type: object
+    properties:
+      name:
+        type: string
+        example: HighPriority
+      type:
+        type: "string"
+        enum:
+          - DEFAULT
+          - USER
+        example: USER
+      color: #consider adding available colors as enum
+        type: string
+        example: RED
   CodeLocation:
     description: A code location, for error location, etc
     type: object
     properties:
-      prettified_name: 
+      prettified_name:
         type: "string"
         example: "Main.main"
       class_name:
