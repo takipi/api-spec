@@ -962,7 +962,7 @@ paths:
         required: true
       - in: path
         name: vf_name
-        description: View to use
+        description: View folder to use
         type: string
         required: true
     post:
@@ -1776,6 +1776,10 @@ definitions:
       icon:
         type: "string"
         description: based 64 encoded SVG
+      views:
+        type: array
+        items:
+          $ref: "#/definitions/ViewBasic" 
   Filter:
     description: Filter properties
     type: "object"
