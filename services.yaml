@@ -25,7 +25,7 @@ host: api.overops.com
 basePath: /api/v1
 tags:
   - name: General
-    description: Fetching general information about services (Not yet implemented)
+    description: Fetching general information about services
   - name: Data Redaction
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
@@ -48,27 +48,106 @@ paths:
       description: "List all services"
       responses:
         200:
-          description: TBD
+          description: List of all accessible services
+          schema:
+            properties:
+              services:
+                type: array
+                description: list of services
+                items:
+                  $ref: "#/definitions/ServiceBasic"
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}:
+    post:
+      tags:
+        - General
+      description: "Create a new service"
+      parameters:
+        - in: body
+          name: service
+          description: service properties
+          type: string
+          example: Pre-prod
+      responses:
+        200:
+          description: New Service Key created
+          schema:
+            properties:
+              service:
+                $ref: "#/definitions/ServiceBasic"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/team:
     get:
       tags:
         - General
-      summary: "Get information about the service"
-      description: "Get information about the service"
+        - Team
+      summary: "List service team members"
+      description: "List service team members"
       parameters:
           - in: path
             name: service_id
             description: Environment to use
             type: string
             required: true
+          - in: query
+            name: team_member_email
+            description: Team Member Email
+            type: string
+            required: false
+      responses:
+        200:
+          description: List of team members
+          schema:
+            properties:
+              team_members:
+                $ref: "#/definitions/TeamMembers"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - General
+        - Team
+      summary: "Add members to a service key"
+      description: "Add members to a service key"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team team_members
+            schema:
+              properties:
+                $ref: "#/definitions/TeamMembers"
       responses:
         200:
           description: TBD
         401:
           description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+
+  /services/{service_id}/settings:
+    get:
+      tags:
+        - General
+      summary: "Get service settings (Not yet implemented)"
+      description: "Get service settings (Not yet implemented)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: TBD
+        401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/deployments:
     get:
@@ -85,23 +164,6 @@ paths:
                 type: "array"
                 items:
                   $ref: "#/definitions/Deployment"
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/settings:
-    get:
-      tags:
-        - General
-      summary: "Get service settings"
-      description: "Get service settings"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-      responses:
-        200:
-          description: TBD
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
@@ -950,9 +1012,30 @@ paths:
                   type: "object"
                   properties:
                     name:
-                      $ref: "#/definitions/Folder"
+                      $ref: "#/definitions/FolderFull"
         401:
           $ref: "#/definitions/UnauthorizedError"
+      post:
+        tags:
+          - VFs, Folsers
+        summary: "Create View Folder"
+        description: "Create View Folder"
+        parameters:
+          - in: body
+            name: view
+            description: Folder properties
+            schema:
+              properties:
+                $ref: "#/definitions/FolderBasic"
+        responses:
+          201:
+            description: CREATED
+          400:
+            description: BAD INPUT
+          409:
+            description: CONFLICT
+          401:
+            $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/folders/{folder_id}/views:
     parameters:
       - in: path
@@ -1560,6 +1643,38 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
+  /services/{service_id}/events/{event_id}/labels/Jira:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Labels
+        - Jira
+      summary: "Retrieve Event Jira ticket"
+      description: "Retrieve Event Jira ticket number opened for the event"
+      responses:
+        200:
+          description: Jira Ticket Number
+          schema:
+            properties:
+              JiraTicketNumber:
+                type: string
+                example: OO-1234
+        400:
+          description: BAD INPUT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          description: NOT FOUND
   /services/{service_id}/events/{event_id}/inbox:
     parameters:
         - in: path
@@ -1648,7 +1763,7 @@ paths:
       tags:
         - Events
       summary: Reset Event Snapshot
-      description: Reset snapshot
+      description: Restart snapshot logic for next events
       responses:
         200:
           description: OK
@@ -1754,8 +1869,27 @@ definitions:
         type: boolean
         description: TBD - NOT YET IMPLEMENTED
         example: true
-  Folder:
-    description: Single folder properties
+  FolderBasic:
+    description: Single folder basic properties
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: Folder Name
+        example: My Folder
+      shared:
+        type: boolean
+        description: Indicates if this folder visible for all users under this key or only for the folder creator.
+        example: false
+      admin:
+        type: boolean
+        description: marks the folder as visible only to key admins
+        example: true
+      icon:
+        type: "string"
+        description: based 64 encoded SVG
+  FolderFull:
+    description: Single folder full properties
     type: "object"
     properties:
       id:
@@ -1779,7 +1913,7 @@ definitions:
       views:
         type: array
         items:
-          $ref: "#/definitions/ViewBasic" 
+          $ref: "#/definitions/ViewBasic"
   Filter:
     description: Filter properties
     type: "object"
@@ -1886,3 +2020,7 @@ definitions:
       method_desc:
         type: "string"
         example: "([Ljava/lang/String;)V"
+  ServiceBasic:
+    TBD
+  TeamMembers:
+    TBD
