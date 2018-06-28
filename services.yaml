@@ -45,6 +45,7 @@ paths:
     get:
       tags:
         - General
+      summary: "List all services accessible by the user"
       description: "List all services"
       responses:
         200:
@@ -62,6 +63,7 @@ paths:
     post:
       tags:
         - General
+      summary: Generate a new service key
       description: "Create a new service"
       parameters:
         - in: body
@@ -69,6 +71,7 @@ paths:
           description: service properties
           type: string
           example: Pre-prod
+          required: true
       responses:
         200:
           description: New Service Key created
@@ -2021,6 +2024,30 @@ definitions:
         type: "string"
         example: "([Ljava/lang/String;)V"
   ServiceBasic:
-    TBD
+    description: Basic information about a service key
+    type: object
+    properties:
+      id:
+        type: string
+        example: S35817
+      name:
+        type: string
+        example: Pre-prod
+      fullkey:
+        type: string
+        example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   TeamMembers:
-    TBD
+    description: List of Service key team members
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Jane Doe
+        email:
+          type: string
+          example: jane.doe@company.com
+        permissions:
+          type: string
+          example: admin
