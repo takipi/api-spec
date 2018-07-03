@@ -38,9 +38,69 @@ tags:
     description: APIs related to the alerting mechanism
   - name: Events
     description: Event data
+  - name: UDFs
+    description: User Defined Functions
 schemes:
 - "https"
 paths:
+  /global-settings/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List Available UDFs
+      description: List all available UDFs (User Defined Functions)
+      responses:
+        200:
+          description: UDF List
+          schema:
+            properties:
+              udf_list:
+                $ref: "#/definitions/UDFList"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /global-settings/udfs/create/{udf_name}:
+    parameters:
+      - in: path
+        name: udf_name
+        description: udf name
+        type: string
+    put:
+      tags:
+        - UDFs
+      summary: Add a new UDF
+      description: Add a new UDF
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        200:
+          description: UDF was successfully added
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /global-settings/udfs/{udf_name}:
+    parameters:
+      - in: path
+        name: udf_name
+        description: Name of UDF to be used
+        type: string
+        required: true
+    delete:
+      tags:
+        - UDFs
+      summary: "Remove UDF"
+      description: "Remove UDF"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
   /services:
     get:
       tags:
@@ -130,7 +190,7 @@ paths:
                 $ref: "#/definitions/TeamMembers"
       responses:
         200:
-          description: TBD
+          description: Team memebrs were successfully added
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
@@ -1823,6 +1883,64 @@ paths:
           description: OK
         401:
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List Available UDFs for a service key
+      description: List all available UDFs (User Defined Functions) for selected service key
+      responses:
+        200:
+          description: UDF List
+          schema:
+            properties:
+              udf_list:
+                $ref: "#/definitions/UDFList"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/udfs/create/{udf_name}:
+    parameters:
+      - in: path
+        name: udf_name
+        description: udf name
+        type: string
+    put:
+      tags:
+        - UDFs
+      summary: Add a new UDF to a service key
+      description: Add a new UDF under specified service key
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        200:
+          description: UDF was successfully added
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/udfs/{udf_name}:
+    parameters:
+      - in: path
+        name: udf_name
+        description: Name of UDF to be used
+        type: string
+        required: true
+    delete:
+      tags:
+        - UDFs
+      summary: Remove UDF from a service key
+      description: "Remove UDF for specified service key"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
 definitions:
   UnauthorizedError:
     type: object
@@ -2099,6 +2217,44 @@ definitions:
         email:
           type: string
           example: jane.doe@company.com
-        permissions:
+        role:
           type: string
           example: admin
+        state:
+          type: string
+          example: active
+  UDFList:
+    description: list of UDFs
+    type: array
+    items:
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0
+        backwards_compatible:
+          type: string
+          example: true
+        function_type:
+          type: string
+          example: ANOMALY
+        short_description:
+          type: string
+          example: Relative Threshold
+        long_description:
+          type: string
+          example: This function compares the volume of events against an absolute threshold
+        param_type:
+          type: string
+          example: TEXT
+        default_params:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: X
+              default_value:
+                type: string
+                example: 100
