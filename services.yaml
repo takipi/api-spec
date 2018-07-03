@@ -1632,7 +1632,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
-  /services/{service_id}/events/{event_id}/reset_snapshot:
+  /services/{service_id}/events/{event_id}/restart_snapshots:
     parameters:
         - in: path
           name: service_id
@@ -1647,8 +1647,8 @@ paths:
     post:
       tags:
         - Events
-      summary: Reset Event Snapshot
-      description: Reset snapshot
+      summary: Restart Event Snapshots
+      description: Restart Event Snapshots
       responses:
         200:
           description: OK
@@ -1779,7 +1779,7 @@ definitions:
       views:
         type: array
         items:
-          $ref: "#/definitions/ViewBasic" 
+          $ref: "#/definitions/ViewBasic"
   Filter:
     description: Filter properties
     type: "object"
