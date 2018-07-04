@@ -2196,10 +2196,10 @@ definitions:
     description: Basic information about a service key
     type: object
     properties:
-      id:
+      key_id:
         type: string
         example: S35817
-      name:
+      key_name:
         type: string
         example: Pre-prod
       fullkey:
