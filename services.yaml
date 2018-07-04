@@ -961,7 +961,7 @@ paths:
         type: string
         required: true
       - in: path
-        name: vf_name
+        name: folder_id
         description: View folder to use
         type: string
         required: true
