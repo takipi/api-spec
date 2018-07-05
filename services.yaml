@@ -973,19 +973,17 @@ paths:
       description: "Add view to selected folder"
       parameters:
         - in: body
-          name: view_id
-          description: View ID
+          description: View ID (string)
           schema:
+            name: view_id
             type: String
             example: P12
           required: true
       responses:
         201:
           description: CREATED
-        400:
-          description: BAD INPUT
-        409:
-          description: CONFLICT - View Already Exists
+        404:
+          description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
