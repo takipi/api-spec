@@ -1106,7 +1106,7 @@ paths:
         type: string
         required: true
       - in: path
-        name: vf_name
+        name: folder_id
         description: View folder to use
         type: string
         required: true
@@ -1118,19 +1118,17 @@ paths:
       description: "Add view to selected folder"
       parameters:
         - in: body
-          name: view_id
-          description: View ID
+          description: View ID (string)
           schema:
+            name: view_id
             type: String
             example: P12
           required: true
       responses:
         201:
           description: CREATED
-        400:
-          description: BAD INPUT
-        409:
-          description: CONFLICT - View Already Exists
+        404:
+          description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
@@ -1861,7 +1859,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
-  /services/{service_id}/events/{event_id}/reset_snapshot:
+  /services/{service_id}/events/{event_id}/restart-snapshots:
     parameters:
         - in: path
           name: service_id
@@ -1876,8 +1874,8 @@ paths:
     post:
       tags:
         - Events
-      summary: Reset Event Snapshot
-      description: Restart snapshot logic for next events
+      summary: Restart Event Snapshots
+      description: Restart Event Snapshots
       responses:
         200:
           description: OK

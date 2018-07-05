@@ -208,7 +208,7 @@
                 <a href="#operation--services--service_id--events--event_id--get"> Fetch event data </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--events--event_id--reset_snapshot-post"> Reset Event Snapshot </a>
+                <a href="#operation--services--service_id--events--event_id--restart-snapshots-post"> Restart Event Snapshots </a>
               </li>
             </ul>
           </section>
@@ -6032,7 +6032,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--events--event_id--reset_snapshot-post" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--reset_snapshot-post">
+          <div id="operation--services--service_id--events--event_id--restart-snapshots-post" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--restart-snapshots-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -6042,20 +6042,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Reset Event Snapshot</span>
+              <span class="operation-summary">Restart Event Snapshots</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/events/{event_id}/reset_snapshot</span>
+                  <span class="operation-path">/services/{service_id}/events/{event_id}/restart-snapshots</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Restart snapshot logic for next events</p>
+                  <p>Restart Event Snapshots</p>
                 </section>
               </div>
             </div>
@@ -6993,7 +6993,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-body">
-                  <p>View ID</p>
+                  <p>View ID (string)</p>
                 </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
@@ -7012,7 +7012,7 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">vf_name</div>
+                      <div class="prop-title">folder_id</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
@@ -7048,14 +7048,6 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">400 Bad Request</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>BAD INPUT</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
@@ -7064,10 +7056,10 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">409 Conflict</div>
+                      <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>CONFLICT - View Already Exists</p>
+                      <p>NOT FOUND</p>
                     </div>
                   </div>
                 </section>
@@ -7212,7 +7204,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-body">
-                  <p>View ID</p>
+                  <p>View ID (string)</p>
                 </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
@@ -7231,7 +7223,7 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">vf_name</div>
+                      <div class="prop-title">folder_id</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
@@ -7267,14 +7259,6 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">400 Bad Request</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>BAD INPUT</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
@@ -7283,10 +7267,10 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">409 Conflict</div>
+                      <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>CONFLICT - View Already Exists</p>
+                      <p>NOT FOUND</p>
                     </div>
                   </div>
                 </section>
