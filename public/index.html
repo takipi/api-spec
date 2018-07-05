@@ -289,9 +289,6 @@
                 <a href="#operation--services--service_id--events--event_id--labels-post"> Add/Remove labels </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--events--event_id--labels-Jira-post"> Retrieve Event Jira ticket </a>
-              </li>
-              <li>
                 <a href="#operation--services--service_id--events--event_id--inbox-post"> Move to Inbox </a>
               </li>
               <li>
@@ -299,14 +296,6 @@
               </li>
               <li>
                 <a href="#operation--services--service_id--events--event_id--resolve-post"> Mark as resolved </a>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <a href="#tag-Jira">Jira</a>
-            <ul>
-              <li>
-                <a href="#operation--services--service_id--events--event_id--labels-Jira-post"> Retrieve Event Jira ticket </a>
               </li>
             </ul>
           </section>
@@ -5889,7 +5878,8 @@
         <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
         <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
         <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
-      }
+      },
+      <span class="hljs-attr">&quot;jira_ticket&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
     }
   ]
 }
@@ -6024,7 +6014,8 @@
     <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
     <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
     <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;jira_ticket&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -7580,123 +7571,6 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <div id="operation--services--service_id--events--event_id--labels-Jira-post" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--labels-Jira-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Labels">Labels</a>
-              <!--, -->
-              <a class="label" href="#tag-Jira">Jira</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Retrieve Event Jira ticket</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/events/{event_id}/labels/Jira</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Retrieve Event Jira ticket number opened for the event</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">event_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Event to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Jira Ticket Number</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">400 Bad Request</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>BAD INPUT</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>NOT FOUND</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;JiraTicketNumber&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
           <div id="operation--services--service_id--events--event_id--inbox-post" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--inbox-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -7977,124 +7851,6 @@
                 </section>
               </div>
               <div class="doc-examples"> </div>
-            </div>
-          </div>
-          <h1 id="tag-Jira" class="swagger-summary-tag" data-traverse-target="tag-Jira">Jira</h1>
-          <div id="operation--services--service_id--events--event_id--labels-Jira-post" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--labels-Jira-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Labels">Labels</a>
-              <!--, -->
-              <a class="label" href="#tag-Jira">Jira</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Retrieve Event Jira ticket</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/events/{event_id}/labels/Jira</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Retrieve Event Jira ticket number opened for the event</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">event_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Event to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Jira Ticket Number</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">400 Bad Request</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>BAD INPUT</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>NOT FOUND</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;JiraTicketNumber&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
             </div>
           </div>
           <h1>Schema Definitions</h1>
@@ -8837,6 +8593,11 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="jira_ticket">
+                      <span class="json-property-name">jira_ticket:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                   </dl>
                 </section>
               </div>
@@ -8866,7 +8627,8 @@
     <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
     <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
     <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;jira_ticket&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->

@@ -1755,38 +1755,6 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
-  /services/{service_id}/events/{event_id}/labels/Jira:
-    parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: event_id
-          description: Event to use
-          type: string
-          required: true
-    post:
-      tags:
-        - Labels
-        - Jira
-      summary: "Retrieve Event Jira ticket"
-      description: "Retrieve Event Jira ticket number opened for the event"
-      responses:
-        200:
-          description: Jira Ticket Number
-          schema:
-            properties:
-              JiraTicketNumber:
-                type: string
-                example: OO-1234
-        400:
-          description: BAD INPUT
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-        404:
-          description: NOT FOUND
   /services/{service_id}/events/{event_id}/inbox:
     parameters:
         - in: path
@@ -2150,6 +2118,9 @@ definitions:
         $ref: "#/definitions/CodeLocation"
       entry_point:
         $ref: "#/definitions/CodeLocation"
+      jira_ticket:
+        type: string
+        example: OO-1234
   Label:
     type: object
     properties:
