@@ -39,6 +39,9 @@
               <li>
                 <a href="#operation--services--service_id--settings-get"> Get service settings (Not yet implemented) </a>
               </li>
+              <li>
+                <a href="#operation--services--service_id--deployments-get"> List Deployments </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -160,16 +163,25 @@
             </ul>
           </section>
           <section>
-            <a href="#tag-Views">Views</a>
+            <a href="#tag-Views-and-Folders">Views and Folders</a>
             <ul>
               <li>
-                <a href="#operation--services--service_id--views-get"> List Views </a>
+                <a href="#operation--services--service_id--folders-get"> List view folders </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--views-post"> Create View </a>
+                <a href="#operation--services--service_id--folders-post"> Create folder (Not implemented yet) </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--views--view_id--get"> Get View properties </a>
+                <a href="#operation--services--service_id--folders--folder_id--views-post"> Add view to selected folder </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--views-get"> List views </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--views-post"> Create view </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--views--view_id--get"> Get view properties </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--views--view_id--post"> Edit view data </a>
@@ -232,47 +244,6 @@
               </li>
               <li>
                 <a href="#operation--services--service_id--udfs--udf_name--delete"> Remove UDF from a service key </a>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <a href="#tag-Team">Team</a>
-            <ul>
-              <li>
-                <a href="#operation--services--service_id--team-get"> List service team members </a>
-              </li>
-              <li>
-                <a href="#operation--services--service_id--team-post"> Add members to a service key </a>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <a href="#tag-Deployments">Deployments</a>
-            <ul>
-              <li>
-                <a href="#operation--services--service_id--deployments-get"> List Deployments </a>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <a href="#tag-View-Folders">View Folders</a>
-            <ul>
-              <li>
-                <a href="#operation--services--service_id--folders-get"> List View Folders </a>
-              </li>
-              <li>
-                <a href="#operation--services--service_id--folders--folder_id--views-post"> Add view to selected folder </a>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <a href="#tag-VFs">VFs</a>
-            <ul>
-              <li>
-                <a href="#operation--services--service_id--folders-get"> List View Folders </a>
-              </li>
-              <li>
-                <a href="#operation--services--service_id--folders--folder_id--views-post"> Add view to selected folder </a>
               </li>
             </ul>
           </section>
@@ -574,8 +545,6 @@
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
               <a class="label" href="#tag-General">General</a>
-              <!--, -->
-              <a class="label" href="#tag-Team">Team</a>
               <!---->
             </div>
             <!-- </div> -->
@@ -666,7 +635,7 @@
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
       <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
       <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-      <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+      <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
     }
   ]
 }
@@ -681,8 +650,6 @@
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
               <a class="label" href="#tag-General">General</a>
-              <!--, -->
-              <a class="label" href="#tag-Team">Team</a>
               <!---->
             </div>
             <!-- </div> -->
@@ -828,6 +795,79 @@
                 </section>
               </div>
               <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--deployments-get" class="operation panel" data-traverse-target="operation--services--service_id--deployments-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-General">General</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List Deployments</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{service_id}/deployments</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List Deployments</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of deployments</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>undefined</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;deployments&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;stage1.0.4&quot;</span>,
+      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <h1 id="tag-Data-Redaction" class="swagger-summary-tag" data-traverse-target="tag-Data-Redaction">Data Redaction</h1>
@@ -4380,23 +4420,325 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <h1 id="tag-Views" class="swagger-summary-tag" data-traverse-target="tag-Views">Views</h1>
+          <h1 id="tag-Views-and-Folders" class="swagger-summary-tag" data-traverse-target="tag-Views-and-Folders">Views and Folders</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetching information about the views</p>
+              <p>Fetching information about the views and view folders</p>
+            </div>
+          </div>
+          <div id="operation--services--service_id--folders-get" class="operation panel" data-traverse-target="operation--services--service_id--folders-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Views-and-Folders">Views and Folders</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List view folders</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{service_id}/folders</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List view folders</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of VF names</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>undefined</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;vf_names&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;BDCICD&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
+        <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;views&quot;</span>: [
+          {
+            <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
+            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
+            <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+          }
+        ]
+      }
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--folders-post" class="operation panel" data-traverse-target="operation--services--service_id--folders-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Views-and-Folders">Views and Folders</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Create folder (Not implemented yet)</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{service_id}/folders</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Create view folder (Not implemented yet)</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>CREATED</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>BAD INPUT</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>undefined</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">409 Conflict</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>CONFLICT</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--folders--folder_id--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id--views-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Views-and-Folders">Views and Folders</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add view to selected folder</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/views</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add view to selected folder</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>View ID (string)</p>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">folder_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>View folder to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;P12&quot;</span>
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>CREATED</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>undefined</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>NOT FOUND</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
             </div>
           </div>
           <div id="operation--services--service_id--views-get" class="operation panel" data-traverse-target="operation--services--service_id--views-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
+              <a class="label" href="#tag-Views-and-Folders">Views and Folders</a>
               <!---->
             </div>
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">List Views</span>
+              <span class="operation-summary">List views</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -4409,7 +4751,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List Views</p>
+                  <p>List views</p>
                 </section>
               </div>
             </div>
@@ -4481,13 +4823,13 @@
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
+              <a class="label" href="#tag-Views-and-Folders">Views and Folders</a>
               <!---->
             </div>
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Create View</span>
+              <span class="operation-summary">Create view</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -4500,7 +4842,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Create View</p>
+                  <p>Create view</p>
                 </section>
               </div>
             </div>
@@ -4577,13 +4919,13 @@
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
+              <a class="label" href="#tag-Views-and-Folders">Views and Folders</a>
               <!---->
             </div>
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Get View properties</span>
+              <span class="operation-summary">Get view properties</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -4727,7 +5069,7 @@
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
+              <a class="label" href="#tag-Views-and-Folders">Views and Folders</a>
               <!---->
             </div>
             <!-- </div> -->
@@ -6583,692 +6925,6 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <h1 id="tag-Team" class="swagger-summary-tag" data-traverse-target="tag-Team">Team</h1>
-          <div id="operation--services--service_id--team-get" class="operation panel" data-traverse-target="operation--services--service_id--team-get">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-General">General</a>
-              <!--, -->
-              <a class="label" href="#tag-Team">Team</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">List service team members</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/team</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>List service team members</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">team_member_email</div>
-                      <div class="prop-subtitle"> in query </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Team Member Email</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>List of team members</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;team_members&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
-      <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
-      <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-      <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
-    }
-  ]
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="operation--services--service_id--team-post" class="operation panel" data-traverse-target="operation--services--service_id--team-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-General">General</a>
-              <!--, -->
-              <a class="label" href="#tag-Team">Team</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Add members to a service key</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/team</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Add members to a service key</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Team memebrs were successfully added</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
-            </div>
-          </div>
-          <h1 id="tag-Deployments" class="swagger-summary-tag" data-traverse-target="tag-Deployments">Deployments</h1>
-          <div id="operation--services--service_id--deployments-get" class="operation panel" data-traverse-target="operation--services--service_id--deployments-get">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Deployments">Deployments</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">List Deployments</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/deployments</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>List Deployments</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy"> </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>List of deployments</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;deployments&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;stage1.0.4&quot;</span>,
-      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
-    }
-  ]
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <h1 id="tag-View-Folders" class="swagger-summary-tag" data-traverse-target="tag-View-Folders">View Folders</h1>
-          <div id="operation--services--service_id--folders-get" class="operation panel" data-traverse-target="operation--services--service_id--folders-get">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-View-Folders">View Folders</a>
-              <!--, -->
-              <a class="label" href="#tag-VFs">VFs</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">List View Folders</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/folders</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>List View Folders</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>List of VF names</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;vf_names&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;name&quot;</span>: {
-        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;BDCICD&quot;</span>,
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
-        <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;views&quot;</span>: [
-          {
-            <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-            <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
-          }
-        ]
-      }
-    }
-  ]
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="operation--services--service_id--folders--folder_id--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id--views-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-View-Folders">View Folders</a>
-              <!--, -->
-              <a class="label" href="#tag-VFs">VFs</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Add view to selected folder</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/views</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Add view to selected folder</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <p>View ID (string)</p>
-                </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">folder_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>View folder to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;P12&quot;</span>
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">201 Created</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>CREATED</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>NOT FOUND</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
-            </div>
-          </div>
-          <h1 id="tag-VFs" class="swagger-summary-tag" data-traverse-target="tag-VFs">VFs</h1>
-          <div id="operation--services--service_id--folders-get" class="operation panel" data-traverse-target="operation--services--service_id--folders-get">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-View-Folders">View Folders</a>
-              <!--, -->
-              <a class="label" href="#tag-VFs">VFs</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">List View Folders</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/folders</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>List View Folders</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>List of VF names</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;vf_names&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;name&quot;</span>: {
-        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;BDCICD&quot;</span>,
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
-        <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;views&quot;</span>: [
-          {
-            <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-            <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
-          }
-        ]
-      }
-    }
-  ]
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="operation--services--service_id--folders--folder_id--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id--views-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-View-Folders">View Folders</a>
-              <!--, -->
-              <a class="label" href="#tag-VFs">VFs</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Add view to selected folder</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/views</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Add view to selected folder</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <p>View ID (string)</p>
-                </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">folder_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>View folder to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;P12&quot;</span>
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">201 Created</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>CREATED</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>NOT FOUND</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
-            </div>
-          </div>
           <h1 id="tag-Labels" class="swagger-summary-tag" data-traverse-target="tag-Labels">Labels</h1>
           <div id="operation--services--service_id--labels-get" class="operation panel" data-traverse-target="operation--services--service_id--labels-get">
             <!-- <section class="operation-tags row"> -->
@@ -8279,7 +7935,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>marks the folder as visible only to key admins</p>
+                      <p>(Not implemented yet) marks the folder as visible only to key admins</p>
                     </dd>
                     <dt data-property-name="icon" class="has-description">
                       <span class="json-property-name">icon:</span>
@@ -8287,7 +7943,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>based 64 encoded SVG</p>
+                      <p>(Not implemented yet) based 64 encoded SVG</p>
                     </dd>
                   </dl>
                 </section>
@@ -8879,7 +8535,7 @@
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
     <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
   }
 ]
 </code></pre>

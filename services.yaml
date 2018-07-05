@@ -30,8 +30,8 @@ tags:
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
-  - name: Views
-    description: Fetching information about the views
+  - name: Views and Folders
+    description: Fetching information about the views and view folders
   - name: View Metrics
     description: Fetching data points about views in order to plot graphs
   - name: Alerts
@@ -146,7 +146,6 @@ paths:
     get:
       tags:
         - General
-        - Team
       summary: "List service team members"
       description: "List service team members"
       parameters:
@@ -173,7 +172,6 @@ paths:
     post:
       tags:
         - General
-        - Team
       summary: "Add members to a service key"
       description: "Add members to a service key"
       parameters:
@@ -214,7 +212,7 @@ paths:
   /services/{service_id}/deployments:
     get:
       tags:
-        - Deployments
+        - General
       summary: "List Deployments"
       description: "List Deployments"
       responses:
@@ -1059,10 +1057,9 @@ paths:
         required: true
     get:
       tags:
-        - View Folders
-        - VFs
-      summary: "List View Folders"
-      description: "List View Folders"
+        - Views and Folders
+      summary: "List view folders"
+      description: "List view folders"
       responses:
         200:
           description: List of VF names
@@ -1077,27 +1074,27 @@ paths:
                       $ref: "#/definitions/FolderFull"
         401:
           $ref: "#/definitions/UnauthorizedError"
-      post:
-        tags:
-          - VFs, Folsers
-        summary: "Create View Folder"
-        description: "Create View Folder"
-        parameters:
-          - in: body
-            name: view
-            description: Folder properties
-            schema:
-              properties:
-                $ref: "#/definitions/FolderBasic"
-        responses:
-          201:
-            description: CREATED
-          400:
-            description: BAD INPUT
-          409:
-            description: CONFLICT
-          401:
-            $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - Views and Folders
+      summary: "Create folder (Not implemented yet)" #shall be published only when delete call is implemented
+      description: "Create view folder (Not implemented yet)"
+      parameters:
+        - in: body
+          name: folder
+          description: Folder properties
+          schema:
+            properties:
+              $ref: "#/definitions/FolderBasic"
+      responses:
+        201:
+          description: CREATED
+        400:
+          description: BAD INPUT
+        409:
+          description: CONFLICT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/folders/{folder_id}/views:
     parameters:
       - in: path
@@ -1112,8 +1109,7 @@ paths:
         required: true
     post:
       tags:
-        - View Folders
-        - VFs
+        - Views and Folders
       summary: "Add view to selected folder"
       description: "Add view to selected folder"
       parameters:
@@ -1140,9 +1136,9 @@ paths:
           required: true
     get:
       tags:
-        - Views
-      summary: "List Views"
-      description: "List Views"
+        - Views and Folders
+      summary: "List views"
+      description: "List views"
       responses:
         200:
           description: List of views including basic info about each view.
@@ -1156,9 +1152,9 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
     post:
       tags:
-        - Views
-      summary: "Create View"
-      description: "Create View"
+        - Views and Folders
+      summary: "Create view"
+      description: "Create view"
       parameters:
         - in: body
           name: view
@@ -1189,8 +1185,8 @@ paths:
           required: true
     get:
       tags:
-        - Views
-      summary: "Get View properties"
+        - Views and Folders
+      summary: "Get view properties"
       description: "Get full list of view properties"
       responses:
         200:
@@ -1239,7 +1235,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
     post:
       tags:
-        - Views
+        - Views and Folders
       summary: "Edit view data"
       description: "Edit view data"
       parameters:
@@ -2021,11 +2017,11 @@ definitions:
         example: false
       admin:
         type: boolean
-        description: marks the folder as visible only to key admins
+        description: (Not implemented yet) marks the folder as visible only to key admins
         example: true
       icon:
         type: "string"
-        description: based 64 encoded SVG
+        description: (Not implemented yet) based 64 encoded SVG
   FolderFull:
     description: Single folder full properties
     type: "object"
@@ -2191,7 +2187,7 @@ definitions:
           example: admin
         state:
           type: string
-          example: active
+          examples: active, pending invitation
   UDFList:
     description: list of UDFs
     type: array
