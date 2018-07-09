@@ -157,6 +157,18 @@
             <a href="#tag-Views">Views</a>
             <ul>
               <li>
+                <a href="#operation--services--service_id--folders-get"> List View Folders </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--folders--folder_id---get"> Get Folder details (Not implemented yet) </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--folders--folder_id---delete"> Delete Folder (Not implemented yet) </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--folders--folder_id--views-post"> Add view to selected folder </a>
+              </li>
+              <li>
                 <a href="#operation--services--service_id--views-get"> List Views </a>
               </li>
               <li>
@@ -208,28 +220,6 @@
             <ul>
               <li>
                 <a href="#operation--services--service_id--deployments-get"> List Deployments </a>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <a href="#tag-View-Folders">View Folders</a>
-            <ul>
-              <li>
-                <a href="#operation--services--service_id--folders-get"> List View Folders </a>
-              </li>
-              <li>
-                <a href="#operation--services--service_id--folders--folder_id--views-post"> Add view to selected folder </a>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <a href="#tag-VFs">VFs</a>
-            <ul>
-              <li>
-                <a href="#operation--services--service_id--folders-get"> List View Folders </a>
-              </li>
-              <li>
-                <a href="#operation--services--service_id--folders--folder_id--views-post"> Add view to selected folder </a>
               </li>
             </ul>
           </section>
@@ -4117,6 +4107,412 @@
               <p>Fetching information about the views</p>
             </div>
           </div>
+          <div id="operation--services--service_id--folders-get" class="operation panel" data-traverse-target="operation--services--service_id--folders-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Views">Views</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List View Folders</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{service_id}/folders</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List View Folders</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of folders and their info</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>undefined</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;folders&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;B345&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
+        <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;views&quot;</span>: [
+          {
+            <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
+            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
+            <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+          }
+        ]
+      }
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--folders--folder_id---get" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id---get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Views">Views</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get Folder details (Not implemented yet)</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Get Folder details (Not implemented yet)</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">folder_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Folder">Folder</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Folder info</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>undefined</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;B345&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
+  <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;views&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
+      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--folders--folder_id---delete" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id---delete">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Views">Views</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Delete Folder (Not implemented yet)</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Delete Folder (Not implemented yet)</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">folder_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>undefined</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>undefined</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--folders--folder_id--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id--views-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Views">Views</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add view to selected folder</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/views</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add view to selected folder</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>View ID (string)</p>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">folder_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>View folder to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;P12&quot;</span>
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>undefined</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>NOT FOUND</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
           <div id="operation--services--service_id--views-get" class="operation panel" data-traverse-target="operation--services--service_id--views-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -4269,10 +4665,10 @@
                 <section class="swagger-responses">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">201 Created</div>
+                      <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>CREATED</p>
+                      <p>OK</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4403,46 +4799,19 @@
       <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
       <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">&quot;default&quot;</span>: <span class="hljs-literal">false</span>,
-      <span class="hljs-attr">&quot;filters&quot;</span>: [
-        {
-          <span class="hljs-attr">&quot;general_example&quot;</span>: {
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LABELS&quot;</span>,
-            <span class="hljs-attr">&quot;value&quot;</span>: [
-              <span class="hljs-string">&quot;JIRA&quot;</span>,
-              <span class="hljs-string">&quot;CRITICAL&quot;</span>,
-              <span class="hljs-string">&quot;QA&quot;</span>
-            ]
+      <span class="hljs-attr">&quot;filters&quot;</span>: {
+        <span class="hljs-attr">&quot;event_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;first_seen&quot;</span>: {
+          <span class="hljs-attr">&quot;absolute&quot;</span>: {
+            <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
+            <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
           },
-          <span class="hljs-attr">&quot;event_type_example&quot;</span>: {
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;EVENT TYPE&quot;</span>,
-            <span class="hljs-attr">&quot;value&quot;</span>: [
-              <span class="hljs-string">&quot;Uncaught exceptions&quot;</span>,
-              <span class="hljs-string">&quot;Swallowed Exceptions&quot;</span>
-            ],
-            <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Supported values - Uncaught exceptions, Caught exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers.&quot;</span>
-          },
-          <span class="hljs-attr">&quot;first_seen_custom_example&quot;</span>: {
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;FIRST SEEN CUSTOM&quot;</span>,
-            <span class="hljs-attr">&quot;value&quot;</span>: [
-              <span class="hljs-string">&quot;from= 2018-02-28T22:47:09.038+02:00&quot;</span>,
-              <span class="hljs-string">&quot;to=2018-02-28T22:47:09.038+02:00&quot;</span>
-            ],
-            <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;use this example to define FIRST SEEN CUSTOM filter with fixed time range&quot;</span>
-          },
-          <span class="hljs-attr">&quot;first_seen_preset_example&quot;</span>: {
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;FIRST SEEN PRESET&quot;</span>,
-            <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;last_hour&quot;</span>,
-            <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;use this example to define FIRST SEEN PRESET filter. Available presets - last_hour, last_24h, last_7d, last_30d&quot;</span>
-          },
-          <span class="hljs-attr">&quot;search_example&quot;</span>: {
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;SEARCH&quot;</span>,
-            <span class="hljs-attr">&quot;value&quot;</span>: [
-              <span class="hljs-string">&quot;Can not find&quot;</span>
-            ],
-            <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;use this example to define SEARCH filter - only single search value can be defined&quot;</span>
-          }
-        }
-      ],
+          <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
+        },
+        <span class="hljs-attr">&quot;labels&quot;</span>: [
+          <span class="hljs-string">&quot;Jira&quot;</span>
+        ]
+      },
       <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>
     }
@@ -5712,428 +6081,6 @@
               </div>
             </div>
           </div>
-          <h1 id="tag-View-Folders" class="swagger-summary-tag" data-traverse-target="tag-View-Folders">View Folders</h1>
-          <div id="operation--services--service_id--folders-get" class="operation panel" data-traverse-target="operation--services--service_id--folders-get">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-View-Folders">View Folders</a>
-              <!--, -->
-              <a class="label" href="#tag-VFs">VFs</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">List View Folders</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/folders</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>List View Folders</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>List of VF names</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;vf_names&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;name&quot;</span>: {
-        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;BDCICD&quot;</span>,
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
-        <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;views&quot;</span>: [
-          {
-            <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-            <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
-          }
-        ]
-      }
-    }
-  ]
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="operation--services--service_id--folders--folder_id--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id--views-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-View-Folders">View Folders</a>
-              <!--, -->
-              <a class="label" href="#tag-VFs">VFs</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Add view to selected folder</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/views</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Add view to selected folder</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <p>View ID (string)</p>
-                </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">folder_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>View folder to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;P12&quot;</span>
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">201 Created</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>CREATED</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>NOT FOUND</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
-            </div>
-          </div>
-          <h1 id="tag-VFs" class="swagger-summary-tag" data-traverse-target="tag-VFs">VFs</h1>
-          <div id="operation--services--service_id--folders-get" class="operation panel" data-traverse-target="operation--services--service_id--folders-get">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-View-Folders">View Folders</a>
-              <!--, -->
-              <a class="label" href="#tag-VFs">VFs</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">List View Folders</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/folders</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>List View Folders</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>List of VF names</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;vf_names&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;name&quot;</span>: {
-        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;BDCICD&quot;</span>,
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
-        <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;views&quot;</span>: [
-          {
-            <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-            <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
-          }
-        ]
-      }
-    }
-  ]
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="operation--services--service_id--folders--folder_id--views-post" class="operation panel" data-traverse-target="operation--services--service_id--folders--folder_id--views-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-View-Folders">View Folders</a>
-              <!--, -->
-              <a class="label" href="#tag-VFs">VFs</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Add view to selected folder</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/folders/{folder_id}/views</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Add view to selected folder</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <p>View ID (string)</p>
-                </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">folder_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>View folder to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;P12&quot;</span>
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">201 Created</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>CREATED</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>undefined</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>NOT FOUND</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
-            </div>
-          </div>
           <h1 id="tag-Labels" class="swagger-summary-tag" data-traverse-target="tag-Labels">Labels</h1>
           <div id="operation--services--service_id--labels-get" class="operation panel" data-traverse-target="operation--services--service_id--labels-get">
             <!-- <section class="operation-tags row"> -->
@@ -7012,22 +6959,11 @@
                     <dt data-property-name="filters">
                       <span class="json-property-name">filters:</span>
                       <span class="json-property-type">
-                        <span class="json-schema-ref-array">
+                        <span class="">
                           <a class="json-schema-ref" href="#/definitions/Filter">Filter</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt class="json-inner-schema">
-                      <section class="json-schema-array-items">
-                        <span class="json-property-type">
-                          <span class="">
-                            <a class="json-schema-ref" href="#/definitions/Filter">Filter</a>
-                          </span>
-                        </span>
-                        <span class="json-property-range" title="Value limits"></span>
-                        <div class="json-inner-schema"> </div>
-                      </section>
                     </dt>
                     <dt data-property-name="alert_on_new" class="has-description">
                       <span class="json-property-name">alert_on_new:</span>
@@ -7057,46 +6993,19 @@
   <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;default&quot;</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">&quot;filters&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;general_example&quot;</span>: {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LABELS&quot;</span>,
-        <span class="hljs-attr">&quot;value&quot;</span>: [
-          <span class="hljs-string">&quot;JIRA&quot;</span>,
-          <span class="hljs-string">&quot;CRITICAL&quot;</span>,
-          <span class="hljs-string">&quot;QA&quot;</span>
-        ]
+  <span class="hljs-attr">&quot;filters&quot;</span>: {
+    <span class="hljs-attr">&quot;event_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;first_seen&quot;</span>: {
+      <span class="hljs-attr">&quot;absolute&quot;</span>: {
+        <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
+        <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
       },
-      <span class="hljs-attr">&quot;event_type_example&quot;</span>: {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;EVENT TYPE&quot;</span>,
-        <span class="hljs-attr">&quot;value&quot;</span>: [
-          <span class="hljs-string">&quot;Uncaught exceptions&quot;</span>,
-          <span class="hljs-string">&quot;Swallowed Exceptions&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Supported values - Uncaught exceptions, Caught exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers.&quot;</span>
-      },
-      <span class="hljs-attr">&quot;first_seen_custom_example&quot;</span>: {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;FIRST SEEN CUSTOM&quot;</span>,
-        <span class="hljs-attr">&quot;value&quot;</span>: [
-          <span class="hljs-string">&quot;from= 2018-02-28T22:47:09.038+02:00&quot;</span>,
-          <span class="hljs-string">&quot;to=2018-02-28T22:47:09.038+02:00&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;use this example to define FIRST SEEN CUSTOM filter with fixed time range&quot;</span>
-      },
-      <span class="hljs-attr">&quot;first_seen_preset_example&quot;</span>: {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;FIRST SEEN PRESET&quot;</span>,
-        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;last_hour&quot;</span>,
-        <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;use this example to define FIRST SEEN PRESET filter. Available presets - last_hour, last_24h, last_7d, last_30d&quot;</span>
-      },
-      <span class="hljs-attr">&quot;search_example&quot;</span>: {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;SEARCH&quot;</span>,
-        <span class="hljs-attr">&quot;value&quot;</span>: [
-          <span class="hljs-string">&quot;Can not find&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;use this example to define SEARCH filter - only single search value can be defined&quot;</span>
-      }
-    }
-  ],
+      <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
+    },
+    <span class="hljs-attr">&quot;labels&quot;</span>: [
+      <span class="hljs-string">&quot;Jira&quot;</span>
+    ]
+  },
   <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>
 }
@@ -7141,7 +7050,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Indicates if this folder visible for all users under this key or only for the folder creator.</p>
+                      <p>Indicates whether this folder is visible for all users under this key or only for the folder creator.</p>
                     </dd>
                     <dt data-property-name="admin" class="has-description">
                       <span class="json-property-name">admin:</span>
@@ -7186,7 +7095,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;BDCICD&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;B345&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;My Folder&quot;</span>,
   <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
@@ -7221,36 +7130,84 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="name" class="has-description">
-                      <span class="json-property-name">name:</span>
+                    <dt data-property-name="event_type">
+                      <span class="json-property-name">event_type:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-enum" title="Possible values">
-                        <span class="json-property-enum-item">SERVERS</span>,
-                        <span class="json-property-enum-item">APPS</span>,
-                        <span class="json-property-enum-item">DEPLOYMENTS</span>,
-                        <span class="json-property-enum-item">FIRST SEEN CUSTOM</span>,
-                        <span class="json-property-enum-item">FIRST SEEN PRESET</span>,
-                        <span class="json-property-enum-item">EVENT TYPE</span>,
-                        <span class="json-property-enum-item">EVENT NAME</span>,
-                        <span class="json-property-enum-item">EVENT LOCATION</span>,
-                        <span class="json-property-enum-item">EVENT PACKAGE</span>,
-                        <span class="json-property-enum-item">ENTRY POINT</span>,
-                        <span class="json-property-enum-item">LABELS</span>,
-                        <span class="json-property-enum-item">INTRODUCED BY</span>,
-                        <span class="json-property-enum-item">SEARCH</span>
+                        <span class="json-property-enum-item">Uncaught Exceptions</span>,
+                        <span class="json-property-enum-item">Caught Exceptions</span>,
+                        <span class="json-property-enum-item">Swallowed Exceptions</span>,
+                        <span class="json-property-enum-item">Logged Warnings</span>,
+                        <span class="json-property-enum-item">Logged Errors</span>,
+                        <span class="json-property-enum-item">HTTP Errors</span>,
+                        <span class="json-property-enum-item">Timers</span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="first_seen" class="has-description">
+                      <span class="json-property-name">first_seen:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                     <dd>
-                      <p>Use a filter name from the list above.</p>
+                      <p>Defines the first time an event occured using a absolute time frame or a relative ime frame. If absolute time frame is defined, the relative will be ignored.</p>
                     </dd>
-                    <dt data-property-name="values" class="has-description">
-                      <span class="json-property-name">values:</span>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="absolute">
+                            <span class="json-property-name">absolute:</span>
+                            <span class="json-property-type">object</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="from" class="has-description">
+                                  <span class="json-property-name">from:</span>
+                                  <span class="json-property-type">string</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dd>
+                                  <p>Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                                </dd>
+                                <dt data-property-name="to" class="has-description">
+                                  <span class="json-property-name">to:</span>
+                                  <span class="json-property-type">string</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dd>
+                                  <p>End time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                                </dd>
+                              </dl>
+                            </section>
+                          </dt>
+                          <dt data-property-name="relative">
+                            <span class="json-property-name">relative:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-enum" title="Possible values">
+                              <span class="json-property-enum-item">last_hour</span>,
+                              <span class="json-property-enum-item">last_3h</span>,
+                              <span class="json-property-enum-item">last_6h</span>,
+                              <span class="json-property-enum-item">last_12h</span>,
+                              <span class="json-property-enum-item">last_24h</span>,
+                              <span class="json-property-enum-item">last_48h</span>,
+                              <span class="json-property-enum-item">last_7d</span>,
+                              <span class="json-property-enum-item">last_14d</span>,
+                              <span class="json-property-enum-item">last_30d</span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="labels" class="has-description">
+                      <span class="json-property-name">labels:</span>
                       <span class="json-property-type">string[]</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>The values that shall be filtered. Follow the examples to define proper value format that matches desired filter type.</p>
+                      <p>List of labels</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -7266,42 +7223,17 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;general_example&quot;</span>: {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LABELS&quot;</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: [
-      <span class="hljs-string">&quot;JIRA&quot;</span>,
-      <span class="hljs-string">&quot;CRITICAL&quot;</span>,
-      <span class="hljs-string">&quot;QA&quot;</span>
-    ]
+  <span class="hljs-attr">&quot;event_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;first_seen&quot;</span>: {
+    <span class="hljs-attr">&quot;absolute&quot;</span>: {
+      <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
+      <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
+    },
+    <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
   },
-  <span class="hljs-attr">&quot;event_type_example&quot;</span>: {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;EVENT TYPE&quot;</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: [
-      <span class="hljs-string">&quot;Uncaught exceptions&quot;</span>,
-      <span class="hljs-string">&quot;Swallowed Exceptions&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Supported values - Uncaught exceptions, Caught exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers.&quot;</span>
-  },
-  <span class="hljs-attr">&quot;first_seen_custom_example&quot;</span>: {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;FIRST SEEN CUSTOM&quot;</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: [
-      <span class="hljs-string">&quot;from= 2018-02-28T22:47:09.038+02:00&quot;</span>,
-      <span class="hljs-string">&quot;to=2018-02-28T22:47:09.038+02:00&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;use this example to define FIRST SEEN CUSTOM filter with fixed time range&quot;</span>
-  },
-  <span class="hljs-attr">&quot;first_seen_preset_example&quot;</span>: {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;FIRST SEEN PRESET&quot;</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;last_hour&quot;</span>,
-    <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;use this example to define FIRST SEEN PRESET filter. Available presets - last_hour, last_24h, last_7d, last_30d&quot;</span>
-  },
-  <span class="hljs-attr">&quot;search_example&quot;</span>: {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;SEARCH&quot;</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: [
-      <span class="hljs-string">&quot;Can not find&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;use this example to define SEARCH filter - only single search value can be defined&quot;</span>
-  }
+  <span class="hljs-attr">&quot;labels&quot;</span>: [
+    <span class="hljs-string">&quot;Jira&quot;</span>
+  ]
 }
 </code></pre>
                   <!-- </div> -->

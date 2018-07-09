@@ -935,22 +935,55 @@ paths:
         required: true
     get:
       tags:
-        - View Folders
-        - VFs
+        - Views
       summary: "List View Folders"
       description: "List View Folders"
       responses:
         200:
-          description: List of VF names
+          description: List of folders and their info
           schema:
             properties:
-              vf_names:
+              folders:
                 type: "array"
                 items:
                   type: "object"
                   properties:
                     name:
                       $ref: "#/definitions/Folder"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/folders/{folder_id}/:
+    parameters:
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: folder_id
+        description: Environment to use
+        type: string
+        required: true
+    get:
+      tags:
+        - Views
+      summary: "Get Folder details (Not implemented yet)"
+      description: "Get Folder details (Not implemented yet)"
+      responses:
+        200:
+          description: Folder info
+          schema:
+            $ref: "#/definitions/Folder"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags:
+        - Views
+      summary: "Delete Folder (Not implemented yet)"
+      description: "Delete Folder (Not implemented yet)"
+      responses:
+        200:
+          OK
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/folders/{folder_id}/views:
@@ -967,8 +1000,7 @@ paths:
         required: true
     post:
       tags:
-        - View Folders
-        - VFs
+        - Views
       summary: "Add view to selected folder"
       description: "Add view to selected folder"
       parameters:
@@ -980,8 +1012,8 @@ paths:
             example: P12
           required: true
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
         404:
           description: NOT FOUND
         401:
@@ -1022,8 +1054,8 @@ paths:
             properties:
               $ref: "#/definitions/ViewFull"
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
         400:
           description: BAD INPUT
         409:
@@ -1079,9 +1111,7 @@ paths:
                       description: TBD - NOT YET IMPLEMENTED
                       example: false
                     filters:
-                      type: "array"
-                      items:
-                        $ref: "#/definitions/Filter"
+                      $ref: "#/definitions/Filter"
                     alert_on_new:
                       type: boolean
                       description: TBD - NOT YET IMPLEMENTED
@@ -1741,9 +1771,7 @@ definitions:
         description: TBD - NOT YET IMPLEMENTED
         example: false
       filters:
-        type: "array"
-        items:
-          $ref: "#/definitions/Filter"
+        $ref: "#/definitions/Filter"
       alert_on_new:
         type: boolean
         description: TBD - NOT YET IMPLEMENTED
@@ -1758,14 +1786,14 @@ definitions:
     properties:
       id:
         type: String
-        example: BDCICD
+        example: B345
       name:
         type: "string"
         description: Folder Name
         example: My Folder
       shared:
         type: boolean
-        description: Indicates if this folder visible for all users under this key or only for the folder creator.
+        description: Indicates whether this folder is visible for all users under this key or only for the folder creator.
         example: false
       admin:
         type: boolean
@@ -1780,37 +1808,36 @@ definitions:
           $ref: "#/definitions/ViewBasic"
   Filter:
     description: Filter properties
-    type: "object"
+    type: object
     properties:
-      name:
-        type: "string"
-        description: Use a filter name from the list above.
-        enum: [SERVERS, APPS, DEPLOYMENTS, FIRST SEEN CUSTOM, FIRST SEEN PRESET, EVENT TYPE, EVENT NAME, EVENT LOCATION, EVENT PACKAGE, ENTRY POINT, LABELS, INTRODUCED BY, SEARCH]
-      values:
-        type: "array"
-        description: The values that shall be filtered. Follow the examples to define proper value format that matches desired filter type.
+      event_type:
+        type: string
+        enum: [Uncaught Exceptions, Caught Exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers]
+      first_seen:
+        type: object
+        description: Defines the first time an event occured using a absolute time frame or a relative ime frame. If absolute time frame is defined, the relative will be ignored.
+        properties:
+          absolute:
+            type: object
+            properties:
+              from:
+                type: string
+                description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                example: 2018-02-28T22:47:09.038+02:00
+              to:
+                type: string
+                description: End time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                example: 2018-02-28T22:47:09.038+02:00
+          relative:
+            type: string
+            enum: [last_hour, last_3h, last_6h, last_12h, last_24h, last_48h, last_7d, last_14d, last_30d]
+            example: "last_6h"
+      labels:
+        type: array
+        description: List of labels
         items:
-          type: "string"
-    example:
-      general_example:
-        name: LABELS
-        value: ["JIRA", "CRITICAL", "QA"]
-      event_type_example:
-        name: EVENT TYPE
-        value: ["Uncaught exceptions", "Swallowed Exceptions"]
-        summary: Supported values - Uncaught exceptions, Caught exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers.
-      first_seen_custom_example:
-        name: FIRST SEEN CUSTOM
-        value: ["from= 2018-02-28T22:47:09.038+02:00", "to=2018-02-28T22:47:09.038+02:00"]
-        summary: use this example to define FIRST SEEN CUSTOM filter with fixed time range
-      first_seen_preset_example:
-        name: FIRST SEEN PRESET
-        value: last_hour
-        summary: use this example to define FIRST SEEN PRESET filter. Available presets - last_hour, last_24h, last_7d, last_30d
-      search_example:
-        name: SEARCH
-        value: ["Can not find"]
-        summary: use this example to define SEARCH filter - only single search value can be defined
+          type: string
+          example: Jira
   Event:
     description: An exception, logged error and more
     type: object
