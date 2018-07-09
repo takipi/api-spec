@@ -182,7 +182,7 @@ paths:
             required: true
           - in: body
             name: team_members
-            description: list of team team_members
+            description: list of team members
             schema:
               properties:
                 $ref: "#/definitions/TeamMembers"
@@ -1252,7 +1252,7 @@ paths:
           $ref: "#/definitions/NotFoundError"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views/{view_id}/events/:
+  /services/{service_id}/views/{view_id}/events:
       get:
         tags:
           - Events
@@ -2167,7 +2167,7 @@ definitions:
       key_name:
         type: string
         example: Pre-prod
-      fullkey:
+      full_key:
         type: string
         example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   TeamMembers:
