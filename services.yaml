@@ -1290,7 +1290,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
-  /services/{service_id}/views/{view_id}/anomaly:
+  /services/{service_id}/alerts/{view_id}/anomaly:
     post:
       tags:
         - Alerts
