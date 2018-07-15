@@ -926,7 +926,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/folders:
+  /services/{service_id}/categories:
     parameters:
       - in: path
         name: service_id
@@ -936,23 +936,23 @@ paths:
     get:
       tags:
         - Views
-      summary: "List View Folders"
-      description: "List View Folders"
+      summary: "List categories"
+      description: "List view categories"
       responses:
         200:
-          description: List of folders and their info
+          description: List of View Categories and their info
           schema:
             properties:
-              folders:
+              categories:
                 type: "array"
                 items:
                   type: "object"
                   properties:
                     name:
-                      $ref: "#/definitions/Folder"
+                      $ref: "#/definitions/Category"
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/folders/{folder_id}/:
+  /services/{service_id}/categories/{category_id}/:
     parameters:
       - in: path
         name: service_id
@@ -960,33 +960,33 @@ paths:
         type: string
         required: true
       - in: path
-        name: folder_id
+        name: category_id
         description: Environment to use
         type: string
         required: true
     get:
       tags:
         - Views
-      summary: "Get Folder details (Not implemented yet)"
-      description: "Get Folder details (Not implemented yet)"
+      summary: "Get category details (Not implemented yet)"
+      description: "Get category details (Not implemented yet)"
       responses:
         200:
-          description: Folder info
+          description: Category info
           schema:
-            $ref: "#/definitions/Folder"
+            $ref: "#/definitions/Category"
         401:
           $ref: "#/definitions/UnauthorizedError"
     delete:
       tags:
         - Views
-      summary: "Delete Folder (Not implemented yet)"
-      description: "Delete Folder (Not implemented yet)"
+      summary: "Delete category (Not implemented yet)"
+      description: "Delete category (Not implemented yet)"
       responses:
         200:
           OK
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/folders/{folder_id}/views:
+  /services/{service_id}/categories/{category_id}/views:
     parameters:
       - in: path
         name: service_id
@@ -994,15 +994,15 @@ paths:
         type: string
         required: true
       - in: path
-        name: folder_id
-        description: View folder to use
+        name: category
+        description: View category to use
         type: string
         required: true
     post:
       tags:
         - Views
-      summary: "Add view to selected folder"
-      description: "Add view to selected folder"
+      summary: "Add view to selected category"
+      description: "Add view to selected category"
       parameters:
         - in: body
           description: View ID (string)
@@ -1028,8 +1028,8 @@ paths:
     get:
       tags:
         - Views
-      summary: "List Views"
-      description: "List Views"
+      summary: "List views"
+      description: "List views"
       responses:
         200:
           description: List of views including basic info about each view.
@@ -1044,8 +1044,8 @@ paths:
     post:
       tags:
         - Views
-      summary: "Create View"
-      description: "Create View"
+      summary: "Create view"
+      description: "Create view"
       parameters:
         - in: body
           name: view
@@ -1077,7 +1077,7 @@ paths:
     get:
       tags:
         - Views
-      summary: "Get View properties"
+      summary: "Get view properties"
       description: "Get full list of view properties"
       responses:
         200:
@@ -1780,8 +1780,8 @@ definitions:
         type: boolean
         description: TBD - NOT YET IMPLEMENTED
         example: true
-  Folder:
-    description: Single folder properties
+  Category:
+    description: Single category properties
     type: "object"
     properties:
       id:
@@ -1789,15 +1789,15 @@ definitions:
         example: B345
       name:
         type: "string"
-        description: Folder Name
-        example: My Folder
+        description: Category Name
+        example: CI/CD
       shared:
         type: boolean
-        description: Indicates whether this folder is visible for all users under this key or only for the folder creator.
+        description: Indicates whether this category is visible for all users under this key or only for the category creator.
         example: false
       admin:
         type: boolean
-        description: marks the folder as visible only to key admins
+        description: marks the category as visible only to key admins
         example: true
       icon:
         type: "string"
