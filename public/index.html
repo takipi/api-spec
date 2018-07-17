@@ -211,7 +211,7 @@
                 <a href="#operation--services--service_id--events--event_id--get"> Fetch event data </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--events--event_id--restart-snapshots-post"> Restart Event Snapshots </a>
+                <a href="#operation--services--service_id--events--event_id--force-snapshot-post"> Force Event Snapshot </a>
               </li>
             </ul>
           </section>
@@ -4633,7 +4633,22 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ViewFull">ViewFull</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Single view properties</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -4654,7 +4669,43 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{}
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;This is a DB Errors View&quot;</span>,
+  <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;default&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;filters&quot;</span>: {
+    <span class="hljs-attr">&quot;event_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;first_seen&quot;</span>: {
+      <span class="hljs-attr">&quot;absolute&quot;</span>: {
+        <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
+        <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
+      },
+      <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
+    },
+    <span class="hljs-attr">&quot;labels&quot;</span>: [
+      <span class="hljs-string">&quot;Jira&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;servers&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;apps&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;deployments&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;event_name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;event_location&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;event_package&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;entry_point&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;introduced_by&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;search&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  },
+  <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>
+}
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -4810,7 +4861,22 @@
         },
         <span class="hljs-attr">&quot;labels&quot;</span>: [
           <span class="hljs-string">&quot;Jira&quot;</span>
-        ]
+        ],
+        <span class="hljs-attr">&quot;servers&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;apps&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;deployments&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;event_name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;event_location&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;event_package&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;entry_point&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;introduced_by&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;search&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
       },
       <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>
@@ -5921,7 +5987,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--events--event_id--restart-snapshots-post" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--restart-snapshots-post">
+          <div id="operation--services--service_id--events--event_id--force-snapshot-post" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--force-snapshot-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -5931,20 +5997,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Restart Event Snapshots</span>
+              <span class="operation-summary">Force Event Snapshot</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/events/{event_id}/restart-snapshots</span>
+                  <span class="operation-path">/services/{service_id}/events/{event_id}/force-snapshot</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Restart Event Snapshots</p>
+                  <p>Force snapshot on the next time the event occurs</p>
                 </section>
               </div>
             </div>
@@ -7004,7 +7070,22 @@
     },
     <span class="hljs-attr">&quot;labels&quot;</span>: [
       <span class="hljs-string">&quot;Jira&quot;</span>
-    ]
+    ],
+    <span class="hljs-attr">&quot;servers&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;apps&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;deployments&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;event_name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;event_location&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;event_package&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;entry_point&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;introduced_by&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;search&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
   },
   <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>
@@ -7216,6 +7297,99 @@
                         <div class="json-inner-schema"> </div>
                       </section>
                     </dt>
+                    <dt data-property-name="servers" class="has-description">
+                      <span class="json-property-name">servers:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>(Not implemented yet) List of server names</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="apps" class="has-description">
+                      <span class="json-property-name">apps:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>(Not implemented yet) List of application names</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="deployments" class="has-description">
+                      <span class="json-property-name">deployments:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>(Not implemented yet) List of deployment names</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="event_name" class="has-description">
+                      <span class="json-property-name">event_name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>(Not implemented yet) Event name</p>
+                    </dd>
+                    <dt data-property-name="event_location" class="has-description">
+                      <span class="json-property-name">event_location:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>(Not implemented yet) Event location</p>
+                    </dd>
+                    <dt data-property-name="event_package" class="has-description">
+                      <span class="json-property-name">event_package:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>(Not implemented yet) Event package</p>
+                    </dd>
+                    <dt data-property-name="entry_point" class="has-description">
+                      <span class="json-property-name">entry_point:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>(Not implemented yet) Entry_point</p>
+                    </dd>
+                    <dt data-property-name="introduced_by" class="has-description">
+                      <span class="json-property-name">introduced_by:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>(Not implemented yet) Introduced by</p>
+                    </dd>
+                    <dt data-property-name="search" class="has-description">
+                      <span class="json-property-name">search:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>(Not implemented yet) Free text search</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -7233,7 +7407,22 @@
   },
   <span class="hljs-attr">&quot;labels&quot;</span>: [
     <span class="hljs-string">&quot;Jira&quot;</span>
-  ]
+  ],
+  <span class="hljs-attr">&quot;servers&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;apps&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;deployments&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;event_name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;event_location&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;event_package&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;entry_point&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;introduced_by&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;search&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->

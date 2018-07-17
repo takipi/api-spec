@@ -1051,8 +1051,7 @@ paths:
           name: view
           description: Single view properties
           schema:
-            properties:
-              $ref: "#/definitions/ViewFull"
+            $ref: "#/definitions/ViewFull"
       responses:
         200:
           description: OK
@@ -1660,7 +1659,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
-  /services/{service_id}/events/{event_id}/restart-snapshots:
+  /services/{service_id}/events/{event_id}/force-snapshot:
     parameters:
         - in: path
           name: service_id
@@ -1675,8 +1674,8 @@ paths:
     post:
       tags:
         - Events
-      summary: Restart Event Snapshots
-      description: Restart Event Snapshots
+      summary: Force Event Snapshot
+      description: Force snapshot on the next time the event occurs
       responses:
         200:
           description: OK
@@ -1838,6 +1837,39 @@ definitions:
         items:
           type: string
           example: Jira
+      servers:
+        type: array
+        description: (Not implemented yet) List of server names
+        items:
+          type: string
+      apps:
+        type: array
+        description: (Not implemented yet) List of application names
+        items:
+          type: string
+      deployments:
+        type: array
+        description: (Not implemented yet) List of deployment names
+        items:
+          type: string
+      event_name:
+        type: string
+        description: (Not implemented yet) Event name
+      event_location:
+        type: string
+        description: (Not implemented yet) Event location
+      event_package:
+        type: string
+        description: (Not implemented yet) Event package
+      entry_point:
+        type: string
+        description: (Not implemented yet) Entry_point
+      introduced_by:
+        type: string
+        description: (Not implemented yet) Introduced by
+      search:
+        type: string
+        description: (Not implemented yet) Free text search
   Event:
     description: An exception, logged error and more
     type: object
