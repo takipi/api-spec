@@ -55,17 +55,13 @@ paths:
           schema:
             properties:
               udf_list:
-                $ref: "#/definitions/UDFList"
+                type: "array"
+                items:
+                  $ref: "#/definitions/UDF"
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /global-settings/udfs/create/{udf_name}:
-    parameters:
-      - in: path
-        name: udf_name
-        description: udf name
-        type: string
-    put:
+    post:
       tags:
         - UDFs
       summary: Add a new UDF
@@ -82,13 +78,27 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /global-settings/udfs/{udf_name}:
+  /global-settings/udfs/{udf_id}:
     parameters:
       - in: path
         name: udf_name
         description: Name of UDF to be used
         type: string
         required: true
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF properties
+      description: Get UDF (User Defined Function) properties
+      responses:
+        200:
+          description: UDF Properties
+          schema:
+            properties:
+              $ref: "#/definitions/UDF"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
     delete:
       tags:
         - UDFs
@@ -107,6 +117,12 @@ paths:
         - General
       summary: "List all services accessible by the user"
       description: "List all services"
+      parameters:
+        - in: query
+          name: service_key_name
+          description: Service key name
+          type: string
+          required: false
       responses:
         200:
           description: List of all accessible services
@@ -1823,7 +1839,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
-  /services/{service_id}/events/{event_id}/restart-snapshots:
+  /services/{service_id}/events/{event_id}/force-snapshot:
     parameters:
         - in: path
           name: service_id
@@ -1838,8 +1854,8 @@ paths:
     post:
       tags:
         - Events
-      summary: Restart Event Snapshots
-      description: Restart Event Snapshots
+      summary: Force Event Snapshot
+      description: Force snapshot on the next time the event occurs
       responses:
         200:
           description: OK
@@ -1857,21 +1873,17 @@ paths:
           schema:
             properties:
               udf_list:
-                $ref: "#/definitions/UDFList"
+                type: "array"
+                items:
+                  $ref: "#/definitions/UDF"
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/udfs/create/{udf_name}:
-    parameters:
-      - in: path
-        name: udf_name
-        description: udf name
-        type: string
-    put:
+    post:
       tags:
         - UDFs
-      summary: Add a new UDF to a service key
-      description: Add a new UDF under specified service key
+      summary: Add a new UDF
+      description: Add a new UDF
       requestBody:
         content:
           application/octet-stream:
@@ -1884,13 +1896,27 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/udfs/{udf_name}:
+  /services/{service_id}/udfs/{udf_id}:
     parameters:
       - in: path
         name: udf_name
         description: Name of UDF to be used
         type: string
         required: true
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF properties
+      description: Get UDF (User Defined Function) properties
+      responses:
+        200:
+          description: UDF Properties
+          schema:
+            properties:
+              $ref: "#/definitions/UDF"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
     delete:
       tags:
         - UDFs
@@ -2188,38 +2214,39 @@ definitions:
         state:
           type: string
           examples: active, pending invitation
-  UDFList:
-    description: list of UDFs
-    type: array
-    items:
-      type: object
-      properties:
-        version:
-          type: string
-          example: 1.0
-        backwards_compatible:
-          type: string
-          example: true
-        function_type:
-          type: string
-          example: ANOMALY
-        short_description:
-          type: string
-          example: Relative Threshold
-        long_description:
-          type: string
-          example: This function compares the volume of events against an absolute threshold
-        param_type:
-          type: string
-          example: TEXT
-        default_params:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                example: X
-              default_value:
-                type: string
-                example: 100
+  UDF:
+    description: UDF Properties
+    type: object
+    properties:
+      id:
+        type: string
+        example: L34
+      version:
+        type: string
+        example: 1.0
+      backwards_compatible:
+        type: string
+        example: true
+      function_type:
+        type: string
+        example: ANOMALY
+      short_description: #this is the udf name
+        type: string
+        example: Relative Threshold
+      long_description:
+        type: string
+        example: This function compares the volume of events against an absolute threshold
+      param_type:
+        type: string
+        example: TEXT
+      default_params:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              example: X
+            default_value:
+              type: string
+              example: 100
