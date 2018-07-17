@@ -1809,9 +1809,6 @@ definitions:
     description: Filter properties
     type: object
     properties:
-      event_type:
-        type: string
-        enum: [Uncaught Exceptions, Caught Exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers]
       first_seen:
         type: object
         description: Defines the first time an event occured using a absolute time frame or a relative ime frame. If absolute time frame is defined, the relative will be ignored.
@@ -1837,36 +1834,60 @@ definitions:
         items:
           type: string
           example: Jira
+      event_type:
+        type: array
+        description: List of event types
+        items:
+          type: string
+          enum: [Uncaught Exceptions, Caught Exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers]
+          example: Swallowed Exceptions
+      event_name:
+        type: array
+        description: (Not implemented yet) List of event names
+        items:
+          type: string
+          example: IndexOutOfBoundsException
+      event_location:
+        type: array
+        description: (Not implemented yet) List of event locations
+        items:
+          type: string
+          example: DotConnect
+      event_package:
+        type: array
+        description: (Not implemented yet) List of event packages
+        items:
+          type: string
+          example: com.dotmarketing.servlets
+      entry_point:
+        type: array
+        description: (Not implemented yet) List of entrypoints
+        items:
+          type: string
       servers:
         type: array
         description: (Not implemented yet) List of server names
         items:
           type: string
+          example: na-dotCMS-2
       apps:
         type: array
         description: (Not implemented yet) List of application names
         items:
           type: string
+          example: API
       deployments:
         type: array
         description: (Not implemented yet) List of deployment names
         items:
           type: string
-      event_name:
-        type: string
-        description: (Not implemented yet) Event name
-      event_location:
-        type: string
-        description: (Not implemented yet) Event location
-      event_package:
-        type: string
-        description: (Not implemented yet) Event package
-      entry_point:
-        type: string
-        description: (Not implemented yet) Entry_point
+          example: 2018-04-11-2
       introduced_by:
-        type: string
-        description: (Not implemented yet) Introduced by
+        type: array
+        description: (Not implemented yet) Filters events by deployment they originated in
+        items:
+          type: string
+          example: Unnamed Deployment
       search:
         type: string
         description: (Not implemented yet) Free text search
