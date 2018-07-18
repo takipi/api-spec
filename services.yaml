@@ -56,8 +56,8 @@ paths:
     get:
       tags:
         - General
-      summary: "Get information about the service"
-      description: "Get information about the service"
+      summary: "Get information about the service (Not yet implemented)"
+      description: "Get information about the service (Not yet implemented)"
       parameters:
           - in: path
             name: service_id
@@ -976,6 +976,8 @@ paths:
             $ref: "#/definitions/Category"
         401:
           $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
     delete:
       tags:
         - Views
@@ -986,6 +988,8 @@ paths:
           OK
         401:
           $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
   /services/{service_id}/categories/{category_id}/views:
     parameters:
       - in: path
@@ -1016,6 +1020,8 @@ paths:
           description: OK
         404:
           description: NOT FOUND
+        403:
+          $ref: "#/definitions/ForbiddenError"
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
@@ -1121,6 +1127,10 @@ paths:
                       example: true
         401:
           $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
+        404:
+          $ref: "#/definitions/NotFoundError"
     post:
       tags:
         - Views
@@ -1136,10 +1146,12 @@ paths:
       responses:
         200:
           description: OK
-        404:
-          $ref: "#/definitions/NotFoundError"
         401:
           $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
+        404:
+          $ref: "#/definitions/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
@@ -1708,6 +1720,19 @@ definitions:
       message:
         type: string
         example: Resource Not Found
+  ForbiddenError:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        example: 403
+      type:
+        type: string
+        example: Access forbidden
+      message:
+        type: string
+        example: Access forbidden
   Pattern:
     description: A data redaction pattern used to define PII RegEx
     type: object
