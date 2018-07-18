@@ -31,7 +31,7 @@ tags:
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
   - name: Views and Folders
-    description: Fetching information about the views and view folders
+    description: Fetching information about the views and view categories
   - name: View Metrics
     description: Fetching data points about views in order to plot graphs
   - name: Alerts
@@ -81,7 +81,7 @@ paths:
   /global-settings/udfs/{udf_id}:
     parameters:
       - in: path
-        name: udf_name
+        name: udf_id
         description: Name of UDF to be used
         type: string
         required: true
@@ -158,6 +158,24 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}:
+    get:
+      tags:
+        - General
+      summary: "Get information about the service (Not yet implemented)"
+      description: "Get information about the service (Not yet implemented)"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+      responses:
+        200:
+          description: TBD
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/team:
     get:
       tags:
@@ -171,7 +189,7 @@ paths:
             type: string
             required: true
           - in: query
-            name: team_member_email
+            name: email
             description: Team Member Email
             type: string
             required: false
@@ -229,8 +247,13 @@ paths:
     get:
       tags:
         - General
-      summary: "List Deployments"
-      description: "List Deployments"
+      summary: "List deployments"
+      description: "List deployments"
+      parameters:
+        - in: query
+          name: active
+          description: Show only active deployments
+          type: boolean
       responses:
         200:
           description: List of deployments
@@ -242,6 +265,38 @@ paths:
                   $ref: "#/definitions/Deployment"
         401:
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/servers:
+    get:
+      tags:
+        - General
+      summary: "List servers (Not yet implemented)"
+      description: "List servers (Not yet implemented)"
+      parameters:
+        - in: query
+          name: active
+          description: Show only active servers
+          type: boolean
+      responses:
+        200:
+          description: TBD
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/applications:
+    get:
+      tags:
+        - General
+      summary: "List applications (Not yet implemented)"
+      description: "List applications (Not yet implemented)"
+      parameters:
+        - in: query
+          name: active
+          description: Show only active applications
+          type: boolean
+      responses:
+        200:
+          description: TBD
+        401:
+            $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
     get:
       tags:
@@ -1899,7 +1954,7 @@ paths:
   /services/{service_id}/udfs/{udf_id}:
     parameters:
       - in: path
-        name: udf_name
+        name: udf_id
         description: Name of UDF to be used
         type: string
         required: true
