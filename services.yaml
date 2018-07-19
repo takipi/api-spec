@@ -1141,7 +1141,6 @@ paths:
           name: view
           description: Single view properties
           schema:
-            properties:
               $ref: "#/definitions/ViewFull"
       responses:
         200:
@@ -1184,12 +1183,12 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: to
             type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: points
@@ -1231,7 +1230,7 @@ paths:
                         properties:
                           time:
                             type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
+                            example: "2018-02-28T22:47:09.038Z"
                           value:
                             type: "number"
                             example: 42
@@ -1270,17 +1269,18 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: to
             type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: points
             type: integer
             description: Number of data points to return within the interval
+            required: true
           - in: query
             name: server
             type: string
@@ -1316,7 +1316,7 @@ paths:
                         properties:
                           time:
                             type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
+                            example: "2018-02-28T22:47:09.038Z"
                           value:
                             type: "number"
                             example: 42
@@ -1355,12 +1355,12 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: to
             type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: points
@@ -1402,7 +1402,7 @@ paths:
                         properties:
                           time:
                             type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
+                            example: "2018-02-28T22:47:09.038Z"
                           value:
                             type: "number"
                             example: 42
@@ -1452,10 +1452,10 @@ paths:
                   properties:
                     from:
                       type: "string"
-                      example: "2018-02-28T22:47:09.038+02:00"
+                      example: "2018-02-28T22:47:09.038Z"
                     to:
                       type: "string"
-                      example: "2018-03-01T22:47:09.038+02:00"
+                      example: "2018-03-01T22:47:09.038Z"
                     name:
                       type: "string"
                       example: "Last day"
@@ -1472,10 +1472,10 @@ paths:
                             example: "1"
                           from:
                             type: "string"
-                            example: "2018-03-01T23:10:00.000+02:00"
+                            example: "2018-03-01T23:10:00.000Z"
                           to:
                             type: "string"
-                            example: "2018-03-01T24:10:00.000+02:00"
+                            example: "2018-03-01T24:10:00.000Z"
                     contributors:
                       type: "array"
                       items:
@@ -1527,8 +1527,7 @@ paths:
           name: label
           description: Single label
           schema:
-            properties:
-              $ref: "#/definitions/Label"
+            $ref: "#/definitions/Label"
       responses:
         200:
           description: OK
@@ -1683,6 +1682,62 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
+  /services/{service_id}/events/${event_id}/snapshot:
+    get:
+      tags:
+        - Events
+      summary: "Fetch event snapshot"
+      description: "Fetch event snapshot.
+        Fetches the last relevant snapshot for the specific filters provided.
+        All filters are optional."
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: event_id
+            description: Event to use
+            type: string
+            required: true
+          - in: query
+            name: from
+            type: string
+            description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          - in: query
+            name: to
+            type: integer
+            description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          - in: query
+            name: server
+            type: string
+            description: Server(s) added to the filter
+          - in: query
+            name: app
+            type: string
+            description: Application(s) added to the filter
+          - in: query
+            name: deployment
+            type: string
+            description: Deployment(s) added to the filter
+          - in: query
+            name: similar_event_id
+            type: string
+            description: Event(s) added to the filter
+      responses:
+        200:
+          description: Link to snapshot
+          schema:
+            type: "object"
+            properties:
+              link:
+                type: "string"
+                example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          $ref: "#/definitions/NotFoundError"
   /services/{service_id}/events/{event_id}/force-snapshot:
     parameters:
         - in: path
@@ -1943,7 +1998,7 @@ definitions:
         example: "NullPointerException"
       first_seen:
         type: "string"
-        example: "2018-02-28T22:47:09.038+02:00"
+        example: "2018-02-28T22:47:09.038Z"
       introduced_by:
         type: "string"
         example: "1.201.1"
