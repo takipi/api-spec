@@ -1753,13 +1753,47 @@ paths:
     post:
       tags:
         - Events
-      summary: Force Event Snapshot
+      summary: Force event snapshot
       description: Force snapshot on the next time the event occurs
       responses:
         200:
           description: OK
         401:
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/events/{event_id}/actions:
+    get:
+      tags:
+        - Events
+      summary: "Fetch event actions"
+      description: "Fetch event actions"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: event_id
+            description: Event to use
+            type: string
+            required: true
+          - in: query
+            name: type
+            description: Filter by specific type
+            type: string
+            required: false
+      responses:
+        200:
+          description: Event actions
+          schema:
+            actions:
+              type: "array"
+              items:
+                $ref: "#/definitions/EventAction"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          $ref: "#/definitions/NotFoundError"
 definitions:
   UnauthorizedError:
     type: object
@@ -2056,3 +2090,23 @@ definitions:
       method_desc:
         type: "string"
         example: "([Ljava/lang/String;)V"
+  EventAction:
+    properties:
+      type:
+        type: "string"
+        example: "Label"
+      action:
+        type: "string"
+        example: "Add Label"
+      data:
+        type: "string"
+        example: "Critical"
+      timestamp:
+        type: "string"
+        example: "2018-02-28T22:47:09.038Z"
+      initiator:
+        type: "string"
+        example: "joe@example.com"
+      initiator_type:
+        type: "string"
+        example: "User"
