@@ -1152,6 +1152,18 @@ paths:
           $ref: "#/definitions/ForbiddenError"
         404:
           $ref: "#/definitions/NotFoundError"
+    delete:
+      tags:
+        - Views
+      summary: "Delete view (Not implemented yet)"
+      description: "Delete view (Not implemented yet)"
+      responses:
+        200:
+          OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
