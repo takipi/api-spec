@@ -237,28 +237,28 @@
             <a href="#tag-UDFs">UDFs</a>
             <ul>
               <li>
-                <a href="#operation--global-settings-udfs-get"> List Available UDFs </a>
+                <a href="#operation--global-settings-udfs-get"> List available UDF libraries </a>
               </li>
               <li>
-                <a href="#operation--global-settings-udfs-post"> Add a new UDF </a>
+                <a href="#operation--global-settings-udfs-post"> Add a new UDF library </a>
               </li>
               <li>
-                <a href="#operation--global-settings-udfs--udf_id--get"> Get UDF properties </a>
+                <a href="#operation--global-settings-udfs--udf_id--get"> Get UDF library properties </a>
               </li>
               <li>
-                <a href="#operation--global-settings-udfs--udf_id--delete"> Remove UDF </a>
+                <a href="#operation--global-settings-udfs--udf_id--delete"> Remove UDF library </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--udfs-get"> List Available UDFs for a service key </a>
+                <a href="#operation--services--service_id--udfs-get"> List available UDF libraries for a service key </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--udfs-post"> Add a new UDF </a>
+                <a href="#operation--services--service_id--udfs-post"> Add a new UDF library </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--udfs--udf_id--get"> Get UDF properties </a>
+                <a href="#operation--services--service_id--udfs--udf_id--get"> Get UDF library properties </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--udfs--udf_id--delete"> Remove UDF from a service key </a>
+                <a href="#operation--services--service_id--udfs--udf_id--delete"> Remove UDF library from a service key </a>
               </li>
             </ul>
           </section>
@@ -304,6 +304,7 @@
           <a href="#definition-CodeLocation"> CodeLocation </a>
           <a href="#definition-ServiceBasic"> ServiceBasic </a>
           <a href="#definition-TeamMembers"> TeamMembers </a>
+          <a href="#definition-UDFLibrary"> UDFLibrary </a>
           <a href="#definition-UDF"> UDF </a>
         </nav>
       </div>
@@ -6728,7 +6729,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">List Available UDFs</span>
+              <span class="operation-summary">List available UDF libraries</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -6741,7 +6742,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List all available UDFs (User Defined Functions)</p>
+                  <p>List available UDF (User Defined Functions) libraries</p>
                 </section>
               </div>
             </div>
@@ -6755,11 +6756,26 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/UDFLibrary">UDFLibrary</a>
+                        </span>
+                      </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>UDF List</p>
+                      <p>UDF libraries list</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/UDFLibrary">UDFLibrary</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6777,25 +6793,27 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;udf_list&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
-      <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
-      <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
-      <span class="hljs-attr">&quot;short_description&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
-      <span class="hljs-attr">&quot;long_description&quot;</span>: <span class="hljs-string">&quot;This function compares the volume of events against an absolute threshold&quot;</span>,
-      <span class="hljs-attr">&quot;param_type&quot;</span>: <span class="hljs-string">&quot;TEXT&quot;</span>,
-      <span class="hljs-attr">&quot;default_params&quot;</span>: [
-        {
-          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;X&quot;</span>,
-          <span class="hljs-attr">&quot;default_value&quot;</span>: <span class="hljs-number">100</span>
-        }
-      ]
-    }
-  ]
-}
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
+    <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;functions&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
+        <span class="hljs-attr">&quot;short_description&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
+        <span class="hljs-attr">&quot;long_description&quot;</span>: <span class="hljs-string">&quot;This function compares the volume of events against an absolute threshold&quot;</span>,
+        <span class="hljs-attr">&quot;param_type&quot;</span>: <span class="hljs-string">&quot;TEXT&quot;</span>,
+        <span class="hljs-attr">&quot;default_params&quot;</span>: [
+          {
+            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;X&quot;</span>,
+            <span class="hljs-attr">&quot;default_value&quot;</span>: <span class="hljs-number">100</span>
+          }
+        ]
+      }
+    ]
+  }
+]
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -6812,7 +6830,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Add a new UDF</span>
+              <span class="operation-summary">Add a new UDF library</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -6825,7 +6843,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Add a new UDF</p>
+                  <p>Add a new UDF library</p>
                 </section>
               </div>
             </div>
@@ -6841,7 +6859,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>UDF was successfully added</p>
+                      <p>OK</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6867,7 +6885,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Get UDF properties</span>
+              <span class="operation-summary">Get UDF library properties</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -6880,7 +6898,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get UDF (User Defined Function) properties</p>
+                  <p>Get UDF (User Defined Function) library properties</p>
                 </section>
               </div>
             </div>
@@ -6898,7 +6916,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Name of UDF to be used</p>
+                      <p>UDF library ID to be used</p>
                     </div>
                   </div>
                 </section>
@@ -6911,11 +6929,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/UDFLibrary">UDFLibrary</a>
+                        </span>
+                      </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>UDF Properties</p>
+                      <p>UDF library properties</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6933,7 +6955,25 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{}
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
+  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;functions&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
+      <span class="hljs-attr">&quot;short_description&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
+      <span class="hljs-attr">&quot;long_description&quot;</span>: <span class="hljs-string">&quot;This function compares the volume of events against an absolute threshold&quot;</span>,
+      <span class="hljs-attr">&quot;param_type&quot;</span>: <span class="hljs-string">&quot;TEXT&quot;</span>,
+      <span class="hljs-attr">&quot;default_params&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;X&quot;</span>,
+          <span class="hljs-attr">&quot;default_value&quot;</span>: <span class="hljs-number">100</span>
+        }
+      ]
+    }
+  ]
+}
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -6950,7 +6990,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Remove UDF</span>
+              <span class="operation-summary">Remove UDF library</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -6963,7 +7003,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Remove UDF</p>
+                  <p>Remove UDF library</p>
                 </section>
               </div>
             </div>
@@ -6981,7 +7021,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Name of UDF to be used</p>
+                      <p>UDF library ID to be used</p>
                     </div>
                   </div>
                 </section>
@@ -7030,7 +7070,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">List Available UDFs for a service key</span>
+              <span class="operation-summary">List available UDF libraries for a service key</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -7057,11 +7097,26 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/UDFLibrary">UDFLibrary</a>
+                        </span>
+                      </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>UDF List</p>
+                      <p>UDF libraries list</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/UDFLibrary">UDFLibrary</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7079,25 +7134,27 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;udf_list&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
-      <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
-      <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
-      <span class="hljs-attr">&quot;short_description&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
-      <span class="hljs-attr">&quot;long_description&quot;</span>: <span class="hljs-string">&quot;This function compares the volume of events against an absolute threshold&quot;</span>,
-      <span class="hljs-attr">&quot;param_type&quot;</span>: <span class="hljs-string">&quot;TEXT&quot;</span>,
-      <span class="hljs-attr">&quot;default_params&quot;</span>: [
-        {
-          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;X&quot;</span>,
-          <span class="hljs-attr">&quot;default_value&quot;</span>: <span class="hljs-number">100</span>
-        }
-      ]
-    }
-  ]
-}
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
+    <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;functions&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
+        <span class="hljs-attr">&quot;short_description&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
+        <span class="hljs-attr">&quot;long_description&quot;</span>: <span class="hljs-string">&quot;This function compares the volume of events against an absolute threshold&quot;</span>,
+        <span class="hljs-attr">&quot;param_type&quot;</span>: <span class="hljs-string">&quot;TEXT&quot;</span>,
+        <span class="hljs-attr">&quot;default_params&quot;</span>: [
+          {
+            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;X&quot;</span>,
+            <span class="hljs-attr">&quot;default_value&quot;</span>: <span class="hljs-number">100</span>
+          }
+        ]
+      }
+    ]
+  }
+]
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -7114,7 +7171,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Add a new UDF</span>
+              <span class="operation-summary">Add a new UDF library</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -7127,7 +7184,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Add a new UDF</p>
+                  <p>Add a new UDF library</p>
                 </section>
               </div>
             </div>
@@ -7143,7 +7200,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>UDF was successfully added</p>
+                      <p>UDF library was successfully added</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7169,7 +7226,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Get UDF properties</span>
+              <span class="operation-summary">Get UDF library properties</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -7182,7 +7239,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get UDF (User Defined Function) properties</p>
+                  <p>Get UDF (User Defined Function) library properties</p>
                 </section>
               </div>
             </div>
@@ -7200,7 +7257,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Name of UDF to be used</p>
+                      <p>UDF library ID to be used</p>
                     </div>
                   </div>
                 </section>
@@ -7213,11 +7270,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/UDFLibrary">UDFLibrary</a>
+                        </span>
+                      </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>UDF Properties</p>
+                      <p>UDF properties</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7235,7 +7296,25 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{}
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
+  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;functions&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
+      <span class="hljs-attr">&quot;short_description&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
+      <span class="hljs-attr">&quot;long_description&quot;</span>: <span class="hljs-string">&quot;This function compares the volume of events against an absolute threshold&quot;</span>,
+      <span class="hljs-attr">&quot;param_type&quot;</span>: <span class="hljs-string">&quot;TEXT&quot;</span>,
+      <span class="hljs-attr">&quot;default_params&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;X&quot;</span>,
+          <span class="hljs-attr">&quot;default_value&quot;</span>: <span class="hljs-number">100</span>
+        }
+      ]
+    }
+  ]
+}
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -7252,7 +7331,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Remove UDF from a service key</span>
+              <span class="operation-summary">Remove UDF library from a service key</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -7265,7 +7344,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Remove UDF for specified service key</p>
+                  <p>Remove UDF library from specified service key</p>
                 </section>
               </div>
             </div>
@@ -7283,7 +7362,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Name of UDF to be used</p>
+                      <p>UDF library ID to be used</p>
                     </div>
                   </div>
                 </section>
@@ -8941,9 +9020,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-UDF" class="definition panel" data-traverse-target="definition-UDF">
+          <div id="definition-UDFLibrary" class="definition panel" data-traverse-target="definition-UDFLibrary">
             <h2 class="panel-title">
-              <a name="/definitions/UDF"></a>UDF: object
+              <a name="/definitions/UDFLibrary"></a>UDFLibrary: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -8972,6 +9051,70 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="functions">
+                      <span class="json-property-name">functions:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/UDF">UDF</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/UDF">UDF</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
+  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;functions&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
+      <span class="hljs-attr">&quot;short_description&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
+      <span class="hljs-attr">&quot;long_description&quot;</span>: <span class="hljs-string">&quot;This function compares the volume of events against an absolute threshold&quot;</span>,
+      <span class="hljs-attr">&quot;param_type&quot;</span>: <span class="hljs-string">&quot;TEXT&quot;</span>,
+      <span class="hljs-attr">&quot;default_params&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;X&quot;</span>,
+          <span class="hljs-attr">&quot;default_value&quot;</span>: <span class="hljs-number">100</span>
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-UDF" class="definition panel" data-traverse-target="definition-UDF">
+            <h2 class="panel-title">
+              <a name="/definitions/UDF"></a>UDF: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
                     <dt data-property-name="function_type">
                       <span class="json-property-name">function_type:</span>
                       <span class="json-property-type">string</span>
@@ -9026,9 +9169,6 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
-  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
   <span class="hljs-attr">&quot;short_description&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
   <span class="hljs-attr">&quot;long_description&quot;</span>: <span class="hljs-string">&quot;This function compares the volume of events against an absolute threshold&quot;</span>,

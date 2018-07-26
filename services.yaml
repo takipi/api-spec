@@ -47,25 +47,23 @@ paths:
     get:
       tags:
         - UDFs
-      summary: List Available UDFs
-      description: List all available UDFs (User Defined Functions)
+      summary: List available UDF libraries
+      description: List available UDF (User Defined Functions) libraries
       responses:
         200:
-          description: UDF List
+          description: UDF libraries list
           schema:
-            properties:
-              udf_list:
-                type: "array"
-                items:
-                  $ref: "#/definitions/UDF"
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
     post:
       tags:
         - UDFs
-      summary: Add a new UDF
-      description: Add a new UDF
+      summary: Add a new UDF library
+      description: Add a new UDF library
       requestBody:
         content:
           application/octet-stream:
@@ -74,7 +72,7 @@ paths:
               format: binary
       responses:
         200:
-          description: UDF was successfully added
+          description: OK
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
@@ -82,28 +80,27 @@ paths:
     parameters:
       - in: path
         name: udf_id
-        description: Name of UDF to be used
+        description: UDF library ID to be used
         type: string
         required: true
     get:
       tags:
         - UDFs
-      summary: Get UDF properties
-      description: Get UDF (User Defined Function) properties
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
       responses:
         200:
-          description: UDF Properties
+          description: UDF library properties
           schema:
-            properties:
-              $ref: "#/definitions/UDF"
+            $ref: "#/definitions/UDFLibrary"
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
     delete:
       tags:
         - UDFs
-      summary: "Remove UDF"
-      description: "Remove UDF"
+      summary: "Remove UDF library"
+      description: "Remove UDF library"
       responses:
         200:
           description: OK
@@ -1920,25 +1917,23 @@ paths:
     get:
       tags:
         - UDFs
-      summary: List Available UDFs for a service key
+      summary: List available UDF libraries for a service key
       description: List all available UDFs (User Defined Functions) for selected service key
       responses:
         200:
-          description: UDF List
+          description: UDF libraries list
           schema:
-            properties:
-              udf_list:
-                type: "array"
-                items:
-                  $ref: "#/definitions/UDF"
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
     post:
       tags:
         - UDFs
-      summary: Add a new UDF
-      description: Add a new UDF
+      summary: Add a new UDF library
+      description: Add a new UDF library
       requestBody:
         content:
           application/octet-stream:
@@ -1947,7 +1942,7 @@ paths:
               format: binary
       responses:
         200:
-          description: UDF was successfully added
+          description: UDF library was successfully added
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
@@ -1955,28 +1950,27 @@ paths:
     parameters:
       - in: path
         name: udf_id
-        description: Name of UDF to be used
+        description: UDF library ID to be used
         type: string
         required: true
     get:
       tags:
         - UDFs
-      summary: Get UDF properties
-      description: Get UDF (User Defined Function) properties
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
       responses:
         200:
-          description: UDF Properties
+          description: UDF properties
           schema:
-            properties:
-              $ref: "#/definitions/UDF"
+            $ref: "#/definitions/UDFLibrary"
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
     delete:
       tags:
         - UDFs
-      summary: Remove UDF from a service key
-      description: "Remove UDF for specified service key"
+      summary: Remove UDF library from a service key
+      description: "Remove UDF library from specified service key"
       responses:
         200:
           description: OK
@@ -2269,7 +2263,7 @@ definitions:
         state:
           type: string
           examples: active, pending invitation
-  UDF:
+  UDFLibrary:
     description: UDF Properties
     type: object
     properties:
@@ -2282,6 +2276,13 @@ definitions:
       backwards_compatible:
         type: string
         example: true
+      functions:
+        type: array
+        items:
+          $ref: "#/definitions/UDF"
+  UDF:
+    type: object
+    properties:
       function_type:
         type: string
         example: ANOMALY
