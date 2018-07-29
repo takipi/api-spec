@@ -121,8 +121,8 @@ paths:
     get:
       tags:
         - General
-      summary: "Get information about the service"
-      description: "Get information about the service"
+      summary: "Get information about the service (Not yet implemented)"
+      description: "Get information about the service (Not yet implemented)"
       parameters:
           - in: path
             name: service_id
@@ -134,6 +134,23 @@ paths:
           description: TBD
         401:
           description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/deployments:
+    get:
+      tags:
+        - Deployments
+      summary: "List Deployments"
+      description: "List Deployments"
+      responses:
+        200:
+          description: List of deployments
+          schema:
+            properties:
+              deployments:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Deployment"
+        401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings:
     get:
@@ -974,6 +991,104 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/categories:
+    parameters:
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+    get:
+      tags:
+        - Views
+      summary: "List categories"
+      description: "List view categories"
+      responses:
+        200:
+          description: List of View Categories and their info
+          schema:
+            properties:
+              categories:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    name:
+                      $ref: "#/definitions/Category"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/categories/{category_id}/:
+    parameters:
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: category_id
+        description: View category to use
+        type: string
+        required: true
+    get:
+      tags:
+        - Views
+      summary: "Get category details (Not implemented yet)"
+      description: "Get category details (Not implemented yet)"
+      responses:
+        200:
+          description: Category info
+          schema:
+            $ref: "#/definitions/Category"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
+    delete:
+      tags:
+        - Views
+      summary: "Delete category (Not implemented yet)"
+      description: "Delete category (Not implemented yet)"
+      responses:
+        200:
+          OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
+  /services/{service_id}/categories/{category_id}/views:
+    parameters:
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: category_id
+        description: View category to use
+        type: string
+        required: true
+    post:
+      tags:
+        - Views
+      summary: "Add view to selected category"
+      description: "Add view to selected category"
+      parameters:
+        - in: body
+          description: View ID (string)
+          schema:
+            name: view_id
+            type: String
+            example: P12
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        403:
+          $ref: "#/definitions/ForbiddenError"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
     parameters:
         - in: path
@@ -984,8 +1099,8 @@ paths:
     get:
       tags:
         - Views
-      summary: "List Views"
-      description: "List Views"
+      summary: "List views"
+      description: "List views"
       responses:
         200:
           description: List of views including basic info about each view.
@@ -1000,17 +1115,17 @@ paths:
     post:
       tags:
         - Views
-      summary: "Create View"
-      description: "Create View"
+      summary: "Create view"
+      description: "Create view"
       parameters:
         - in: body
           name: view
           description: Single view properties
           schema:
-              $ref: "#/definitions/ViewFull"
+            $ref: "#/definitions/ViewFull"
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
         400:
           description: BAD INPUT
         409:
@@ -1032,7 +1147,7 @@ paths:
     get:
       tags:
         - Views
-      summary: "Get View properties"
+      summary: "Get view properties"
       description: "Get full list of view properties"
       responses:
         200:
@@ -1066,9 +1181,7 @@ paths:
                       description: TBD - NOT YET IMPLEMENTED
                       example: false
                     filters:
-                      type: "array"
-                      items:
-                        $ref: "#/definitions/Filter"
+                      $ref: "#/definitions/Filter"
                     alert_on_new:
                       type: boolean
                       description: TBD - NOT YET IMPLEMENTED
@@ -1079,6 +1192,10 @@ paths:
                       example: true
         401:
           $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
+        404:
+          $ref: "#/definitions/NotFoundError"
     post:
       tags:
         - Views
@@ -1093,8 +1210,20 @@ paths:
       responses:
         200:
           description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
         404:
           $ref: "#/definitions/NotFoundError"
+    delete:
+      tags:
+        - Views
+      summary: "Delete view (Not implemented yet)"
+      description: "Delete view (Not implemented yet)"
+      responses:
+        200:
+          OK
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views/{view_id}/events:
@@ -1816,6 +1945,19 @@ definitions:
       message:
         type: string
         example: Resource Not Found
+  ForbiddenError:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        example: 403
+      type:
+        type: string
+        example: Access forbidden
+      message:
+        type: string
+        example: Access forbidden
   Pattern:
     description: A data redaction pattern used to define PII RegEx
     type: object
@@ -1878,9 +2020,7 @@ definitions:
         description: TBD - NOT YET IMPLEMENTED
         example: false
       filters:
-        type: "array"
-        items:
-          $ref: "#/definitions/Filter"
+        $ref: "#/definitions/Filter"
       alert_on_new:
         type: boolean
         description: TBD - NOT YET IMPLEMENTED
@@ -1889,39 +2029,118 @@ definitions:
         type: boolean
         description: TBD - NOT YET IMPLEMENTED
         example: true
-  Filter:
-    description: Filter properties
+  Category:
+    description: Single category properties
     type: "object"
     properties:
+      id:
+        type: String
+        example: B345
       name:
         type: "string"
-        description: Use a filter name from the list above.
-        enum: [SERVERS, APPS, DEPLOYMENTS, FIRST SEEN CUSTOM, FIRST SEEN PRESET, EVENT TYPE, EVENT NAME, EVENT LOCATION, EVENT PACKAGE, ENTRY POINT, LABELS, INTRODUCED BY, SEARCH]
-      values:
-        type: "array"
-        description: The values that shall be filtered. Follow the examples to define proper value format that matches desired filter type.
+        description: Category Name
+        example: CI/CD
+      shared:
+        type: boolean
+        description: Indicates whether this category is visible for all users under this key or only for the category creator.
+        example: false
+      admin:
+        type: boolean
+        description: marks the category as visible only to key admins
+        example: true
+      icon:
+        type: "string"
+        description: based 64 encoded SVG
+      views:
+        type: array
         items:
-          type: "string"
-    example:
-      general_example:
-        name: LABELS
-        value: ["JIRA", "CRITICAL", "QA"]
-      event_type_example:
-        name: EVENT TYPE
-        value: ["Uncaught exceptions", "Swallowed Exceptions"]
-        summary: Supported values - Uncaught exceptions, Caught exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers.
-      first_seen_custom_example:
-        name: FIRST SEEN CUSTOM
-        value: ["from= 2018-02-28T22:47:09.038Z", "to=2018-03-01T22:47:09.038Z"]
-        summary: use this example to define FIRST SEEN CUSTOM filter with fixed time range (ISO8601 format)
-      first_seen_preset_example:
-        name: FIRST SEEN PRESET
-        value: last_hour
-        summary: use this example to define FIRST SEEN PRESET filter. Available presets - last_hour, last_24h, last_7d, last_30d
-      search_example:
-        name: SEARCH
-        value: ["Can not find"]
-        summary: use this example to define SEARCH filter - only single search value can be defined
+          $ref: "#/definitions/ViewBasic"
+  Filter:
+    description: Filter properties
+    type: object
+    properties:
+      first_seen:
+        type: object
+        description: Defines the first time an event occured using a absolute time frame or a relative ime frame. If absolute time frame is defined, the relative will be ignored.
+        properties:
+          absolute:
+            type: object
+            properties:
+              from:
+                type: string
+                description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                example: 2018-02-28T22:47:09.038+02:00
+              to:
+                type: string
+                description: End time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                example: 2018-02-28T22:47:09.038+02:00
+          relative:
+            type: string
+            enum: [last_hour, last_3h, last_6h, last_12h, last_24h, last_48h, last_7d, last_14d, last_30d]
+            example: "last_6h"
+      labels:
+        type: array
+        description: List of labels
+        items:
+          type: string
+          example: Jira
+      event_type:
+        type: array
+        description: List of event types
+        items:
+          type: string
+          enum: [Uncaught Exceptions, Caught Exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers]
+          example: Swallowed Exceptions
+      event_name:
+        type: array
+        description: (Not implemented yet) List of event names
+        items:
+          type: string
+          example: IndexOutOfBoundsException
+      event_location:
+        type: array
+        description: (Not implemented yet) List of event locations
+        items:
+          type: string
+          example: DotConnect
+      event_package:
+        type: array
+        description: (Not implemented yet) List of event packages
+        items:
+          type: string
+          example: com.dotmarketing.servlets
+      entry_point:
+        type: array
+        description: (Not implemented yet) List of entrypoints
+        items:
+          type: string
+      servers:
+        type: array
+        description: (Not implemented yet) List of server names
+        items:
+          type: string
+          example: na-dotCMS-2
+      apps:
+        type: array
+        description: (Not implemented yet) List of application names
+        items:
+          type: string
+          example: API
+      deployments:
+        type: array
+        description: (Not implemented yet) List of deployment names
+        items:
+          type: string
+          example: 2018-04-11-2
+      introduced_by:
+        type: array
+        description: (Not implemented yet) Filters events by deployment they originated in
+        items:
+          type: string
+          example: Unnamed Deployment
+      search:
+        type: string
+        description: (Not implemented yet) Free text search
   Event:
     description: An exception, logged error and more
     type: object
@@ -1970,6 +2189,15 @@ definitions:
       color: #consider adding available colors as enum
         type: string
         example: RED
+  Deployment:
+    type: object
+    properties:
+      name:
+        type: string
+        example: stage1.0.4
+      active:
+        type: boolean
+        example: true
   CodeLocation:
     description: A code location, for error location, etc
     type: object
