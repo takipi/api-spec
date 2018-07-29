@@ -369,6 +369,17 @@ paths:
         - Code Redaction
       summary: "Remove a package from the exclusion list"
       description: "Remove a package from the exclusion list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
       responses:
         200:
           $ref: "#/responses/OK"
