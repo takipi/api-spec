@@ -45,10 +45,44 @@ paths:
     get:
       tags:
         - General
-      description: "List all services"
+      summary: "List all services"
+      description: "List all services accessible by the user"
+      parameters:
+        - in: query
+          name: service_key_name
+          description: Service key name
+          type: string
+          required: false
       responses:
         200:
-          description: TBD
+          description: List of all accessible services
+          schema:
+            properties:
+              services:
+                type: array
+                description: list of services
+                items:
+                  $ref: "#/definitions/ServiceBasic"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - General
+      summary: Generate a new service key
+      description: "Create a new service"
+      parameters:
+        - in: body
+          key_name: service
+          description: service properties
+          type: string
+          example: Pre-prod
+          required: true
+      responses:
+        200:
+          description: New Service Key created
+          schema:
+            $ref: "#/definitions/ServiceBasic"
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
@@ -70,6 +104,70 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/team:
+    get:
+      tags:
+        - General
+      summary: "List service team members"
+      description: "List service team members"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: query
+            name: email
+            description: Team Member Email
+            type: string
+            required: false
+      responses:
+        200:
+          description: List of team members
+          schema:
+            $ref: "#/definitions/TeamMembers"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - General
+      summary: "Add members to a service key"
+      description: "Add members to a service key"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembers"
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/settings:
+    get:
+      tags:
+        - General
+      summary: "Get service settings (Not yet implemented)"
+      description: "Get service settings (Not yet implemented)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: TBD
+        401:
+          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/deployments:
     get:
       tags:
@@ -85,23 +183,6 @@ paths:
                 type: "array"
                 items:
                   $ref: "#/definitions/Deployment"
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/settings:
-    get:
-      tags:
-        - General
-      summary: "Get service settings"
-      description: "Get service settings"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-      responses:
-        200:
-          description: TBD
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
@@ -2056,3 +2137,34 @@ definitions:
       method_desc:
         type: "string"
         example: "([Ljava/lang/String;)V"
+  ServiceBasic:
+    description: Basic information about a service key
+    type: object
+    properties:
+      key_id:
+        type: string
+        example: S35817
+      key_name:
+        type: string
+        example: Pre-prod
+      full_key:
+        type: string
+        example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  TeamMembers:
+    description: List of Service key team members
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Jane Doe
+        email:
+          type: string
+          example: jane.doe@company.com
+        role:
+          type: string
+          example: admin
+        state:
+          type: string
+          examples: active, pending invitation
