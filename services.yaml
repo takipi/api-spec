@@ -25,7 +25,7 @@ host: api.overops.com
 basePath: /api/v1
 tags:
   - name: General
-    description: Fetching general information about services (Not yet implemented)
+    description: Fetching general information about services
   - name: Data Redaction
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
