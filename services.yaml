@@ -58,11 +58,11 @@ paths:
       summary: "Get information about the service (Not yet implemented)"
       description: "Get information about the service (Not yet implemented)"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           $ref: "#/responses/TBD"
@@ -79,11 +79,11 @@ paths:
       summary: "List Deployments"
       description: "List Deployments"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of deployments
@@ -395,22 +395,22 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/classes/{class_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: class_name
-        type: string
-        required: true
-        description: Fully qualified Java class name
     get:
       tags:
         - Code Redaction
       summary: "Retrieve an included class"
       description: "Retrieve an included class"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
       responses:
         200:
           description: An included class
@@ -428,10 +428,20 @@ paths:
       summary: "Add a class to the inclusion list"
       description: "Add a class to the inclusion list. The body class name must match the resource identifier"
       parameters:
-       - in: body
-         name: class
-         schema:
-           properties:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            properties:
               name:
                 $ref: "#/definitions/IncludedClassName"
       responses:
@@ -446,6 +456,17 @@ paths:
         - Code Redaction
       summary: "Remove a class from the inclusion list"
       description: "Remove a class from the inclusion list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
       responses:
         200:
           $ref: "#/responses/OK"
@@ -477,22 +498,22 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/packages/{package_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: package_name
-        type: string
-        required: true
-        description: Fully qualified Java package name
     get:
       tags:
         - Code Redaction
       summary: "Retrieve an included package"
       description: "Retrieve an included package"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
       responses:
         200:
           description: An included package
@@ -506,10 +527,20 @@ paths:
       summary: "Add a package to the inclusion list"
       description: "Add a package to the inclusion list. The body package name must match the resource identifier"
       parameters:
-       - in: body
-         name: package
-         schema:
-           properties:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            properties:
               name:
                 $ref: "#/definitions/IncludedPackageName"
       responses:
@@ -524,6 +555,17 @@ paths:
         - Code Redaction
       summary: "Remove a package from the inclusion list"
       description: "Remove a package from the inclusion list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
       responses:
         200:
           $ref: "#/responses/OK"
@@ -602,22 +644,22 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/patterns/{pattern}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: pattern
-        description: A RegEx pattern name
-        type: string
-        required: true
     get:
       tags:
         - Data Redaction
       summary: "Retrieve a pattern"
       description: "Retrieve a pattern"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: pattern
+          description: A RegEx pattern name
+          type: string
+          required: true
       responses:
         200:
           description: A pattern
@@ -631,6 +673,16 @@ paths:
       summary: "Create a pattern"
       description: "Add a RegEx pattern to be redacted. The pattern name must match the resource identifier"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: pattern
+          description: A RegEx pattern name
+          type: string
+          required: true
         - in: body
           name: pattern
           schema:
@@ -647,6 +699,17 @@ paths:
         - Data Redaction
       summary: "Delete a pattern"
       description: "Removes a pattern from the redaction list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: pattern
+          description: A RegEx pattern name
+          type: string
+          required: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -791,22 +854,22 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/classes/{class_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: class_name
-        description: Class name to redact.
-        type: string
-        required: true
     get:
       tags:
         - Data Redaction
       summary: "Retrieve a class"
       description: "Retrieve a class from the data redaction list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          description: Class name to redact.
+          type: string
+          required: true
       responses:
         200:
           description: If the redaction exists
@@ -823,14 +886,24 @@ paths:
       summary: "Add a class for data redaction"
       description: "Add a class to the redaction list. The body class name must match the resource identifier"
       parameters:
-       - in: body
-         description: A JSON representing a class to add for redaction
-         name: name
-         schema:
-          properties:
-            name:
-              type: "string"
-              example: "IPv4"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          description: Class name to redact.
+          type: string
+          required: true
+        - in: body
+          description: A JSON representing a class to add for redaction
+          name: name
+          schema:
+           properties:
+             name:
+               type: "string"
+               example: "IPv4"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -843,6 +916,17 @@ paths:
         - Data Redaction
       summary:  "Delete a class"
       description: "Delete a class"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          description: Class name to redact.
+          type: string
+          required: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -878,22 +962,22 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/packages/{package_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: package_name
-        description: Fully qualified Java package name
-        type: string
-        required: true
     get:
       tags:
         - Data Redaction
       summary: "Retrieve a package"
       description: "Retrieve a package"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          description: Fully qualified Java package name
+          type: string
+          required: true
       responses:
         200:
           description: If the redaction exists
@@ -910,13 +994,23 @@ paths:
       summary: "Create a package"
       description: "Create a package. The body package name must match the resource identifier"
       parameters:
-       - in: body
-         name: name
-         schema:
-          properties:
-            name:
-              type: "string"
-              example: "com.example"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          description: Fully qualified Java package name
+          type: string
+          required: true
+        - in: body
+          name: name
+          schema:
+           properties:
+             name:
+               type: "string"
+               example: "com.example"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -929,6 +1023,17 @@ paths:
         - Data Redaction
       summary: "Delete package"
       description: "Delete package"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          description: Fully qualified Java package name
+          type: string
+          required: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -937,17 +1042,17 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/categories:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
     get:
       tags:
         - Views
       summary: "List categories"
       description: "List view categories"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of View Categories and their info
@@ -963,22 +1068,22 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/categories/{category_id}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: category_id
-        description: View category to use
-        type: string
-        required: true
     get:
       tags:
         - Views
       summary: "Get category details (Not implemented yet)"
       description: "Get category details (Not implemented yet)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: category_id
+          description: View category to use
+          type: string
+          required: true
       responses:
         200:
           description: Category info
@@ -993,6 +1098,17 @@ paths:
         - Views
       summary: "Delete category (Not implemented yet)"
       description: "Delete category (Not implemented yet)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: category_id
+          description: View category to use
+          type: string
+          required: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -1001,30 +1117,29 @@ paths:
         403:
           $ref: "#/responses/ForbiddenError"
   /services/{service_id}/categories/{category_id}/views:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: category_id
-        description: View category to use
-        type: string
-        required: true
     post:
       tags:
         - Views
       summary: "Add view to selected category"
       description: "Add view to selected category"
       parameters:
-      - in: body
-        description: View ID (string)
-        name: view_id
-        required: true
-        schema:
+        - in: path
+          name: service_id
+          description: Environment to use
           type: string
-          example: P12
+          required: true
+        - in: path
+          name: category_id
+          description: View category to use
+          type: string
+          required: true
+        - in: body
+          description: View ID (string)
+          name: view_id
+          required: true
+          schema:
+            type: string
+            example: P12
       responses:
         200:
           $ref: "#/responses/OK"
@@ -1035,17 +1150,17 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/views:
-    parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
     get:
       tags:
         - Views
       summary: "List views"
       description: "List views"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of views including basic info about each view.
@@ -1063,6 +1178,11 @@ paths:
       summary: "Create view"
       description: "Create view"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
         - in: body
           name: view
           description: Single view properties
@@ -1078,7 +1198,12 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/views/{view_id}:
-    parameters:
+    get:
+      tags:
+        - Views
+      summary: "Get view properties"
+      description: "Get full list of view properties"
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1089,11 +1214,6 @@ paths:
           description: View to use
           type: string
           required: true
-    get:
-      tags:
-        - Views
-      summary: "Get view properties"
-      description: "Get full list of view properties"
       responses:
         200:
           description: Full list of view properties
@@ -1147,6 +1267,16 @@ paths:
       summary: "Edit view data"
       description: "Edit view data"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
         - in: body
           name: view
           description: Single view properties
@@ -1166,6 +1296,17 @@ paths:
         - Views
       summary: "Delete view (Not implemented yet)"
       description: "Delete view (Not implemented yet)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -1505,17 +1646,17 @@ paths:
         404:
           $ref: "#/responses/NotFoundError"
   /services/{service_id}/labels:
-    parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
     get:
         tags:
           - Labels
         summary: "List labels"
         description: "List all existing labels"
+        parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
         responses:
           200:
             description: List of labels
@@ -1533,6 +1674,11 @@ paths:
       summary: "Create new label"
       description: "Create new label"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
         - in: body
           name: label
           description: Single label
@@ -1574,7 +1720,12 @@ paths:
         404:
           $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/labels:
-    parameters:
+    post:
+      tags:
+        - Labels
+      summary: "Add/Remove labels"
+      description: "Append/Detach labels to/from event"
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1585,12 +1736,6 @@ paths:
           description: Event to use
           type: string
           required: true
-    post:
-      tags:
-        - Labels
-      summary: "Add/Remove labels"
-      description: "Append/Detach labels to/from event"
-      parameters:
         - in: body
           name: item
           description: list of label names to append/detach
@@ -1617,7 +1762,12 @@ paths:
         404:
           $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/inbox:
-    parameters:
+    post:
+      tags:
+        - Labels
+      summary: "Move to Inbox"
+      description: "Move the specified event into Inbox"
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1628,11 +1778,6 @@ paths:
           description: Event to use
           type: string
           required: true
-    post:
-      tags:
-        - Labels
-      summary: "Move to Inbox"
-      description: "Move the specified event into Inbox"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -1641,7 +1786,12 @@ paths:
         404:
           $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/delete:
-    parameters:
+    post:
+      tags:
+        - Labels
+      summary: "Move to Trash"
+      description: "Move the specified event into Trash"
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1652,11 +1802,6 @@ paths:
           description: Event to use
           type: string
           required: true
-    post:
-      tags:
-        - Labels
-      summary: "Move to Trash"
-      description: "Move the specified event into Trash"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -1665,7 +1810,12 @@ paths:
         404:
           description: "NOT FOUND"
   /services/{service_id}/events/{event_id}/resolve:
-    parameters:
+    post:
+      tags:
+        - Labels
+      summary: "Mark as resolved"
+      description: "Marks the specified event as resolved"
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1676,11 +1826,6 @@ paths:
           description: Event to use
           type: string
           required: true
-    post:
-      tags:
-        - Labels
-      summary: "Mark as resolved"
-      description: "Marks the specified event as resolved"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -1745,7 +1890,12 @@ paths:
         404:
           $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/force-snapshot:
-    parameters:
+    post:
+      tags:
+        - Events
+      summary: Force Event Snapshot
+      description: Force snapshot on the next time the event occurs
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1756,11 +1906,6 @@ paths:
           description: Event to use
           type: string
           required: true
-    post:
-      tags:
-        - Events
-      summary: Force Event Snapshot
-      description: Force snapshot on the next time the event occurs
       responses:
         200:
           $ref: "#/responses/OK"
