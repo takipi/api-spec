@@ -48,10 +48,9 @@ paths:
       description: "List all services"
       responses:
         200:
-          description: TBD
+          $ref: "#/responses/TBD"
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}:
     get:
       tags:
@@ -66,16 +65,25 @@ paths:
             required: true
       responses:
         200:
-          description: TBD
+          $ref: "#/responses/TBD"
+          schema:
+            properties:
+              resp:
+                type: "object"
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/deployments:
     get:
       tags:
         - Deployments
       summary: "List Deployments"
       description: "List Deployments"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
       responses:
         200:
           description: List of deployments
@@ -86,7 +94,7 @@ paths:
                 items:
                   $ref: "#/definitions/Deployment"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings:
     get:
       tags:
@@ -101,9 +109,9 @@ paths:
           required: true
       responses:
         200:
-          description: TBD
+          $ref: "#/responses/TBD"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
     get:
       tags:
@@ -144,7 +152,7 @@ paths:
                     items:
                       $ref: "#/definitions/IncludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude:
     get:
       tags:
@@ -171,7 +179,7 @@ paths:
                 items:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/classes:
     get:
       tags:
@@ -194,7 +202,7 @@ paths:
                 items:
                   $ref: "#/definitions/ExcludedClassName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/classes/{class_name}:
     parameters:
       - in: path
@@ -202,11 +210,6 @@ paths:
         description: Environment to use
         type: string
         required: true
-      - in: path
-        name: class_name
-        type: string
-        required: true
-        description: Fully qualified Java class name
       - in: path
         name: class_name
         type: string
@@ -225,9 +228,9 @@ paths:
               name:
                 $ref: "#/definitions/ExcludedClassName"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Code Redaction
@@ -242,11 +245,11 @@ paths:
                 $ref: "#/definitions/ExcludedClassName"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Code Redaction
@@ -254,11 +257,11 @@ paths:
       description: "Remove a class from the exclusion list"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/packages:
     get:
       tags:
@@ -281,7 +284,7 @@ paths:
                 items:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/packages/{package_name}:
     parameters:
       - in: path
@@ -307,9 +310,9 @@ paths:
               name:
                 $ref: "#/definitions/ExcludedPackageName"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Code Redaction
@@ -324,11 +327,11 @@ paths:
                 $ref: "#/definitions/ExcludedPackageName"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Code Redaction
@@ -336,11 +339,11 @@ paths:
       description: "Remove a package from the exclusion list"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include:
     get:
       tags:
@@ -367,7 +370,7 @@ paths:
                 items:
                   $ref: "#/definitions/IncludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/classes:
     get:
       tags:
@@ -390,7 +393,7 @@ paths:
                 items:
                   $ref: "#/definitions/IncludedClassName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/classes/{class_name}:
     parameters:
       - in: path
@@ -416,9 +419,9 @@ paths:
               name:
                 $ref: "#/definitions/IncludedClassName"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Code Redaction
@@ -433,11 +436,11 @@ paths:
                 $ref: "#/definitions/IncludedClassName"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Code Redaction
@@ -445,11 +448,11 @@ paths:
       description: "Remove a class from the inclusion list"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/packages:
     get:
       tags:
@@ -472,7 +475,7 @@ paths:
                 items:
                   $ref: "#/definitions/IncludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/packages/{package_name}:
     parameters:
       - in: path
@@ -493,14 +496,10 @@ paths:
       responses:
         200:
           description: An included package
-          schema:
-            properties:
-              name:
-                $ref: "#/definitions/IncludedPackageName"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Code Redaction
@@ -515,11 +514,11 @@ paths:
                 $ref: "#/definitions/IncludedPackageName"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Code Redaction
@@ -527,11 +526,11 @@ paths:
       description: "Remove a package from the inclusion list"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction:
     get:
       tags:
@@ -578,7 +577,7 @@ paths:
                       type: "string"
                       example: "IPv4"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/patterns:
     get:
       tags:
@@ -601,7 +600,7 @@ paths:
                 items:
                   $ref: "#/definitions/Pattern"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/patterns/{pattern}:
     parameters:
       - in: path
@@ -625,7 +624,7 @@ paths:
           schema:
             $ref: '#/definitions/Pattern'
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Data Redaction
@@ -638,11 +637,11 @@ paths:
             $ref: '#/definitions/Pattern'
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Data Redaction
@@ -650,11 +649,11 @@ paths:
       description: "Removes a pattern from the redaction list"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/identifiers:
     get:
       tags:
@@ -681,7 +680,7 @@ paths:
                       type: "string"
                       example: "password"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/identifiers/{identifier}:
     get:
       parameters:
@@ -708,7 +707,7 @@ paths:
                 type: "string"
                 example: "password"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Data Redaction
@@ -736,23 +735,34 @@ paths:
                example: "password"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: identifier
+          description: A code identifier
+          type: string
+          required: true
       tags:
         - Data Redaction
       summary:  "Delete identifier"
       description: "Delete identifier"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/classes:
     get:
       tags:
@@ -779,7 +789,7 @@ paths:
                       type: "string"
                       example: "IPv4"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/classes/{class_name}:
     parameters:
       - in: path
@@ -806,7 +816,7 @@ paths:
                 type: "string"
                 example: "IPv4"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Data Redaction
@@ -823,11 +833,11 @@ paths:
               example: "IPv4"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Data Redaction
@@ -835,11 +845,11 @@ paths:
       description: "Delete a class"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/packages:
     get:
       tags:
@@ -866,7 +876,7 @@ paths:
                       type: "string"
                       example: "com.example"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/packages/{package_name}:
     parameters:
       - in: path
@@ -893,7 +903,7 @@ paths:
                 type: "string"
                 example: "com.example"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Data Redaction
@@ -909,11 +919,11 @@ paths:
               example: "com.example"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Data Redaction
@@ -921,11 +931,11 @@ paths:
       description: "Delete package"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/categories:
     parameters:
       - in: path
@@ -951,8 +961,8 @@ paths:
                     name:
                       $ref: "#/definitions/Category"
         401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/categories/{category_id}/:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/categories/{category_id}:
     parameters:
       - in: path
         name: service_id
@@ -975,9 +985,9 @@ paths:
           schema:
             $ref: "#/definitions/Category"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
     delete:
       tags:
         - Views
@@ -985,11 +995,11 @@ paths:
       description: "Delete category (Not implemented yet)"
       responses:
         200:
-          OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
   /services/{service_id}/categories/{category_id}/views:
     parameters:
       - in: path
@@ -1008,22 +1018,22 @@ paths:
       summary: "Add view to selected category"
       description: "Add view to selected category"
       parameters:
-        - in: body
-          description: View ID (string)
-          schema:
-            name: view_id
-            type: String
-            example: P12
-          required: true
+      - in: body
+        description: View ID (string)
+        name: view_id
+        required: true
+        schema:
+          type: string
+          example: P12
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/views:
     parameters:
         - in: path
@@ -1046,7 +1056,7 @@ paths:
                 items:
                   $ref: "#/definitions/ViewBasic"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     post:
       tags:
         - Views
@@ -1060,13 +1070,13 @@ paths:
             $ref: "#/definitions/ViewFull"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         409:
-          description: CONFLICT
+          $ref: "#/responses/Conflict"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/views/{view_id}:
     parameters:
         - in: path
@@ -1126,11 +1136,11 @@ paths:
                       description: TBD - NOT YET IMPLEMENTED
                       example: true
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
     post:
       tags:
         - Views
@@ -1144,13 +1154,13 @@ paths:
               $ref: "#/definitions/ViewFull"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
     delete:
       tags:
         - Views
@@ -1158,11 +1168,11 @@ paths:
       description: "Delete view (Not implemented yet)"
       responses:
         200:
-          OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
@@ -1246,9 +1256,9 @@ paths:
                                   type: "number"
                                   example: 42
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/entrypoint/graph:
     get:
       tags:
@@ -1332,9 +1342,9 @@ paths:
                                   type: "number"
                                   example: 42
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/event/graph:
     get:
       tags:
@@ -1418,9 +1428,9 @@ paths:
                                   type: "number"
                                   example: 42
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/views/{view_id}/anomaly:
     post:
       tags:
@@ -1489,11 +1499,11 @@ paths:
                             example: 42
       responses:
         200:
-          OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/labels:
     parameters:
           - in: path
@@ -1516,7 +1526,7 @@ paths:
                   items:
                     $ref: "#/definitions/Label"
           401:
-            $ref: "#/definitions/UnauthorizedError"
+            $ref: "#/responses/UnauthorizedError"
     post:
       tags:
         - Labels
@@ -1530,13 +1540,13 @@ paths:
             $ref: "#/definitions/Label"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         409:
-          description: CONFLICT
+          $ref: "#/responses/Conflict"
   /services/{service_id}/events/{event_id}:
     get:
       tags:
@@ -1560,9 +1570,9 @@ paths:
           schema:
             $ref: "#/definitions/Event"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/labels:
     parameters:
         - in: path
@@ -1582,20 +1592,16 @@ paths:
       description: "Append/Detach labels to/from event"
       parameters:
         - in: body
-          name: add
-          description: list of label names to append
-          schema:
+          name: item
+          description: list of label names to append/detach
+          schema:          
+            type: "object"
             properties:
               add:
                 type: "array"
                 items:
                   type: "string"
                   example: "Critical"
-        - in: body
-          name: remove
-          description: list of label names to detach from event
-          schema:
-            properties:
               remove:
                 type: "array"
                 items:
@@ -1603,13 +1609,13 @@ paths:
                   example: "Low"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/inbox:
     parameters:
         - in: path
@@ -1629,11 +1635,11 @@ paths:
       description: "Move the specified event into Inbox"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/delete:
     parameters:
         - in: path
@@ -1653,11 +1659,11 @@ paths:
       description: "Move the specified event into Trash"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          description: "BAD"
         404:
-          description: NOT FOUND
+          description: "NOT FOUND"
   /services/{service_id}/events/{event_id}/resolve:
     parameters:
         - in: path
@@ -1677,11 +1683,11 @@ paths:
       description: "Marks the specified event as resolved"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/${event_id}/snapshot:
     get:
       tags:
@@ -1735,9 +1741,9 @@ paths:
                 type: "string"
                 example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/force-snapshot:
     parameters:
         - in: path
@@ -1757,49 +1763,10 @@ paths:
       description: Force snapshot on the next time the event occurs
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
 definitions:
-  UnauthorizedError:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-        example: 401
-      type:
-        type: string
-        example: Unauthorized
-      message:
-        type: string
-        example: Not authorized to perform action
-  NotFoundError:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-        example: 404
-      type:
-        type: string
-        example: Resource Not Found
-      message:
-        type: string
-        example: Resource Not Found
-  ForbiddenError:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-        example: 403
-      type:
-        type: string
-        example: Access forbidden
-      message:
-        type: string
-        example: Access forbidden
   Pattern:
     description: A data redaction pattern used to define PII RegEx
     type: object
@@ -1872,14 +1839,14 @@ definitions:
         description: TBD - NOT YET IMPLEMENTED
         example: true
   Category:
-    description: Single category properties
     type: "object"
+    description: Single category properties
     properties:
       id:
-        type: String
+        type: string
         example: B345
       name:
-        type: "string"
+        type: string
         description: Category Name
         example: CI/CD
       shared:
@@ -1891,7 +1858,7 @@ definitions:
         description: marks the category as visible only to key admins
         example: true
       icon:
-        type: "string"
+        type: string
         description: based 64 encoded SVG
       views:
         type: array
@@ -2056,3 +2023,18 @@ definitions:
       method_desc:
         type: "string"
         example: "([Ljava/lang/String;)V"
+responses:
+  OK:
+    description: OK
+  TBD:
+    description: TBD
+  UnauthorizedError:
+    description: Unauthorized
+  NotFoundError:
+    description: Not Found
+  ForbiddenError:
+    description: Forbidden
+  BadRequestError:
+    description: Bad Request
+  Conflict:
+    description: Conflict
