@@ -41,6 +41,71 @@ tags:
 schemes:
 - "https"
 paths:
+  /global-settings/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List available UDF libraries
+      description: List available UDF (User Defined Functions) libraries
+      responses:
+        200:
+          description: UDF libraries list
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - UDFs
+      summary: Add a new UDF library
+      description: Add a new UDF library
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /global-settings/udfs/{udf_id}:
+    parameters:
+      - in: path
+        name: udf_id
+        description: UDF library ID to be used
+        type: string
+        required: true
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
+      responses:
+        200:
+          description: UDF library properties
+          schema:
+            $ref: "#/definitions/UDFLibrary"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags:
+        - UDFs
+      summary: "Remove UDF library"
+      description: "Remove UDF library"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
   /services:
     get:
       tags:
@@ -1032,6 +1097,58 @@ paths:
           $ref: "#/definitions/NotFoundError"
         401:
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/views/{view_id}/events:
+    get:
+      tags:
+        - Events
+      summary: Fetch events details
+      description: Fetch events data in a selected timeframe
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: view_id
+            description: View to use
+            type: string
+            required: true
+          - in: query
+            name: from
+            type: string
+            description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            required: true
+          - in: query
+            name: to
+            type: integer
+            description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            required: true
+          - in: query
+            name: server
+            type: string
+            description: Server(s) added to the filter
+          - in: query
+            name: app
+            type: string
+            description: Application(s) added to the filter
+          - in: query
+            name: deployment
+            type: string
+            description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: Event data
+          schema:
+            properties:
+              events:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Event"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          $ref: "#/definitions/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
@@ -1599,14 +1716,79 @@ paths:
           description: Link to snapshot
           schema:
             type: "object"
-            properties: 
-              link: 
+            properties:
+              link:
                 type: "string"
                 example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
         401:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List available UDF libraries for a service key
+      description: List all available UDFs (User Defined Functions) for selected service key
+      responses:
+        200:
+          description: UDF libraries list
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - UDFs
+      summary: Add a new UDF library
+      description: Add a new UDF library
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        200:
+          description: UDF library was successfully added
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/udfs/{udf_id}:
+    parameters:
+      - in: path
+        name: udf_id
+        description: UDF library ID to be used
+        type: string
+        required: true
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
+      responses:
+        200:
+          description: UDF properties
+          schema:
+            $ref: "#/definitions/UDFLibrary"
+        401:
+          description: Unauthorized
+          $ref: "#/definitions/UnauthorizedError"
+    delete:
+      tags:
+        - UDFs
+      summary: Remove UDF library from a service key
+      description: "Remove UDF library from specified service key"
+      responses:
+        200:
+          description: OK
+        404:
+          description: NOT FOUND
+        401:
+          $ref: "#/definitions/UnauthorizedError"
 definitions:
   UnauthorizedError:
     type: object
