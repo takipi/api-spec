@@ -1392,6 +1392,16 @@ paths:
           name: deployment
           type: string
           description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          description: Include event statistics
+          default: all
+          enum:
+            - none
+            - hits
+            - invocations
+            - all
       responses:
         200:
           description: Events
@@ -1400,17 +1410,17 @@ paths:
               events:
                 type: "array"
                 items:
-                  $ref: "#/definitions/Event"
+                  $ref: "#/definitions/EventStats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/events/volume/hits:
+  /services/{service_id}/views/{view_id}/entrypoints:
     get:
       tags:
         - View Metrics
-      summary: "Fetch events information with hits stats"
-      description: "Fetch event aggregated statistics"
+      summary: "Fetch entry point(s) information with invocation stats"
+      description: "Fetch entry point(s) aggregated statistics"
       parameters:
         - in: path
           name: service_id
@@ -1446,169 +1456,13 @@ paths:
           description: Deployment(s) added to the filter
       responses:
         200:
-          description: Events
+          description: Entry Points
           schema:
             properties:
-              events:
+              entrypoints:
                 type: "array"
                 items:
-                  $ref: "#/definitions/Event"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/events/volume/invocations:
-    get:
-      tags:
-        - View Metrics
-      summary: "Fetch events information with invocations stats"
-      description: "Fetch event aggregated statistics"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: view_id
-          description: View to use
-          type: string
-          required: true
-        - in: query
-          name: from
-          type: string
-          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          required: true
-        - in: query
-          name: to
-          type: integer
-          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          required: true
-        - in: query
-          name: server
-          type: string
-          description: Server(s) added to the filter
-        - in: query
-          name: app
-          type: string
-          description: Application(s) added to the filter
-        - in: query
-          name: deployment
-          type: string
-          description: Deployment(s) added to the filter
-      responses:
-        200:
-          description: Events
-          schema:
-            properties:
-              events:
-                type: "array"
-                items:
-                  $ref: "#/definitions/Event"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/events/volume/rate:
-    get:
-      tags:
-        - View Metrics
-      summary: "Fetch events information with all stats"
-      description: "Fetch event aggregated statistics"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: view_id
-          description: View to use
-          type: string
-          required: true
-        - in: query
-          name: from
-          type: string
-          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          required: true
-        - in: query
-          name: to
-          type: integer
-          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          required: true
-        - in: query
-          name: server
-          type: string
-          description: Server(s) added to the filter
-        - in: query
-          name: app
-          type: string
-          description: Application(s) added to the filter
-        - in: query
-          name: deployment
-          type: string
-          description: Deployment(s) added to the filter
-      responses:
-        200:
-          description: Events
-          schema:
-            properties:
-              events:
-                type: "array"
-                items:
-                  $ref: "#/definitions/Event"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/transactions/volume:
-    get:
-      tags:
-        - View Metrics
-      summary: "Fetch entry point information with invocation stats"
-      description: "Fetch entry point aggregated statistics"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: view_id
-          description: View to use
-          type: string
-          required: true
-        - in: query
-          name: from
-          type: string
-          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          required: true
-        - in: query
-          name: to
-          type: integer
-          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          required: true
-        - in: query
-          name: server
-          type: string
-          description: Server(s) added to the filter
-        - in: query
-          name: app
-          type: string
-          description: Application(s) added to the filter
-        - in: query
-          name: deployment
-          type: string
-          description: Deployment(s) added to the filter
-      responses:
-        200:
-          description: Transactions
-          schema:
-            properties:
-              transactions:
-                type: "array"
-                items:
-                  $ref: "#/definitions/EntryPoint"
+                  $ref: "#/definitions/EntryPointStats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -2432,11 +2286,11 @@ definitions:
         $ref: "#/definitions/CodeLocation"
       error_origin:
         $ref: "#/definitions/CodeLocation"
-      stats:
-        $ref: "#/definitions/EventStats"
   EventStats:
     type: object
     properties:
+      event:
+        $ref: "#/definitions/Event"
       hits:
         type: integer
         example: 42
@@ -2449,8 +2303,14 @@ definitions:
       name:
         type: string
         example: LoginServlet
-      stats:
-        $ref: "#/definitions/EventStats"
+  EntryPointStats:
+    type: object
+    properties:
+      entrypoint:
+        $ref: "#/definitions/EntryPoint"
+      invocations:
+        type: integer
+        example: 42
   Label:
     type: object
     properties:
