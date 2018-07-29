@@ -1226,6 +1226,8 @@ paths:
           OK
         401:
           $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
   /services/{service_id}/views/{view_id}/events:
     get:
       tags:
@@ -1853,6 +1855,28 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/events/{event_id}/force-snapshot:
+    parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+    post:
+      tags:
+        - Events
+      summary: Force Event Snapshot
+      description: Force snapshot on the next time the event occurs
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/udfs:
     get:
       tags:
@@ -2214,3 +2238,46 @@ definitions:
       method_desc:
         type: "string"
         example: "([Ljava/lang/String;)V"
+  UDFLibrary:
+    description: UDF Properties
+    type: object
+    properties:
+      id:
+        type: string
+        example: L34
+      version:
+        type: string
+        example: 1.0
+      backwards_compatible:
+        type: string
+        example: true
+      functions:
+        type: array
+        items:
+          $ref: "#/definitions/UDF"
+  UDF:
+    type: object
+    properties:
+      function_type:
+        type: string
+        example: ANOMALY
+      short_description: #this is the udf name
+        type: string
+        example: Relative Threshold
+      long_description:
+        type: string
+        example: This function compares the volume of events against an absolute threshold
+      param_type:
+        type: string
+        example: TEXT
+      default_params:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              example: X
+            default_value:
+              type: string
+              example: 100
