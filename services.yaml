@@ -30,6 +30,8 @@ tags:
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
+  - name: Views
+    description: Fetching information about the views and categories
   - name: View Metrics
     description: Fetching data points about views in order to plot graphs
   - name: Alerts
