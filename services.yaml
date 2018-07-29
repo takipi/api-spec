@@ -25,7 +25,7 @@ host: api.overops.com
 basePath: /api/v1
 tags:
   - name: General
-    description: Fetching general information about services
+    description: Fetching general information about services (Not yet implemented)
   - name: Data Redaction
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
@@ -38,120 +38,17 @@ tags:
     description: APIs related to the alerting mechanism
   - name: Events
     description: Event data
-  - name: UDFs
-    description: User Defined Functions
 schemes:
 - "https"
 paths:
-  /global-settings/udfs:
-    get:
-      tags:
-        - UDFs
-      summary: List available UDF libraries
-      description: List available UDF (User Defined Functions) libraries
-      responses:
-        200:
-          description: UDF libraries list
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/UDFLibrary"
-        401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-    post:
-      tags:
-        - UDFs
-      summary: Add a new UDF library
-      description: Add a new UDF library
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-      responses:
-        200:
-          description: OK
-        401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-  /global-settings/udfs/{udf_id}:
-    parameters:
-      - in: path
-        name: udf_id
-        description: UDF library ID to be used
-        type: string
-        required: true
-    get:
-      tags:
-        - UDFs
-      summary: Get UDF library properties
-      description: Get UDF (User Defined Function) library properties
-      responses:
-        200:
-          description: UDF library properties
-          schema:
-            $ref: "#/definitions/UDFLibrary"
-        401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-    delete:
-      tags:
-        - UDFs
-      summary: "Remove UDF library"
-      description: "Remove UDF library"
-      responses:
-        200:
-          description: OK
-        404:
-          description: NOT FOUND
-        401:
-          $ref: "#/definitions/UnauthorizedError"
   /services:
     get:
       tags:
         - General
-      summary: "List all services accessible by the user"
       description: "List all services"
-      parameters:
-        - in: query
-          name: service_key_name
-          description: Service key name
-          type: string
-          required: false
       responses:
         200:
-          description: List of all accessible services
-          schema:
-            properties:
-              services:
-                type: array
-                description: list of services
-                items:
-                  $ref: "#/definitions/ServiceBasic"
-        401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-    post:
-      tags:
-        - General
-      summary: Generate a new service key
-      description: "Create a new service"
-      parameters:
-        - in: body
-          key_name: service
-          description: service properties
-          type: string
-          example: Pre-prod
-          required: true
-      responses:
-        200:
-          description: New Service Key created
-          schema:
-            properties:
-              service:
-                $ref: "#/definitions/ServiceBasic"
+          description: TBD
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
@@ -172,73 +69,6 @@ paths:
           description: TBD
         401:
           description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/team:
-    get:
-      tags:
-        - General
-      summary: "List service team members"
-      description: "List service team members"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: query
-            name: email
-            description: Team Member Email
-            type: string
-            required: false
-      responses:
-        200:
-          description: List of team members
-          schema:
-            properties:
-              team_members:
-                $ref: "#/definitions/TeamMembers"
-        401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-    post:
-      tags:
-        - General
-      summary: "Add members to a service key"
-      description: "Add members to a service key"
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: body
-            name: team_members
-            description: list of team members
-            schema:
-              properties:
-                $ref: "#/definitions/TeamMembers"
-      responses:
-        200:
-          description: Team memebrs were successfully added
-        401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/settings:
-    get:
-      tags:
-        - General
-      summary: "Get service settings (Not yet implemented)"
-      description: "Get service settings (Not yet implemented)"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-      responses:
-        200:
-          description: TBD
-        401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/deployments:
     get:
@@ -2022,71 +1852,6 @@ paths:
           description: OK
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/udfs:
-    get:
-      tags:
-        - UDFs
-      summary: List available UDF libraries for a service key
-      description: List all available UDFs (User Defined Functions) for selected service key
-      responses:
-        200:
-          description: UDF libraries list
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/UDFLibrary"
-        401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-    post:
-      tags:
-        - UDFs
-      summary: Add a new UDF library
-      description: Add a new UDF library
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-      responses:
-        200:
-          description: UDF library was successfully added
-        401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/udfs/{udf_id}:
-    parameters:
-      - in: path
-        name: udf_id
-        description: UDF library ID to be used
-        type: string
-        required: true
-    get:
-      tags:
-        - UDFs
-      summary: Get UDF library properties
-      description: Get UDF (User Defined Function) library properties
-      responses:
-        200:
-          description: UDF properties
-          schema:
-            $ref: "#/definitions/UDFLibrary"
-        401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-    delete:
-      tags:
-        - UDFs
-      summary: Remove UDF library from a service key
-      description: "Remove UDF library from specified service key"
-      responses:
-        200:
-          description: OK
-        404:
-          description: NOT FOUND
-        401:
-          $ref: "#/definitions/UnauthorizedError"
 definitions:
   UnauthorizedError:
     type: object
@@ -2386,77 +2151,3 @@ definitions:
       method_desc:
         type: "string"
         example: "([Ljava/lang/String;)V"
-  ServiceBasic:
-    description: Basic information about a service key
-    type: object
-    properties:
-      key_id:
-        type: string
-        example: S35817
-      key_name:
-        type: string
-        example: Pre-prod
-      full_key:
-        type: string
-        example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  TeamMembers:
-    description: List of Service key team members
-    type: array
-    items:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Jane Doe
-        email:
-          type: string
-          example: jane.doe@company.com
-        role:
-          type: string
-          example: admin
-        state:
-          type: string
-          examples: active, pending invitation
-  UDFLibrary:
-    description: UDF Properties
-    type: object
-    properties:
-      id:
-        type: string
-        example: L34
-      version:
-        type: string
-        example: 1.0
-      backwards_compatible:
-        type: string
-        example: true
-      functions:
-        type: array
-        items:
-          $ref: "#/definitions/UDF"
-  UDF:
-    type: object
-    properties:
-      function_type:
-        type: string
-        example: ANOMALY
-      short_description: #this is the udf name
-        type: string
-        example: Relative Threshold
-      long_description:
-        type: string
-        example: This function compares the volume of events against an absolute threshold
-      param_type:
-        type: string
-        example: TEXT
-      default_params:
-        type: array
-        items:
-          type: object
-          properties:
-            name:
-              type: string
-              example: X
-            default_value:
-              type: string
-              example: 100
