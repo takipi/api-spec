@@ -79,7 +79,7 @@ paths:
       parameters:
         - in: query
           name: active
-          description: Show only active deployments
+          description: (TBD - Not yet implemented) Show only active deployments
           type: boolean
       responses:
         200:
