@@ -70,23 +70,6 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/settings:
-    get:
-      tags:
-        - General
-      summary: "Get service settings"
-      description: "Get service settings"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-      responses:
-        200:
-          description: TBD
-        401:
-          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/deployments:
     get:
       tags:
@@ -107,6 +90,23 @@ paths:
                 type: "array"
                 items:
                   $ref: "#/definitions/Deployment"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/settings:
+    get:
+      tags:
+        - General
+      summary: "Get service settings"
+      description: "Get service settings"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: TBD
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/servers:
