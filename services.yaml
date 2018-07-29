@@ -67,10 +67,6 @@ paths:
       responses:
         200:
           $ref: "#/responses/TBD"
-          schema:
-            properties:
-              resp:
-                type: "object"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/deployments:
@@ -1357,6 +1353,266 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         403:
           $ref: "#/responses/ForbiddenError"
+  /services/{service_id}/views/{view_id}/events:
+    get:
+      tags:
+        - View Metrics
+      summary: "Fetch events data"
+      description: "Fetch events data"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: Events
+          schema:
+            properties:
+              events:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Event"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/views/{view_id}/events/volume/hits:
+    get:
+      tags:
+        - View Metrics
+      summary: "Fetch events information with hits stats"
+      description: "Fetch event aggregated statistics"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: Events
+          schema:
+            properties:
+              events:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Event"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/views/{view_id}/events/volume/invocations:
+    get:
+      tags:
+        - View Metrics
+      summary: "Fetch events information with invocations stats"
+      description: "Fetch event aggregated statistics"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: Events
+          schema:
+            properties:
+              events:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Event"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/views/{view_id}/events/volume/rate:
+    get:
+      tags:
+        - View Metrics
+      summary: "Fetch events information with all stats"
+      description: "Fetch event aggregated statistics"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: Events
+          schema:
+            properties:
+              events:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Event"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/views/{view_id}/transactions/volume:
+    get:
+      tags:
+        - View Metrics
+      summary: "Fetch entry point information with invocation stats"
+      description: "Fetch entry point aggregated statistics"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: Transactions
+          schema:
+            properties:
+              transactions:
+                type: "array"
+                items:
+                  $ref: "#/definitions/EntryPoint"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
@@ -1364,43 +1620,43 @@ paths:
       summary: "Fetch event metrics"
       description: "Fetch event metrics"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: from
-            type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: to
-            type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: points
-            type: integer
-            description: Number of data points to return within the interval
-            required: true
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: points
+          type: integer
+          description: Number of data points to return within the interval
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
       responses:
         200:
           description: Event metrics
@@ -1450,43 +1706,43 @@ paths:
       summary: "Fetch Event metrics split by entrypoint"
       description: "Fetch Event metrics split by entrypoint"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: from
-            type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: to
-            type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: points
-            type: integer
-            description: Number of data points to return within the interval
-            required: true
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: points
+          type: integer
+          description: Number of data points to return within the interval
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
       responses:
         200:
           description: Event metrics split by entry point
@@ -1536,43 +1792,43 @@ paths:
       summary: "Fetch event metrics split by event"
       description: "Fetch event metrics split by event"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: from
-            type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: to
-            type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: points
-            type: integer
-            description: Number of data points to return within the interval
-            required: true
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: points
+          type: integer
+          description: Number of data points to return within the interval
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
       responses:
         200:
           description: event metrics split by event
@@ -1622,65 +1878,65 @@ paths:
       summary: "Alert on anomalies"
       description: "Alert on anomalies"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: body
-            name: anomaly
-            description: "the anomaly object"
-            schema:
-              type: "object"
-              properties:
-                desc:
-                  type: "string"
-                  example: "Description"
-                timeframe:
-                  type: "object"
-                  properties:
-                    from:
-                      type: "string"
-                      example: "2018-02-28T22:47:09.038Z"
-                    to:
-                      type: "string"
-                      example: "2018-03-01T22:47:09.038Z"
-                    name:
-                      type: "string"
-                      example: "Last day"
-                anomaly:
-                  type: "object"
-                  properties:
-                    periods:
-                      type: "array"
-                      items:
-                        type: "object"
-                        properties:
-                          id:
-                            type: "string"
-                            example: "1"
-                          from:
-                            type: "string"
-                            example: "2018-03-01T23:10:00.000Z"
-                          to:
-                            type: "string"
-                            example: "2018-03-01T24:10:00.000Z"
-                    contributors:
-                      type: "array"
-                      items:
-                        type: "object"
-                        properties:
-                          id:
-                            type: "number"
-                            example: 1
-                          value:
-                            type: "number"
-                            example: 42
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: body
+          name: anomaly
+          description: "the anomaly object"
+          schema:
+            type: "object"
+            properties:
+              desc:
+                type: "string"
+                example: "Description"
+              timeframe:
+                type: "object"
+                properties:
+                  from:
+                    type: "string"
+                    example: "2018-02-28T22:47:09.038Z"
+                  to:
+                    type: "string"
+                    example: "2018-03-01T22:47:09.038Z"
+                  name:
+                    type: "string"
+                    example: "Last day"
+              anomaly:
+                type: "object"
+                properties:
+                  periods:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "string"
+                          example: "1"
+                        from:
+                          type: "string"
+                          example: "2018-03-01T23:10:00.000Z"
+                        to:
+                          type: "string"
+                          example: "2018-03-01T24:10:00.000Z"
+                  contributors:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "number"
+                          example: 1
+                        value:
+                          type: "number"
+                          example: 42
       responses:
         200:
           $ref: "#/responses/OK"
@@ -1743,16 +1999,16 @@ paths:
       summary: "Fetch event data"
       description: "Fetch event data"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: event_id
-            description: Event to use
-            type: string
-            required: true
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
       responses:
         200:
           description: Event data
@@ -1885,40 +2141,40 @@ paths:
         Fetches the last relevant snapshot for the specific filters provided.
         All filters are optional."
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: event_id
-            description: Event to use
-            type: string
-            required: true
-          - in: query
-            name: from
-            type: string
-            description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          - in: query
-            name: to
-            type: integer
-            description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
-          - in: query
-            name: similar_event_id
-            type: string
-            description: Event(s) added to the filter
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+        - in: query
+          name: similar_event_id
+          type: string
+          description: Event(s) added to the filter
       responses:
         200:
           description: Link to snapshot
@@ -2167,10 +2423,34 @@ definitions:
         items:
           type: "string"
           example: "K2"
+      jira_issue_url:
+        type: "string"
+        example: "https://example.atlassian.net/browse/EX-103"
       error_location:
         $ref: "#/definitions/CodeLocation"
       entry_point:
         $ref: "#/definitions/CodeLocation"
+      error_origin:
+        $ref: "#/definitions/CodeLocation"
+      stats:
+        $ref: "#/definitions/EventStats"
+  EventStats:
+    type: object
+    properties:
+      hits:
+        type: integer
+        example: 42
+      invocations:
+        type: integer
+        example: 51929
+  EntryPoint:
+    type: object
+    properties:
+      name:
+        type: string
+        example: LoginServlet
+      stats:
+        $ref: "#/definitions/EventStats"
   Label:
     type: object
     properties:
