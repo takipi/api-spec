@@ -961,7 +961,7 @@ paths:
         required: true
       - in: path
         name: category_id
-        description: Environment to use
+        description: View category to use
         type: string
         required: true
     get:
@@ -998,7 +998,7 @@ paths:
         type: string
         required: true
       - in: path
-        name: category
+        name: category_id
         description: View category to use
         type: string
         required: true
