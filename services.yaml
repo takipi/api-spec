@@ -30,8 +30,6 @@ tags:
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
-  - name: Views and Folders
-    description: Fetching information about the views and view categories
   - name: View Metrics
     description: Fetching data points about views in order to plot graphs
   - name: Alerts
@@ -1116,7 +1114,7 @@ paths:
           description: NOT FOUND
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/folders:
+  /services/{service_id}/categories:
     parameters:
       - in: path
         name: service_id
@@ -1125,45 +1123,44 @@ paths:
         required: true
     get:
       tags:
-        - Views and Folders
-      summary: "List view folders"
-      description: "List view folders"
+        - Views
+      summary: "List categories"
+      description: "List view categories"
       responses:
         200:
-          description: List of VF names
+          description: List of View Categories and their info
           schema:
             properties:
-              vf_names:
+              categories:
                 type: "array"
                 items:
                   type: "object"
                   properties:
                     name:
-                      $ref: "#/definitions/FolderFull"
+                      $ref: "#/definitions/Category"
         401:
           $ref: "#/definitions/UnauthorizedError"
     post:
       tags:
-        - Views and Folders
-      summary: "Create folder (Not implemented yet)" #shall be published only when delete call is implemented
-      description: "Create view folder (Not implemented yet)"
+        - Views
+      summary: "Create category (Not implemented yet)" #shall be published only when delete call is implemented
+      description: "Create category (Not implemented yet)"
       parameters:
         - in: body
-          name: folder
-          description: Folder properties
+          name: category
+          description: category properties
           schema:
-            properties:
-              $ref: "#/definitions/FolderBasic"
+            $ref: "#/definitions/Category"
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
         400:
           description: BAD INPUT
         409:
           description: CONFLICT
         401:
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/folders/{folder_id}/views:
+  /services/{service_id}/categories/{category_id}/:
     parameters:
       - in: path
         name: service_id
@@ -1171,15 +1168,53 @@ paths:
         type: string
         required: true
       - in: path
-        name: folder_id
-        description: View folder to use
+        name: category_id
+        description: Environment to use
+        type: string
+        required: true
+    get:
+      tags:
+        - Views
+      summary: "Get category details (Not implemented yet)"
+      description: "Get category details (Not implemented yet)"
+      responses:
+        200:
+          description: Category info
+          schema:
+            $ref: "#/definitions/Category"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
+    delete:
+      tags:
+        - Views
+      summary: "Delete category (Not implemented yet)"
+      description: "Delete category (Not implemented yet)"
+      responses:
+        200:
+          OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
+  /services/{service_id}/categories/{category_id}/views:
+    parameters:
+      - in: path
+        name: service_id
+        description: Environment to use
+        type: string
+        required: true
+      - in: path
+        name: category
+        description: View category to use
         type: string
         required: true
     post:
       tags:
-        - Views and Folders
-      summary: "Add view to selected folder"
-      description: "Add view to selected folder"
+        - Views
+      summary: "Add view to selected category"
+      description: "Add view to selected category"
       parameters:
         - in: body
           description: View ID (string)
@@ -1189,10 +1224,12 @@ paths:
             example: P12
           required: true
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
         404:
           description: NOT FOUND
+        403:
+          $ref: "#/definitions/ForbiddenError"
         401:
           $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/views:
@@ -1204,7 +1241,7 @@ paths:
           required: true
     get:
       tags:
-        - Views and Folders
+        - Views
       summary: "List views"
       description: "List views"
       responses:
@@ -1220,7 +1257,7 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
     post:
       tags:
-        - Views and Folders
+        - Views
       summary: "Create view"
       description: "Create view"
       parameters:
@@ -1228,11 +1265,10 @@ paths:
           name: view
           description: Single view properties
           schema:
-            properties:
-              $ref: "#/definitions/ViewFull"
+            $ref: "#/definitions/ViewFull"
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
         400:
           description: BAD INPUT
         409:
@@ -1253,7 +1289,7 @@ paths:
           required: true
     get:
       tags:
-        - Views and Folders
+        - Views
       summary: "Get view properties"
       description: "Get full list of view properties"
       responses:
@@ -1288,9 +1324,7 @@ paths:
                       description: TBD - NOT YET IMPLEMENTED
                       example: false
                     filters:
-                      type: "array"
-                      items:
-                        $ref: "#/definitions/Filter"
+                      $ref: "#/definitions/Filter"
                     alert_on_new:
                       type: boolean
                       description: TBD - NOT YET IMPLEMENTED
@@ -1301,9 +1335,13 @@ paths:
                       example: true
         401:
           $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
+        404:
+          $ref: "#/definitions/NotFoundError"
     post:
       tags:
-        - Views and Folders
+        - Views
       summary: "Edit view data"
       description: "Edit view data"
       parameters:
@@ -1311,15 +1349,28 @@ paths:
           name: view
           description: Single view properties
           schema:
-            properties:
               $ref: "#/definitions/ViewFull"
       responses:
         200:
           description: OK
-        404:
-          $ref: "#/definitions/NotFoundError"
         401:
           $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
+        404:
+          $ref: "#/definitions/NotFoundError"
+    delete:
+      tags:
+        - Views
+      summary: "Delete view (Not implemented yet)"
+      description: "Delete view (Not implemented yet)"
+      responses:
+        200:
+          OK
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        403:
+          $ref: "#/definitions/ForbiddenError"
   /services/{service_id}/views/{view_id}/events:
       get:
         tags:
@@ -1392,12 +1443,12 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: to
             type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: points
@@ -1439,7 +1490,7 @@ paths:
                         properties:
                           time:
                             type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
+                            example: "2018-02-28T22:47:09.038Z"
                           value:
                             type: "number"
                             example: 42
@@ -1478,17 +1529,18 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: to
             type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: points
             type: integer
             description: Number of data points to return within the interval
+            required: true
           - in: query
             name: server
             type: string
@@ -1524,7 +1576,7 @@ paths:
                         properties:
                           time:
                             type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
+                            example: "2018-02-28T22:47:09.038Z"
                           value:
                             type: "number"
                             example: 42
@@ -1563,12 +1615,12 @@ paths:
           - in: query
             name: from
             type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: to
             type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
             required: true
           - in: query
             name: points
@@ -1610,7 +1662,7 @@ paths:
                         properties:
                           time:
                             type: "string"
-                            example: "2018-02-28T22:47:09.038+02:00"
+                            example: "2018-02-28T22:47:09.038Z"
                           value:
                             type: "number"
                             example: 42
@@ -1660,10 +1712,10 @@ paths:
                   properties:
                     from:
                       type: "string"
-                      example: "2018-02-28T22:47:09.038+02:00"
+                      example: "2018-02-28T22:47:09.038Z"
                     to:
                       type: "string"
-                      example: "2018-03-01T22:47:09.038+02:00"
+                      example: "2018-03-01T22:47:09.038Z"
                     name:
                       type: "string"
                       example: "Last day"
@@ -1680,10 +1732,10 @@ paths:
                             example: "1"
                           from:
                             type: "string"
-                            example: "2018-03-01T23:10:00.000+02:00"
+                            example: "2018-03-01T23:10:00.000Z"
                           to:
                             type: "string"
-                            example: "2018-03-01T24:10:00.000+02:00"
+                            example: "2018-03-01T24:10:00.000Z"
                     contributors:
                       type: "array"
                       items:
@@ -1735,8 +1787,7 @@ paths:
           name: label
           description: Single label
           schema:
-            properties:
-              $ref: "#/definitions/Label"
+            $ref: "#/definitions/Label"
       responses:
         200:
           description: OK
@@ -1891,6 +1942,62 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
+  /services/{service_id}/events/${event_id}/snapshot:
+    get:
+      tags:
+        - Events
+      summary: "Fetch event snapshot"
+      description: "Fetch event snapshot.
+        Fetches the last relevant snapshot for the specific filters provided.
+        All filters are optional."
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: event_id
+            description: Event to use
+            type: string
+            required: true
+          - in: query
+            name: from
+            type: string
+            description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          - in: query
+            name: to
+            type: integer
+            description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          - in: query
+            name: server
+            type: string
+            description: Server(s) added to the filter
+          - in: query
+            name: app
+            type: string
+            description: Application(s) added to the filter
+          - in: query
+            name: deployment
+            type: string
+            description: Deployment(s) added to the filter
+          - in: query
+            name: similar_event_id
+            type: string
+            description: Event(s) added to the filter
+      responses:
+        200:
+          description: Link to snapshot
+          schema:
+            type: "object"
+            properties:
+              link:
+                type: "string"
+                example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+        404:
+          $ref: "#/definitions/NotFoundError"
   /services/{service_id}/events/{event_id}/force-snapshot:
     parameters:
         - in: path
@@ -2005,6 +2112,19 @@ definitions:
       message:
         type: string
         example: Resource Not Found
+  ForbiddenError:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        example: 403
+      type:
+        type: string
+        example: Access forbidden
+      message:
+        type: string
+        example: Access forbidden
   Pattern:
     description: A data redaction pattern used to define PII RegEx
     type: object
@@ -2067,9 +2187,7 @@ definitions:
         description: TBD - NOT YET IMPLEMENTED
         example: false
       filters:
-        type: "array"
-        items:
-          $ref: "#/definitions/Filter"
+        $ref: "#/definitions/Filter"
       alert_on_new:
         type: boolean
         description: TBD - NOT YET IMPLEMENTED
@@ -2078,84 +2196,118 @@ definitions:
         type: boolean
         description: TBD - NOT YET IMPLEMENTED
         example: true
-  FolderBasic:
-    description: Single folder basic properties
-    type: "object"
-    properties:
-      name:
-        type: "string"
-        description: Folder Name
-        example: My Folder
-      shared:
-        type: boolean
-        description: Indicates if this folder visible for all users under this key or only for the folder creator.
-        example: false
-      admin:
-        type: boolean
-        description: (Not implemented yet) marks the folder as visible only to key admins
-        example: true
-      icon:
-        type: "string"
-        description: (Not implemented yet) based 64 encoded SVG
-  FolderFull:
-    description: Single folder full properties
+  Category:
+    description: Single category properties
     type: "object"
     properties:
       id:
         type: String
-        example: BDCICD
+        example: B345
       name:
         type: "string"
-        description: Folder Name
-        example: My Folder
+        description: Category Name
+        example: CI/CD
       shared:
         type: boolean
-        description: Indicates if this folder visible for all users under this key or only for the folder creator.
+        description: Indicates whether this category is visible for all users under this key or only for the category creator.
         example: false
       admin:
         type: boolean
-        description: marks the folder as visible only to key admins
+        description: (TBD - NOT YET IMPLEMENTED) marks the category as visible only to key admins
         example: true
       icon:
         type: "string"
-        description: based 64 encoded SVG
+        description: (TBD - NOT YET IMPLEMENTED) based 64 encoded SVG
       views:
         type: array
         items:
           $ref: "#/definitions/ViewBasic"
   Filter:
     description: Filter properties
-    type: "object"
+    type: object
     properties:
-      name:
-        type: "string"
-        description: Use a filter name from the list above.
-        enum: [SERVERS, APPS, DEPLOYMENTS, FIRST SEEN CUSTOM, FIRST SEEN PRESET, EVENT TYPE, EVENT NAME, EVENT LOCATION, EVENT PACKAGE, ENTRY POINT, LABELS, INTRODUCED BY, SEARCH]
-      values:
-        type: "array"
-        description: The values that shall be filtered. Follow the examples to define proper value format that matches desired filter type.
+      first_seen:
+        type: object
+        description: Defines the first time an event occured using a absolute time frame or a relative ime frame. If absolute time frame is defined, the relative will be ignored.
+        properties:
+          absolute:
+            type: object
+            properties:
+              from:
+                type: string
+                description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                example: 2018-02-28T22:47:09.038+02:00
+              to:
+                type: string
+                description: End time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                example: 2018-02-28T22:47:09.038+02:00
+          relative:
+            type: string
+            enum: [last_hour, last_3h, last_6h, last_12h, last_24h, last_48h, last_7d, last_14d, last_30d]
+            example: "last_6h"
+      labels:
+        type: array
+        description: List of labels
         items:
-          type: "string"
-    example:
-      general_example:
-        name: LABELS
-        value: ["JIRA", "CRITICAL", "QA"]
-      event_type_example:
-        name: EVENT TYPE
-        value: ["Uncaught exceptions", "Swallowed Exceptions"]
-        summary: Supported values - Uncaught exceptions, Caught exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers.
-      first_seen_custom_example:
-        name: FIRST SEEN CUSTOM
-        value: ["from= 2018-02-28T22:47:09.038+02:00", "to=2018-02-28T22:47:09.038+02:00"]
-        summary: use this example to define FIRST SEEN CUSTOM filter with fixed time range
-      first_seen_preset_example:
-        name: FIRST SEEN PRESET
-        value: last_hour
-        summary: use this example to define FIRST SEEN PRESET filter. Available presets - last_hour, last_24h, last_7d, last_30d
-      search_example:
-        name: SEARCH
-        value: ["Can not find"]
-        summary: use this example to define SEARCH filter - only single search value can be defined
+          type: string
+          example: Jira
+      event_type:
+        type: array
+        description: List of event types
+        items:
+          type: string
+          enum: [Uncaught Exceptions, Caught Exceptions, Swallowed Exceptions, Logged Warnings, Logged Errors, HTTP Errors, Timers]
+          example: Swallowed Exceptions
+      event_name:
+        type: array
+        description: (Not implemented yet) List of event names
+        items:
+          type: string
+          example: IndexOutOfBoundsException
+      event_location:
+        type: array
+        description: (Not implemented yet) List of event locations
+        items:
+          type: string
+          example: DotConnect
+      event_package:
+        type: array
+        description: (Not implemented yet) List of event packages
+        items:
+          type: string
+          example: com.dotmarketing.servlets
+      entry_point:
+        type: array
+        description: (Not implemented yet) List of entrypoints
+        items:
+          type: string
+      servers:
+        type: array
+        description: (Not implemented yet) List of server names
+        items:
+          type: string
+          example: na-dotCMS-2
+      apps:
+        type: array
+        description: (Not implemented yet) List of application names
+        items:
+          type: string
+          example: API
+      deployments:
+        type: array
+        description: (Not implemented yet) List of deployment names
+        items:
+          type: string
+          example: 2018-04-11-2
+      introduced_by:
+        type: array
+        description: (Not implemented yet) Filters events by deployment they originated in
+        items:
+          type: string
+          example: Unnamed Deployment
+      search:
+        type: string
+        description: (Not implemented yet) Free text search
   Event:
     description: An exception, logged error and more
     type: object
@@ -2171,7 +2323,7 @@ definitions:
         example: "NullPointerException"
       first_seen:
         type: "string"
-        example: "2018-02-28T22:47:09.038+02:00"
+        example: "2018-02-28T22:47:09.038Z"
       introduced_by:
         type: "string"
         example: "1.201.1"
