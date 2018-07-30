@@ -31,7 +31,7 @@ tags:
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
   - name: Views
-    description: Fetching information about the views
+    description: Fetching information about the views and categories
   - name: View Metrics
     description: Fetching data points about views in order to plot graphs
   - name: Alerts
@@ -73,9 +73,14 @@ paths:
   /services/{service_id}/deployments:
     get:
       tags:
-        - Deployments
-      summary: "List Deployments"
-      description: "List Deployments"
+        - General
+      summary: "List deployments"
+      description: "List deployments"
+      parameters:
+        - in: query
+          name: active
+          description: (TBD - Not yet implemented) Show only active deployments
+          type: boolean
       responses:
         200:
           description: List of deployments
@@ -104,6 +109,38 @@ paths:
           description: TBD
         401:
           $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/servers:
+    get:
+      tags:
+        - General
+      summary: "List servers (Not yet implemented)"
+      description: "List servers (Not yet implemented)"
+      parameters:
+        - in: query
+          name: active
+          description: Show only active servers
+          type: boolean
+      responses:
+        200:
+          description: TBD
+        401:
+          $ref: "#/definitions/UnauthorizedError"
+  /services/{service_id}/applications:
+    get:
+      tags:
+        - General
+      summary: "List applications (Not yet implemented)"
+      description: "List applications (Not yet implemented)"
+      parameters:
+        - in: query
+          name: active
+          description: Show only active applications
+          type: boolean
+      responses:
+        200:
+          description: TBD
+        401:
+            $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
     get:
       tags:
@@ -952,6 +989,26 @@ paths:
                       $ref: "#/definitions/Category"
         401:
           $ref: "#/definitions/UnauthorizedError"
+    post:
+      tags:
+        - Views
+      summary: "Create category (Not implemented yet)" #shall be published only when delete call is implemented
+      description: "Create category (Not implemented yet)"
+      parameters:
+        - in: body
+          name: category
+          description: category properties
+          schema:
+            $ref: "#/definitions/Category"
+      responses:
+        200:
+          description: OK
+        400:
+          description: BAD INPUT
+        409:
+          description: CONFLICT
+        401:
+          $ref: "#/definitions/UnauthorizedError"
   /services/{service_id}/categories/{category_id}/:
     parameters:
       - in: path
@@ -1163,6 +1220,58 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         403:
           $ref: "#/definitions/ForbiddenError"
+  /services/{service_id}/views/{view_id}/events:
+      get:
+        tags:
+          - Events
+        summary: Fetch events details
+        description: Fetch events data in a selected timeframe
+        parameters:
+            - in: path
+              name: service_id
+              description: Environment to use
+              type: string
+              required: true
+            - in: path
+              name: view_id
+              description: View to use
+              type: string
+              required: true
+            - in: query
+              name: from
+              type: string
+              description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+              required: true
+            - in: query
+              name: to
+              type: integer
+              description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+              required: true
+            - in: query
+              name: server
+              type: string
+              description: Server(s) added to the filter
+            - in: query
+              name: app
+              type: string
+              description: Application(s) added to the filter
+            - in: query
+              name: deployment
+              type: string
+              description: Deployment(s) added to the filter
+        responses:
+          200:
+            description: Event data
+            schema:
+              properties:
+                events:
+                  type: "array"
+                  items:
+                    $ref: "#/definitions/Event"
+          401:
+            $ref: "#/definitions/UnauthorizedError"
+          404:
+            $ref: "#/definitions/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
@@ -1888,11 +1997,11 @@ definitions:
         example: false
       admin:
         type: boolean
-        description: marks the category as visible only to key admins
+        description: (TBD - NOT YET IMPLEMENTED) marks the category as visible only to key admins
         example: true
       icon:
         type: "string"
-        description: based 64 encoded SVG
+        description: (TBD - NOT YET IMPLEMENTED) based 64 encoded SVG
       views:
         type: array
         items:
@@ -2016,6 +2125,9 @@ definitions:
         $ref: "#/definitions/CodeLocation"
       entry_point:
         $ref: "#/definitions/CodeLocation"
+      jira_ticket:
+        type: string
+        example: OO-1234
   Label:
     type: object
     properties:
