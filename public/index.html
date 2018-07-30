@@ -234,22 +234,22 @@
                 <a href="#operation--global-settings-udfs-post"> Add a new UDF library </a>
               </li>
               <li>
-                <a href="#operation--global-settings-udfs--udf_id--get"> Get UDF library properties </a>
+                <a href="#operation--global-settings-udfs--library_id--get"> Get UDF library properties (TBD - Not yet implemented) </a>
               </li>
               <li>
-                <a href="#operation--global-settings-udfs--udf_id--delete"> Remove UDF library </a>
+                <a href="#operation--global-settings-udfs--library_id--delete"> Remove UDF library </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--udfs-get"> List available UDF libraries for a service key </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--udfs-post"> Add a new UDF library </a>
+                <a href="#operation--services--service_id--udfs-post"> Add a new UDF library (TBD - Not yet implemented) </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--udfs--udf_id--get"> Get UDF library properties </a>
+                <a href="#operation--services--service_id--udfs--library_id--get"> Get UDF library properties </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--udfs--udf_id--delete"> Remove UDF library from a service key </a>
+                <a href="#operation--services--service_id--udfs--library_id--delete"> Remove UDF library from a service key </a>
               </li>
             </ul>
           </section>
@@ -6815,7 +6815,7 @@
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
     <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;backward_compatible&quot;</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">&quot;functions&quot;</span>: [
       {
         <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
@@ -6893,7 +6893,7 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <div id="operation--global-settings-udfs--udf_id--get" class="operation panel" data-traverse-target="operation--global-settings-udfs--udf_id--get">
+          <div id="operation--global-settings-udfs--library_id--get" class="operation panel" data-traverse-target="operation--global-settings-udfs--library_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -6903,20 +6903,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Get UDF library properties</span>
+              <span class="operation-summary">Get UDF library properties (TBD - Not yet implemented)</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/global-settings/udfs/{udf_id}</span>
+                  <span class="operation-path">/global-settings/udfs/{library_id}</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get UDF (User Defined Function) library properties</p>
+                  <p>Get UDF (User Defined Function) library properties (TBD - Not yet implemented)</p>
                 </section>
               </div>
             </div>
@@ -6925,7 +6925,7 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">udf_id</div>
+                      <div class="prop-title">library_id</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
@@ -6976,7 +6976,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;backward_compatible&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;functions&quot;</span>: [
     {
       <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
@@ -6998,7 +6998,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--global-settings-udfs--udf_id--delete" class="operation panel" data-traverse-target="operation--global-settings-udfs--udf_id--delete">
+          <div id="operation--global-settings-udfs--library_id--delete" class="operation panel" data-traverse-target="operation--global-settings-udfs--library_id--delete">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -7014,7 +7014,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">DELETE</span>
-                  <span class="operation-path">/global-settings/udfs/{udf_id}</span>
+                  <span class="operation-path">/global-settings/udfs/{library_id}</span>
                 </section>
               </div>
             </div>
@@ -7030,7 +7030,7 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">udf_id</div>
+                      <div class="prop-title">library_id</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
@@ -7156,7 +7156,7 @@
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
     <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;backward_compatible&quot;</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">&quot;functions&quot;</span>: [
       {
         <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
@@ -7189,7 +7189,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Add a new UDF library</span>
+              <span class="operation-summary">Add a new UDF library (TBD - Not yet implemented)</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -7202,7 +7202,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Add a new UDF library</p>
+                  <p>Add a new UDF library (TBD - Not yet implemented)</p>
                 </section>
               </div>
             </div>
@@ -7234,7 +7234,7 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <div id="operation--services--service_id--udfs--udf_id--get" class="operation panel" data-traverse-target="operation--services--service_id--udfs--udf_id--get">
+          <div id="operation--services--service_id--udfs--library_id--get" class="operation panel" data-traverse-target="operation--services--service_id--udfs--library_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -7250,7 +7250,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/udfs/{udf_id}</span>
+                  <span class="operation-path">/services/{service_id}/udfs/{library_id}</span>
                 </section>
               </div>
             </div>
@@ -7266,7 +7266,7 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">udf_id</div>
+                      <div class="prop-title">library_id</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
@@ -7317,7 +7317,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;backward_compatible&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;functions&quot;</span>: [
     {
       <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,
@@ -7339,7 +7339,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--udfs--udf_id--delete" class="operation panel" data-traverse-target="operation--services--service_id--udfs--udf_id--delete">
+          <div id="operation--services--service_id--udfs--library_id--delete" class="operation panel" data-traverse-target="operation--services--service_id--udfs--library_id--delete">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -7355,7 +7355,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">DELETE</span>
-                  <span class="operation-path">/services/{service_id}/udfs/{udf_id}</span>
+                  <span class="operation-path">/services/{service_id}/udfs/{library_id}</span>
                 </section>
               </div>
             </div>
@@ -7371,7 +7371,7 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">udf_id</div>
+                      <div class="prop-title">library_id</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
@@ -9198,8 +9198,8 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="backwards_compatible">
-                      <span class="json-property-name">backwards_compatible:</span>
+                    <dt data-property-name="backward_compatible">
+                      <span class="json-property-name">backward_compatible:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
@@ -9232,7 +9232,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;L34&quot;</span>,
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-attr">&quot;backwards_compatible&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;backward_compatible&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;functions&quot;</span>: [
     {
       <span class="hljs-attr">&quot;function_type&quot;</span>: <span class="hljs-string">&quot;ANOMALY&quot;</span>,

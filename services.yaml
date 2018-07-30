@@ -74,18 +74,18 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /global-settings/udfs/{udf_id}:
+  /global-settings/udfs/{library_id}:
     parameters:
       - in: path
-        name: udf_id
+        name: library_id
         description: UDF library ID to be used
         type: string
         required: true
     get:
       tags:
         - UDFs
-      summary: Get UDF library properties
-      description: Get UDF (User Defined Function) library properties
+      summary: Get UDF library properties (TBD - Not yet implemented)
+      description: Get UDF (User Defined Function) library properties (TBD - Not yet implemented)
       responses:
         200:
           description: UDF library properties
@@ -1896,8 +1896,8 @@ paths:
     post:
       tags:
         - UDFs
-      summary: Add a new UDF library
-      description: Add a new UDF library
+      summary: Add a new UDF library (TBD - Not yet implemented)
+      description: Add a new UDF library (TBD - Not yet implemented)
       requestBody:
         content:
           application/octet-stream:
@@ -1910,10 +1910,10 @@ paths:
         401:
           description: Unauthorized
           $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/udfs/{udf_id}:
+  /services/{service_id}/udfs/{library_id}:
     parameters:
       - in: path
-        name: udf_id
+        name: library_id
         description: UDF library ID to be used
         type: string
         required: true
@@ -2248,7 +2248,7 @@ definitions:
       version:
         type: string
         example: 1.0
-      backwards_compatible:
+      backward_compatible:
         type: string
         example: true
       functions:
