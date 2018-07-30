@@ -49,7 +49,7 @@ paths:
       description: "List all services accessible by the user"
       parameters:
         - in: query
-          name: service_key_name
+          name: name
           description: Service key name
           type: string
           required: false
@@ -73,14 +73,13 @@ paths:
       description: "Create a new service"
       parameters:
         - in: body
-          key_name: service
-          description: service properties
+          name: name
+          description: service key name
           type: string
-          example: Pre-prod
           required: true
       responses:
         200:
-          description: New Service Key created
+          description: New service key properties
           schema:
             $ref: "#/definitions/ServiceBasic"
         401:
@@ -111,16 +110,16 @@ paths:
       summary: "List service team members"
       description: "List service team members"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: query
-            name: email
-            description: Team Member Email
-            type: string
-            required: false
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: email
+          description: Team member email
+          type: string
+          required: false
       responses:
         200:
           description: List of team members
@@ -2141,10 +2140,10 @@ definitions:
     description: Basic information about a service key
     type: object
     properties:
-      key_id:
+      id:
         type: string
         example: S35817
-      key_name:
+      name:
         type: string
         example: Pre-prod
       full_key:
