@@ -1767,29 +1767,27 @@ paths:
       summary: "Fetch event actions"
       description: "Fetch event actions"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: event_id
-            description: Event to use
-            type: string
-            required: true
-          - in: query
-            name: type
-            description: Filter by specific type
-            type: string
-            required: false
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: type
+          description: Filter by specific type
+          type: string
       responses:
         200:
           description: Event actions
           schema:
-            actions:
-              type: "array"
-              items:
-                $ref: "#/definitions/EventAction"
+            type: "array"
+            items:
+              $ref: "#/definitions/EventAction"
         401:
           $ref: "#/definitions/UnauthorizedError"
         404:

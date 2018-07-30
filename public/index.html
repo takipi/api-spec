@@ -6587,11 +6587,26 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/EventAction">EventAction</a>
+                        </span>
+                      </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>Event actions</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/EventAction">EventAction</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6617,7 +6632,17 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> -->
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Label&quot;</span>,
+    <span class="hljs-attr">&quot;action&quot;</span>: <span class="hljs-string">&quot;Add Label&quot;</span>,
+    <span class="hljs-attr">&quot;data&quot;</span>: <span class="hljs-string">&quot;Critical&quot;</span>,
+    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+    <span class="hljs-attr">&quot;initiator&quot;</span>: <span class="hljs-string">&quot;joe@example.com&quot;</span>,
+    <span class="hljs-attr">&quot;initiator_type&quot;</span>: <span class="hljs-string">&quot;User&quot;</span>
+  }
+]
+</code></pre>
                   <!-- </div> -->
                 </section>
               </div>
