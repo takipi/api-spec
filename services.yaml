@@ -1425,57 +1425,119 @@ paths:
         403:
           $ref: "#/responses/ForbiddenError"
   /services/{service_id}/views/{view_id}/events:
-      get:
-        tags:
-          - Events
-        summary: Fetch events details
-        description: Fetch events data in a selected timeframe
-        parameters:
-            - in: path
-              name: service_id
-              description: Environment to use
-              type: string
-              required: true
-            - in: path
-              name: view_id
-              description: View to use
-              type: string
-              required: true
-            - in: query
-              name: from
-              type: string
-              description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-              required: true
-            - in: query
-              name: to
-              type: integer
-              description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-              required: true
-            - in: query
-              name: server
-              type: string
-              description: Server(s) added to the filter
-            - in: query
-              name: app
-              type: string
-              description: Application(s) added to the filter
-            - in: query
-              name: deployment
-              type: string
-              description: Deployment(s) added to the filter
-        responses:
-          200:
-            description: Event data
-            schema:
-              properties:
-                events:
-                  type: "array"
-                  items:
-                    $ref: "#/definitions/Event"
-          401:
-            $ref: "#/responses/UnauthorizedError"
-          404:
-            $ref: "#/responses/NotFoundError"
+    get:
+      tags:
+        - View Metrics
+      summary: "Fetch events data"
+      description: "Fetch events data"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          description: Include event statistics
+          default: all
+          enum:
+            - none
+            - hits
+            - invocations
+            - all
+      responses:
+        200:
+          description: Events
+          schema:
+            properties:
+              events:
+                type: "array"
+                items:
+                  $ref: "#/definitions/EventStats"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/views/{view_id}/entrypoints:
+    get:
+      tags:
+        - View Metrics
+      summary: "Fetch entry point(s) information with invocation stats"
+      description: "Fetch entry point(s) aggregated statistics"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: integer
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: Entry Points
+          schema:
+            properties:
+              entrypoints:
+                type: "array"
+                items:
+                  $ref: "#/definitions/EntryPointStats"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
