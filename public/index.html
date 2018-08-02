@@ -172,10 +172,10 @@
                 <a href="#operation--services--service_id--categories-post"> Create category (Not implemented yet) </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--categories--category_id---get"> Get category details (Not implemented yet) </a>
+                <a href="#operation--services--service_id--categories--category_id--get"> Get category details (Not implemented yet) </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--categories--category_id---delete"> Delete category (Not implemented yet) </a>
+                <a href="#operation--services--service_id--categories--category_id--delete"> Delete category (Not implemented yet) </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--categories--category_id--views-post"> Add view to selected category </a>
@@ -234,6 +234,9 @@
               <li>
                 <a href="#operation--services--service_id--events--event_id--force-snapshot-post"> Force Event Snapshot </a>
               </li>
+              <li>
+                <a href="#operation--services--service_id--events--event_id--actions-get"> Fetch event actions </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -276,6 +279,7 @@
           <a href="#definition-Label"> Label </a>
           <a href="#definition-Deployment"> Deployment </a>
           <a href="#definition-CodeLocation"> CodeLocation </a>
+          <a href="#definition-EventAction"> EventAction </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -521,7 +525,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List all deployments</p>
+                  <p>List deployments</p>
                 </section>
               </div>
             </div>
@@ -827,7 +831,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>OK</p>
+                      <p>TBD</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4454,20 +4458,18 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;categories&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: {
-        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;B345&quot;</span>,
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;CI/CD&quot;</span>,
-        <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;views&quot;</span>: [
-          {
-            <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-            <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
-          }
-        ]
-      }
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;B345&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;CI/CD&quot;</span>,
+      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;views&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
+          <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+        }
+      ]
     }
   ]
 }
@@ -4601,7 +4603,7 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <div id="operation--services--service_id--categories--category_id---get" class="operation panel" data-traverse-target="operation--services--service_id--categories--category_id---get">
+          <div id="operation--services--service_id--categories--category_id--get" class="operation panel" data-traverse-target="operation--services--service_id--categories--category_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -4617,7 +4619,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/categories/{category_id}/</span>
+                  <span class="operation-path">/services/{service_id}/categories/{category_id}</span>
                 </section>
               </div>
             </div>
@@ -4723,7 +4725,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--categories--category_id---delete" class="operation panel" data-traverse-target="operation--services--service_id--categories--category_id---delete">
+          <div id="operation--services--service_id--categories--category_id--delete" class="operation panel" data-traverse-target="operation--services--service_id--categories--category_id--delete">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -4739,7 +4741,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">DELETE</span>
-                  <span class="operation-path">/services/{service_id}/categories/{category_id}/</span>
+                  <span class="operation-path">/services/{service_id}/categories/{category_id}</span>
                 </section>
               </div>
             </div>
@@ -7101,6 +7103,148 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
+          <div id="operation--services--service_id--events--event_id--actions-get" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--actions-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Events">Events</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch event actions</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{service_id}/events/{event_id}/actions</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Fetch event actions</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">event_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Event to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">type</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Filter by specific type</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/EventAction">EventAction</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Event actions</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/EventAction">EventAction</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Label&quot;</span>,
+    <span class="hljs-attr">&quot;action&quot;</span>: <span class="hljs-string">&quot;Add Label&quot;</span>,
+    <span class="hljs-attr">&quot;data&quot;</span>: <span class="hljs-string">&quot;Critical&quot;</span>,
+    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+    <span class="hljs-attr">&quot;initiator&quot;</span>: <span class="hljs-string">&quot;joe@example.com&quot;</span>,
+    <span class="hljs-attr">&quot;initiator_type&quot;</span>: <span class="hljs-string">&quot;User&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <h1 id="tag-Labels" class="swagger-summary-tag" data-traverse-target="tag-Labels">Labels</h1>
           <div id="operation--services--service_id--labels-get" class="operation panel" data-traverse-target="operation--services--service_id--labels-get">
             <!-- <section class="operation-tags row"> -->
@@ -8847,6 +8991,72 @@
   <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
   <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
   <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EventAction" class="definition panel" data-traverse-target="definition-EventAction">
+            <h2 class="panel-title">
+              <a name="/definitions/EventAction"></a>EventAction:
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="type">
+                      <span class="json-property-name">type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="action">
+                      <span class="json-property-name">action:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="data">
+                      <span class="json-property-name">data:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="timestamp" class="has-description">
+                      <span class="json-property-name">timestamp:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)</p>
+                    </dd>
+                    <dt data-property-name="initiator">
+                      <span class="json-property-name">initiator:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="initiator_type">
+                      <span class="json-property-name">initiator_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Label&quot;</span>,
+  <span class="hljs-attr">&quot;action&quot;</span>: <span class="hljs-string">&quot;Add Label&quot;</span>,
+  <span class="hljs-attr">&quot;data&quot;</span>: <span class="hljs-string">&quot;Critical&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;initiator&quot;</span>: <span class="hljs-string">&quot;joe@example.com&quot;</span>,
+  <span class="hljs-attr">&quot;initiator_type&quot;</span>: <span class="hljs-string">&quot;User&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->

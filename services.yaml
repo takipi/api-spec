@@ -74,7 +74,7 @@ paths:
       tags:
         - General
       summary: "List deployments"
-      description: "List all deployments"
+      description: "List deployments"
       parameters:
         - in: path
           name: service_id
@@ -91,7 +91,7 @@ paths:
           schema:
             properties:
               deployments:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/Deployment"
         401:
@@ -120,15 +120,15 @@ paths:
       summary: "List servers (Not yet implemented)"
       description: "List servers (Not yet implemented)"
       parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: query
-        name: active
-        description: Show only active servers
-        type: boolean
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: active
+          description: Show only active servers
+          type: boolean
       responses:
         200:
           description: TBD
@@ -152,7 +152,7 @@ paths:
           type: boolean
       responses:
         200:
-          description: OK
+          $ref: "#/responses/TBD"
         401:
             $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
@@ -173,25 +173,25 @@ paths:
           schema:
             properties:
               exclude:
-                type: "object"
+                type: object
                 properties:
                   classes:
-                    type: "array"
+                    type: array
                     items:
                       $ref: "#/definitions/ExcludedClassName"
                   packages:
-                    type: "array"
+                    type: array
                     items:
                       $ref: "#/definitions/ExcludedPackageName"
               include:
-                type: "object"
+                type: object
                 properties:
                   classes:
-                    type: "array"
+                    type: array
                     items:
                       $ref: "#/definitions/IncludedClassName"
                   packages:
-                    type: "array"
+                    type: array
                     items:
                       $ref: "#/definitions/IncludedPackageName"
         401:
@@ -214,11 +214,11 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ExcludedClassName"
               packages:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
@@ -241,7 +241,7 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ExcludedClassName"
         401:
@@ -344,7 +344,7 @@ paths:
           schema:
             properties:
               packages:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
@@ -447,11 +447,11 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/IncludedClassName"
               packages:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/IncludedPackageName"
         401:
@@ -474,7 +474,7 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/IncludedClassName"
         401:
@@ -577,7 +577,7 @@ paths:
           schema:
             properties:
               packages:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/IncludedPackageName"
         401:
@@ -676,32 +676,32 @@ paths:
           schema:
             properties:
               packages:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "com.example"
               patterns:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/Pattern"
               identifiers:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "password"
               classes:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "IPv4"
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -723,7 +723,7 @@ paths:
           schema:
             properties:
               patterns:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/Pattern"
         401:
@@ -820,12 +820,12 @@ paths:
           schema:
             properties:
               identifiers:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "password"
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -852,7 +852,7 @@ paths:
           schema:
             properties:
               name:
-                type: "string"
+                type: string
                 example: "password"
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -879,7 +879,7 @@ paths:
           schema:
            properties:
              name:
-               type: "string"
+               type: string
                example: "password"
       responses:
         200:
@@ -929,12 +929,12 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "IPv4"
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -961,7 +961,7 @@ paths:
           schema:
             properties:
               name:
-                type: "string"
+                type: string
                 example: "IPv4"
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -987,7 +987,7 @@ paths:
           schema:
            properties:
              name:
-               type: "string"
+               type: string
                example: "IPv4"
       responses:
         200:
@@ -1037,12 +1037,12 @@ paths:
           schema:
             properties:
               packages:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "com.example"
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -1069,7 +1069,7 @@ paths:
           schema:
             properties:
               name:
-                type: "string"
+                type: string
                 example: "com.example"
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -1094,7 +1094,7 @@ paths:
           schema:
            properties:
              name:
-               type: "string"
+               type: string
                example: "com.example"
       responses:
         200:
@@ -1144,12 +1144,9 @@ paths:
           schema:
             properties:
               categories:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
-                  properties:
-                    name:
-                      $ref: "#/definitions/Category"
+                  $ref: "#/definitions/Category"
         401:
           $ref: "#/responses/UnauthorizedError"
     post:
@@ -1177,7 +1174,7 @@ paths:
           description: CONFLICT
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/categories/{category_id}/:
+  /services/{service_id}/categories/{category_id}:
     get:
       tags:
         - Views
@@ -1277,7 +1274,7 @@ paths:
           schema:
             properties:
               views:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ViewBasic"
         401:
@@ -1330,19 +1327,19 @@ paths:
           schema:
             properties:
               views:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   description: Single view full properties
                   properties:
                     id:
-                      type: "string"
+                      type: string
                       example: P12
                     name:
-                      type: "string"
+                      type: string
                       example: DB Errors
                     description:
-                      type: "string"
+                      type: string
                       example: This is a DB Errors View
                     shared:
                       type: boolean
@@ -1427,9 +1424,9 @@ paths:
   /services/{service_id}/views/{view_id}/events:
     get:
       tags:
-        - View Metrics
-      summary: "Fetch events data"
-      description: "Fetch events data"
+        - Events
+      summary: Fetch events details
+      description: Fetch events data in a selected timeframe
       parameters:
         - in: path
           name: service_id
@@ -1444,12 +1441,12 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: to
           type: integer
-          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: server
@@ -1463,77 +1460,15 @@ paths:
           name: deployment
           type: string
           description: Deployment(s) added to the filter
-        - in: query
-          name: stats
-          type: string
-          description: Include event statistics
-          default: all
-          enum:
-            - none
-            - hits
-            - invocations
-            - all
       responses:
         200:
-          description: Events
+          description: Event data
           schema:
             properties:
               events:
-                type: "array"
+                type: array
                 items:
-                  $ref: "#/definitions/EventStats"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/entrypoints:
-    get:
-      tags:
-        - View Metrics
-      summary: "Fetch entry point(s) information with invocation stats"
-      description: "Fetch entry point(s) aggregated statistics"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: view_id
-          description: View to use
-          type: string
-          required: true
-        - in: query
-          name: from
-          type: string
-          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          required: true
-        - in: query
-          name: to
-          type: integer
-          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          required: true
-        - in: query
-          name: server
-          type: string
-          description: Server(s) added to the filter
-        - in: query
-          name: app
-          type: string
-          description: Application(s) added to the filter
-        - in: query
-          name: deployment
-          type: string
-          description: Deployment(s) added to the filter
-      responses:
-        200:
-          description: Entry Points
-          schema:
-            properties:
-              entrypoints:
-                type: "array"
-                items:
-                  $ref: "#/definitions/EntryPointStats"
+                  $ref: "#/definitions/Event"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -1588,37 +1523,37 @@ paths:
           schema:
             properties:
               graphs:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     type:
-                      type: "string"
+                      type: string
                       example: "event"
                     id:
-                      type: "string"
+                      type: string
                       example: "42"
                     points:
-                      type: "array"
+                      type: array
                       items:
-                        type: "object"
+                        type: object
                         properties:
                           time:
-                            type: "string"
+                            type: string
                             example: "2018-02-28T22:47:09.038Z"
                           value:
-                            type: "number"
+                            type: number
                             example: 42
                           contributors:
-                            type: "array"
+                            type: array
                             items:
-                              type: "object"
+                              type: object
                               properties:
                                 id:
-                                  type: "string"
+                                  type: string
                                   example: "42"
                                 value:
-                                  type: "number"
+                                  type: number
                                   example: 42
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -1674,37 +1609,37 @@ paths:
           schema:
             properties:
               graphs:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     type:
-                      type: "string"
+                      type: string
                       example: "event"
                     id:
-                      type: "string"
+                      type: string
                       example: "42"
                     points:
-                      type: "array"
+                      type: array
                       items:
-                        type: "object"
+                        type: object
                         properties:
                           time:
-                            type: "string"
+                            type: string
                             example: "2018-02-28T22:47:09.038Z"
                           value:
-                            type: "number"
+                            type: number
                             example: 42
                           contributors:
-                            type: "array"
+                            type: array
                             items:
-                              type: "object"
+                              type: object
                               properties:
                                 id:
-                                  type: "string"
+                                  type: string
                                   example: "42"
                                 value:
-                                  type: "number"
+                                  type: number
                                   example: 42
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -1760,37 +1695,37 @@ paths:
           schema:
             properties:
               graphs:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     type:
-                      type: "string"
+                      type: string
                       example: "event"
                     id:
-                      type: "string"
+                      type: string
                       example: "42"
                     points:
-                      type: "array"
+                      type: array
                       items:
-                        type: "object"
+                        type: object
                         properties:
                           time:
-                            type: "string"
+                            type: string
                             example: "2018-02-28T22:47:09.038Z"
                           value:
-                            type: "number"
+                            type: number
                             example: 42
                           contributors:
-                            type: "array"
+                            type: array
                             items:
-                              type: "object"
+                              type: object
                               properties:
                                 id:
-                                  type: "string"
+                                  type: string
                                   example: "42"
                                 value:
-                                  type: "number"
+                                  type: number
                                   example: 42
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -1817,50 +1752,50 @@ paths:
           name: anomaly
           description: "the anomaly object"
           schema:
-            type: "object"
+            type: object
             properties:
               desc:
-                type: "string"
+                type: string
                 example: "Description"
               timeframe:
-                type: "object"
+                type: object
                 properties:
                   from:
-                    type: "string"
+                    type: string
                     example: "2018-02-28T22:47:09.038Z"
                   to:
-                    type: "string"
+                    type: string
                     example: "2018-03-01T22:47:09.038Z"
                   name:
-                    type: "string"
+                    type: string
                     example: "Last day"
               anomaly:
-                type: "object"
+                type: object
                 properties:
                   periods:
-                    type: "array"
+                    type: array
                     items:
-                      type: "object"
+                      type: object
                       properties:
                         id:
-                          type: "string"
+                          type: string
                           example: "1"
                         from:
-                          type: "string"
+                          type: string
                           example: "2018-03-01T23:10:00.000Z"
                         to:
-                          type: "string"
+                          type: string
                           example: "2018-03-01T24:10:00.000Z"
                   contributors:
-                    type: "array"
+                    type: array
                     items:
-                      type: "object"
+                      type: object
                       properties:
                         id:
-                          type: "number"
+                          type: number
                           example: 1
                         value:
-                          type: "number"
+                          type: number
                           example: 42
       responses:
         200:
@@ -1871,27 +1806,27 @@ paths:
           $ref: "#/responses/NotFoundError"
   /services/{service_id}/labels:
     get:
-        tags:
-          - Labels
-        summary: "List labels"
-        description: "List all existing labels"
-        parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-        responses:
-          200:
-            description: List of labels
-            schema:
-              properties:
-                labels:
-                  type: "array"
-                  items:
-                    $ref: "#/definitions/Label"
-          401:
-            $ref: "#/responses/UnauthorizedError"
+      tags:
+        - Labels
+      summary: "List labels"
+      description: "List all existing labels"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of labels
+          schema:
+            properties:
+              labels:
+                type: array
+                items:
+                  $ref: "#/definitions/Label"
+        401:
+          $ref: "#/responses/UnauthorizedError"
     post:
       tags:
         - Labels
@@ -1963,18 +1898,18 @@ paths:
         - in: body
           name: item
           description: list of label names to append/detach
-          schema:          
-            type: "object"
+          schema:
+            type: object
             properties:
               add:
-                type: "array"
+                type: array
                 items:
-                  type: "string"
+                  type: string
                   example: "Critical"
               remove:
-                type: "array"
+                type: array
                 items:
-                  type: "string"
+                  type: string
                   example: "Low"
       responses:
         200:
@@ -2104,10 +2039,10 @@ paths:
         200:
           description: Link to snapshot
           schema:
-            type: "object"
+            type: object
             properties:
               link:
-                type: "string"
+                type: string
                 example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
         401:
           $ref: "#/responses/UnauthorizedError"
@@ -2135,22 +2070,54 @@ paths:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/events/{event_id}/actions:
+    get:
+      tags:
+        - Events
+      summary: "Fetch event actions"
+      description: "Fetch event actions"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: type
+          description: Filter by specific type
+          type: string
+      responses:
+        200:
+          description: Event actions
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/EventAction"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
     type: object
     properties:
       name:
-        type: "string"
+        type: string
         example: "Visa"
       category:
-        type: "string"
+        type: string
         example: "Credit Card"
       regex:
-        type: "string"
+        type: string
         example: "\\b4\\d{3}([\\-\\ ]?)(?:\\d{4}\\1){2}\\d(?:\\d{3})?\\b"
       is_active:
-        type: "boolean"
+        type: boolean
         example: true
   IncludedClassName:
     type: string
@@ -2165,26 +2132,26 @@ definitions:
     type: string
     example: "com.company.package.bad"
   ViewBasic:
-    type: "object"
+    type: object
     properties:
       id:
-        type: "string"
+        type: string
         example: P12
       name:
-        type: "string"
+        type: string
         example: DB Errors
       shared:
         type: boolean
         example: false
   ViewFull:
-    type: "object"
+    type: object
     description: Single view full properties
     properties:
       name:
-        type: "string"
+        type: string
         example: DB Errors
       description:
-        type: "string"
+        type: string
         example: This is a DB Errors View
       shared:
         type: boolean
@@ -2208,7 +2175,7 @@ definitions:
         description: TBD - NOT YET IMPLEMENTED
         example: true
   Category:
-    type: "object"
+    type: object
     description: Single category properties
     properties:
       id:
@@ -2227,7 +2194,7 @@ definitions:
         description: (TBD - NOT YET IMPLEMENTED) marks the category as visible only to key admins
         example: true
       icon:
-        type: "string"
+        type: string
         description: (TBD - NOT YET IMPLEMENTED) based 64 encoded SVG
       views:
         type: array
@@ -2324,29 +2291,29 @@ definitions:
     type: object
     properties:
       id:
-        type: "string"
+        type: string
         example: "1"
       summary:
-        type: "string"
+        type: string
         example: "NullPointerException in Main.main"
       type:
-        type: "string"
+        type: string
         example: "NullPointerException"
       first_seen:
-        type: "string"
+        type: string
         example: "2018-02-28T22:47:09.038Z"
       introduced_by:
-        type: "string"
+        type: string
         example: "1.201.1"
       labels:
-        type: "array"
+        type: array
         items:
-          type: "string"
+          type: string
           example: "Critical"
       similar_event_ids:
-        type: "array"
+        type: array
         items:
-          type: "string"
+          type: string
           example: "K2"
       jira_issue_url:
         type: "string"
@@ -2389,7 +2356,7 @@ definitions:
         type: string
         example: HighPriority
       type:
-        type: "string"
+        type: string
         enum:
           - DEFAULT
           - USER
@@ -2411,17 +2378,38 @@ definitions:
     type: object
     properties:
       prettified_name:
-        type: "string"
+        type: string
         example: "Main.main"
       class_name:
-        type: "string"
+        type: string
         example: "com.company.Main"
       method_name:
-        type: "string"
+        type: string
         example: "main"
       method_desc:
-        type: "string"
+        type: string
         example: "([Ljava/lang/String;)V"
+  EventAction:
+    properties:
+      type:
+        type: string
+        example: "Label"
+      action:
+        type: string
+        example: "Add Label"
+      data:
+        type: string
+        example: "Critical"
+      timestamp:
+        type: string
+        description: Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: "2018-02-28T22:47:09.038Z"
+      initiator:
+        type: string
+        example: "joe@example.com"
+      initiator_type:
+        type: string
+        example: "User"
 responses:
   OK:
     description: OK
