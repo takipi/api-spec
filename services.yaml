@@ -67,10 +67,6 @@ paths:
       responses:
         200:
           $ref: "#/responses/TBD"
-          schema:
-            properties:
-              resp:
-                type: "object"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/deployments:
@@ -124,6 +120,11 @@ paths:
       summary: "List servers (Not yet implemented)"
       description: "List servers (Not yet implemented)"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
         - in: query
           name: active
           description: Show only active servers
@@ -132,7 +133,7 @@ paths:
         200:
           description: TBD
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/applications:
     get:
       tags:
@@ -140,15 +141,20 @@ paths:
       summary: "List applications (Not yet implemented)"
       description: "List applications (Not yet implemented)"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
         - in: query
           name: active
           description: Show only active applications
           type: boolean
       responses:
         200:
-          description: TBD
+          $ref: "#/responses/TBD"
         401:
-            $ref: "#/definitions/UnauthorizedError"
+            $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
     get:
       tags:
@@ -1152,6 +1158,11 @@ paths:
       summary: "Create category (Not implemented yet)" #shall be published only when delete call is implemented
       description: "Create category (Not implemented yet)"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
         - in: body
           name: category
           description: category properties
@@ -1165,19 +1176,8 @@ paths:
         409:
           description: CONFLICT
         401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/categories/{category_id}/:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: category_id
-        description: View category to use
-        type: string
-        required: true
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/categories/{category_id}:
     get:
       tags:
         - Views
@@ -2072,7 +2072,7 @@ paths:
         200:
           $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/events/{event_id}/actions:
     get:
       tags:
@@ -2102,9 +2102,9 @@ paths:
             items:
               $ref: "#/definitions/EventAction"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
