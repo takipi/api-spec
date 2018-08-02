@@ -1169,9 +1169,9 @@ paths:
         200:
           $ref: "#/responses/TBD"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         409:
-          description: CONFLICT
+          $ref: "#/responses/Conflict"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/categories/{category_id}:
