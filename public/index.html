@@ -273,6 +273,9 @@
           <a href="#definition-Category"> Category </a>
           <a href="#definition-Filter"> Filter </a>
           <a href="#definition-Event"> Event </a>
+          <a href="#definition-EventStats"> EventStats </a>
+          <a href="#definition-EntryPoint"> EntryPoint </a>
+          <a href="#definition-EntryPointStats"> EntryPointStats </a>
           <a href="#definition-Label"> Label </a>
           <a href="#definition-Deployment"> Deployment </a>
           <a href="#definition-CodeLocation"> CodeLocation </a>
@@ -4455,20 +4458,18 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;categories&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: {
-        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;B345&quot;</span>,
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;CI/CD&quot;</span>,
-        <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;views&quot;</span>: [
-          {
-            <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-            <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
-          }
-        ]
-      }
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;B345&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;CI/CD&quot;</span>,
+      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;views&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
+          <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+        }
+      ]
     }
   ]
 }
@@ -4570,7 +4571,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>OK</p>
+                      <p>TBD</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6656,6 +6657,7 @@
       <span class="hljs-attr">&quot;similar_event_ids&quot;</span>: [
         <span class="hljs-string">&quot;K2&quot;</span>
       ],
+      <span class="hljs-attr">&quot;jira_issue_url&quot;</span>: <span class="hljs-string">&quot;https://example.atlassian.net/browse/EX-103&quot;</span>,
       <span class="hljs-attr">&quot;error_location&quot;</span>: {
         <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
         <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
@@ -6668,7 +6670,12 @@
         <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
         <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
       },
-      <span class="hljs-attr">&quot;jira_ticket&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
+      <span class="hljs-attr">&quot;error_origin&quot;</span>: {
+        <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+        <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+        <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+        <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+      }
     }
   ]
 }
@@ -6792,6 +6799,7 @@
   <span class="hljs-attr">&quot;similar_event_ids&quot;</span>: [
     <span class="hljs-string">&quot;K2&quot;</span>
   ],
+  <span class="hljs-attr">&quot;jira_issue_url&quot;</span>: <span class="hljs-string">&quot;https://example.atlassian.net/browse/EX-103&quot;</span>,
   <span class="hljs-attr">&quot;error_location&quot;</span>: {
     <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
     <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
@@ -6804,7 +6812,12 @@
     <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
     <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
   },
-  <span class="hljs-attr">&quot;jira_ticket&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
+  <span class="hljs-attr">&quot;error_origin&quot;</span>: {
+    <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+    <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+    <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+    <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -8609,6 +8622,11 @@
                         <div class="json-inner-schema"> </div>
                       </section>
                     </dt>
+                    <dt data-property-name="jira_issue_url">
+                      <span class="json-property-name">jira_issue_url:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                     <dt data-property-name="error_location">
                       <span class="json-property-name">error_location:</span>
                       <span class="json-property-type">
@@ -8627,9 +8645,13 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="jira_ticket">
-                      <span class="json-property-name">jira_ticket:</span>
-                      <span class="json-property-type">string</span>
+                    <dt data-property-name="error_origin">
+                      <span class="json-property-name">error_origin:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/CodeLocation">CodeLocation</a>
+                        </span>
+                      </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                   </dl>
@@ -8650,6 +8672,7 @@
   <span class="hljs-attr">&quot;similar_event_ids&quot;</span>: [
     <span class="hljs-string">&quot;K2&quot;</span>
   ],
+  <span class="hljs-attr">&quot;jira_issue_url&quot;</span>: <span class="hljs-string">&quot;https://example.atlassian.net/browse/EX-103&quot;</span>,
   <span class="hljs-attr">&quot;error_location&quot;</span>: {
     <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
     <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
@@ -8662,7 +8685,170 @@
     <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
     <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
   },
-  <span class="hljs-attr">&quot;jira_ticket&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
+  <span class="hljs-attr">&quot;error_origin&quot;</span>: {
+    <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+    <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+    <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+    <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EventStats" class="definition panel" data-traverse-target="definition-EventStats">
+            <h2 class="panel-title">
+              <a name="/definitions/EventStats"></a>EventStats: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="event">
+                      <span class="json-property-name">event:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Event">Event</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="hits">
+                      <span class="json-property-name">hits:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="invocations">
+                      <span class="json-property-name">invocations:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;event&quot;</span>: {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,
+    <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;NullPointerException in Main.main&quot;</span>,
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;NullPointerException&quot;</span>,
+    <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+    <span class="hljs-attr">&quot;introduced_by&quot;</span>: <span class="hljs-string">&quot;1.201.1&quot;</span>,
+    <span class="hljs-attr">&quot;labels&quot;</span>: [
+      <span class="hljs-string">&quot;Critical&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;similar_event_ids&quot;</span>: [
+      <span class="hljs-string">&quot;K2&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;jira_issue_url&quot;</span>: <span class="hljs-string">&quot;https://example.atlassian.net/browse/EX-103&quot;</span>,
+    <span class="hljs-attr">&quot;error_location&quot;</span>: {
+      <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+      <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+      <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+      <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+    },
+    <span class="hljs-attr">&quot;entry_point&quot;</span>: {
+      <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+      <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+      <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+      <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+    },
+    <span class="hljs-attr">&quot;error_origin&quot;</span>: {
+      <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+      <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+      <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+      <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+  <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EntryPoint" class="definition panel" data-traverse-target="definition-EntryPoint">
+            <h2 class="panel-title">
+              <a name="/definitions/EntryPoint"></a>EntryPoint: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LoginServlet&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EntryPointStats" class="definition panel" data-traverse-target="definition-EntryPointStats">
+            <h2 class="panel-title">
+              <a name="/definitions/EntryPointStats"></a>EntryPointStats: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="entrypoint">
+                      <span class="json-property-name">entrypoint:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/EntryPoint">EntryPoint</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="invocations">
+                      <span class="json-property-name">invocations:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;entrypoint&quot;</span>: {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LoginServlet&quot;</span>
+  },
+  <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>
 }
 </code></pre>
                   <!-- </div> -->
