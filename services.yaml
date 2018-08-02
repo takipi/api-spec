@@ -25,7 +25,7 @@ host: api.overops.com
 basePath: /api/v1
 tags:
   - name: General
-    description: Fetching general information about services (Not yet implemented)
+    description: Fetching general information about services
   - name: Data Redaction
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
@@ -45,11 +45,42 @@ paths:
     get:
       tags:
         - General
-      summary: "Get all services"
-      description: "List all services"
+      summary: "List all services"
+      description: "List all services accessible by the user"
+      parameters:
+        - in: query
+          name: name
+          description: Service key name
+          type: string
       responses:
         200:
-          $ref: "#/responses/TBD"
+          description: List of all accessible services
+          schema:
+            properties:
+              services:
+                type: array
+                description: list of services
+                items:
+                  $ref: "#/definitions/ServiceBasic"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - General
+      summary: Generate a new service key
+      description: "Create a new service"
+      parameters:
+        - in: body
+          name: name
+          schema: 
+            properties:
+              name:
+                type: string
+      responses:
+        200:
+          description: New service key properties
+          schema:
+            $ref: "#/definitions/ServiceBasic"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}:
@@ -58,6 +89,67 @@ paths:
         - General
       summary: "Get information about the service (Not yet implemented)"
       description: "Get information about the service (Not yet implemented)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/TBD"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/team:
+    get:
+      tags:
+        - General
+      summary: "List service team members"
+      description: "List service team members"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: email
+          description: Team member email
+          type: string
+      responses:
+        200:
+          description: List of team members
+          schema:
+            $ref: "#/definitions/TeamMembers"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - General
+      summary: "Add members to a service key"
+      description: "Add members to a service key"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembers"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/settings:
+    get:
+      tags:
+        - General
+      summary: "Get service settings"
+      description: "Get service settings"
       parameters:
         - in: path
           name: service_id
@@ -94,23 +186,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/definitions/Deployment"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings:
-    get:
-      tags:
-        - General
-      summary: "Get service settings"
-      description: "Get service settings"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/TBD"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/servers:
@@ -2410,6 +2485,38 @@ definitions:
       initiator_type:
         type: string
         example: "User"
+  ServiceBasic:
+    description: Basic information about a service key
+    properties:
+      id:
+        type: string
+        example: S100
+      name:
+        type: string
+        example: Pre-prod
+      full_key:
+        type: string
+        example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  TeamMembers:
+    description: List of Service key team members
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Jane Doe
+        email:
+          type: string
+          example: jane.doe@company.com
+        role:
+          type: string
+          description: owner / admin / member
+          example: admin
+        state:
+          type: string
+          description: active / pending invitation
+          example: active
 responses:
   OK:
     description: OK
