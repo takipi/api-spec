@@ -1520,7 +1520,64 @@ paths:
           required: true
         - in: query
           name: to
-          type: integer
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          enum: [none, hits, invocations, all]
+          description: Include statistics per event in the response
+      responses:
+        200:
+          description: Event data
+          schema:
+            properties:
+              events:
+                type: array
+                items:
+                  $ref: "#/definitions/EventStats"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/views/{view_id}/entrypoints:
+    get:
+      tags:
+        - Events
+      summary: Fetch entrypoints details
+      description: Fetch entrypoints data in a selected timeframe
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: to
+          type: string
           description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
@@ -1537,13 +1594,13 @@ paths:
           description: Deployment(s) added to the filter
       responses:
         200:
-          description: Event data
+          description: Entrypoints data
           schema:
             properties:
-              events:
+              entrypoints:
                 type: array
                 items:
-                  $ref: "#/definitions/Event"
+                  $ref: "#/definitions/EntryPoint"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -1572,7 +1629,7 @@ paths:
           required: true
         - in: query
           name: to
-          type: integer
+          type: string
           description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
@@ -1658,7 +1715,7 @@ paths:
           required: true
         - in: query
           name: to
-          type: integer
+          type: string
           description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
@@ -1744,7 +1801,7 @@ paths:
           required: true
         - in: query
           name: to
-          type: integer
+          type: string
           description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
@@ -2067,7 +2124,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/events/${event_id}/snapshot:
+  /services/{service_id}/events/{event_id}/snapshot:
     get:
       tags:
         - Events
@@ -2089,11 +2146,13 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
         - in: query
           name: to
-          type: integer
-          description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
         - in: query
           name: server
           type: string
@@ -2399,11 +2458,11 @@ definitions:
         $ref: "#/definitions/CodeLocation"
       error_origin:
         $ref: "#/definitions/CodeLocation"
+      stats:
+        $ref: "#/definitions/EventStats"
   EventStats:
     type: object
     properties:
-      event:
-        $ref: "#/definitions/Event"
       hits:
         type: integer
         example: 42
@@ -2416,11 +2475,11 @@ definitions:
       name:
         type: string
         example: LoginServlet
+      stats:
+        $ref: "#/definitions/EntryPointStats"
   EntryPointStats:
     type: object
     properties:
-      entrypoint:
-        $ref: "#/definitions/EntryPoint"
       invocations:
         type: integer
         example: 42
