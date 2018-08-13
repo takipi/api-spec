@@ -84,8 +84,8 @@ paths:
     get:
       tags:
         - UDFs
-      summary: Get UDF library properties (TBD - Not yet implemented)
-      description: Get UDF (User Defined Function) library properties (TBD - Not yet implemented)
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
       responses:
         200:
           description: UDF library properties
@@ -97,8 +97,8 @@ paths:
     delete:
       tags:
         - UDFs
-      summary: "Remove UDF library"
-      description: "Remove UDF library"
+      summary: "Remove UDF library (TBD - Not yet implemented)"
+      description: "Remove UDF library (TBD - Not yet implemented)"
       responses:
         200:
           description: OK
@@ -1896,8 +1896,8 @@ paths:
     post:
       tags:
         - UDFs
-      summary: Add a new UDF library (TBD - Not yet implemented)
-      description: Add a new UDF library (TBD - Not yet implemented)
+      summary: Add a new UDF library
+      description: Add a new UDF library
       requestBody:
         content:
           application/octet-stream:
