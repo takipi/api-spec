@@ -25,16 +25,25 @@
             <a href="#tag-General">General</a>
             <ul>
               <li>
-                <a href="#operation--services-get"> GET /services </a>
+                <a href="#operation--services-get"> List all services </a>
+              </li>
+              <li>
+                <a href="#operation--services-post"> Generate a new service key </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--get"> Get information about the service (Not yet implemented) </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--deployments-get"> List deployments </a>
+                <a href="#operation--services--service_id--team-get"> List service team members </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--team-post"> Add members to a service key </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--settings-get"> Get service settings </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--deployments-get"> List deployments </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--servers-get"> List servers (Not yet implemented) </a>
@@ -172,10 +181,10 @@
                 <a href="#operation--services--service_id--categories-post"> Create category (Not implemented yet) </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--categories--category_id---get"> Get category details (Not implemented yet) </a>
+                <a href="#operation--services--service_id--categories--category_id--get"> Get category details (Not implemented yet) </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--categories--category_id---delete"> Delete category (Not implemented yet) </a>
+                <a href="#operation--services--service_id--categories--category_id--delete"> Delete category (Not implemented yet) </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--categories--category_id--views-post"> Add view to selected category </a>
@@ -226,6 +235,9 @@
                 <a href="#operation--services--service_id--views--view_id--events-get"> Fetch events details </a>
               </li>
               <li>
+                <a href="#operation--services--service_id--views--view_id--entrypoints-get"> Fetch entrypoints details </a>
+              </li>
+              <li>
                 <a href="#operation--services--service_id--events--event_id--get"> Fetch event data </a>
               </li>
               <li>
@@ -239,6 +251,9 @@
               </li>
               <li>
                 <a href="#operation--services--service_id--events--event_id--force-snapshot-post"> Force Event Snapshot </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--events--event_id--actions-get"> Fetch event actions </a>
               </li>
             </ul>
           </section>
@@ -266,9 +281,6 @@
             </ul>
           </section>
           <h5>Schema Definitions</h5>
-          <a href="#definition-UnauthorizedError"> UnauthorizedError </a>
-          <a href="#definition-NotFoundError"> NotFoundError </a>
-          <a href="#definition-ForbiddenError"> ForbiddenError </a>
           <a href="#definition-Pattern"> Pattern </a>
           <a href="#definition-IncludedClassName"> IncludedClassName </a>
           <a href="#definition-IncludedPackageName"> IncludedPackageName </a>
@@ -279,9 +291,15 @@
           <a href="#definition-Category"> Category </a>
           <a href="#definition-Filter"> Filter </a>
           <a href="#definition-Event"> Event </a>
+          <a href="#definition-EventStats"> EventStats </a>
+          <a href="#definition-EntryPoint"> EntryPoint </a>
+          <a href="#definition-EntryPointStats"> EntryPointStats </a>
           <a href="#definition-Label"> Label </a>
           <a href="#definition-Deployment"> Deployment </a>
           <a href="#definition-CodeLocation"> CodeLocation </a>
+          <a href="#definition-EventAction"> EventAction </a>
+          <a href="#definition-ServiceBasic"> ServiceBasic </a>
+          <a href="#definition-TeamMembers"> TeamMembers </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -374,7 +392,7 @@
           <h1 id="tag-General" class="swagger-summary-tag" data-traverse-target="tag-General">General</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetching general information about services (Not yet implemented)</p>
+              <p>Fetching general information about services</p>
             </div>
           </div>
           <div id="operation--services-get" class="operation panel" data-traverse-target="operation--services-get">
@@ -387,20 +405,41 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/services</span>
-              </span>
+              <span class="operation-summary">List all services</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>List all services</p>
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
-              <div class="doc-copy"> </div>
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all services accessible by the user</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">name</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Service key name</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
               <div class="doc-examples"></div>
             </div>
             <div class="doc-row">
@@ -409,9 +448,11 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>TBD</p>
+                      <p>List of all accessible services</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -419,12 +460,114 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
               </div>
-              <div class="doc-examples"> </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;services&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
+      <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services-post" class="operation panel" data-traverse-target="operation--services-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-General">General</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Generate a new service key</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Create a new service</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body"> </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ServiceBasic">ServiceBasic</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>New service key properties</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
+  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <div id="operation--services--service_id--get" class="operation panel" data-traverse-target="operation--services--service_id--get">
@@ -491,7 +634,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -499,7 +642,7 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <div id="operation--services--service_id--deployments-get" class="operation panel" data-traverse-target="operation--services--service_id--deployments-get">
+          <div id="operation--services--service_id--team-get" class="operation panel" data-traverse-target="operation--services--service_id--team-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -509,20 +652,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">List deployments</span>
+              <span class="operation-summary">List service team members</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/deployments</span>
+                  <span class="operation-path">/services/{service_id}/team</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List deployments</p>
+                  <p>List service team members</p>
                 </section>
               </div>
             </div>
@@ -531,15 +674,29 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">active</div>
-                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
-                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-type">string</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>(TBD - Not yet implemented) Show only active deployments</p>
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">email</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Team member email</p>
                     </div>
                   </div>
                 </section>
@@ -552,11 +709,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
+                        </span>
+                      </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>List of deployments</p>
+                      <p>List of team members</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -564,7 +725,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -574,18 +735,120 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;deployments&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;stage1.0.4&quot;</span>,
-      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
-    }
-  ]
-}
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+  }
+]
 </code></pre>
                   <!-- </div> -->
                 </section>
               </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--team-post" class="operation panel" data-traverse-target="operation--services--service_id--team-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-General">General</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add members to a service key</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{service_id}/team</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add members to a service key</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>list of team members</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
             </div>
           </div>
           <div id="operation--services--service_id--settings-get" class="operation panel" data-traverse-target="operation--services--service_id--settings-get">
@@ -652,12 +915,115 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
               </div>
               <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--deployments-get" class="operation panel" data-traverse-target="operation--services--service_id--deployments-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-General">General</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List deployments</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{service_id}/deployments</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List deployments</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">active</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>(TBD - Not yet implemented) Show only active deployments</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of deployments</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;deployments&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;stage1.0.4&quot;</span>,
+      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <div id="operation--services--service_id--servers-get" class="operation panel" data-traverse-target="operation--services--service_id--servers-get">
@@ -692,6 +1058,20 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">active</div>
                       <div class="prop-subtitle"> in query </div>
                       <div class="prop-subtitle">
@@ -723,7 +1103,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -763,6 +1143,20 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">active</div>
                       <div class="prop-subtitle"> in query </div>
                       <div class="prop-subtitle">
@@ -794,7 +1188,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -874,7 +1268,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -981,7 +1375,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -1091,7 +1485,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -1219,7 +1613,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1227,7 +1621,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -1313,7 +1707,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1321,7 +1715,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -1395,7 +1789,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -1498,7 +1892,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -1605,7 +1999,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1613,7 +2007,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -1649,7 +2043,38 @@
               </div>
             </div>
             <div class="doc-row">
-              <div class="doc-copy"> </div>
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">identifier</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>A code identifier</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
               <div class="doc-examples"></div>
             </div>
             <div class="doc-row">
@@ -1668,7 +2093,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1676,7 +2101,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -1750,7 +2175,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -1853,7 +2278,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -1960,7 +2385,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1968,7 +2393,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -2054,7 +2479,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2062,7 +2487,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -2136,7 +2561,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -2239,7 +2664,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -2346,7 +2771,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2354,7 +2779,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -2440,7 +2865,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2448,7 +2873,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -2528,7 +2953,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -2628,7 +3053,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -2718,7 +3143,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -2797,20 +3222,6 @@
                       <p>Fully qualified Java class name</p>
                     </div>
                   </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">class_name</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Fully qualified Java class name</p>
-                    </div>
-                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -2833,7 +3244,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2841,7 +3252,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -2919,20 +3330,6 @@
                       <p>Fully qualified Java class name</p>
                     </div>
                   </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">class_name</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Fully qualified Java class name</p>
-                    </div>
-                  </div>
                 </section>
               </div>
               <div class="doc-examples">
@@ -2962,7 +3359,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2970,7 +3367,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -3036,20 +3433,6 @@
                       <p>Fully qualified Java class name</p>
                     </div>
                   </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">class_name</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Fully qualified Java class name</p>
-                    </div>
-                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -3070,7 +3453,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3078,7 +3461,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -3152,7 +3535,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -3253,7 +3636,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3261,7 +3644,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -3368,7 +3751,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3376,7 +3759,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -3462,7 +3845,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3470,7 +3853,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -3544,7 +3927,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -3634,7 +4017,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -3735,7 +4118,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3743,7 +4126,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -3850,7 +4233,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3858,7 +4241,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -3944,7 +4327,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3952,7 +4335,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -4026,7 +4409,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -4115,8 +4498,6 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>An included package</p>
@@ -4127,7 +4508,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4135,23 +4516,12 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
               </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.package.good&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
+              <div class="doc-examples"> </div>
             </div>
           </div>
           <div id="operation--services--service_id--settings-code-redaction-include-packages--package_name--put" class="operation panel" data-traverse-target="operation--services--service_id--settings-code-redaction-include-packages--package_name--put">
@@ -4242,7 +4612,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4250,7 +4620,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -4336,7 +4706,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4344,7 +4714,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -4424,7 +4794,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -4437,20 +4807,18 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;categories&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: {
-        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;B345&quot;</span>,
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;CI/CD&quot;</span>,
-        <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;views&quot;</span>: [
-          {
-            <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
-            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-            <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
-          }
-        ]
-      }
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;B345&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;CI/CD&quot;</span>,
+      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;icon&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;views&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
+          <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+        }
+      ]
     }
   ]
 }
@@ -4552,7 +4920,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>OK</p>
+                      <p>TBD</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4560,7 +4928,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4568,7 +4936,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4576,7 +4944,7 @@
                       <div class="prop-title">409 Conflict</div>
                     </div>
                     <div class="prop-value">
-                      <p>CONFLICT</p>
+                      <p>Conflict</p>
                     </div>
                   </div>
                 </section>
@@ -4584,7 +4952,7 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <div id="operation--services--service_id--categories--category_id---get" class="operation panel" data-traverse-target="operation--services--service_id--categories--category_id---get">
+          <div id="operation--services--service_id--categories--category_id--get" class="operation panel" data-traverse-target="operation--services--service_id--categories--category_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -4600,7 +4968,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/categories/{category_id}/</span>
+                  <span class="operation-path">/services/{service_id}/categories/{category_id}</span>
                 </section>
               </div>
             </div>
@@ -4668,7 +5036,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4676,7 +5044,7 @@
                       <div class="prop-title">403 Forbidden</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Forbidden</p>
                     </div>
                   </div>
                 </section>
@@ -4706,7 +5074,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--categories--category_id---delete" class="operation panel" data-traverse-target="operation--services--service_id--categories--category_id---delete">
+          <div id="operation--services--service_id--categories--category_id--delete" class="operation panel" data-traverse-target="operation--services--service_id--categories--category_id--delete">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -4722,7 +5090,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">DELETE</span>
-                  <span class="operation-path">/services/{service_id}/categories/{category_id}/</span>
+                  <span class="operation-path">/services/{service_id}/categories/{category_id}</span>
                 </section>
               </div>
             </div>
@@ -4776,7 +5144,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>OK</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4784,7 +5152,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4792,7 +5160,7 @@
                       <div class="prop-title">403 Forbidden</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Forbidden</p>
                     </div>
                   </div>
                 </section>
@@ -4888,7 +5256,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4896,7 +5264,7 @@
                       <div class="prop-title">403 Forbidden</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Forbidden</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4904,7 +5272,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -4978,7 +5346,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -5138,7 +5506,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5146,7 +5514,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5154,7 +5522,7 @@
                       <div class="prop-title">409 Conflict</div>
                     </div>
                     <div class="prop-value">
-                      <p>CONFLICT</p>
+                      <p>Conflict</p>
                     </div>
                   </div>
                 </section>
@@ -5242,7 +5610,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5250,7 +5618,7 @@
                       <div class="prop-title">403 Forbidden</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Forbidden</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5258,7 +5626,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -5477,7 +5845,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5485,7 +5853,7 @@
                       <div class="prop-title">403 Forbidden</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Forbidden</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5493,7 +5861,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -5571,7 +5939,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>OK</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5579,7 +5947,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5587,7 +5955,7 @@
                       <div class="prop-title">403 Forbidden</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Forbidden</p>
                     </div>
                   </div>
                 </section>
@@ -5679,7 +6047,7 @@
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in query </div>
                       <div class="prop-subtitle">
-                        <span class="json-property-type">integer</span>
+                        <span class="json-property-type">string</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </div>
                     </div>
@@ -5762,7 +6130,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5770,7 +6138,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -5884,7 +6252,7 @@
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in query </div>
                       <div class="prop-subtitle">
-                        <span class="json-property-type">integer</span>
+                        <span class="json-property-type">string</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </div>
                     </div>
@@ -5967,7 +6335,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5975,7 +6343,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -6089,7 +6457,7 @@
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in query </div>
                       <div class="prop-subtitle">
-                        <span class="json-property-type">integer</span>
+                        <span class="json-property-type">string</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </div>
                     </div>
@@ -6172,7 +6540,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6180,7 +6548,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -6429,7 +6797,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>OK</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6437,7 +6805,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6445,7 +6813,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -6537,7 +6905,205 @@
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in query </div>
                       <div class="prop-subtitle">
-                        <span class="json-property-type">integer</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">server</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Server(s) added to the filter</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">app</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Application(s) added to the filter</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">deployment</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Deployment(s) added to the filter</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">stats</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-enum" title="Possible values">
+                          <span class="json-property-enum-item">none</span>,
+                          <span class="json-property-enum-item">hits</span>,
+                          <span class="json-property-enum-item">invocations</span>,
+                          <span class="json-property-enum-item">all</span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Include statistics per event in the response</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Event data</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;events&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+      <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--views--view_id--entrypoints-get" class="operation panel" data-traverse-target="operation--services--service_id--views--view_id--entrypoints-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Events">Events</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch entrypoints details</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{service_id}/views/{view_id}/entrypoints</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Fetch entrypoints data in a selected timeframe</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">view_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>View to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">from</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">to</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </div>
                     </div>
@@ -6598,7 +7164,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Event data</p>
+                      <p>Entrypoints data</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6606,7 +7172,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6614,7 +7180,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -6625,32 +7191,12 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;events&quot;</span>: [
+  <span class="hljs-attr">&quot;entrypoints&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,
-      <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;NullPointerException in Main.main&quot;</span>,
-      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;NullPointerException&quot;</span>,
-      <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-      <span class="hljs-attr">&quot;introduced_by&quot;</span>: <span class="hljs-string">&quot;1.201.1&quot;</span>,
-      <span class="hljs-attr">&quot;labels&quot;</span>: [
-        <span class="hljs-string">&quot;Critical&quot;</span>
-      ],
-      <span class="hljs-attr">&quot;similar_event_ids&quot;</span>: [
-        <span class="hljs-string">&quot;K2&quot;</span>
-      ],
-      <span class="hljs-attr">&quot;error_location&quot;</span>: {
-        <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
-        <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
-        <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
-        <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
-      },
-      <span class="hljs-attr">&quot;entry_point&quot;</span>: {
-        <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
-        <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
-        <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
-        <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
-      },
-      <span class="hljs-attr">&quot;jira_ticket&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LoginServlet&quot;</span>,
+      <span class="hljs-attr">&quot;stats&quot;</span>: {
+        <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>
+      }
     }
   ]
 }
@@ -6744,7 +7290,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6752,7 +7298,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -6774,6 +7320,7 @@
   <span class="hljs-attr">&quot;similar_event_ids&quot;</span>: [
     <span class="hljs-string">&quot;K2&quot;</span>
   ],
+  <span class="hljs-attr">&quot;jira_issue_url&quot;</span>: <span class="hljs-string">&quot;https://example.atlassian.net/browse/EX-103&quot;</span>,
   <span class="hljs-attr">&quot;error_location&quot;</span>: {
     <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
     <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
@@ -6786,7 +7333,16 @@
     <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
     <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
   },
-  <span class="hljs-attr">&quot;jira_ticket&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
+  <span class="hljs-attr">&quot;error_origin&quot;</span>: {
+    <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+    <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+    <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+    <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+  },
+  <span class="hljs-attr">&quot;stats&quot;</span>: {
+    <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+    <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -6855,6 +7411,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">from</div>
+                      <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in query </div>
                       <div class="prop-subtitle">
                         <span class="json-property-type">string</span>
@@ -6862,20 +7419,21 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)</p>
+                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">to</div>
+                      <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in query </div>
                       <div class="prop-subtitle">
-                        <span class="json-property-type">integer</span>
+                        <span class="json-property-type">string</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)</p>
+                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6959,7 +7517,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6967,7 +7525,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -7102,7 +7660,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7110,7 +7668,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -7196,12 +7754,154 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
               </div>
               <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--events--event_id--actions-get" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--actions-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Events">Events</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch event actions</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{service_id}/events/{event_id}/actions</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Fetch event actions</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">event_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Event to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">type</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Filter by specific type</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/EventAction">EventAction</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Event actions</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/EventAction">EventAction</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Label&quot;</span>,
+    <span class="hljs-attr">&quot;action&quot;</span>: <span class="hljs-string">&quot;Add Label&quot;</span>,
+    <span class="hljs-attr">&quot;data&quot;</span>: <span class="hljs-string">&quot;Critical&quot;</span>,
+    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+    <span class="hljs-attr">&quot;initiator&quot;</span>: <span class="hljs-string">&quot;joe@example.com&quot;</span>,
+    <span class="hljs-attr">&quot;initiator_type&quot;</span>: <span class="hljs-string">&quot;User&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <h1 id="tag-Labels" class="swagger-summary-tag" data-traverse-target="tag-Labels">Labels</h1>
@@ -7271,7 +7971,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -7387,7 +8087,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7395,7 +8095,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7403,7 +8103,7 @@
                       <div class="prop-title">409 Conflict</div>
                     </div>
                     <div class="prop-value">
-                      <p>CONFLICT</p>
+                      <p>Conflict</p>
                     </div>
                   </div>
                 </section>
@@ -7440,7 +8140,37 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <p>list of label names to append/detach</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="add">
+                        <span class="json-property-name">add:</span>
+                        <span class="json-property-type">string[]</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                      <dt data-property-name="remove">
+                        <span class="json-property-name">remove:</span>
+                        <span class="json-property-type">string[]</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -7476,6 +8206,9 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;add&quot;</span>: [
+    <span class="hljs-string">&quot;Critical&quot;</span>
+  ],
   <span class="hljs-attr">&quot;remove&quot;</span>: [
     <span class="hljs-string">&quot;Low&quot;</span>
   ]
@@ -7501,7 +8234,7 @@
                       <div class="prop-title">400 Bad Request</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD INPUT</p>
+                      <p>Bad Request</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7509,7 +8242,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7517,7 +8250,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -7603,7 +8336,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7611,7 +8344,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -7697,7 +8430,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>BAD</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7791,7 +8524,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>undefined</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7799,7 +8532,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -7808,144 +8541,6 @@
             </div>
           </div>
           <h1>Schema Definitions</h1>
-          <div id="definition-UnauthorizedError" class="definition panel" data-traverse-target="definition-UnauthorizedError">
-            <h2 class="panel-title">
-              <a name="/definitions/UnauthorizedError"></a>UnauthorizedError: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="code">
-                      <span class="json-property-name">code:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-format">(int32)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="type">
-                      <span class="json-property-name">type:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="message">
-                      <span class="json-property-name">message:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">401</span>,
-  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Unauthorized&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Not authorized to perform action&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-NotFoundError" class="definition panel" data-traverse-target="definition-NotFoundError">
-            <h2 class="panel-title">
-              <a name="/definitions/NotFoundError"></a>NotFoundError: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="code">
-                      <span class="json-property-name">code:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-format">(int32)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="type">
-                      <span class="json-property-name">type:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="message">
-                      <span class="json-property-name">message:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">404</span>,
-  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Resource Not Found&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Resource Not Found&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-ForbiddenError" class="definition panel" data-traverse-target="definition-ForbiddenError">
-            <h2 class="panel-title">
-              <a name="/definitions/ForbiddenError"></a>ForbiddenError: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="code">
-                      <span class="json-property-name">code:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-format">(int32)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="type">
-                      <span class="json-property-name">type:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="message">
-                      <span class="json-property-name">message:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">403</span>,
-  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Access forbidden&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Access forbidden&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
           <div id="definition-Pattern" class="definition panel" data-traverse-target="definition-Pattern">
             <h2 class="panel-title">
               <a name="/definitions/Pattern"></a>Pattern: object
@@ -8248,7 +8843,7 @@
                   <dl>
                     <dt data-property-name="id">
                       <span class="json-property-name">id:</span>
-                      <span class="json-property-type">String</span>
+                      <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dt data-property-name="name" class="has-description">
@@ -8686,6 +9281,11 @@
                         <div class="json-inner-schema"> </div>
                       </section>
                     </dt>
+                    <dt data-property-name="jira_issue_url">
+                      <span class="json-property-name">jira_issue_url:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                     <dt data-property-name="error_location">
                       <span class="json-property-name">error_location:</span>
                       <span class="json-property-type">
@@ -8704,9 +9304,22 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="jira_ticket">
-                      <span class="json-property-name">jira_ticket:</span>
-                      <span class="json-property-type">string</span>
+                    <dt data-property-name="error_origin">
+                      <span class="json-property-name">error_origin:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/CodeLocation">CodeLocation</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="stats">
+                      <span class="json-property-name">stats:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/EventStats">EventStats</a>
+                        </span>
+                      </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                   </dl>
@@ -8727,6 +9340,7 @@
   <span class="hljs-attr">&quot;similar_event_ids&quot;</span>: [
     <span class="hljs-string">&quot;K2&quot;</span>
   ],
+  <span class="hljs-attr">&quot;jira_issue_url&quot;</span>: <span class="hljs-string">&quot;https://example.atlassian.net/browse/EX-103&quot;</span>,
   <span class="hljs-attr">&quot;error_location&quot;</span>: {
     <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
     <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
@@ -8739,7 +9353,133 @@
     <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
     <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
   },
-  <span class="hljs-attr">&quot;jira_ticket&quot;</span>: <span class="hljs-string">&quot;OO-1234&quot;</span>
+  <span class="hljs-attr">&quot;error_origin&quot;</span>: {
+    <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+    <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+    <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+    <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+  },
+  <span class="hljs-attr">&quot;stats&quot;</span>: {
+    <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+    <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EventStats" class="definition panel" data-traverse-target="definition-EventStats">
+            <h2 class="panel-title">
+              <a name="/definitions/EventStats"></a>EventStats: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="hits">
+                      <span class="json-property-name">hits:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="invocations">
+                      <span class="json-property-name">invocations:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+  <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EntryPoint" class="definition panel" data-traverse-target="definition-EntryPoint">
+            <h2 class="panel-title">
+              <a name="/definitions/EntryPoint"></a>EntryPoint: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="stats">
+                      <span class="json-property-name">stats:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/EntryPointStats">EntryPointStats</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LoginServlet&quot;</span>,
+  <span class="hljs-attr">&quot;stats&quot;</span>: {
+    <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EntryPointStats" class="definition panel" data-traverse-target="definition-EntryPointStats">
+            <h2 class="panel-title">
+              <a name="/definitions/EntryPointStats"></a>EntryPointStats: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="invocations">
+                      <span class="json-property-name">invocations:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -8883,6 +9623,188 @@
   <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
   <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
 }
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EventAction" class="definition panel" data-traverse-target="definition-EventAction">
+            <h2 class="panel-title">
+              <a name="/definitions/EventAction"></a>EventAction:
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="type">
+                      <span class="json-property-name">type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="action">
+                      <span class="json-property-name">action:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="data">
+                      <span class="json-property-name">data:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="timestamp" class="has-description">
+                      <span class="json-property-name">timestamp:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)</p>
+                    </dd>
+                    <dt data-property-name="initiator">
+                      <span class="json-property-name">initiator:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="initiator_type">
+                      <span class="json-property-name">initiator_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Label&quot;</span>,
+  <span class="hljs-attr">&quot;action&quot;</span>: <span class="hljs-string">&quot;Add Label&quot;</span>,
+  <span class="hljs-attr">&quot;data&quot;</span>: <span class="hljs-string">&quot;Critical&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;initiator&quot;</span>: <span class="hljs-string">&quot;joe@example.com&quot;</span>,
+  <span class="hljs-attr">&quot;initiator_type&quot;</span>: <span class="hljs-string">&quot;User&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ServiceBasic" class="definition panel" data-traverse-target="definition-ServiceBasic">
+            <h2 class="panel-title">
+              <a name="/definitions/ServiceBasic"></a>ServiceBasic:
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Basic information about a service key</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="full_key">
+                      <span class="json-property-name">full_key:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
+  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-TeamMembers" class="definition panel" data-traverse-target="definition-TeamMembers">
+            <h2 class="panel-title">
+              <a name="/definitions/TeamMembers"></a>TeamMembers: array
+              <!-- <span class="json-property-type"><span class="json-property-type">object[]</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>List of Service key team members</p>
+                </section>
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">object</span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema">
+                    <section class="json-schema-properties">
+                      <dl>
+                        <dt data-property-name="name">
+                          <span class="json-property-name">name:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt data-property-name="email">
+                          <span class="json-property-name">email:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt data-property-name="role" class="has-description">
+                          <span class="json-property-name">role:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>owner / admin / member</p>
+                        </dd>
+                        <dt data-property-name="state" class="has-description">
+                          <span class="json-property-name">state:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>active / pending invitation</p>
+                        </dd>
+                      </dl>
+                    </section>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+  }
+]
 </code></pre>
                   <!-- </div> -->
                 </section>
