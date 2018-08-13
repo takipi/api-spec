@@ -1791,12 +1791,12 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           description: NOT FOUND
-  /services/{service_id}/events/{event_id}/snapshots:
+  /services/{service_id}/events/{event_id}/last-snapshot:
     get:
       tags:
         - Events
       summary: "Fetch event snapshot"
-      description: "Fetch event snapshot.
+      description: "Fetch last event snapshot.
         Fetches the last relevant snapshot for the specific filters provided.
         All filters are optional."
       parameters:
@@ -1847,6 +1847,26 @@ paths:
           $ref: "#/definitions/UnauthorizedError"
         404:
           $ref: "#/definitions/NotFoundError"
+  /services/{service_id}/events/{event_id}/snapshots:
+    get:
+      tags:
+        - Events
+      summary: "List event snapshots (Not yet implemented)"
+      description: "Fetches event snapshots list for the specific filters provided.
+        All filters are optional (Not yet implemented)."
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: path
+            name: event_id
+            description: Event to use
+            type: string
+            required: true
+      responses:
+        TBD
     delete:
       tags:
         - Events
