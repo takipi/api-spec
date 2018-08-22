@@ -38,6 +38,8 @@ tags:
     description: APIs related to the alerting mechanism
   - name: Events
     description: Event data
+  - name: Timers
+    description: Fetching information about timers
 schemes:
 - "https"
 paths:
@@ -72,7 +74,7 @@ paths:
       parameters:
         - in: body
           name: name
-          schema: 
+          schema:
             properties:
               name:
                 type: string
@@ -2236,6 +2238,131 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{service_id}/timers:
+    get:
+      tags:
+        - Timers
+      summary: "List timers"
+      description: "List all existing timers"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of timers
+          schema:
+            properties:
+              timers:
+                type: array
+                items:
+                  $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Timers
+      summary: "Create new timer"
+      description: "Create new timer"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: timer
+          description: Single timer
+          schema:
+            $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        409:
+          $ref: "#/responses/Conflict"
+  /services/{service_id}/timers/{timer_id}:
+    get:
+      tags:
+        - Timers
+      summary: "Get timer properties"
+      description: "Get timer properties"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Timer properties
+          schema:
+            $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Timers
+      summary: "Edit timer data"
+      description: "Edit timer data"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: View to use
+          type: string
+          required: true
+        - in: body
+          name: view
+          description: Single timer properties
+          schema:
+              $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    delete:
+      tags:
+        - Timers
+      summary: "Delete timer"
+      description: "Delete timer"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
@@ -2576,6 +2703,30 @@ definitions:
           type: string
           description: active / pending invitation
           example: active
+  Timer:
+    description: Timer properties
+    type: object
+    properties:
+      id:
+        type: string
+        description: This is an auto generated ID. When creating/editing a timer, the value recevied in this field will be ignored.
+        example: 34
+      class:
+        type: string
+        example: DBManager
+      method:
+        type: string
+        example: SaveWithRetries
+      threshold:
+        type: integer
+        description: Threshold in ms
+        example: 8000
+      server:
+        type: string
+        example: na-dotCMS-2
+      application:
+        type: string
+        example: MyApp
 responses:
   OK:
     description: OK
