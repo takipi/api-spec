@@ -2711,22 +2711,26 @@ definitions:
         type: string
         description: This is an auto generated ID. When creating/editing a timer, the value recevied in this field will be ignored.
         example: 34
-      class:
+      class_name:
         type: string
         example: DBManager
-      method:
+      method_name:
         type: string
         example: SaveWithRetries
       threshold:
         type: integer
         description: Threshold in ms
         example: 8000
-      server:
-        type: string
-        example: na-dotCMS-2
-      application:
-        type: string
-        example: MyApp
+      servers:
+        type: array
+        items:
+          type: string
+          example: na-dotCMS-2
+      applications:
+        type: array
+        items:
+          type: string
+          example: MyApp
 responses:
   OK:
     description: OK
