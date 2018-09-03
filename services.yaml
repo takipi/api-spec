@@ -72,7 +72,7 @@ paths:
       parameters:
         - in: body
           name: name
-          schema: 
+          schema:
             properties:
               name:
                 type: string
@@ -1201,6 +1201,52 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/settings/storage-settings:
+    get:
+      tags:
+        - General
+      summary: "Get storage settings of a service"
+      description: "Get storage settings of a service"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Storage settings
+          schema:
+            $ref: "#/definitions/StorageSettings"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - General
+      summary: "Set storage settings for a service"
+      description: "Set storage settings for a service"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: storage_settings
+          schema:
+            $ref: "#/definitions/StorageSettings"
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/categories:
     get:
       tags:
@@ -2576,6 +2622,23 @@ definitions:
           type: string
           description: active / pending invitation
           example: active
+  StorageSettings:
+    type: object
+    properties:
+      type:
+        type: string
+        enum:
+          - HYBRID
+          - HOSTED
+        example: HYBRID
+      hostname:
+        description: Relevant for hybrid storage only. Both hostname and ip may be used. For cloud storage, NA value will be returned
+        type: string
+        example: storage.company.com
+      frontend-hostname:
+        description: OPTIONAL Relevant for hybrid storage only. Both hostname and ip may be used. For cloud storage, NA value will be returned
+        type: string
+        example: 123.91.12.100
 responses:
   OK:
     description: OK
