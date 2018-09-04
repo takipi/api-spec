@@ -31,10 +31,12 @@ tags:
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
   - name: Views
-    description: Fetching information about the views and categories
+    description: Fetching information about the views
+  - name: View Categories
+    description: Fetching information about the view categories
   - name: View Metrics
     description: Fetching data points about views in order to plot graphs
-  - name: Alerts
+  - name: View Alerts
     description: APIs related to the alerting mechanism
   - name: Events
     description: Event data
@@ -72,7 +74,7 @@ paths:
       parameters:
         - in: body
           name: name
-          schema: 
+          schema:
             properties:
               name:
                 type: string
@@ -1204,7 +1206,7 @@ paths:
   /services/{service_id}/categories:
     get:
       tags:
-        - Views
+        - View Categories
       summary: "List categories"
       description: "List view categories"
       parameters:
@@ -1226,7 +1228,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     post:
       tags:
-        - Views
+        - View Categories
       summary: "Create category (Not implemented yet)" #shall be published only when delete call is implemented
       description: "Create category (Not implemented yet)"
       parameters:
@@ -1252,7 +1254,7 @@ paths:
   /services/{service_id}/categories/{category_id}:
     get:
       tags:
-        - Views
+        - View Categories
       summary: "Get category details (Not implemented yet)"
       description: "Get category details (Not implemented yet)"
       parameters:
@@ -1277,7 +1279,7 @@ paths:
           $ref: "#/responses/ForbiddenError"
     delete:
       tags:
-        - Views
+        - View Categories
       summary: "Delete category (Not implemented yet)"
       description: "Delete category (Not implemented yet)"
       parameters:
@@ -1302,6 +1304,7 @@ paths:
     post:
       tags:
         - Views
+        - View Categories
       summary: "Add view to selected category"
       description: "Add view to selected category"
       parameters:
@@ -1383,6 +1386,7 @@ paths:
     get:
       tags:
         - Views
+        - View Alerts
       summary: "Get view properties"
       description: "Get full list of view properties"
       parameters:
@@ -1446,6 +1450,7 @@ paths:
     post:
       tags:
         - Views
+        - View Alerts
       summary: "Edit view data"
       description: "Edit view data"
       parameters:
@@ -1866,7 +1871,7 @@ paths:
   /services/{service_id}/views/{view_id}/anomaly:
     post:
       tags:
-        - Alerts
+        - View Alerts
       summary: "Alert on anomalies"
       description: "Alert on anomalies"
       parameters:
