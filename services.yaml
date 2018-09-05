@@ -1504,6 +1504,7 @@ paths:
   /services/{service_id}/views/{view_id}/events:
     get:
       tags:
+        - Views
         - Events
       summary: Fetch events details
       description: Fetch events data in a selected timeframe
@@ -1561,6 +1562,7 @@ paths:
   /services/{service_id}/views/{view_id}/entrypoints:
     get:
       tags:
+        - Views
         - Events
       summary: Fetch entrypoints details
       description: Fetch entrypoints data in a selected timeframe
@@ -1613,6 +1615,7 @@ paths:
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
+        - Views
         - View Metrics
       summary: "Fetch event metrics"
       description: "Fetch event metrics"
@@ -1699,9 +1702,10 @@ paths:
   /services/{service_id}/views/{view_id}/metrics/entrypoint/graph:
     get:
       tags:
+        - Views
         - View Metrics
-      summary: "Fetch Event metrics split by entrypoint"
-      description: "Fetch Event metrics split by entrypoint"
+      summary: "Fetch event metrics split by entrypoint"
+      description: "Fetch event metrics split by entrypoint"
       parameters:
         - in: path
           name: service_id
@@ -1785,6 +1789,7 @@ paths:
   /services/{service_id}/views/{view_id}/metrics/event/graph:
     get:
       tags:
+        - Views
         - View Metrics
       summary: "Fetch event metrics split by event"
       description: "Fetch event metrics split by event"
@@ -1871,6 +1876,7 @@ paths:
   /services/{service_id}/views/{view_id}/anomaly:
     post:
       tags:
+        - Views
         - Alerts
       summary: "Alert on anomalies"
       description: "Alert on anomalies"
