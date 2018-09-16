@@ -25,13 +25,15 @@ host: api.overops.com
 basePath: /api/v1
 tags:
   - name: General
-    description: Fetching general information about services (Not yet implemented)
+    description: Fetching general information about services
   - name: Data Redaction
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
   - name: Views
     description: Fetching information about the views
+  - name: Categories
+    description: Fetching information about the View Categories
   - name: View Metrics
     description: Fetching data points about views in order to plot graphs
   - name: Alerts
@@ -55,25 +57,25 @@ paths:
             items:
               $ref: "#/definitions/UDFLibrary"
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     post:
       tags:
         - UDFs
       summary: Add a new UDF library
       description: Add a new UDF library
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
+      parameters:
+        - in: body
+          name: udf
+          schema:
+            properties:
+              udf:
+                type: string
+                format: binary
       responses:
         200:
           description: OK
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /global-settings/udfs/{library_id}:
     parameters:
       - in: path
@@ -92,8 +94,7 @@ paths:
           schema:
             $ref: "#/definitions/UDFLibrary"
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - UDFs
@@ -103,20 +104,51 @@ paths:
         200:
           description: OK
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services:
     get:
       tags:
         - General
-      description: "List all services"
+      summary: "List all services"
+      description: "List all services accessible by the user"
+      parameters:
+        - in: query
+          name: name
+          description: Service key name
+          type: string
       responses:
         200:
-          description: TBD
+          description: List of all accessible services
+          schema:
+            properties:
+              services:
+                type: array
+                description: list of services
+                items:
+                  $ref: "#/definitions/ServiceBasic"
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - General
+      summary: Generate a new service key
+      description: "Create a new service"
+      parameters:
+        - in: body
+          name: name
+          schema:
+            properties:
+              name:
+                type: string
+      responses:
+        200:
+          description: New service key properties
+          schema:
+            $ref: "#/definitions/ServiceBasic"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}:
     get:
       tags:
@@ -124,34 +156,60 @@ paths:
       summary: "Get information about the service (Not yet implemented)"
       description: "Get information about the service (Not yet implemented)"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/TBD"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/team:
+    get:
+      tags:
+        - General
+      summary: "List service team members"
+      description: "List service team members"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: email
+          description: Team member email
+          type: string
+      responses:
+        200:
+          description: List of team members
+          schema:
+            $ref: "#/definitions/TeamMembers"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - General
+      summary: "Add members to a service key"
+      description: "Add members to a service key"
+      parameters:
           - in: path
             name: service_id
             description: Environment to use
             type: string
             required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembers"
       responses:
         200:
-          description: TBD
+          $ref: "#/responses/OK"
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/deployments:
-    get:
-      tags:
-        - Deployments
-      summary: "List Deployments"
-      description: "List Deployments"
-      responses:
-        200:
-          description: List of deployments
-          schema:
-            properties:
-              deployments:
-                type: "array"
-                items:
-                  $ref: "#/definitions/Deployment"
-        401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings:
     get:
       tags:
@@ -166,9 +224,78 @@ paths:
           required: true
       responses:
         200:
+          $ref: "#/responses/TBD"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/deployments:
+    get:
+      tags:
+        - General
+      summary: "List deployments"
+      description: "List deployments"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: active
+          description: (TBD - Not yet implemented) Show only active deployments
+          type: boolean
+      responses:
+        200:
+          description: List of deployments
+          schema:
+            properties:
+              deployments:
+                type: array
+                items:
+                  $ref: "#/definitions/Deployment"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/servers:
+    get:
+      tags:
+        - General
+      summary: "List servers (Not yet implemented)"
+      description: "List servers (Not yet implemented)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: active
+          description: Show only active servers
+          type: boolean
+      responses:
+        200:
           description: TBD
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/applications:
+    get:
+      tags:
+        - General
+      summary: "List applications (Not yet implemented)"
+      description: "List applications (Not yet implemented)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: active
+          description: Show only active applications
+          type: boolean
+      responses:
+        200:
+          $ref: "#/responses/TBD"
+        401:
+            $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
     get:
       tags:
@@ -187,29 +314,29 @@ paths:
           schema:
             properties:
               exclude:
-                type: "object"
+                type: object
                 properties:
                   classes:
-                    type: "array"
+                    type: array
                     items:
                       $ref: "#/definitions/ExcludedClassName"
                   packages:
-                    type: "array"
+                    type: array
                     items:
                       $ref: "#/definitions/ExcludedPackageName"
               include:
-                type: "object"
+                type: object
                 properties:
                   classes:
-                    type: "array"
+                    type: array
                     items:
                       $ref: "#/definitions/IncludedClassName"
                   packages:
-                    type: "array"
+                    type: array
                     items:
                       $ref: "#/definitions/IncludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude:
     get:
       tags:
@@ -228,15 +355,15 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ExcludedClassName"
               packages:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/classes:
     get:
       tags:
@@ -255,33 +382,28 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ExcludedClassName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/classes/{class_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: class_name
-        type: string
-        required: true
-        description: Fully qualified Java class name
-      - in: path
-        name: class_name
-        type: string
-        required: true
-        description: Fully qualified Java class name
     get:
       tags:
         - Code Redaction
       summary: "Retrieve an excluded class"
       description: "Retrieve an excluded class"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
       responses:
         200:
           description: An excluded class
@@ -290,40 +412,61 @@ paths:
               name:
                 $ref: "#/definitions/ExcludedClassName"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Code Redaction
       summary: "Add a class to the exclusion list"
       description: "Add a class to the exclusion list. The body class name must match the resource identifier"
       parameters:
-       - in: body
-         name: class
-         schema:
-           properties:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            properties:
               name:
                 $ref: "#/definitions/ExcludedClassName"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Code Redaction
       summary: "Remove a class from exclusion"
       description: "Remove a class from the exclusion list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/packages:
     get:
       tags:
@@ -342,28 +485,28 @@ paths:
           schema:
             properties:
               packages:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/exclude/packages/{package_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: package_name
-        type: string
-        required: true
-        description: Fully qualified Java package name
     get:
       tags:
         - Code Redaction
       summary: "Retrieve an excluded package"
       description: "Retrieve an excluded package"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
       responses:
         200:
           description: An excluded package
@@ -372,40 +515,61 @@ paths:
               name:
                 $ref: "#/definitions/ExcludedPackageName"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Code Redaction
       summary: "Add a package to the exclusion list"
       description: "Add a package to the exclusion list. The body package name must match the resource identifier"
       parameters:
-       - in: body
-         name: package
-         schema:
-           properties:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            properties:
               name:
                 $ref: "#/definitions/ExcludedPackageName"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Code Redaction
       summary: "Remove a package from the exclusion list"
       description: "Remove a package from the exclusion list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include:
     get:
       tags:
@@ -424,15 +588,15 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/IncludedClassName"
               packages:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/IncludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/classes:
     get:
       tags:
@@ -451,28 +615,28 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/IncludedClassName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/classes/{class_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: class_name
-        type: string
-        required: true
-        description: Fully qualified Java class name
     get:
       tags:
         - Code Redaction
       summary: "Retrieve an included class"
       description: "Retrieve an included class"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
       responses:
         200:
           description: An included class
@@ -481,40 +645,61 @@ paths:
               name:
                 $ref: "#/definitions/IncludedClassName"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Code Redaction
       summary: "Add a class to the inclusion list"
       description: "Add a class to the inclusion list. The body class name must match the resource identifier"
       parameters:
-       - in: body
-         name: class
-         schema:
-           properties:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            properties:
               name:
                 $ref: "#/definitions/IncludedClassName"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Code Redaction
       summary: "Remove a class from the inclusion list"
       description: "Remove a class from the inclusion list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/packages:
     get:
       tags:
@@ -533,70 +718,87 @@ paths:
           schema:
             properties:
               packages:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/IncludedPackageName"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction/include/packages/{package_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: package_name
-        type: string
-        required: true
-        description: Fully qualified Java package name
     get:
       tags:
         - Code Redaction
       summary: "Retrieve an included package"
       description: "Retrieve an included package"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
       responses:
         200:
           description: An included package
-          schema:
-            properties:
-              name:
-                $ref: "#/definitions/IncludedPackageName"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Code Redaction
       summary: "Add a package to the inclusion list"
       description: "Add a package to the inclusion list. The body package name must match the resource identifier"
       parameters:
-       - in: body
-         name: package
-         schema:
-           properties:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            properties:
               name:
                 $ref: "#/definitions/IncludedPackageName"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Code Redaction
       summary: "Remove a package from the inclusion list"
       description: "Remove a package from the inclusion list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction:
     get:
       tags:
@@ -615,35 +817,35 @@ paths:
           schema:
             properties:
               packages:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "com.example"
               patterns:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/Pattern"
               identifiers:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "password"
               classes:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "IPv4"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/patterns:
     get:
       tags:
@@ -662,64 +864,85 @@ paths:
           schema:
             properties:
               patterns:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/Pattern"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/patterns/{pattern}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: pattern
-        description: A RegEx pattern name
-        type: string
-        required: true
     get:
       tags:
         - Data Redaction
       summary: "Retrieve a pattern"
       description: "Retrieve a pattern"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: pattern
+          description: A RegEx pattern name
+          type: string
+          required: true
       responses:
         200:
           description: A pattern
           schema:
             $ref: '#/definitions/Pattern'
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Data Redaction
       summary: "Create a pattern"
       description: "Add a RegEx pattern to be redacted. The pattern name must match the resource identifier"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: pattern
+          description: A RegEx pattern name
+          type: string
+          required: true
         - in: body
           name: pattern
           schema:
             $ref: '#/definitions/Pattern'
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Data Redaction
       summary: "Delete a pattern"
       description: "Removes a pattern from the redaction list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: pattern
+          description: A RegEx pattern name
+          type: string
+          required: true
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/identifiers:
     get:
       tags:
@@ -738,15 +961,15 @@ paths:
           schema:
             properties:
               identifiers:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "password"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/identifiers/{identifier}:
     get:
       parameters:
@@ -770,10 +993,10 @@ paths:
           schema:
             properties:
               name:
-                type: "string"
+                type: string
                 example: "password"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Data Redaction
@@ -797,27 +1020,38 @@ paths:
           schema:
            properties:
              name:
-               type: "string"
+               type: string
                example: "password"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: identifier
+          description: A code identifier
+          type: string
+          required: true
       tags:
         - Data Redaction
       summary:  "Delete identifier"
       description: "Delete identifier"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/classes:
     get:
       tags:
@@ -836,75 +1070,96 @@ paths:
           schema:
             properties:
               classes:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "IPv4"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/classes/{class_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: class_name
-        description: Class name to redact.
-        type: string
-        required: true
     get:
       tags:
         - Data Redaction
       summary: "Retrieve a class"
       description: "Retrieve a class from the data redaction list"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          description: Class name to redact.
+          type: string
+          required: true
       responses:
         200:
           description: If the redaction exists
           schema:
             properties:
               name:
-                type: "string"
+                type: string
                 example: "IPv4"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Data Redaction
       summary: "Add a class for data redaction"
       description: "Add a class to the redaction list. The body class name must match the resource identifier"
       parameters:
-       - in: body
-         description: A JSON representing a class to add for redaction
-         name: name
-         schema:
-          properties:
-            name:
-              type: "string"
-              example: "IPv4"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          description: Class name to redact.
+          type: string
+          required: true
+        - in: body
+          description: A JSON representing a class to add for redaction
+          name: name
+          schema:
+           properties:
+             name:
+               type: string
+               example: "IPv4"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Data Redaction
       summary:  "Delete a class"
       description: "Delete a class"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          description: Class name to redact.
+          type: string
+          required: true
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/packages:
     get:
       tags:
@@ -923,201 +1178,260 @@ paths:
           schema:
             properties:
               packages:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     name:
-                      type: "string"
+                      type: string
                       example: "com.example"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/data-redaction/packages/{package_name}:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: package_name
-        description: Fully qualified Java package name
-        type: string
-        required: true
     get:
       tags:
         - Data Redaction
       summary: "Retrieve a package"
       description: "Retrieve a package"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          description: Fully qualified Java package name
+          type: string
+          required: true
       responses:
         200:
           description: If the redaction exists
           schema:
             properties:
               name:
-                type: "string"
+                type: string
                 example: "com.example"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     put:
       tags:
         - Data Redaction
       summary: "Create a package"
       description: "Create a package. The body package name must match the resource identifier"
       parameters:
-       - in: body
-         name: name
-         schema:
-          properties:
-            name:
-              type: "string"
-              example: "com.example"
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          description: Fully qualified Java package name
+          type: string
+          required: true
+        - in: body
+          name: name
+          schema:
+           properties:
+             name:
+               type: string
+               example: "com.example"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Data Redaction
       summary: "Delete package"
       description: "Delete package"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          description: Fully qualified Java package name
+          type: string
+          required: true
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/categories:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
     get:
       tags:
-        - Views
+        - Categories
       summary: "List categories"
       description: "List view categories"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of View Categories and their info
           schema:
             properties:
               categories:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
-                  properties:
-                    name:
-                      $ref: "#/definitions/Category"
+                  $ref: "#/definitions/Category"
         401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/categories/{category_id}/:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: category_id
-        description: View category to use
-        type: string
-        required: true
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Categories
+      summary: "Create category (Not implemented yet)" #shall be published only when delete call is implemented
+      description: "Create category (Not implemented yet)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: category
+          description: category properties
+          schema:
+            $ref: "#/definitions/Category"
+      responses:
+        200:
+          $ref: "#/responses/TBD"
+        400:
+          $ref: "#/responses/BadRequestError"
+        409:
+          $ref: "#/responses/Conflict"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/categories/{category_id}:
     get:
       tags:
-        - Views
+        - Categories
       summary: "Get category details (Not implemented yet)"
       description: "Get category details (Not implemented yet)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: category_id
+          description: View category to use
+          type: string
+          required: true
       responses:
         200:
           description: Category info
           schema:
             $ref: "#/definitions/Category"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
     delete:
       tags:
-        - Views
+        - Categories
       summary: "Delete category (Not implemented yet)"
       description: "Delete category (Not implemented yet)"
-      responses:
-        200:
-          OK
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-        403:
-          $ref: "#/definitions/ForbiddenError"
-  /services/{service_id}/categories/{category_id}/views:
-    parameters:
-      - in: path
-        name: service_id
-        description: Environment to use
-        type: string
-        required: true
-      - in: path
-        name: category_id
-        description: View category to use
-        type: string
-        required: true
-    post:
-      tags:
-        - Views
-      summary: "Add view to selected category"
-      description: "Add view to selected category"
       parameters:
-        - in: body
-          description: View ID (string)
-          schema:
-            name: view_id
-            type: String
-            example: P12
-          required: true
-      responses:
-        200:
-          description: OK
-        404:
-          description: NOT FOUND
-        403:
-          $ref: "#/definitions/ForbiddenError"
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-  /services/{service_id}/views:
-    parameters:
         - in: path
           name: service_id
           description: Environment to use
           type: string
           required: true
+        - in: path
+          name: category_id
+          description: View category to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+  /services/{service_id}/categories/{category_id}/views:
+    post:
+      tags:
+        - Views
+        - Categories
+      summary: "Add view to selected category"
+      description: "Add view to selected category"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: category_id
+          description: View category to use
+          type: string
+          required: true
+        - in: body
+          description: View ID (string)
+          name: view_id
+          required: true
+          schema:
+            type: string
+            example: P12
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/views:
     get:
       tags:
         - Views
       summary: "List views"
       description: "List views"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: List of views including basic info about each view.
           schema:
             properties:
               views:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/ViewBasic"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     post:
       tags:
         - Views
       summary: "Create view"
       description: "Create view"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
         - in: body
           name: view
           description: Single view properties
@@ -1125,15 +1439,21 @@ paths:
             $ref: "#/definitions/ViewFull"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         409:
-          description: CONFLICT
+          $ref: "#/responses/Conflict"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/views/{view_id}:
-    parameters:
+    get:
+      tags:
+        - Views
+        - Alerts
+      summary: "Get view properties"
+      description: "Get full list of view properties"
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1144,30 +1464,25 @@ paths:
           description: View to use
           type: string
           required: true
-    get:
-      tags:
-        - Views
-      summary: "Get view properties"
-      description: "Get full list of view properties"
       responses:
         200:
           description: Full list of view properties
           schema:
             properties:
               views:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   description: Single view full properties
                   properties:
                     id:
-                      type: "string"
+                      type: string
                       example: P12
                     name:
-                      type: "string"
+                      type: string
                       example: DB Errors
                     description:
-                      type: "string"
+                      type: string
                       example: This is a DB Errors View
                     shared:
                       type: boolean
@@ -1191,17 +1506,28 @@ paths:
                       description: TBD - NOT YET IMPLEMENTED
                       example: true
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
     post:
       tags:
         - Views
+        - Alerts
       summary: "Edit view data"
       description: "Edit view data"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
         - in: body
           name: view
           description: Single view properties
@@ -1209,437 +1535,516 @@ paths:
               $ref: "#/definitions/ViewFull"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
     delete:
       tags:
         - Views
       summary: "Delete view (Not implemented yet)"
       description: "Delete view (Not implemented yet)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
       responses:
         200:
-          OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         403:
-          $ref: "#/definitions/ForbiddenError"
+          $ref: "#/responses/ForbiddenError"
   /services/{service_id}/views/{view_id}/events:
     get:
       tags:
+        - Views
         - Events
       summary: Fetch events details
       description: Fetch events data in a selected timeframe
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: from
-            type: string
-            description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-            required: true
-          - in: query
-            name: to
-            type: integer
-            description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-            required: true
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          enum: [none, hits, invocations, all]
+          description: Include statistics per event in the response
       responses:
         200:
           description: Event data
           schema:
             properties:
               events:
-                type: "array"
+                type: array
                 items:
-                  $ref: "#/definitions/Event"
+                  $ref: "#/definitions/EventStats"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/views/{view_id}/entrypoints:
+    get:
+      tags:
+        - Views
+        - Events
+      summary: Fetch entrypoints details
+      description: Fetch entrypoints data in a selected timeframe
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: Entrypoints data
+          schema:
+            properties:
+              entrypoints:
+                type: array
+                items:
+                  $ref: "#/definitions/EntryPoint"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
+        - Views
         - View Metrics
       summary: "Fetch event metrics"
       description: "Fetch event metrics"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: from
-            type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: to
-            type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: points
-            type: integer
-            description: Number of data points to return within the interval
-            required: true
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: points
+          type: integer
+          description: Number of data points to return within the interval
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
       responses:
         200:
           description: Event metrics
           schema:
             properties:
               graphs:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     type:
-                      type: "string"
+                      type: string
                       example: "event"
                     id:
-                      type: "string"
+                      type: string
                       example: "42"
                     points:
-                      type: "array"
+                      type: array
                       items:
-                        type: "object"
+                        type: object
                         properties:
                           time:
-                            type: "string"
+                            type: string
                             example: "2018-02-28T22:47:09.038Z"
                           value:
-                            type: "number"
+                            type: number
                             example: 42
                           contributors:
-                            type: "array"
+                            type: array
                             items:
-                              type: "object"
+                              type: object
                               properties:
                                 id:
-                                  type: "string"
+                                  type: string
                                   example: "42"
                                 value:
-                                  type: "number"
+                                  type: number
                                   example: 42
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/entrypoint/graph:
     get:
       tags:
+        - Views
         - View Metrics
-      summary: "Fetch Event metrics split by entrypoint"
-      description: "Fetch Event metrics split by entrypoint"
+      summary: "Fetch event metrics split by entrypoint"
+      description: "Fetch event metrics split by entrypoint"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: from
-            type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: to
-            type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: points
-            type: integer
-            description: Number of data points to return within the interval
-            required: true
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: points
+          type: integer
+          description: Number of data points to return within the interval
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
       responses:
         200:
           description: Event metrics split by entry point
           schema:
             properties:
               graphs:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     type:
-                      type: "string"
+                      type: string
                       example: "event"
                     id:
-                      type: "string"
+                      type: string
                       example: "42"
                     points:
-                      type: "array"
+                      type: array
                       items:
-                        type: "object"
+                        type: object
                         properties:
                           time:
-                            type: "string"
+                            type: string
                             example: "2018-02-28T22:47:09.038Z"
                           value:
-                            type: "number"
+                            type: number
                             example: 42
                           contributors:
-                            type: "array"
+                            type: array
                             items:
-                              type: "object"
+                              type: object
                               properties:
                                 id:
-                                  type: "string"
+                                  type: string
                                   example: "42"
                                 value:
-                                  type: "number"
+                                  type: number
                                   example: 42
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/views/{view_id}/metrics/event/graph:
     get:
       tags:
+        - Views
         - View Metrics
       summary: "Fetch event metrics split by event"
       description: "Fetch event metrics split by event"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: query
-            name: from
-            type: string
-            description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: to
-            type: integer
-            description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-            required: true
-          - in: query
-            name: points
-            type: integer
-            description: Number of data points to return within the interval
-            required: true
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: points
+          type: integer
+          description: Number of data points to return within the interval
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
       responses:
         200:
           description: event metrics split by event
           schema:
             properties:
               graphs:
-                type: "array"
+                type: array
                 items:
-                  type: "object"
+                  type: object
                   properties:
                     type:
-                      type: "string"
+                      type: string
                       example: "event"
                     id:
-                      type: "string"
+                      type: string
                       example: "42"
                     points:
-                      type: "array"
+                      type: array
                       items:
-                        type: "object"
+                        type: object
                         properties:
                           time:
-                            type: "string"
+                            type: string
                             example: "2018-02-28T22:47:09.038Z"
                           value:
-                            type: "number"
+                            type: number
                             example: 42
                           contributors:
-                            type: "array"
+                            type: array
                             items:
-                              type: "object"
+                              type: object
                               properties:
                                 id:
-                                  type: "string"
+                                  type: string
                                   example: "42"
                                 value:
-                                  type: "number"
+                                  type: number
                                   example: 42
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/views/{view_id}/anomaly:
     post:
       tags:
+        - Views
         - Alerts
       summary: "Alert on anomalies"
       description: "Alert on anomalies"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: view_id
-            description: View to use
-            type: string
-            required: true
-          - in: body
-            name: anomaly
-            description: "the anomaly object"
-            schema:
-              type: "object"
-              properties:
-                desc:
-                  type: "string"
-                  example: "Description"
-                timeframe:
-                  type: "object"
-                  properties:
-                    from:
-                      type: "string"
-                      example: "2018-02-28T22:47:09.038Z"
-                    to:
-                      type: "string"
-                      example: "2018-03-01T22:47:09.038Z"
-                    name:
-                      type: "string"
-                      example: "Last day"
-                anomaly:
-                  type: "object"
-                  properties:
-                    periods:
-                      type: "array"
-                      items:
-                        type: "object"
-                        properties:
-                          id:
-                            type: "string"
-                            example: "1"
-                          from:
-                            type: "string"
-                            example: "2018-03-01T23:10:00.000Z"
-                          to:
-                            type: "string"
-                            example: "2018-03-01T24:10:00.000Z"
-                    contributors:
-                      type: "array"
-                      items:
-                        type: "object"
-                        properties:
-                          id:
-                            type: "number"
-                            example: 1
-                          value:
-                            type: "number"
-                            example: 42
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: body
+          name: anomaly
+          description: "the anomaly object"
+          schema:
+            type: object
+            properties:
+              desc:
+                type: string
+                example: "Description"
+              timeframe:
+                type: object
+                properties:
+                  from:
+                    type: string
+                    example: "2018-02-28T22:47:09.038Z"
+                  to:
+                    type: string
+                    example: "2018-03-01T22:47:09.038Z"
+                  name:
+                    type: string
+                    example: "Last day"
+              anomaly:
+                type: object
+                properties:
+                  periods:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "1"
+                        from:
+                          type: string
+                          example: "2018-03-01T23:10:00.000Z"
+                        to:
+                          type: string
+                          example: "2018-03-01T24:10:00.000Z"
+                  contributors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        value:
+                          type: number
+                          example: 42
       responses:
         200:
-          OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/labels:
-    parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
     get:
-        tags:
-          - Labels
-        summary: "List labels"
-        description: "List all existing labels"
-        responses:
-          200:
-            description: List of labels
-            schema:
-              properties:
-                labels:
-                  type: "array"
-                  items:
-                    $ref: "#/definitions/Label"
-          401:
-            $ref: "#/definitions/UnauthorizedError"
+      tags:
+        - Labels
+      summary: "List labels"
+      description: "List all existing labels"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of labels
+          schema:
+            properties:
+              labels:
+                type: array
+                items:
+                  $ref: "#/definitions/Label"
+        401:
+          $ref: "#/responses/UnauthorizedError"
     post:
       tags:
         - Labels
       summary: "Create new label"
       description: "Create new label"
       parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
         - in: body
           name: label
           description: Single label
@@ -1647,13 +2052,13 @@ paths:
             $ref: "#/definitions/Label"
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         400:
-          description: BAD INPUT
+          $ref: "#/responses/BadRequestError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         409:
-          description: CONFLICT
+          $ref: "#/responses/Conflict"
   /services/{service_id}/events/{event_id}:
     get:
       tags:
@@ -1661,74 +2066,32 @@ paths:
       summary: "Fetch event data"
       description: "Fetch event data"
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: event_id
-            description: Event to use
-            type: string
-            required: true
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
       responses:
         200:
           description: Event data
           schema:
             $ref: "#/definitions/Event"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          $ref: "#/definitions/NotFoundError"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/labels:
-    parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: event_id
-          description: Event to use
-          type: string
-          required: true
     post:
       tags:
         - Labels
       summary: "Add/Remove labels"
       description: "Append/Detach labels to/from event"
       parameters:
-        - in: body
-          name: add
-          description: list of label names to append
-          schema:
-            properties:
-              add:
-                type: "array"
-                items:
-                  type: "string"
-                  example: "Critical"
-        - in: body
-          name: remove
-          description: list of label names to detach from event
-          schema:
-            properties:
-              remove:
-                type: "array"
-                items:
-                  type: "string"
-                  example: "Low"
-      responses:
-        200:
-          description: OK
-        400:
-          description: BAD INPUT
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-        404:
-          description: NOT FOUND
-  /services/{service_id}/events/{event_id}/inbox:
-    parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1739,20 +2102,38 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: body
+          name: item
+          description: list of label names to append/detach
+          schema:
+            type: object
+            properties:
+              add:
+                type: array
+                items:
+                  type: string
+                  example: "Critical"
+              remove:
+                type: array
+                items:
+                  type: string
+                  example: "Low"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/events/{event_id}/inbox:
     post:
       tags:
         - Labels
       summary: "Move to Inbox"
       description: "Move the specified event into Inbox"
-      responses:
-        200:
-          description: OK
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-        404:
-          description: NOT FOUND
-  /services/{service_id}/events/{event_id}/delete:
-    parameters:
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1763,20 +2144,20 @@ paths:
           description: Event to use
           type: string
           required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/events/{event_id}/delete:
     post:
       tags:
         - Labels
       summary: "Move to Trash"
       description: "Move the specified event into Trash"
-      responses:
-        200:
-          description: OK
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-        404:
-          description: NOT FOUND
-  /services/{service_id}/events/{event_id}/resolve:
-    parameters:
+      parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1787,19 +2168,38 @@ paths:
           description: Event to use
           type: string
           required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          description: "BAD"
+        404:
+          description: "NOT FOUND"
+  /services/{service_id}/events/{event_id}/resolve:
     post:
       tags:
         - Labels
       summary: "Mark as resolved"
       description: "Marks the specified event as resolved"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          description: NOT FOUND
-  /services/{service_id}/events/${event_id}/snapshot:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/events/{event_id}/snapshot:
     get:
       tags:
         - Events
@@ -1808,55 +2208,6 @@ paths:
         Fetches the last relevant snapshot for the specific filters provided.
         All filters are optional."
       parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: event_id
-            description: Event to use
-            type: string
-            required: true
-          - in: query
-            name: from
-            type: string
-            description: Start time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          - in: query
-            name: to
-            type: integer
-            description: End time of requested timeframe. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-          - in: query
-            name: server
-            type: string
-            description: Server(s) added to the filter
-          - in: query
-            name: app
-            type: string
-            description: Application(s) added to the filter
-          - in: query
-            name: deployment
-            type: string
-            description: Deployment(s) added to the filter
-          - in: query
-            name: similar_event_id
-            type: string
-            description: Event(s) added to the filter
-      responses:
-        200:
-          description: Link to snapshot
-          schema:
-            type: "object"
-            properties:
-              link:
-                type: "string"
-                example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
-        401:
-          $ref: "#/definitions/UnauthorizedError"
-        404:
-          $ref: "#/definitions/NotFoundError"
-  /services/{service_id}/events/{event_id}/force-snapshot:
-    parameters:
         - in: path
           name: service_id
           description: Environment to use
@@ -1867,22 +2218,111 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+        - in: query
+          name: similar_event_id
+          type: string
+          description: Event(s) added to the filter
+      responses:
+        200:
+          description: Link to snapshot
+          schema:
+            type: object
+            properties:
+              link:
+                type: string
+                example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{service_id}/events/{event_id}/force-snapshot:
     post:
       tags:
         - Events
       summary: Force Event Snapshot
       description: Force snapshot on the next time the event occurs
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
       responses:
         200:
-          description: OK
+          $ref: "#/responses/OK"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/events/{event_id}/actions:
+    get:
+      tags:
+        - Events
+      summary: "Fetch event actions"
+      description: "Fetch event actions"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: type
+          description: Filter by specific type
+          type: string
+      responses:
+        200:
+          description: Event actions
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/EventAction"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/udfs:
     get:
       tags:
         - UDFs
       summary: List available UDF libraries for a service key
       description: List all available UDFs (User Defined Functions) for selected service key
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
       responses:
         200:
           description: UDF libraries list
@@ -1891,112 +2331,95 @@ paths:
             items:
               $ref: "#/definitions/UDFLibrary"
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     post:
       tags:
         - UDFs
       summary: Add a new UDF library
       description: Add a new UDF library
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
+      consumes:
+        - application/octet-stream
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body # TBD should just be an octet string of a file. will be fixed later
+          name: udf
+          schema:
+            properties:
+              udf:
+                type: string
+                format: binary
       responses:
         200:
           description: UDF library was successfully added
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/udfs/{library_id}:
-    parameters:
-      - in: path
-        name: library_id
-        description: UDF library ID to be used
-        type: string
-        required: true
     get:
       tags:
         - UDFs
       summary: Get UDF library properties
       description: Get UDF (User Defined Function) library properties
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
       responses:
         200:
           description: UDF properties
           schema:
             $ref: "#/definitions/UDFLibrary"
         401:
-          description: Unauthorized
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - UDFs
       summary: Remove UDF library from a service key
       description: "Remove UDF library from specified service key"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
       responses:
         200:
           description: OK
         404:
-          description: NOT FOUND
+          $ref: "#/responses/NotFoundError"
         401:
-          $ref: "#/definitions/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
 definitions:
-  UnauthorizedError:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-        example: 401
-      type:
-        type: string
-        example: Unauthorized
-      message:
-        type: string
-        example: Not authorized to perform action
-  NotFoundError:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-        example: 404
-      type:
-        type: string
-        example: Resource Not Found
-      message:
-        type: string
-        example: Resource Not Found
-  ForbiddenError:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-        example: 403
-      type:
-        type: string
-        example: Access forbidden
-      message:
-        type: string
-        example: Access forbidden
   Pattern:
     description: A data redaction pattern used to define PII RegEx
     type: object
     properties:
       name:
-        type: "string"
+        type: string
         example: "Visa"
       category:
-        type: "string"
+        type: string
         example: "Credit Card"
       regex:
-        type: "string"
+        type: string
         example: "\\b4\\d{3}([\\-\\ ]?)(?:\\d{4}\\1){2}\\d(?:\\d{3})?\\b"
       is_active:
-        type: "boolean"
+        type: boolean
         example: true
   IncludedClassName:
     type: string
@@ -2011,26 +2434,26 @@ definitions:
     type: string
     example: "com.company.package.bad"
   ViewBasic:
-    type: "object"
+    type: object
     properties:
       id:
-        type: "string"
+        type: string
         example: P12
       name:
-        type: "string"
+        type: string
         example: DB Errors
       shared:
         type: boolean
         example: false
   ViewFull:
-    type: "object"
+    type: object
     description: Single view full properties
     properties:
       name:
-        type: "string"
+        type: string
         example: DB Errors
       description:
-        type: "string"
+        type: string
         example: This is a DB Errors View
       shared:
         type: boolean
@@ -2054,14 +2477,14 @@ definitions:
         description: TBD - NOT YET IMPLEMENTED
         example: true
   Category:
+    type: object
     description: Single category properties
-    type: "object"
     properties:
       id:
-        type: String
+        type: string
         example: B345
       name:
-        type: "string"
+        type: string
         description: Category Name
         example: CI/CD
       shared:
@@ -2070,11 +2493,11 @@ definitions:
         example: false
       admin:
         type: boolean
-        description: marks the category as visible only to key admins
+        description: (TBD - NOT YET IMPLEMENTED) marks the category as visible only to key admins
         example: true
       icon:
-        type: "string"
-        description: based 64 encoded SVG
+        type: string
+        description: (TBD - NOT YET IMPLEMENTED) based 64 encoded SVG
       views:
         type: array
         items:
@@ -2170,34 +2593,64 @@ definitions:
     type: object
     properties:
       id:
-        type: "string"
+        type: string
         example: "1"
       summary:
-        type: "string"
+        type: string
         example: "NullPointerException in Main.main"
       type:
-        type: "string"
+        type: string
         example: "NullPointerException"
       first_seen:
-        type: "string"
+        type: string
         example: "2018-02-28T22:47:09.038Z"
       introduced_by:
-        type: "string"
+        type: string
         example: "1.201.1"
       labels:
-        type: "array"
+        type: array
         items:
-          type: "string"
+          type: string
           example: "Critical"
       similar_event_ids:
-        type: "array"
+        type: array
         items:
-          type: "string"
+          type: string
           example: "K2"
+      jira_issue_url:
+        type: "string"
+        example: "https://example.atlassian.net/browse/EX-103"
       error_location:
         $ref: "#/definitions/CodeLocation"
       entry_point:
         $ref: "#/definitions/CodeLocation"
+      error_origin:
+        $ref: "#/definitions/CodeLocation"
+      stats:
+        $ref: "#/definitions/EventStats"
+  EventStats:
+    type: object
+    properties:
+      hits:
+        type: integer
+        example: 42
+      invocations:
+        type: integer
+        example: 51929
+  EntryPoint:
+    type: object
+    properties:
+      name:
+        type: string
+        example: LoginServlet
+      stats:
+        $ref: "#/definitions/EntryPointStats"
+  EntryPointStats:
+    type: object
+    properties:
+      invocations:
+        type: integer
+        example: 42
   Label:
     type: object
     properties:
@@ -2205,7 +2658,7 @@ definitions:
         type: string
         example: HighPriority
       type:
-        type: "string"
+        type: string
         enum:
           - DEFAULT
           - USER
@@ -2227,17 +2680,70 @@ definitions:
     type: object
     properties:
       prettified_name:
-        type: "string"
+        type: string
         example: "Main.main"
       class_name:
-        type: "string"
+        type: string
         example: "com.company.Main"
       method_name:
-        type: "string"
+        type: string
         example: "main"
       method_desc:
-        type: "string"
+        type: string
         example: "([Ljava/lang/String;)V"
+  EventAction:
+    properties:
+      type:
+        type: string
+        example: "Label"
+      action:
+        type: string
+        example: "Add Label"
+      data:
+        type: string
+        example: "Critical"
+      timestamp:
+        type: string
+        description: Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: "2018-02-28T22:47:09.038Z"
+      initiator:
+        type: string
+        example: "joe@example.com"
+      initiator_type:
+        type: string
+        example: "User"
+  ServiceBasic:
+    description: Basic information about a service key
+    properties:
+      id:
+        type: string
+        example: S100
+      name:
+        type: string
+        example: Pre-prod
+      full_key:
+        type: string
+        example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  TeamMembers:
+    description: List of Service key team members
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Jane Doe
+        email:
+          type: string
+          example: jane.doe@company.com
+        role:
+          type: string
+          description: owner / admin / member
+          example: admin
+        state:
+          type: string
+          description: active / pending invitation
+          example: active
   UDFLibrary:
     description: UDF Properties
     type: object
@@ -2281,3 +2787,18 @@ definitions:
             default_value:
               type: string
               example: 100
+responses:
+  OK:
+    description: OK
+  TBD:
+    description: TBD
+  UnauthorizedError:
+    description: Unauthorized
+  NotFoundError:
+    description: Not Found
+  ForbiddenError:
+    description: Forbidden
+  BadRequestError:
+    description: Bad Request
+  Conflict:
+    description: Conflict
