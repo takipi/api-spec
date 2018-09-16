@@ -45,6 +45,70 @@ tags:
 schemes:
 - "https"
 paths:
+  /global-settings/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List available UDF libraries
+      description: List available UDF (User Defined Functions) libraries
+      responses:
+        200:
+          description: UDF libraries list
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - UDFs
+      summary: Add a new UDF library
+      description: Add a new UDF library
+      parameters:
+        - in: body
+          name: udf
+          schema:
+            properties:
+              udf:
+                type: string
+                format: binary
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /global-settings/udfs/{library_id}:
+    parameters:
+      - in: path
+        name: library_id
+        description: UDF library ID to be used
+        type: string
+        required: true
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
+      responses:
+        200:
+          description: UDF library properties
+          schema:
+            $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - UDFs
+      summary: "Remove UDF library (TBD - Not yet implemented)"
+      description: "Remove UDF library (TBD - Not yet implemented)"
+      responses:
+        200:
+          description: OK
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services:
     get:
       tags:
@@ -2249,6 +2313,99 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{service_id}/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List available UDF libraries for a service key
+      description: List all available UDFs (User Defined Functions) for selected service key
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: UDF libraries list
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - UDFs
+      summary: Add a new UDF library
+      description: Add a new UDF library
+      consumes:
+        - application/octet-stream
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body # TBD should just be an octet string of a file. will be fixed later
+          name: udf
+          schema:
+            properties:
+              udf:
+                type: string
+                format: binary
+      responses:
+        200:
+          description: UDF library was successfully added
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/udfs/{library_id}:
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          description: UDF properties
+          schema:
+            $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - UDFs
+      summary: Remove UDF library from a service key
+      description: "Remove UDF library from specified service key"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/timers:
     get:
       tags:
@@ -2717,6 +2874,49 @@ definitions:
           type: string
           description: active / pending invitation
           example: active
+  UDFLibrary:
+    description: UDF Properties
+    type: object
+    properties:
+      id:
+        type: string
+        example: L34
+      version:
+        type: string
+        example: 1.0
+      backward_compatible:
+        type: string
+        example: true
+      functions:
+        type: array
+        items:
+          $ref: "#/definitions/UDF"
+  UDF:
+    type: object
+    properties:
+      function_type:
+        type: string
+        example: ANOMALY
+      short_description: #this is the udf name
+        type: string
+        example: Relative Threshold
+      long_description:
+        type: string
+        example: This function compares the volume of events against an absolute threshold
+      param_type:
+        type: string
+        example: TEXT
+      default_params:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              example: X
+            default_value:
+              type: string
+              example: 100
   Timer:
     description: Timer properties
     type: object
