@@ -5,11 +5,11 @@ info:
   contact:
     email: hello@overops.com
   description: |
-    Main OverOps API.
+    Main OverOps API. The REST API layer enables OverOps admins and users to perform and automate all actions provided by the OverOps graphical consoles available at app.overops.com via a platform independent programmatic interface. A wrapper Java client API library that leverages these APIs for convenience by Java and Scala developers is available at https://github.com/takipi/api-client 
 
     All calls must be authenticated using one of the following methods:
       1. Using `username:password`.
-      2. Using `x-api-key` header (To generate the token, go to `Settings` --> `Account Settings` in the OverOps App)
+      2. Using `x-api-key` header (To generate the token, go to `Settings` --> `Account Settings` in the OverOps App). This is the recommended method.
 
 securityDefinitions:
   basicAuth:
@@ -25,21 +25,21 @@ host: api.overops.com
 basePath: /api/v1
 tags:
   - name: General
-    description: Fetching general information about services
+    description: Fetch general information about provisioned OverOps enviroments
   - name: Data Redaction
-    description: Fetching and manipulating the data redaction (PII) settings of the service
-  - name: Code Redaction
-    description: Fetching and manipulating the 3rd party and utility classes settings.
+    description: Fetch and manipulate data redaction of PII with target environments.
+  - name: Code Filters
+    description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes  from OverOps analysis and data capture.
   - name: Views
-    description: Fetching information about the views
+    description: Fetch and manipulate grouping of events (i.e. Views) according to attribute sets (e.g. "uncaught exceptions", "errors from package com.acme")
   - name: Categories
-    description: Fetching information about the View Categories
+    description: Fetch and manipulate grouping of views into logical categories (e.g "CI/CD", "Favorites")
   - name: View Metrics
-    description: Fetching data points about views in order to plot graphs
+    description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments. 
   - name: Alerts
-    description: APIs related to the alerting mechanism
+    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
   - name: Events
-    description: Event data
+    description: Fetch and manipulate information about events identified and classified by OverOps. This includes event metadata (code origin, deployment), volume summary and modifiable tagging via labels. 
 schemes:
 - "https"
 paths:
@@ -47,21 +47,21 @@ paths:
     get:
       tags:
         - General
-      summary: "List all services"
-      description: "List all services accessible by the user"
+      summary: "List all environments"
+      description: "List all environments accessible to the calling user"
       parameters:
         - in: query
           name: name
-          description: Service key name
+          description: Environment key name
           type: string
       responses:
         200:
-          description: List of all accessible services
+          description: List of all accessible environments to the calling user
           schema:
             properties:
               services:
                 type: array
-                description: list of services
+                description: list of environment
                 items:
                   $ref: "#/definitions/ServiceBasic"
         401:
@@ -69,8 +69,8 @@ paths:
     post:
       tags:
         - General
-      summary: Generate a new service key
-      description: "Create a new service"
+      summary: Generate a new environment key
+      description: "Defines a new environment"
       parameters:
         - in: body
           name: name
@@ -80,21 +80,21 @@ paths:
                 type: string
       responses:
         200:
-          description: New service key properties
+          description: New environment key properties
           schema:
             $ref: "#/definitions/ServiceBasic"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}:
+  /services/{env_id}:
     get:
       tags:
         - General
-      summary: "Get information about the service (Not yet implemented)"
-      description: "Get information about the service (Not yet implemented)"
+      summary: "Get information about the environment (Not yet implemented)"
+      description: "Get information about the environment (Not yet implemented)"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -102,16 +102,16 @@ paths:
           $ref: "#/responses/TBD"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/team:
+  /services/{env_id}/team:
     get:
       tags:
         - General
-      summary: "List service team members"
-      description: "List service team members"
+      summary: "List environment team members"
+      description: "List team members with access to this environment"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: query
@@ -128,12 +128,12 @@ paths:
     post:
       tags:
         - General
-      summary: "Add members to a service key"
-      description: "Add members to a service key"
+      summary: "Add team members to an environment"
+      description: "Add team members to an environment"
       parameters:
           - in: path
-            name: service_id
-            description: Environment to use
+            name: env_id
+            description:  Environment ID to use (e.g. S1234)
             type: string
             required: true
           - in: body
@@ -146,16 +146,16 @@ paths:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings:
+  /services/{env_id}/settings:
     get:
       tags:
         - General
-      summary: "Get service settings"
-      description: "Get service settings"
+      summary: "Get environment settings"
+      description: "Get environment settings"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description:  Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -163,16 +163,16 @@ paths:
           $ref: "#/responses/TBD"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/deployments:
+  /services/{env_id}/deployments:
     get:
       tags:
         - General
       summary: "List deployments"
-      description: "List deployments"
+      description: "List all deployments that are currently active with an environment"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: query
@@ -190,7 +190,7 @@ paths:
                   $ref: "#/definitions/Deployment"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/servers:
+  /services/{env_id}/servers:
     get:
       tags:
         - General
@@ -198,8 +198,8 @@ paths:
       description: "List servers (Not yet implemented)"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: query
@@ -211,7 +211,7 @@ paths:
           description: TBD
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/applications:
+  /services/{env_id}/applications:
     get:
       tags:
         - General
@@ -219,8 +219,8 @@ paths:
       description: "List applications (Not yet implemented)"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: query
@@ -232,16 +232,16 @@ paths:
           $ref: "#/responses/TBD"
         401:
             $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction:
+  /services/{env_id}/settings/code-redaction:
     get:
       tags:
         - Code Redaction
-      summary: "List all environment code redaction"
+      summary: "List all environment code redaction settings"
       description: "List all environment code exclusions and inclusions"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -273,7 +273,7 @@ paths:
                       $ref: "#/definitions/IncludedPackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/exclude:
+  /services/{env_id}/settings/code-redaction/exclude:
     get:
       tags:
         - Code Redaction
@@ -281,8 +281,8 @@ paths:
       description: "List all code exclusions"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -300,7 +300,7 @@ paths:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/exclude/classes:
+  /services/{env_id}/settings/code-redaction/exclude/classes:
     get:
       tags:
         - Code Redaction
@@ -308,8 +308,8 @@ paths:
       description: "List all excluded classes"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -323,7 +323,7 @@ paths:
                   $ref: "#/definitions/ExcludedClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/exclude/classes/{class_name}:
+  /services/{env_id}/settings/code-redaction/exclude/classes/{class_name}:
     get:
       tags:
         - Code Redaction
@@ -331,8 +331,8 @@ paths:
       description: "Retrieve an excluded class"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -358,8 +358,8 @@ paths:
       description: "Add a class to the exclusion list. The body class name must match the resource identifier"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -387,8 +387,8 @@ paths:
       description: "Remove a class from the exclusion list"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -403,7 +403,7 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/exclude/packages:
+  /services/{env_id}/settings/code-redaction/exclude/packages:
     get:
       tags:
         - Code Redaction
@@ -411,8 +411,8 @@ paths:
       description: "List all excluded packages"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -426,7 +426,7 @@ paths:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/exclude/packages/{package_name}:
+  /services/{env_id}/settings/code-redaction/exclude/packages/{package_name}:
     get:
       tags:
         - Code Redaction
@@ -434,8 +434,8 @@ paths:
       description: "Retrieve an excluded package"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -461,8 +461,8 @@ paths:
       description: "Add a package to the exclusion list. The body package name must match the resource identifier"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -490,8 +490,8 @@ paths:
       description: "Remove a package from the exclusion list"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -506,7 +506,7 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/include:
+  /services/{env_id}/settings/code-redaction/include:
     get:
       tags:
         - Code Redaction
@@ -514,8 +514,8 @@ paths:
       description: "List all code inclusions"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -533,7 +533,7 @@ paths:
                   $ref: "#/definitions/IncludedPackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/include/classes:
+  /services/{env_id}/settings/code-redaction/include/classes:
     get:
       tags:
         - Code Redaction
@@ -541,8 +541,8 @@ paths:
       description: "List all included classes"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -556,7 +556,7 @@ paths:
                   $ref: "#/definitions/IncludedClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/include/classes/{class_name}:
+  /services/{env_id}/settings/code-redaction/include/classes/{class_name}:
     get:
       tags:
         - Code Redaction
@@ -564,8 +564,8 @@ paths:
       description: "Retrieve an included class"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -591,8 +591,8 @@ paths:
       description: "Add a class to the inclusion list. The body class name must match the resource identifier"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -620,8 +620,8 @@ paths:
       description: "Remove a class from the inclusion list"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -636,7 +636,7 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/include/packages:
+  /services/{env_id}/settings/code-redaction/include/packages:
     get:
       tags:
         - Code Redaction
@@ -644,8 +644,8 @@ paths:
       description: "List all included packages"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -659,7 +659,7 @@ paths:
                   $ref: "#/definitions/IncludedPackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/code-redaction/include/packages/{package_name}:
+  /services/{env_id}/settings/code-redaction/include/packages/{package_name}:
     get:
       tags:
         - Code Redaction
@@ -667,8 +667,8 @@ paths:
       description: "Retrieve an included package"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -690,8 +690,8 @@ paths:
       description: "Add a package to the inclusion list. The body package name must match the resource identifier"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -719,8 +719,8 @@ paths:
       description: "Remove a package from the inclusion list"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -735,7 +735,7 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/data-redaction:
+  /services/{env_id}/settings/data-redaction:
     get:
       tags:
         - Data Redaction
@@ -743,8 +743,8 @@ paths:
       description: "List all data redactions"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -782,7 +782,7 @@ paths:
                       example: "IPv4"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/data-redaction/patterns:
+  /services/{env_id}/settings/data-redaction/patterns:
     get:
       tags:
         - Data Redaction
@@ -790,8 +790,8 @@ paths:
       description: "List all regex patterns"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -805,7 +805,7 @@ paths:
                   $ref: "#/definitions/Pattern"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/data-redaction/patterns/{pattern}:
+  /services/{env_id}/settings/data-redaction/patterns/{pattern}:
     get:
       tags:
         - Data Redaction
@@ -813,8 +813,8 @@ paths:
       description: "Retrieve a pattern"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -836,8 +836,8 @@ paths:
       description: "Add a RegEx pattern to be redacted. The pattern name must match the resource identifier"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -863,8 +863,8 @@ paths:
       description: "Removes a pattern from the redaction list"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -879,7 +879,7 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/data-redaction/identifiers:
+  /services/{env_id}/settings/data-redaction/identifiers:
     get:
       tags:
         - Data Redaction
@@ -887,8 +887,8 @@ paths:
       description: "List all identifiers"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -906,12 +906,12 @@ paths:
                       example: "password"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/data-redaction/identifiers/{identifier}:
+  /services/{env_id}/settings/data-redaction/identifiers/{identifier}:
     get:
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -941,8 +941,8 @@ paths:
       operationId: addIdentifier
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -968,8 +968,8 @@ paths:
     delete:
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -988,7 +988,7 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/data-redaction/classes:
+  /services/{env_id}/settings/data-redaction/classes:
     get:
       tags:
         - Data Redaction
@@ -996,8 +996,8 @@ paths:
       description: "List all classes"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -1015,7 +1015,7 @@ paths:
                       example: "IPv4"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/data-redaction/classes/{class_name}:
+  /services/{env_id}/settings/data-redaction/classes/{class_name}:
     get:
       tags:
         - Data Redaction
@@ -1023,8 +1023,8 @@ paths:
       description: "Retrieve a class from the data redaction list"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1049,8 +1049,8 @@ paths:
       description: "Add a class to the redaction list. The body class name must match the resource identifier"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1080,8 +1080,8 @@ paths:
       description: "Delete a class"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1096,7 +1096,7 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/data-redaction/packages:
+  /services/{env_id}/settings/data-redaction/packages:
     get:
       tags:
         - Data Redaction
@@ -1104,8 +1104,8 @@ paths:
       description: "List all packages"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -1123,7 +1123,7 @@ paths:
                       example: "com.example"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/settings/data-redaction/packages/{package_name}:
+  /services/{env_id}/settings/data-redaction/packages/{package_name}:
     get:
       tags:
         - Data Redaction
@@ -1131,8 +1131,8 @@ paths:
       description: "Retrieve a package"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1157,8 +1157,8 @@ paths:
       description: "Create a package. The body package name must match the resource identifier"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1187,8 +1187,8 @@ paths:
       description: "Delete package"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1203,7 +1203,7 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/categories:
+  /services/{env_id}/categories:
     get:
       tags:
         - Categories
@@ -1211,8 +1211,8 @@ paths:
       description: "List view categories"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -1233,8 +1233,8 @@ paths:
       description: "Create category (Not implemented yet)"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: body
@@ -1251,7 +1251,7 @@ paths:
           $ref: "#/responses/Conflict"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/categories/{category_id}:
+  /services/{env_id}/categories/{category_id}:
     get:
       tags:
         - Categories
@@ -1259,8 +1259,8 @@ paths:
       description: "Get category details (Not implemented yet)"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1284,8 +1284,8 @@ paths:
       description: "Delete category (Not implemented yet)"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1300,7 +1300,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         403:
           $ref: "#/responses/ForbiddenError"
-  /services/{service_id}/categories/{category_id}/views:
+  /services/{env_id}/categories/{category_id}/views:
     post:
       tags:
         - Views
@@ -1309,8 +1309,8 @@ paths:
       description: "Add view to selected category"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1334,7 +1334,7 @@ paths:
           $ref: "#/responses/ForbiddenError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/views:
+  /services/{env_id}/views:
     get:
       tags:
         - Views
@@ -1342,8 +1342,8 @@ paths:
       description: "List views"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -1364,8 +1364,8 @@ paths:
       description: "Create view"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: body
@@ -1382,7 +1382,7 @@ paths:
           $ref: "#/responses/Conflict"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/views/{view_id}:
+  /services/{env_id}/views/{view_id}:
     get:
       tags:
         - Views
@@ -1391,8 +1391,8 @@ paths:
       description: "Get full list of view properties"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1455,8 +1455,8 @@ paths:
       description: "Edit view data"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1485,8 +1485,8 @@ paths:
       description: "Delete view (Not implemented yet)"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1501,17 +1501,17 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         403:
           $ref: "#/responses/ForbiddenError"
-  /services/{service_id}/views/{view_id}/events:
+  /services/{env_id}/views/{view_id}/events:
     get:
       tags:
         - Views
         - Events
       summary: Fetch events details
-      description: Fetch events data in a selected timeframe
+      description: Fetch events data for a target timeframe, application / server / deployment set.
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1545,7 +1545,7 @@ paths:
           name: stats
           type: string
           enum: [none, hits, invocations, all]
-          description: Include statistics per event in the response
+          description: Include event volumes (e.g. number of event instances and calls into the method containing the event) in the response
       responses:
         200:
           description: Event data
@@ -1559,7 +1559,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/entrypoints:
+  /services/{env_id}/views/{view_id}/entrypoints:
     get:
       tags:
         - Views
@@ -1568,8 +1568,8 @@ paths:
       description: Fetch entrypoints data in a selected timeframe
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1612,7 +1612,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/metrics/view/graph:
+  /services/{env_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
         - Views
@@ -1621,8 +1621,8 @@ paths:
       description: "Fetch event metrics"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1699,7 +1699,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/metrics/entrypoint/graph:
+  /services/{env_id}/views/{view_id}/metrics/entrypoint/graph:
     get:
       tags:
         - Views
@@ -1708,8 +1708,8 @@ paths:
       description: "Fetch event metrics split by entrypoint"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1786,7 +1786,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/metrics/event/graph:
+  /services/{env_id}/views/{view_id}/metrics/event/graph:
     get:
       tags:
         - Views
@@ -1795,8 +1795,8 @@ paths:
       description: "Fetch event metrics split by event"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1873,7 +1873,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/anomaly:
+  /services/{env_id}/views/{view_id}/anomaly:
     post:
       tags:
         - Views
@@ -1882,8 +1882,8 @@ paths:
       description: "Alert on anomalies"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -1947,7 +1947,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/labels:
+  /services/{env_id}/labels:
     get:
       tags:
         - Labels
@@ -1955,8 +1955,8 @@ paths:
       description: "List all existing labels"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
       responses:
@@ -1973,12 +1973,12 @@ paths:
     post:
       tags:
         - Labels
-      summary: "Create new label"
-      description: "Create new label"
+      summary: "Define new label"
+      description: "Define new a label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization."
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: body
@@ -1995,7 +1995,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         409:
           $ref: "#/responses/Conflict"
-  /services/{service_id}/events/{event_id}:
+  /services/{env_id}/events/{event_id}:
     get:
       tags:
         - Events
@@ -2003,8 +2003,8 @@ paths:
       description: "Fetch event data"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -2021,16 +2021,16 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/events/{event_id}/labels:
+  /services/{env_id}/events/{event_id}/labels:
     post:
       tags:
         - Labels
       summary: "Add/Remove labels"
-      description: "Append/Detach labels to/from event"
+      description: "Append and remove label(s) from an event"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -2040,7 +2040,7 @@ paths:
           required: true
         - in: body
           name: item
-          description: list of label names to append/detach
+          description: list of label names to add / remove
           schema:
             type: object
             properties:
@@ -2063,7 +2063,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/events/{event_id}/inbox:
+  /services/{env_id}/events/{event_id}/inbox:
     post:
       tags:
         - Labels
@@ -2071,8 +2071,8 @@ paths:
       description: "Move the specified event into Inbox"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -2087,7 +2087,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/events/{event_id}/delete:
+  /services/{env_id}/events/{event_id}/delete:
     post:
       tags:
         - Labels
@@ -2095,8 +2095,8 @@ paths:
       description: "Move the specified event into Trash"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -2111,7 +2111,7 @@ paths:
           description: "BAD"
         404:
           description: "NOT FOUND"
-  /services/{service_id}/events/{event_id}/resolve:
+  /services/{env_id}/events/{event_id}/resolve:
     post:
       tags:
         - Labels
@@ -2119,8 +2119,8 @@ paths:
       description: "Marks the specified event as resolved"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -2135,7 +2135,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/events/{event_id}/snapshot:
+  /services/{env_id}/events/{event_id}/snapshot:
     get:
       tags:
         - Events
@@ -2145,8 +2145,8 @@ paths:
         All filters are optional."
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -2193,16 +2193,16 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/events/{event_id}/force-snapshot:
+  /services/{env_id}/events/{event_id}/force-snapshot:
     post:
       tags:
         - Events
       summary: Force Event Snapshot
-      description: Force snapshot on the next time the event occurs
+      description: Force snapshot for the next time the event occurs
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -2215,7 +2215,7 @@ paths:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/events/{event_id}/actions:
+  /services/{env_id}/events/{event_id}/actions:
     get:
       tags:
         - Events
@@ -2223,8 +2223,8 @@ paths:
       description: "Fetch event actions"
       parameters:
         - in: path
-          name: service_id
-          description: Environment to use
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
@@ -2556,7 +2556,7 @@ definitions:
         type: string
         example: "User"
   ServiceBasic:
-    description: Basic information about a service key
+    description: Basic information about a environment key
     properties:
       id:
         type: string
@@ -2568,7 +2568,7 @@ definitions:
         type: string
         example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   TeamMembers:
-    description: List of Service key team members
+    description: List of environment key team members
     type: array
     items:
       type: object
