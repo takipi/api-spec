@@ -31,7 +31,9 @@ tags:
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
   - name: Views
-    description: Fetching information about the views and categories
+    description: Fetching information about the views
+  - name: Categories
+    description: Fetching information about the View Categories
   - name: View Metrics
     description: Fetching data points about views in order to plot graphs
   - name: Alerts
@@ -1204,7 +1206,7 @@ paths:
   /services/{service_id}/categories:
     get:
       tags:
-        - Views
+        - Categories
       summary: "List categories"
       description: "List view categories"
       parameters:
@@ -1226,7 +1228,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     post:
       tags:
-        - Views
+        - Categories
       summary: "Create category (Not implemented yet)" #shall be published only when delete call is implemented
       description: "Create category (Not implemented yet)"
       parameters:
@@ -1252,7 +1254,7 @@ paths:
   /services/{service_id}/categories/{category_id}:
     get:
       tags:
-        - Views
+        - Categories
       summary: "Get category details (Not implemented yet)"
       description: "Get category details (Not implemented yet)"
       parameters:
@@ -1277,7 +1279,7 @@ paths:
           $ref: "#/responses/ForbiddenError"
     delete:
       tags:
-        - Views
+        - Categories
       summary: "Delete category (Not implemented yet)"
       description: "Delete category (Not implemented yet)"
       parameters:
@@ -1302,6 +1304,7 @@ paths:
     post:
       tags:
         - Views
+        - Categories
       summary: "Add view to selected category"
       description: "Add view to selected category"
       parameters:
@@ -1383,6 +1386,7 @@ paths:
     get:
       tags:
         - Views
+        - Alerts
       summary: "Get view properties"
       description: "Get full list of view properties"
       parameters:
@@ -1446,6 +1450,7 @@ paths:
     post:
       tags:
         - Views
+        - Alerts
       summary: "Edit view data"
       description: "Edit view data"
       parameters:
@@ -1499,6 +1504,7 @@ paths:
   /services/{service_id}/views/{view_id}/events:
     get:
       tags:
+        - Views
         - Events
       summary: Fetch events details
       description: Fetch events data in a selected timeframe
@@ -1556,6 +1562,7 @@ paths:
   /services/{service_id}/views/{view_id}/entrypoints:
     get:
       tags:
+        - Views
         - Events
       summary: Fetch entrypoints details
       description: Fetch entrypoints data in a selected timeframe
@@ -1608,6 +1615,7 @@ paths:
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
+        - Views
         - View Metrics
       summary: "Fetch event metrics"
       description: "Fetch event metrics"
@@ -1694,9 +1702,10 @@ paths:
   /services/{service_id}/views/{view_id}/metrics/entrypoint/graph:
     get:
       tags:
+        - Views
         - View Metrics
-      summary: "Fetch Event metrics split by entrypoint"
-      description: "Fetch Event metrics split by entrypoint"
+      summary: "Fetch event metrics split by entrypoint"
+      description: "Fetch event metrics split by entrypoint"
       parameters:
         - in: path
           name: service_id
@@ -1780,6 +1789,7 @@ paths:
   /services/{service_id}/views/{view_id}/metrics/event/graph:
     get:
       tags:
+        - Views
         - View Metrics
       summary: "Fetch event metrics split by event"
       description: "Fetch event metrics split by event"
@@ -1866,6 +1876,7 @@ paths:
   /services/{service_id}/views/{view_id}/anomaly:
     post:
       tags:
+        - Views
         - Alerts
       summary: "Alert on anomalies"
       description: "Alert on anomalies"
@@ -2124,12 +2135,12 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/events/{event_id}/last-snapshot:
+  /services/{service_id}/events/{event_id}/snapshot:
     get:
       tags:
         - Events
       summary: "Fetch event snapshot"
-      description: "Fetch last event snapshot.
+      description: "Fetch event snapshot.
         Fetches the last relevant snapshot for the specific filters provided.
         All filters are optional."
       parameters:
@@ -2183,30 +2194,22 @@ paths:
         404:
           $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/snapshots:
-    get:
-      tags:
-        - Events
-      summary: "List event snapshots (Not yet implemented)"
-      description: "Fetches event snapshots list for the specific filters provided.
-        All filters are optional (Not yet implemented)."
-      parameters:
-          - in: path
-            name: service_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: path
-            name: event_id
-            description: Event to use
-            type: string
-            required: true
-      responses:
-        TBD
     delete:
       tags:
         - Events
       summary: "Delete all event snapshots"
       description: "Removes all existing snapshots for an event. All snapshots will be permanently deleted. Event statistics will be kept."
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
       responses:
         200:
           $ref: "#/responses/OK"
