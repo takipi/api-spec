@@ -2061,6 +2061,55 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         409:
           $ref: "#/responses/Conflict"
+  /services/{service_id}/events/labels:
+    post:
+      tags:
+        - Labels
+      summary: "Batch Add/Remove labels"
+      description: "Append/Detach labels to/from events"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: item
+          description: list of events and label names to append/detach
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                event_id: 
+                  type: string
+                  example: 42
+                add:
+                  type: array
+                  items:
+                    type: string
+                    example: "Critical"
+                remove:
+                  type: array
+                  items:
+                    type: string
+                    example: "Low"
+                force: 
+                  type: boolean
+                  example: false
+                mark_similar_events:
+                  type: boolean
+                  default: true
+                  example: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}:
     get:
       tags:
@@ -2120,6 +2169,13 @@ paths:
                 items:
                   type: string
                   example: "Low"
+              force: 
+                type: boolean
+                example: false
+              mark_similar_events:
+                type: boolean
+                default: true
+                example: true
       responses:
         200:
           $ref: "#/responses/OK"

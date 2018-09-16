@@ -342,6 +342,9 @@
                 <a href="#operation--services--service_id--labels-post"> Create new label </a>
               </li>
               <li>
+                <a href="#operation--services--service_id--events-labels-post"> Batch Add/Remove labels </a>
+              </li>
+              <li>
                 <a href="#operation--services--service_id--events--event_id--labels-post"> Add/Remove labels </a>
               </li>
               <li>
@@ -11113,6 +11116,166 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
+          <div id="operation--services--service_id--events-labels-post" class="operation panel" data-traverse-target="operation--services--service_id--events-labels-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Labels">Labels</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Batch Add/Remove labels</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{service_id}/events/labels</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Append/Detach labels to/from events</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>list of events and label names to append/detach</p>
+                  <section class="json-schema-array-items">
+                    <span class="json-property-type">object</span>
+                    <span class="json-property-range" title="Value limits"></span>
+                    <div class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="event_id">
+                            <span class="json-property-name">event_id:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="add">
+                            <span class="json-property-name">add:</span>
+                            <span class="json-property-type">string[]</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-array-items">
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                              <div class="json-inner-schema"> </div>
+                            </section>
+                          </dt>
+                          <dt data-property-name="remove">
+                            <span class="json-property-name">remove:</span>
+                            <span class="json-property-type">string[]</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-array-items">
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                              <div class="json-inner-schema"> </div>
+                            </section>
+                          </dt>
+                          <dt data-property-name="force">
+                            <span class="json-property-name">force:</span>
+                            <span class="json-property-type">boolean</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="mark_similar_events">
+                            <span class="json-property-name">mark_similar_events:</span>
+                            <span class="json-property-type">boolean</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                            <span class="json-property-default-value" title="Default value">true</span>
+                          </dt>
+                        </dl>
+                      </section>
+                    </div>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;event_id&quot;</span>: <span class="hljs-number">42</span>,
+    <span class="hljs-attr">&quot;add&quot;</span>: [
+      <span class="hljs-string">&quot;Critical&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;remove&quot;</span>: [
+      <span class="hljs-string">&quot;Low&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;force&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;mark_similar_events&quot;</span>: <span class="hljs-literal">true</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
           <div id="operation--services--service_id--events--event_id--labels-post" class="operation panel" data-traverse-target="operation--services--service_id--events--event_id--labels-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -11170,6 +11333,17 @@
                           <div class="json-inner-schema"> </div>
                         </section>
                       </dt>
+                      <dt data-property-name="force">
+                        <span class="json-property-name">force:</span>
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt data-property-name="mark_similar_events">
+                        <span class="json-property-name">mark_similar_events:</span>
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">true</span>
+                      </dt>
                     </dl>
                   </section>
                 </section>
@@ -11213,7 +11387,9 @@
   ],
   <span class="hljs-attr">&quot;remove&quot;</span>: [
     <span class="hljs-string">&quot;Low&quot;</span>
-  ]
+  ],
+  <span class="hljs-attr">&quot;force&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;mark_similar_events&quot;</span>: <span class="hljs-literal">true</span>
 }
 </code></pre>
                   <!-- </div> -->
