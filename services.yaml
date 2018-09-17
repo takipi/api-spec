@@ -79,17 +79,17 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
   /global-settings/udfs/{library_id}:
-    parameters:
-      - in: path
-        name: library_id
-        description: UDF library ID to be used
-        type: string
-        required: true
     get:
       tags:
         - UDFs
       summary: Get UDF library properties
       description: Get UDF (User Defined Function) library properties
+      parameters:
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
       responses:
         200:
           description: UDF library properties
@@ -102,6 +102,12 @@ paths:
         - UDFs
       summary: "Remove UDF library (TBD - Not yet implemented)"
       description: "Remove UDF library (TBD - Not yet implemented)"
+      parameters:
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
       responses:
         200:
           description: OK
