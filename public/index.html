@@ -11242,59 +11242,7 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <p>list of events and label names to append/detach</p>
-                  <section class="json-schema-array-items">
-                    <span class="json-property-type">object</span>
-                    <span class="json-property-range" title="Value limits"></span>
-                    <div class="json-inner-schema">
-                      <section class="json-schema-properties">
-                        <dl>
-                          <dt data-property-name="event_id">
-                            <span class="json-property-name">event_id:</span>
-                            <span class="json-property-type">string</span>
-                            <span class="json-property-range" title="Value limits"></span>
-                          </dt>
-                          <dt data-property-name="add">
-                            <span class="json-property-name">add:</span>
-                            <span class="json-property-type">string[]</span>
-                            <span class="json-property-range" title="Value limits"></span>
-                          </dt>
-                          <dt class="json-inner-schema">
-                            <section class="json-schema-array-items">
-                              <span class="json-property-type">string</span>
-                              <span class="json-property-range" title="Value limits"></span>
-                              <div class="json-inner-schema"> </div>
-                            </section>
-                          </dt>
-                          <dt data-property-name="remove">
-                            <span class="json-property-name">remove:</span>
-                            <span class="json-property-type">string[]</span>
-                            <span class="json-property-range" title="Value limits"></span>
-                          </dt>
-                          <dt class="json-inner-schema">
-                            <section class="json-schema-array-items">
-                              <span class="json-property-type">string</span>
-                              <span class="json-property-range" title="Value limits"></span>
-                              <div class="json-inner-schema"> </div>
-                            </section>
-                          </dt>
-                          <dt data-property-name="force">
-                            <span class="json-property-name">force:</span>
-                            <span class="json-property-type">boolean</span>
-                            <span class="json-property-range" title="Value limits"></span>
-                          </dt>
-                          <dt data-property-name="mark_similar_events">
-                            <span class="json-property-name">mark_similar_events:</span>
-                            <span class="json-property-type">boolean</span>
-                            <span class="json-property-range" title="Value limits"></span>
-                            <span class="json-property-default-value" title="Default value">true</span>
-                          </dt>
-                        </dl>
-                      </section>
-                    </div>
-                  </section>
-                </section>
+                <section class="swagger-request-body"> </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -11310,24 +11258,52 @@
                       <p>Environment to use</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">force</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">false</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Force adding labels, even if it exists</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">handle_similar_events</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">true</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Change the labels on all similar events</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
-  {
-    <span class="hljs-attr">&quot;event_id&quot;</span>: <span class="hljs-number">42</span>,
-    <span class="hljs-attr">&quot;add&quot;</span>: [
-      <span class="hljs-string">&quot;Critical&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;remove&quot;</span>: [
-      <span class="hljs-string">&quot;Low&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;force&quot;</span>: <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">&quot;mark_similar_events&quot;</span>: <span class="hljs-literal">true</span>
-  }
-]
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;items&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;event_id&quot;</span>: <span class="hljs-number">42</span>,
+      <span class="hljs-attr">&quot;add&quot;</span>: [
+        <span class="hljs-string">&quot;Critical&quot;</span>
+      ],
+      <span class="hljs-attr">&quot;remove&quot;</span>: [
+        <span class="hljs-string">&quot;Low&quot;</span>
+      ]
+    }
+  ]
+}
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -11430,17 +11406,6 @@
                           <div class="json-inner-schema"> </div>
                         </section>
                       </dt>
-                      <dt data-property-name="force">
-                        <span class="json-property-name">force:</span>
-                        <span class="json-property-type">boolean</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </dt>
-                      <dt data-property-name="mark_similar_events">
-                        <span class="json-property-name">mark_similar_events:</span>
-                        <span class="json-property-type">boolean</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                        <span class="json-property-default-value" title="Default value">true</span>
-                      </dt>
                     </dl>
                   </section>
                 </section>
@@ -11473,6 +11438,34 @@
                       <p>Event to use</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">force</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">false</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Force adding labels, even if it exists</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">handle_similar_events</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">true</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Change the labels on all similar events</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples">
@@ -11484,9 +11477,7 @@
   ],
   <span class="hljs-attr">&quot;remove&quot;</span>: [
     <span class="hljs-string">&quot;Low&quot;</span>
-  ],
-  <span class="hljs-attr">&quot;force&quot;</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">&quot;mark_similar_events&quot;</span>: <span class="hljs-literal">true</span>
+  ]
 }
 </code></pre>
                   <!-- </div> -->
@@ -11591,6 +11582,34 @@
                       <p>Event to use</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">force</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">false</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Force adding labels, even if it exists</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">handle_similar_events</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">true</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Change the labels on all similar events</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -11685,6 +11704,34 @@
                       <p>Event to use</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">force</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">false</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Force adding labels, even if it exists</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">handle_similar_events</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">true</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Change the labels on all similar events</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -11705,7 +11752,7 @@
                       <div class="prop-title">401 Unauthorized</div>
                     </div>
                     <div class="prop-value">
-                      <p>BAD</p>
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -11713,7 +11760,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>NOT FOUND</p>
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -11777,6 +11824,34 @@
                     </div>
                     <div class="prop-value">
                       <p>Event to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">force</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">false</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Force adding labels, even if it exists</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">handle_similar_events</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <span class="json-property-default-value" title="Default value">true</span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Change the labels on all similar events</p>
                     </div>
                   </div>
                 </section>

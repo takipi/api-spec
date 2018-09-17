@@ -2073,34 +2073,41 @@ paths:
           description: Environment to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          example: false
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          example: true
+          default: true
         - in: body
           name: item
           description: list of events and label names to append/detach
           schema:
-            type: array
-            items:
-              type: object
-              properties:
-                event_id: 
-                  type: string
-                  example: 42
-                add:
-                  type: array
-                  items:
-                    type: string
-                    example: "Critical"
-                remove:
-                  type: array
-                  items:
-                    type: string
-                    example: "Low"
-                force: 
-                  type: boolean
-                  example: false
-                mark_similar_events:
-                  type: boolean
-                  default: true
-                  example: true
+            properties:
+              items:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    event_id: 
+                      type: string
+                      example: 42
+                    add:
+                      type: array
+                      items:
+                        type: string
+                        example: "Critical"
+                    remove:
+                      type: array
+                      items:
+                        type: string
+                        example: "Low"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -2153,6 +2160,18 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          example: false
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          example: true
+          default: true
         - in: body
           name: item
           description: list of label names to append/detach
@@ -2169,13 +2188,6 @@ paths:
                 items:
                   type: string
                   example: "Low"
-              force: 
-                type: boolean
-                example: false
-              mark_similar_events:
-                type: boolean
-                default: true
-                example: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -2202,6 +2214,18 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          example: false
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          example: true
+          default: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -2226,13 +2250,25 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          example: false
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          example: true
+          default: true
       responses:
         200:
           $ref: "#/responses/OK"
         401:
-          description: "BAD"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          description: "NOT FOUND"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/resolve:
     post:
       tags:
@@ -2250,6 +2286,18 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          example: false
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          example: true
+          default: true
       responses:
         200:
           $ref: "#/responses/OK"
