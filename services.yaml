@@ -2077,13 +2077,11 @@ paths:
           name: force
           description: Force adding labels, even if it exists
           type: boolean
-          example: false
           default: false
         - in: query
           name: handle_similar_events
           description: Change the labels on all similar events
           type: boolean
-          example: true
           default: true
         - in: body
           name: item
@@ -2164,13 +2162,11 @@ paths:
           name: force
           description: Force adding labels, even if it exists
           type: boolean
-          example: false
           default: false
         - in: query
           name: handle_similar_events
           description: Change the labels on all similar events
           type: boolean
-          example: true
           default: true
         - in: body
           name: item
@@ -2218,13 +2214,11 @@ paths:
           name: force
           description: Force adding labels, even if it exists
           type: boolean
-          example: false
           default: false
         - in: query
           name: handle_similar_events
           description: Change the labels on all similar events
           type: boolean
-          example: true
           default: true
       responses:
         200:
@@ -2254,13 +2248,11 @@ paths:
           name: force
           description: Force adding labels, even if it exists
           type: boolean
-          example: false
           default: false
         - in: query
           name: handle_similar_events
           description: Change the labels on all similar events
           type: boolean
-          example: true
           default: true
       responses:
         200:
@@ -2290,13 +2282,11 @@ paths:
           name: force
           description: Force adding labels, even if it exists
           type: boolean
-          example: false
           default: false
         - in: query
           name: handle_similar_events
           description: Change the labels on all similar events
           type: boolean
-          example: true
           default: true
       responses:
         200:
