@@ -5,11 +5,15 @@ info:
   contact:
     email: hello@overops.com
   description: |
-    Main OverOps API. The REST API layer enables OverOps admins and users to perform and automate all actions provided by the OverOps graphical consoles available at app.overops.com via a platform independent programmatic interface. A wrapper Java client API library that leverages these APIs for convenience by Java and Scala developers is available at https://github.com/takipi/api-client 
+    Main OverOps API.
+    The REST API layer enables OverOps admins and users to perform and automate all actions
+    provided by the OverOps UI available at https://app.overops.com (or On-premises equivalent URL) via a platform independent programmatic interface.
+    A wrapper Java client API library that leverages these APIs for convenience by 
+    Java and Scala developers is available at https://github.com/takipi/api-client and on Maven Central. 
 
     All calls must be authenticated using one of the following methods:
-      1. Using `username:password`.
-      2. Using `x-api-key` header (To generate the token, go to `Settings` --> `Account Settings` in the OverOps App). This is the recommended method.
+      1. Using `x-api-key` header (To generate the token, go to `Settings` --> `Account Settings` in the OverOps App). This is the recommended method.
+      2. Using Basic auth with `username:password` combo.
 
 securityDefinitions:
   basicAuth:
@@ -39,10 +43,84 @@ tags:
   - name: Alerts
     description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
   - name: Events
-    description: Fetch and manipulate information about events identified and classified by OverOps. This includes event metadata (code origin, deployment), volume summary and modifiable tagging via labels. 
+    description: Fetch and manipulate OverOps Automated Root Cause Events and Snapshots
+  - name: Timers
+    description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
+  - name: UDFs
+    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas. 
 schemes:
 - "https"
 paths:
+  /global-settings/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List available UDF libraries
+      description: List available UDF (User Defined Functions) libraries
+      responses:
+        200:
+          description: UDF libraries list
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - UDFs
+      summary: Add a new UDF library
+      description: Add a new UDF library
+      parameters:
+        - in: body
+          name: udf
+          schema:
+            properties:
+              udf:
+                type: string
+                format: binary
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /global-settings/udfs/{library_id}:
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
+      parameters:
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          description: UDF library properties
+          schema:
+            $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - UDFs
+      summary: "Remove UDF library (TBD - Not yet implemented)"
+      description: "Remove UDF library (TBD - Not yet implemented)"
+      parameters:
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services:
     get:
       tags:
@@ -208,7 +286,7 @@ paths:
           type: boolean
       responses:
         200:
-          description: TBD
+          $ref: "#/responses/TBD"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/applications:
@@ -1995,6 +2073,60 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         409:
           $ref: "#/responses/Conflict"
+  /services/{env_id}/events/labels:
+    post:
+      tags:
+        - Labels
+      summary: "Batch Add/Remove labels"
+      description: "Append/Detach labels to/from events"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
+        - in: body
+          name: item
+          description: list of events and label names to append/detach
+          schema:
+            properties:
+              items:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    event_id: 
+                      type: string
+                      example: 42
+                    add:
+                      type: array
+                      items:
+                        type: string
+                        example: "Critical"
+                    remove:
+                      type: array
+                      items:
+                        type: string
+                        example: "Low"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/events/{event_id}:
     get:
       tags:
@@ -2038,6 +2170,16 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
         - in: body
           name: item
           description: list of label names to add / remove
@@ -2080,6 +2222,16 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -2104,13 +2256,23 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
       responses:
         200:
           $ref: "#/responses/OK"
         401:
-          description: "BAD"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          description: "NOT FOUND"
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/events/{event_id}/resolve:
     post:
       tags:
@@ -2128,6 +2290,16 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -2193,6 +2365,30 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/{event_id}/snapshots:
+    delete:
+      tags:
+        - Events
+      summary: "Delete all event snapshots"
+      description: "Removes all existing snapshots for an event. All snapshots will be permanently deleted. Event statistics will be kept."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/events/{event_id}/force-snapshot:
     post:
       tags:
@@ -2247,6 +2443,224 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List available UDF libraries for the environment
+      description: List all available UDFs (User Defined Functions) for selected environment
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: UDF libraries list
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - UDFs
+      summary: Add a new UDF library
+      description: Add a new UDF library
+      consumes:
+        - application/octet-stream
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body # TBD should just be an octet string of a file. will be fixed later
+          name: udf
+          schema:
+            properties:
+              udf:
+                type: string
+                format: binary
+      responses:
+        200:
+          description: UDF library was successfully added
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/udfs/{library_id}:
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          description: UDF properties
+          schema:
+            $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - UDFs
+      summary: Remove UDF library from the environment
+      description: Remove UDF library from specified environment
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/timers:
+    get:
+      tags:
+        - Timers
+      summary: "List timers"
+      description: "List all existing timers"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of timers
+          schema:
+            properties:
+              timers:
+                type: array
+                items:
+                  $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Timers
+      summary: "Create new timer"
+      description: "Create new timer"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: timer
+          description: Single timer
+          schema:
+            $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        409:
+          $ref: "#/responses/Conflict"
+  /services/{env_id}/timers/{timer_id}:
+    get:
+      tags:
+        - Timers
+      summary: "Get timer properties"
+      description: "Get timer properties"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Timer properties
+          schema:
+            $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Timers
+      summary: "Edit timer data"
+      description: "Edit timer data"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: View to use
+          type: string
+          required: true
+        - in: body
+          name: view
+          description: Single timer properties
+          schema:
+              $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    delete:
+      tags:
+        - Timers
+      summary: "Delete timer"
+      description: "Delete timer"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
@@ -2443,7 +2857,10 @@ definitions:
         example: "NullPointerException in Main.main"
       type:
         type: string
-        example: "NullPointerException"
+        example: "Uncaught Exception"
+      name:
+        type: string
+        example: "NullPointerException"  
       first_seen:
         type: string
         example: "2018-02-28T22:47:09.038Z"
@@ -2587,6 +3004,77 @@ definitions:
           type: string
           description: active / pending invitation
           example: active
+  UDFLibrary:
+    description: UDF Properties
+    type: object
+    properties:
+      id:
+        type: string
+        example: L34
+      version:
+        type: string
+        example: 1.0
+      backward_compatible:
+        type: string
+        example: true
+      functions:
+        type: array
+        items:
+          $ref: "#/definitions/UDF"
+  UDF:
+    type: object
+    properties:
+      function_type:
+        type: string
+        example: ANOMALY
+      short_description: #this is the udf name
+        type: string
+        example: Relative Threshold
+      long_description:
+        type: string
+        example: This function compares the volume of events against an absolute threshold
+      param_type:
+        type: string
+        example: TEXT
+      default_params:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              example: X
+            default_value:
+              type: string
+              example: 100
+  Timer:
+    description: Timer properties
+    type: object
+    properties:
+      id:
+        type: string
+        description: This is an auto generated ID. When creating/editing a timer, the value recevied in this field will be ignored.
+        example: 34
+      class_name:
+        type: string
+        example: DBManager
+      method_name:
+        type: string
+        example: SaveWithRetries
+      threshold:
+        type: integer
+        description: Threshold in ms
+        example: 8000
+      servers:
+        type: array
+        items:
+          type: string
+          example: na-dotCMS-2
+      applications:
+        type: array
+        items:
+          type: string
+          example: MyApp
 responses:
   OK:
     description: OK
