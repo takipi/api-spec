@@ -1945,6 +1945,88 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{service_id}/views/{view_id}/alerts:
+    get:
+      tags:
+        - Views
+        - Alerts
+      summary: "Fetch Alert settings for a View"
+      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View ID to use (e.g. P283)
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/definitions/Alert"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - Views
+        - Alerts
+      summary: "Edit Alert settings"
+      description: "Edit Alert settings"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View ID to use (e.g. P283)
+          type: string
+          required: true
+        - in: body
+          name: alert
+          description: Alerts settings
+          schema:
+              $ref: "#/definitions/Alert"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    delete:
+      tags:
+        - Views
+        - Alerts
+      summary: "Remove Alert settings"
+      description: "Disables all Alert settings for a View"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View ID to use (e.g. P283)
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
   /services/{service_id}/views/{view_id}/anomaly:
     post:
       tags:
@@ -3069,6 +3151,123 @@ definitions:
         items:
           type: string
           example: MyApp
+  Alert:
+    description: All alert settings of a view
+    type: object
+    properties:
+      alert_on_new: 
+        type: "boolean"
+        example: true
+      slack_settings: 
+        properties: 
+          enabled: 
+            type: "boolean"
+            example: true
+          inhook_url: 
+            type: "string"
+            example: "https://hooks.slack.com/services/xxxxyyyyy/xxxx/sdf123rskfsdf1j"
+        type: "object"
+      hip_chat_settings: 
+        properties: 
+          enabled: 
+            type: "boolean"
+            example: false
+          token: 
+            type: "string"
+            example: "dfgdk2342kljsldfjslk2342fsdfkjslkj"
+          room: 
+            type: "string"
+            example: "Takipi"
+        type: "object"
+      pager_duty_settings: 
+        properties: 
+          enabled: 
+            type: "boolean"
+            example: false
+          service_integration_key:
+            type: "string"
+            example: "sflk234lkdjflsj12o8312"
+        type: "object"
+      #jira_settings: <- TBD
+      #  properties: 
+      #    
+      #  type: "object"
+      webhook_settings: 
+        properties: 
+          enabled: 
+            type: "boolean"
+            example: false
+          webhook_url:
+            type: "string"
+            example: "http://hooks.company.com/overops1/P1/hook"
+        type: "object"
+      service_now_settings: 
+        properties: 
+          enabled: 
+            type: "boolean"
+            example: false
+          url:
+            type: "string"
+            example: "http://servicenow.company.com/hooks"
+          user_id:
+            type: "string"
+            example: "admin"
+          password: 
+            type: "string"
+            example: "pa$$1"
+          table:
+            type: "string"
+            example: "overops"
+        type: "object"
+      email_settings: 
+        properties: 
+          is_active: 
+            type: "boolean"
+            example: true
+          alert_me: 
+            type: "boolean"
+            example: true
+          alert_all_team_members: 
+            type: "boolean"
+            example: false
+          alert_additional_emails: 
+            type: "boolean"
+            example: false
+          additional_emails_to_alert:
+            type: "array"
+            items:
+              type: string
+              example: "user1@company.com"
+        type: "object"
+      udf_settings: 
+        properties: 
+          enabled: 
+            type: "boolean"
+            example: false
+          library_id: 
+            type: "string"
+            example: "L24"
+          function_id: 
+            type: "string"
+            example: "apply-label"
+          args:
+            type: "string"
+            example: "label=sample_label_name"
+        type: "object"
+      periodic_udf_settings: 
+        properties: 
+          library_id: 
+            type: "string"
+            example: "L6"
+          function_id: 
+            type: "string"
+            example: "Relative Threshold"
+          args: 
+            type: "string"
+            example: "# Defines a target threshold that if the volume of events within the views exceeds will constitute an anomaly.\nthreshold = 100\n\n# A percentage value between 1 and 100 against which the volume of events / throughput is compared.\nrate = 5\n\n# Compare the number of times application threads (e.g. Servlet, Actor, Future,..) containing the events matching the target views have executed  against the number of events occurring. For example, if a Servlet containing the events within the view was invoked a 1000 times and 20 events matching the view’s filter took place, a RATE value above 2 will invoke an alert.\nrelative_to = Thread_Calls\n\n# Compare the number of times the application method containing the events was invoked against the number of events which occurred.\n# relative_to = Method_Calls\n\n# Time period to look at, in minutes.\ntimespan = 60"
+          period_minutes: 
+            type: "number"
+            example: 60
 responses:
   OK:
     description: OK
