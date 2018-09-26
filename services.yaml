@@ -2181,7 +2181,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    event_id: 
+                    event_id:
                       type: string
                       example: 42
                     add:
@@ -2801,14 +2801,6 @@ definitions:
         example: false
       filters:
         $ref: "#/definitions/Filter"
-      alert_on_new:
-        type: boolean
-        description: TBD - NOT YET IMPLEMENTED
-        example: true
-      alert_on_anomaly:
-        type: boolean
-        description: TBD - NOT YET IMPLEMENTED
-        example: true
   Category:
     type: object
     description: Single category properties
@@ -2936,7 +2928,7 @@ definitions:
         example: "Uncaught Exception"
       name:
         type: string
-        example: "NullPointerException"  
+        example: "NullPointerException"
       first_seen:
         type: string
         example: "2018-02-28T22:47:09.038Z"
@@ -3155,33 +3147,33 @@ definitions:
     description: All alert settings of a view
     type: object
     properties:
-      alert_on_new: 
+      alert_on_new:
         type: "boolean"
         example: true
-      slack_settings: 
-        properties: 
-          enabled: 
+      slack_settings:
+        properties:
+          enabled:
             type: "boolean"
             example: true
-          inhook_url: 
+          inhook_url:
             type: "string"
             example: "https://hooks.slack.com/services/xxxxyyyyy/xxxx/sdf123rskfsdf1j"
         type: "object"
-      hip_chat_settings: 
-        properties: 
-          enabled: 
+      hip_chat_settings:
+        properties:
+          enabled:
             type: "boolean"
             example: false
-          token: 
+          token:
             type: "string"
             example: "dfgdk2342kljsldfjslk2342fsdfkjslkj"
-          room: 
+          room:
             type: "string"
             example: "Takipi"
         type: "object"
-      pager_duty_settings: 
-        properties: 
-          enabled: 
+      pager_duty_settings:
+        properties:
+          enabled:
             type: "boolean"
             example: false
           service_integration_key:
@@ -3189,21 +3181,21 @@ definitions:
             example: "sflk234lkdjflsj12o8312"
         type: "object"
       #jira_settings: <- TBD
-      #  properties: 
-      #    
+      #  properties:
+      #
       #  type: "object"
-      webhook_settings: 
-        properties: 
-          enabled: 
+      webhook_settings:
+        properties:
+          enabled:
             type: "boolean"
             example: false
           webhook_url:
             type: "string"
             example: "http://hooks.company.com/overops1/P1/hook"
         type: "object"
-      service_now_settings: 
-        properties: 
-          enabled: 
+      service_now_settings:
+        properties:
+          enabled:
             type: "boolean"
             example: false
           url:
@@ -3212,25 +3204,25 @@ definitions:
           user_id:
             type: "string"
             example: "admin"
-          password: 
+          password:
             type: "string"
             example: "pa$$1"
           table:
             type: "string"
             example: "overops"
         type: "object"
-      email_settings: 
-        properties: 
-          is_active: 
+      email_settings:
+        properties:
+          is_active:
             type: "boolean"
             example: true
-          alert_me: 
+          alert_me:
             type: "boolean"
             example: true
-          alert_all_team_members: 
+          alert_all_team_members:
             type: "boolean"
             example: false
-          alert_additional_emails: 
+          alert_additional_emails:
             type: "boolean"
             example: false
           additional_emails_to_alert:
@@ -3239,33 +3231,33 @@ definitions:
               type: string
               example: "user1@company.com"
         type: "object"
-      udf_settings: 
-        properties: 
-          enabled: 
+      udf_settings:
+        properties:
+          enabled:
             type: "boolean"
             example: false
-          library_id: 
+          library_id:
             type: "string"
             example: "L24"
-          function_id: 
+          function_id:
             type: "string"
             example: "apply-label"
           args:
             type: "string"
             example: "label=sample_label_name"
         type: "object"
-      periodic_udf_settings: 
-        properties: 
-          library_id: 
+      periodic_udf_settings:
+        properties:
+          library_id:
             type: "string"
             example: "L6"
-          function_id: 
+          function_id:
             type: "string"
             example: "Relative Threshold"
-          args: 
+          args:
             type: "string"
             example: "# Defines a target threshold that if the volume of events within the views exceeds will constitute an anomaly.\nthreshold = 100\n\n# A percentage value between 1 and 100 against which the volume of events / throughput is compared.\nrate = 5\n\n# Compare the number of times application threads (e.g. Servlet, Actor, Future,..) containing the events matching the target views have executed  against the number of events occurring. For example, if a Servlet containing the events within the view was invoked a 1000 times and 20 events matching the view’s filter took place, a RATE value above 2 will invoke an alert.\nrelative_to = Thread_Calls\n\n# Compare the number of times the application method containing the events was invoked against the number of events which occurred.\n# relative_to = Method_Calls\n\n# Time period to look at, in minutes.\ntimespan = 60"
-          period_minutes: 
+          period_minutes:
             type: "number"
             example: 60
 responses:
