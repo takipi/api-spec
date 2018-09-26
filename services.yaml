@@ -26,6 +26,8 @@ basePath: /api/v1
 tags:
   - name: General
     description: Fetching general information about services
+  - name: Team Management
+    description: APIs related to team management of a service
   - name: Data Redaction
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
@@ -177,7 +179,7 @@ paths:
   /services/{service_id}/team:
     get:
       tags:
-        - General
+        - Team Management
       summary: "List service team members"
       description: "List service team members"
       parameters:
@@ -199,9 +201,30 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     post:
       tags:
-        - General
-      summary: "Add members to a service key"
-      description: "Add members to a service key"
+        - Team Management
+      summary: "Add/Edit members to a service key"
+      description: "New emails will be handled as new members to add. Existing emails will be handled as existing members to edit"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembers"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Team Management
+      summary: "Delete members from a service key"
+      description: "Delete members from a service key. This call requires admin role"
       parameters:
           - in: path
             name: service_id
@@ -2099,7 +2122,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    event_id: 
+                    event_id:
                       type: string
                       example: 42
                     add:
@@ -2854,7 +2877,7 @@ definitions:
         example: "Uncaught Exception"
       name:
         type: string
-        example: "NullPointerException"  
+        example: "NullPointerException"
       first_seen:
         type: string
         example: "2018-02-28T22:47:09.038Z"
