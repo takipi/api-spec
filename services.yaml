@@ -1729,6 +1729,11 @@ paths:
           name: deployment
           type: string
           description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          enum: [none, hits, invocations, all]
+          description: Include statistics per event in the response
       responses:
         200:
           description: Event metrics
@@ -1753,9 +1758,8 @@ paths:
                           time:
                             type: string
                             example: "2018-02-28T22:47:09.038Z"
-                          value:
-                            type: number
-                            example: 42
+                          stats:
+                            $ref: "#/definitions/EventStats"
                           contributors:
                             type: array
                             items:
@@ -1764,9 +1768,8 @@ paths:
                                 id:
                                   type: string
                                   example: "42"
-                                value:
-                                  type: number
-                                  example: 42
+                                stats:
+                                  $ref: "#/definitions/EventStats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -1816,6 +1819,11 @@ paths:
           name: deployment
           type: string
           description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          enum: [none, hits, invocations, all]
+          description: Include statistics per event in the response
       responses:
         200:
           description: Event metrics split by entry point
@@ -1840,9 +1848,8 @@ paths:
                           time:
                             type: string
                             example: "2018-02-28T22:47:09.038Z"
-                          value:
-                            type: number
-                            example: 42
+                          stats:
+                            $ref: "#/definitions/EventStats"
                           contributors:
                             type: array
                             items:
@@ -1851,9 +1858,8 @@ paths:
                                 id:
                                   type: string
                                   example: "42"
-                                value:
-                                  type: number
-                                  example: 42
+                                stats:
+                                  $ref: "#/definitions/EventStats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -1903,6 +1909,11 @@ paths:
           name: deployment
           type: string
           description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          enum: [none, hits, invocations, all]
+          description: Include statistics per event in the response
       responses:
         200:
           description: event metrics split by event
@@ -1927,9 +1938,8 @@ paths:
                           time:
                             type: string
                             example: "2018-02-28T22:47:09.038Z"
-                          value:
-                            type: number
-                            example: 42
+                          stats:
+                            $ref: "#/definitions/EventStats"
                           contributors:
                             type: array
                             items:
@@ -1938,9 +1948,8 @@ paths:
                                 id:
                                   type: string
                                   example: "42"
-                                value:
-                                  type: number
-                                  example: 42
+                                stats:
+                                  $ref: "#/definitions/EventStats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
