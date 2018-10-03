@@ -3032,6 +3032,10 @@ definitions:
       full_key:
         type: string
         example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      role:
+        type: string
+        description: user's role in the environment
+        example: admin
   TeamMembers:
     description: List of Service key team members
     type: array
