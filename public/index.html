@@ -25,13 +25,16 @@
             <a href="#tag-General">General</a>
             <ul>
               <li>
-                <a href="#operation--services-get"> List all services </a>
+                <a href="#operation--services-get"> List all environments </a>
               </li>
               <li>
-                <a href="#operation--services-post"> Generate a new service key </a>
+                <a href="#operation--services-post"> Add an environment </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--get"> Get information about the service (Not yet implemented) </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--rename-post"> Rename an environment </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--settings-get"> Get service settings </a>
@@ -500,7 +503,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">List all services</span>
+              <span class="operation-summary">List all environments</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -513,7 +516,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List all services accessible by the user</p>
+                  <p>List all environments accessible by the user</p>
                 </section>
               </div>
             </div>
@@ -591,7 +594,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Generate a new service key</span>
+              <span class="operation-summary">Add an environment</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -604,7 +607,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Create a new service</p>
+                  <p>Add an environment</p>
                 </section>
               </div>
             </div>
@@ -637,7 +640,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>New service key properties</p>
+                      <p>New environment properties</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -737,6 +740,92 @@
                 </section>
               </div>
               <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--rename-post" class="operation panel" data-traverse-target="operation--services--service_id--rename-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-General">General</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Rename an environment</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{service_id}/rename</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Rename an environment. This call is allowed for admins only</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body"> </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ServiceBasic">ServiceBasic</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Updated environment properties</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
+  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>,
+  <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <div id="operation--services--service_id--settings-get" class="operation panel" data-traverse-target="operation--services--service_id--settings-get">
