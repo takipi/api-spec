@@ -180,8 +180,8 @@ paths:
     get:
       tags:
         - Team Management
-      summary: "List service team members"
-      description: "List service team members"
+      summary: "List team members for an environment"
+      description: "List team members for an environment"
       parameters:
         - in: path
           name: service_id
@@ -202,8 +202,8 @@ paths:
     post:
       tags:
         - Team Management
-      summary: "Add/Edit members to a service key"
-      description: "New emails will be handled as new members to add. Existing emails will be handled as existing members to edit"
+      summary: "Add members to an environment"
+      description: "Add new members to the environment"
       parameters:
           - in: path
             name: service_id
@@ -223,8 +223,8 @@ paths:
     delete:
       tags:
         - Team Management
-      summary: "Delete members from a service key"
-      description: "Delete members from a service key. This call requires admin role"
+      summary: "Delete members from an environment"
+      description: "Delete members from an environment. This call requires admin role"
       parameters:
           - in: path
             name: service_id
@@ -241,6 +241,37 @@ paths:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/team/change-role:
+    post:
+      tags:
+        - Team Management
+      summary: "Change user role"
+      description: "Change role for a selected team member. This call requires admin role."
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: email
+            description: team memebr email
+            type: string
+            required: true
+            example: someone@somecompany.com
+          - in: body
+            name: role
+            description: new role (member, admin)
+            type: string
+            required: true
+            example: admin
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/settings:
     get:
       tags:

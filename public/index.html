@@ -51,13 +51,16 @@
             <a href="#tag-Team-Management">Team Management</a>
             <ul>
               <li>
-                <a href="#operation--services--service_id--team-get"> List service team members </a>
+                <a href="#operation--services--service_id--team-get"> List team members for an environment </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--team-post"> Add/Edit members to a service key </a>
+                <a href="#operation--services--service_id--team-post"> Add members to an environment </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--team-delete"> Delete members from a service key </a>
+                <a href="#operation--services--service_id--team-delete"> Delete members from an environment </a>
+              </li>
+              <li>
+                <a href="#operation--services--service_id--team-change-role-post"> Change user role </a>
               </li>
             </ul>
           </section>
@@ -1095,7 +1098,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">List service team members</span>
+              <span class="operation-summary">List team members for an environment</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1108,7 +1111,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List service team members</p>
+                  <p>List team members for an environment</p>
                 </section>
               </div>
             </div>
@@ -1202,7 +1205,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Add/Edit members to a service key</span>
+              <span class="operation-summary">Add members to an environment</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1215,7 +1218,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>New emails will be handled as new members to add. Existing emails will be handled as existing members to edit</p>
+                  <p>Add new members to the environment</p>
                 </section>
               </div>
             </div>
@@ -1304,7 +1307,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Delete members from a service key</span>
+              <span class="operation-summary">Delete members from an environment</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1317,7 +1320,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Delete members from a service key. This call requires admin role</p>
+                  <p>Delete members from an environment. This call requires admin role</p>
                 </section>
               </div>
             </div>
@@ -1389,6 +1392,94 @@
                     </div>
                     <div class="prop-value">
                       <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--team-change-role-post" class="operation panel" data-traverse-target="operation--services--service_id--team-change-role-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Team-Management">Team Management</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Change user role</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{service_id}/team/change-role</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Change role for a selected team member. This call requires admin role.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;admin&quot;</span>
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
