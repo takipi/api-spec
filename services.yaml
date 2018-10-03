@@ -26,6 +26,8 @@ basePath: /api/v1
 tags:
   - name: General
     description: Fetching general information about services
+  - name: Team Management
+    description: APIs related to team management of a service
   - name: Data Redaction
     description: Fetching and manipulating the data redaction (PII) settings of the service
   - name: Code Redaction
@@ -177,9 +179,9 @@ paths:
   /services/{service_id}/team:
     get:
       tags:
-        - General
-      summary: "List service team members"
-      description: "List service team members"
+        - Team Management
+      summary: "List team members for an environment"
+      description: "List team members for an environment"
       parameters:
         - in: path
           name: service_id
@@ -199,9 +201,9 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     post:
       tags:
-        - General
-      summary: "Add members to a service key"
-      description: "Add members to a service key"
+        - Team Management
+      summary: "Add members to an environment"
+      description: "Add new members to the environment"
       parameters:
           - in: path
             name: service_id
@@ -218,6 +220,58 @@ paths:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Team Management
+      summary: "Delete members from an environment"
+      description: "Delete members from an environment. This call requires admin role"
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembers"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/team/change-role:
+    post:
+      tags:
+        - Team Management
+      summary: "Change user role"
+      description: "Change role for a selected team member. This call requires admin role."
+      parameters:
+          - in: path
+            name: service_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: email
+            description: team memebr email
+            type: string
+            required: true
+            example: someone@somecompany.com
+          - in: body
+            name: role
+            description: new role (member, admin)
+            type: string
+            required: true
+            example: admin
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/settings:
     get:
       tags:
@@ -2108,7 +2162,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    event_id: 
+                    event_id:
                       type: string
                       example: 42
                     add:
@@ -2863,7 +2917,7 @@ definitions:
         example: "Uncaught Exception"
       name:
         type: string
-        example: "NullPointerException"  
+        example: "NullPointerException"
       first_seen:
         type: string
         example: "2018-02-28T22:47:09.038Z"
