@@ -212,9 +212,12 @@ paths:
             required: true
           - in: body
             name: team_members
-            description: list of team members
+            description: list of team members emails to add
             schema:
-              $ref: "#/definitions/TeamMembers"
+              type: array
+              items:
+                type: string
+                example: someone@somecompany.com
       responses:
         200:
           $ref: "#/responses/OK"
@@ -224,7 +227,7 @@ paths:
       tags:
         - Team Management
       summary: "Delete members from an environment"
-      description: "Delete members from an environment. This call requires admin role"
+      description: "Delete members from an environment. This call requires ADMIN role"
       parameters:
           - in: path
             name: service_id
@@ -233,9 +236,12 @@ paths:
             required: true
           - in: body
             name: team_members
-            description: list of team members
+            description: list of team members emails to delete
             schema:
-              $ref: "#/definitions/TeamMembers"
+              type: array
+              items:
+                type: string
+                example: someone@somecompany.com
       responses:
         200:
           $ref: "#/responses/OK"
@@ -245,8 +251,8 @@ paths:
     post:
       tags:
         - Team Management
-      summary: "Change user role"
-      description: "Change role for a selected team member. This call requires admin role."
+      summary: "Change member's role"
+      description: "Change role for a selected team member. This call requires ADMIN role."
       parameters:
           - in: path
             name: service_id
@@ -255,7 +261,7 @@ paths:
             required: true
           - in: body
             name: email
-            description: team memebr email
+            description: team member email
             type: string
             required: true
             example: someone@somecompany.com

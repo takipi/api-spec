@@ -60,7 +60,7 @@
                 <a href="#operation--services--service_id--team-delete"> Delete members from an environment </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--team-change-role-post"> Change user role </a>
+                <a href="#operation--services--service_id--team-change-role-post"> Change member&#x27;s role </a>
               </li>
             </ul>
           </section>
@@ -1225,20 +1225,12 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>list of team members</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
+                  <p>list of team members emails to add</p>
+                  <section class="json-schema-array-items">
+                    <span class="json-property-type">string</span>
+                    <span class="json-property-range" title="Value limits"></span>
+                    <div class="json-inner-schema"> </div>
+                  </section>
                 </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
@@ -1261,12 +1253,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
-  {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
-    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
-  }
+  <span class="hljs-string">&quot;someone@somecompany.com&quot;</span>
 ]
 </code></pre>
                   <!-- </div> -->
@@ -1320,27 +1307,19 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Delete members from an environment. This call requires admin role</p>
+                  <p>Delete members from an environment. This call requires ADMIN role</p>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>list of team members</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
+                  <p>list of team members emails to delete</p>
+                  <section class="json-schema-array-items">
+                    <span class="json-property-type">string</span>
+                    <span class="json-property-range" title="Value limits"></span>
+                    <div class="json-inner-schema"> </div>
+                  </section>
                 </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
@@ -1363,12 +1342,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
-  {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
-    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
-  }
+  <span class="hljs-string">&quot;someone@somecompany.com&quot;</span>
 ]
 </code></pre>
                   <!-- </div> -->
@@ -1409,7 +1383,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Change user role</span>
+              <span class="operation-summary">Change member&apos;s role</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1422,7 +1396,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Change role for a selected team member. This call requires admin role.</p>
+                  <p>Change role for a selected team member. This call requires ADMIN role.</p>
                 </section>
               </div>
             </div>
