@@ -309,7 +309,7 @@ paths:
       tags:
         - General
       summary: "List JVMS/Collectors"
-      description: "Fetch JVMS/Collectors process report"
+      description: "Fetch JVMS/Collectors live processes report"
       parameters:
         - in: path
           name: service_id
