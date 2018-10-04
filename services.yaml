@@ -304,6 +304,33 @@ paths:
           $ref: "#/responses/TBD"
         401:
             $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/jvms:
+    get:
+      tags:
+        - General
+      summary: "List JVMS/Collectors"
+      description: "Fetch JVMS/Collectors process report"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: monitored
+          description: Show only monitored JVMs
+          type: boolean
+      responses:
+        200:
+          description: List of JVMs
+          schema:
+            properties:
+              JVMs:
+                type: array
+                items:
+                  $ref: "#/definitions/JVM"
+        401:
+            $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
     get:
       tags:
@@ -2108,7 +2135,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    event_id: 
+                    event_id:
                       type: string
                       example: 42
                     add:
@@ -2863,7 +2890,7 @@ definitions:
         example: "Uncaught Exception"
       name:
         type: string
-        example: "NullPointerException"  
+        example: "NullPointerException"
       first_seen:
         type: string
         example: "2018-02-28T22:47:09.038Z"
@@ -3078,6 +3105,42 @@ definitions:
         items:
           type: string
           example: MyApp
+  JVM:
+    description: JVM properties
+    type: object
+    properties:
+      name:
+        type: string
+        description: JVM name
+        example: prod-api
+      deployment:
+        type: string
+        description: deployment name
+        example: v4.0.2041
+      PID:
+        type: string
+        description: PID
+        example: 20187
+      agent_version:
+        type: string
+        description: Version of the agent installed on the JVM
+        example: 4.18.1
+      collector_version:
+        type: string
+        description: Overops Collector version
+        example: 4.18.2
+      status:
+        type: string
+        enum: [monitored, OverOps not attached]
+        description: OverOps monitoring status
+      server:
+        type: string
+        description: name of the server that hosts the JVM
+        example: ip-10-164-178-61
+      machine:
+        type: string
+        description: TBD
+        example: TBD
 responses:
   OK:
     description: OK

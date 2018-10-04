@@ -51,6 +51,9 @@
               <li>
                 <a href="#operation--services--service_id--applications-get"> List applications (Not yet implemented) </a>
               </li>
+              <li>
+                <a href="#operation--services--service_id--jvms-get"> List JVMS/Collectors </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -384,6 +387,7 @@
           <a href="#definition-UDFLibrary"> UDFLibrary </a>
           <a href="#definition-UDF"> UDF </a>
           <a href="#definition-Timer"> Timer </a>
+          <a href="#definition-JVM"> JVM </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -1278,6 +1282,115 @@
                 </section>
               </div>
               <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--service_id--jvms-get" class="operation panel" data-traverse-target="operation--services--service_id--jvms-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-General">General</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List JVMS/Collectors</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{service_id}/jvms</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Fetch JVMS/Collectors process report</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">service_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">monitored</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">boolean</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Show only monitored JVMs</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of JVMs</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;JVMs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;prod-api&quot;</span>,
+      <span class="hljs-attr">&quot;deployment&quot;</span>: <span class="hljs-string">&quot;v4.0.2041&quot;</span>,
+      <span class="hljs-attr">&quot;PID&quot;</span>: <span class="hljs-number">20187</span>,
+      <span class="hljs-attr">&quot;agent_version&quot;</span>: <span class="hljs-string">&quot;4.18.1&quot;</span>,
+      <span class="hljs-attr">&quot;collector_version&quot;</span>: <span class="hljs-string">&quot;4.18.2&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;server&quot;</span>: <span class="hljs-string">&quot;ip-10-164-178-61&quot;</span>,
+      <span class="hljs-attr">&quot;machine&quot;</span>: <span class="hljs-string">&quot;TBD&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <h1 id="tag-Data-Redaction" class="swagger-summary-tag" data-traverse-target="tag-Data-Redaction">Data Redaction</h1>
@@ -13566,6 +13679,112 @@
   <span class="hljs-attr">&quot;applications&quot;</span>: [
     <span class="hljs-string">&quot;MyApp&quot;</span>
   ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-JVM" class="definition panel" data-traverse-target="definition-JVM">
+            <h2 class="panel-title">
+              <a name="/definitions/JVM"></a>JVM: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>JVM properties</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>JVM name</p>
+                    </dd>
+                    <dt data-property-name="deployment" class="has-description">
+                      <span class="json-property-name">deployment:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>deployment name</p>
+                    </dd>
+                    <dt data-property-name="PID" class="has-description">
+                      <span class="json-property-name">PID:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>PID</p>
+                    </dd>
+                    <dt data-property-name="agent_version" class="has-description">
+                      <span class="json-property-name">agent_version:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Version of the agent installed on the JVM</p>
+                    </dd>
+                    <dt data-property-name="collector_version" class="has-description">
+                      <span class="json-property-name">collector_version:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Overops Collector version</p>
+                    </dd>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">monitored</span>,
+                        <span class="json-property-enum-item">OverOps not attached</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>OverOps monitoring status</p>
+                    </dd>
+                    <dt data-property-name="server" class="has-description">
+                      <span class="json-property-name">server:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>name of the server that hosts the JVM</p>
+                    </dd>
+                    <dt data-property-name="machine" class="has-description">
+                      <span class="json-property-name">machine:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>TBD</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;prod-api&quot;</span>,
+  <span class="hljs-attr">&quot;deployment&quot;</span>: <span class="hljs-string">&quot;v4.0.2041&quot;</span>,
+  <span class="hljs-attr">&quot;PID&quot;</span>: <span class="hljs-number">20187</span>,
+  <span class="hljs-attr">&quot;agent_version&quot;</span>: <span class="hljs-string">&quot;4.18.1&quot;</span>,
+  <span class="hljs-attr">&quot;collector_version&quot;</span>: <span class="hljs-string">&quot;4.18.2&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;server&quot;</span>: <span class="hljs-string">&quot;ip-10-164-178-61&quot;</span>,
+  <span class="hljs-attr">&quot;machine&quot;</span>: <span class="hljs-string">&quot;TBD&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
