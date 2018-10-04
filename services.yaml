@@ -2028,6 +2028,32 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{service_id}/views/{view_id}/history:
+    get:
+      tags:
+        - Views
+      summary: Fetch View History
+      description: Fetch View History
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: View History
+          schema:
+            $ref: "#/definitions/ViewHistory"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/labels:
     get:
       tags:
@@ -2108,7 +2134,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    event_id: 
+                    event_id:
                       type: string
                       example: 42
                     add:
@@ -2863,7 +2889,7 @@ definitions:
         example: "Uncaught Exception"
       name:
         type: string
-        example: "NullPointerException"  
+        example: "NullPointerException"
       first_seen:
         type: string
         example: "2018-02-28T22:47:09.038Z"
@@ -3078,6 +3104,35 @@ definitions:
         items:
           type: string
           example: MyApp
+  ViewHistory:
+    type: object
+    properties:
+      created_on:
+        type: string
+        description: View creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+        example: 2018-02-28T22:47:09.038+02:00
+      creation_method:
+        type: string
+        enum: [manual,udf] #in manual --> do we want to distinguish between ui and api?
+        description: View creation method
+        example: manual
+      created_by:
+        type: string
+        description: View creator
+        example: John Doe #do we want to see the udf name?
+      updated_on:
+        type: string
+        description: View update time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+        example: 2018-05-01T10:00:00.020+03:00
+      update_method:
+        type: string
+        enum: [manual,udf] #in manual --> do we want to distinguish between ui and api?
+        description: View update method
+        example: manual
+      updated_by:
+        type: string
+        description: updated by
+        example: John Doe #do we want to see the udf name?
 responses:
   OK:
     description: OK
