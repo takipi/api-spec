@@ -2060,8 +2060,8 @@ paths:
     post:
       tags:
         - Labels
-      summary: "Define new label"
-      description: "Define new a label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization."
+      summary: "Create new label"
+      description: "Create a new label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization."
       parameters:
         - in: path
           name: env_id
