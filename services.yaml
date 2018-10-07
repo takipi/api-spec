@@ -2635,7 +2635,7 @@ definitions:
         description: Relevant for hybrid storage only. Both hostname and ip may be used. For cloud storage, NA value will be returned
         type: string
         example: storage.company.com
-      frontend-hostname:
+      frontend_hostname:
         description: OPTIONAL Relevant for hybrid storage only. Both hostname and ip may be used. For cloud storage, NA value will be returned
         type: string
         example: 123.91.12.100
