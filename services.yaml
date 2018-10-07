@@ -235,39 +235,13 @@ paths:
           $ref: "#/responses/TBD"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{service_id}/deployments:
-    get:
-      tags:
-        - General
-      summary: "List deployments"
-      description: "List deployments"
-      parameters:
-        - in: path
-          name: service_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: query
-          name: active
-          description: (TBD - Not yet implemented) Show only active deployments
-          type: boolean
-      responses:
-        200:
-          description: List of deployments
-          schema:
-            properties:
-              deployments:
-                type: array
-                items:
-                  $ref: "#/definitions/Deployment"
-        401:
-          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/servers:
     get:
       tags:
         - General
-      summary: "List servers (Not yet implemented)"
-      description: "List servers (Not yet implemented)"
+      summary: "List servers"
+      description: "List all (or just active) servers that were used to monitor applications.
+        These can be either the IP/Hostname of a host or a cluster identifier. [How to name your Server](https://doc.overops.com/docs/naming-your-application-server-deployment)"
       parameters:
         - in: path
           name: service_id
@@ -280,15 +254,22 @@ paths:
           type: boolean
       responses:
         200:
-          description: TBD
+          description: List of servers
+          schema:
+            properties:
+              servers:
+                type: array
+                items:
+                  $ref: "#/definitions/Server"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/applications:
     get:
       tags:
         - General
-      summary: "List applications (Not yet implemented)"
-      description: "List applications (Not yet implemented)"
+      summary: "List applications"
+      description: "List all (or just active) applications that were used to monitor applications.
+        These can be either an application name, an integration suite name or a specific instance. [How to name your Application](https://doc.overops.com/docs/naming-your-application-server-deployment)"
       parameters:
         - in: path
           name: service_id
@@ -301,9 +282,43 @@ paths:
           type: boolean
       responses:
         200:
-          $ref: "#/responses/TBD"
+          description: List of applications
+          schema:
+            properties:
+              applications:
+                type: array
+                items:
+                  $ref: "#/definitions/Application"
         401:
             $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/deployments:
+    get:
+      tags:
+        - General
+      summary: "List deployments"
+      description: "List all (or just active) deployments that were monitoring in the environment.
+        These can be either the Jenkins build number, Git commit, Maven version, etc. [How to tag your deployment](https://doc.overops.com/docs/naming-your-application-server-deployment)"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: active
+          description: Show only active deployments
+          type: boolean
+      responses:
+        200:
+          description: List of deployments
+          schema:
+            properties:
+              deployments:
+                type: array
+                items:
+                  $ref: "#/definitions/Deployment"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services/{service_id}/settings/code-redaction:
     get:
       tags:
@@ -2929,6 +2944,24 @@ definitions:
       color: #consider adding available colors as enum
         type: string
         example: RED
+  Server:
+    type: object
+    properties:
+      name:
+        type: string
+        example: ip57-110-0-18
+      active:
+        type: boolean
+        example: true
+  Application:
+    type: object
+    properties:
+      name:
+        type: string
+        example: jobs-api
+      active:
+        type: boolean
+        example: true
   Deployment:
     type: object
     properties:
