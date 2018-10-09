@@ -220,7 +220,9 @@ paths:
                 example: someone@somecompany.com
       responses:
         200:
-          $ref: "#/responses/OK"
+          description: List of team members that were were successfully added (invitation sent)
+          schema:
+            $ref: "#/definitions/TeamMembers"
         401:
           $ref: "#/responses/UnauthorizedError"
     delete:
@@ -3057,7 +3059,11 @@ definitions:
         state:
           type: string
           description: active / pending invitation
-          example: active
+          example: pending invitation
+        invitation_link:
+          type: string
+          description: invitation link for members that been invited to OverOps but haven't sign up yet
+          example: https://staging2.takipi.net/app/cst?token=c0ca2a793dd540aead3c9ac8fe6502f6Copy
   UDFLibrary:
     description: UDF Properties
     type: object

@@ -1186,7 +1186,8 @@
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
     <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;pending invitation&quot;</span>,
+    <span class="hljs-attr">&quot;invitation_link&quot;</span>: <span class="hljs-string">&quot;https://staging2.takipi.net/app/cst?token=c0ca2a793dd540aead3c9ac8fe6502f6Copy&quot;</span>
   }
 ]
 </code></pre>
@@ -1266,9 +1267,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>OK</p>
+                      <p>List of team members that were were successfully added (invitation sent)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1281,7 +1288,24 @@
                   </div>
                 </section>
               </div>
-              <div class="doc-examples"> </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;pending invitation&quot;</span>,
+    <span class="hljs-attr">&quot;invitation_link&quot;</span>: <span class="hljs-string">&quot;https://staging2.takipi.net/app/cst?token=c0ca2a793dd540aead3c9ac8fe6502f6Copy&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <div id="operation--services--service_id--team-delete" class="operation panel" data-traverse-target="operation--services--service_id--team-delete">
@@ -13326,6 +13350,14 @@
                         <dd>
                           <p>active / pending invitation</p>
                         </dd>
+                        <dt data-property-name="invitation_link" class="has-description">
+                          <span class="json-property-name">invitation_link:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>invitation link for members that been invited to OverOps but haven&#39;t sign up yet</p>
+                        </dd>
                       </dl>
                     </section>
                   </div>
@@ -13339,7 +13371,8 @@
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
     <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;pending invitation&quot;</span>,
+    <span class="hljs-attr">&quot;invitation_link&quot;</span>: <span class="hljs-string">&quot;https://staging2.takipi.net/app/cst?token=c0ca2a793dd540aead3c9ac8fe6502f6Copy&quot;</span>
   }
 ]
 </code></pre>
