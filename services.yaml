@@ -8,8 +8,8 @@ info:
     Main OverOps API.
     The REST API layer enables OverOps admins and users to perform and automate all actions
     provided by the OverOps UI available at https://app.overops.com (or On-premises equivalent URL) via a platform independent programmatic interface.
-    A wrapper Java client API library that leverages these APIs for convenience by 
-    Java and Scala developers is available at https://github.com/takipi/api-client and on Maven Central. 
+    A wrapper Java client API library that leverages these APIs for convenience by
+    Java and Scala developers is available at https://github.com/takipi/api-client and on Maven Central.
 
     All calls must be authenticated using one of the following methods:
       1. Using `x-api-key` header (To generate the token, go to `Settings` --> `Account Settings` in the OverOps App). This is the recommended method.
@@ -39,7 +39,7 @@ tags:
   - name: Categories
     description: Fetch and manipulate grouping of views into logical categories (e.g "CI/CD", "Favorites")
   - name: View Metrics
-    description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments. 
+    description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments.
   - name: Alerts
     description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
   - name: Events
@@ -47,7 +47,7 @@ tags:
   - name: Timers
     description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
   - name: UDFs
-    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas. 
+    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.
 schemes:
 - "https"
 paths:
@@ -1322,6 +1322,52 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/storage-settings:
+    get:
+      tags:
+        - General
+      summary: "Get storage settings of an environment"
+      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Storage settings
+          schema:
+            $ref: "#/definitions/StorageSettings"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - General
+      summary: "Set storage settings for a service"
+      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. This API call allows you to configure your storage server as part of your Hybrid OverOps setup. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: storage_settings
+          schema:
+            $ref: "#/definitions/StorageSettings"
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/categories:
     get:
       tags:
@@ -2165,7 +2211,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    event_id: 
+                    event_id:
                       type: string
                       example: 42
                     add:
@@ -2922,7 +2968,7 @@ definitions:
         example: "Uncaught Exception"
       name:
         type: string
-        example: "NullPointerException"  
+        example: "NullPointerException"
       first_seen:
         type: string
         example: "2018-02-28T22:47:09.038Z"
@@ -3084,6 +3130,23 @@ definitions:
           type: string
           description: active / pending invitation
           example: active
+  StorageSettings:
+    type: object
+    properties:
+      type:
+        type: string
+        enum:
+          - HYBRID
+          - HOSTED
+        example: HYBRID
+      hostname:
+        description: Relevant for hybrid storage only. Both hostname and ip may be used. For cloud storage, NA value will be returned
+        type: string
+        example: storage.company.com
+      frontend_hostname:
+        description: OPTIONAL Relevant for hybrid storage only. Both hostname and ip may be used. For cloud storage, NA value will be returned
+        type: string
+        example: 123.91.12.100
   UDFLibrary:
     description: UDF Properties
     type: object
