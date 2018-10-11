@@ -52,10 +52,10 @@
                 <a href="#operation--services--env_id--deployments-get"> List deployments </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--settings-storage-settings-get"> Get storage settings of an environment </a>
+                <a href="#operation--services--env_id--settings-storage-settings-get"> Get storage settings of an environment </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--settings-storage-settings-post"> Set storage settings for a service </a>
+                <a href="#operation--services--env_id--settings-storage-settings-post"> Set storage settings for a service </a>
               </li>
             </ul>
           </section>
@@ -413,7 +413,7 @@
               <div class="doc-copy">
                 <p>Main OverOps API. The REST API layer enables OverOps admins and users to perform and automate all actions provided by the OverOps UI available at
                   <a href="https://app.overops.com">https://app.overops.com</a> (or On-premises equivalent URL) via a platform independent programmatic interface. A wrapper Java client API library that leverages these APIs for convenience by Java and Scala developers is available at
-                  <a href="https://github.com/takipi/api-client">https://github.com/takipi/api-client</a> and on Maven Central. </p>
+                  <a href="https://github.com/takipi/api-client">https://github.com/takipi/api-client</a> and on Maven Central.</p>
                 <p>All calls must be authenticated using one of the following methods:</p>
                 <ol>
                   <li>Using <code>x-api-key</code> header (To generate the token, go to <code>Settings</code> --&gt; <code>Account Settings</code> in the OverOps App). This is the recommended method.</li>
@@ -1354,7 +1354,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--settings-storage-settings-get" class="operation panel" data-traverse-target="operation--services--service_id--settings-storage-settings-get">
+          <div id="operation--services--env_id--settings-storage-settings-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-storage-settings-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1370,7 +1370,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/settings/storage-settings</span>
+                  <span class="operation-path">/services/{env_id}/settings/storage-settings</span>
                 </section>
               </div>
             </div>
@@ -1387,7 +1387,7 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">service_id</div>
+                      <div class="prop-title">env_id</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
@@ -1454,7 +1454,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--service_id--settings-storage-settings-post" class="operation panel" data-traverse-target="operation--services--service_id--settings-storage-settings-post">
+          <div id="operation--services--env_id--settings-storage-settings-post" class="operation panel" data-traverse-target="operation--services--env_id--settings-storage-settings-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1470,7 +1470,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/settings/storage-settings</span>
+                  <span class="operation-path">/services/{env_id}/settings/storage-settings</span>
                 </section>
               </div>
             </div>
@@ -1503,7 +1503,7 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">service_id</div>
+                      <div class="prop-title">env_id</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">

@@ -8,8 +8,8 @@ info:
     Main OverOps API.
     The REST API layer enables OverOps admins and users to perform and automate all actions
     provided by the OverOps UI available at https://app.overops.com (or On-premises equivalent URL) via a platform independent programmatic interface.
-    A wrapper Java client API library that leverages these APIs for convenience by 
-    Java and Scala developers is available at https://github.com/takipi/api-client and on Maven Central. 
+    A wrapper Java client API library that leverages these APIs for convenience by
+    Java and Scala developers is available at https://github.com/takipi/api-client and on Maven Central.
 
     All calls must be authenticated using one of the following methods:
       1. Using `x-api-key` header (To generate the token, go to `Settings` --> `Account Settings` in the OverOps App). This is the recommended method.
@@ -39,7 +39,7 @@ tags:
   - name: Categories
     description: Fetch and manipulate grouping of views into logical categories (e.g "CI/CD", "Favorites")
   - name: View Metrics
-    description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments. 
+    description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments.
   - name: Alerts
     description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
   - name: Events
@@ -47,7 +47,7 @@ tags:
   - name: Timers
     description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
   - name: UDFs
-    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas. 
+    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.
 schemes:
 - "https"
 paths:
@@ -1330,7 +1330,7 @@ paths:
       description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
       parameters:
         - in: path
-          name: service_id
+          name: env_id
           description: Environment to use
           type: string
           required: true
@@ -1350,7 +1350,7 @@ paths:
       description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. This API call allows you to configure your storage server as part of your Hybrid OverOps setup. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
       parameters:
         - in: path
-          name: service_id
+          name: env_id
           description: Environment to use
           type: string
           required: true
