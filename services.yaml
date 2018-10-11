@@ -3150,6 +3150,23 @@ definitions:
       alert_on_new:
         type: "boolean"
         example: true
+      alert_on_anomaly:
+        type: "boolean"
+        example: true
+      anomaly_udf_settings:
+        properties:
+          library_id:
+            type: "string"
+            example: "L6"
+          function_id:
+            type: "string"
+            example: "Relative Threshold"
+          args:
+            type: "string"
+            example: "# Defines a target threshold that if the volume of events within the views exceeds will constitute an anomaly.\nthreshold = 100\n\n# A percentage value between 1 and 100 against which the volume of events / throughput is compared.\nrate = 5\n\n# Compare the number of times application threads (e.g. Servlet, Actor, Future,..) containing the events matching the target views have executed  against the number of events occurring. For example, if a Servlet containing the events within the view was invoked a 1000 times and 20 events matching the view’s filter took place, a RATE value above 2 will invoke an alert.\nrelative_to = Thread_Calls\n\n# Compare the number of times the application method containing the events was invoked against the number of events which occurred.\n# relative_to = Method_Calls\n\n# Time period to look at, in minutes.\ntimespan = 60"
+          period_minutes:
+            type: "number"
+            example: 60
       slack_settings:
         properties:
           enabled:
@@ -3246,20 +3263,6 @@ definitions:
             type: "string"
             example: "label=sample_label_name"
         type: "object"
-      periodic_udf_settings:
-        properties:
-          library_id:
-            type: "string"
-            example: "L6"
-          function_id:
-            type: "string"
-            example: "Relative Threshold"
-          args:
-            type: "string"
-            example: "# Defines a target threshold that if the volume of events within the views exceeds will constitute an anomaly.\nthreshold = 100\n\n# A percentage value between 1 and 100 against which the volume of events / throughput is compared.\nrate = 5\n\n# Compare the number of times application threads (e.g. Servlet, Actor, Future,..) containing the events matching the target views have executed  against the number of events occurring. For example, if a Servlet containing the events within the view was invoked a 1000 times and 20 events matching the view’s filter took place, a RATE value above 2 will invoke an alert.\nrelative_to = Thread_Calls\n\n# Compare the number of times the application method containing the events was invoked against the number of events which occurred.\n# relative_to = Method_Calls\n\n# Time period to look at, in minutes.\ntimespan = 60"
-          period_minutes:
-            type: "number"
-            example: 60
 responses:
   OK:
     description: OK
