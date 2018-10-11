@@ -346,7 +346,7 @@
                 <a href="#operation--services--env_id--labels-get"> List labels </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--labels-post"> Define new label </a>
+                <a href="#operation--services--env_id--labels-post"> Create new label </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--events-labels-post"> Batch Add/Remove labels </a>
@@ -545,6 +545,13 @@
                       <p>List of all accessible environments to the calling user</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -604,7 +611,17 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
               </div>
               <div class="doc-examples">
                 <section>
@@ -1087,6 +1104,13 @@
                       <p>List of deployments</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -1353,6 +1377,13 @@
                       <p>List of data redaction</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -1458,6 +1489,13 @@
                     </div>
                     <div class="prop-value">
                       <p>List of regex patterns</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1874,6 +1912,13 @@
                       <p>List of identifiers</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -1977,6 +2022,13 @@
                       <p>If the redaction exists</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -2030,7 +2082,18 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <p>Identifier object</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -2260,6 +2323,13 @@
                       <p>List of classes</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -2363,6 +2433,13 @@
                       <p>If the redaction exists</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -2416,7 +2493,18 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <p>A JSON representing a class to add for redaction</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -2646,6 +2734,13 @@
                       <p>List of packages</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -2749,6 +2844,13 @@
                       <p>If the redaction exists</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -2802,7 +2904,17 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -3158,6 +3270,13 @@
                       <p>List of views including basic info about each view.</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -3422,6 +3541,13 @@
                     </div>
                     <div class="prop-value">
                       <p>Full list of view properties</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3947,6 +4073,13 @@
                       <p>Event data</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -4126,6 +4259,13 @@
                     </div>
                     <div class="prop-value">
                       <p>Entrypoints data</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4308,6 +4448,25 @@
                       <p>Deployment(s) added to the filter</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">stats</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-enum" title="Possible values">
+                          <span class="json-property-enum-item">none</span>,
+                          <span class="json-property-enum-item">hits</span>,
+                          <span class="json-property-enum-item">invocations</span>,
+                          <span class="json-property-enum-item">all</span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Include statistics per event in the response</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -4323,6 +4482,13 @@
                     </div>
                     <div class="prop-value">
                       <p>Event metrics</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4356,11 +4522,17 @@
       <span class="hljs-attr">&quot;points&quot;</span>: [
         {
           <span class="hljs-attr">&quot;time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-          <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>,
+          <span class="hljs-attr">&quot;stats&quot;</span>: {
+            <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+          },
           <span class="hljs-attr">&quot;contributors&quot;</span>: [
             {
               <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
-              <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>
+              <span class="hljs-attr">&quot;stats&quot;</span>: {
+                <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+                <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+              }
             }
           ]
         }
@@ -4515,6 +4687,25 @@
                       <p>Deployment(s) added to the filter</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">stats</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-enum" title="Possible values">
+                          <span class="json-property-enum-item">none</span>,
+                          <span class="json-property-enum-item">hits</span>,
+                          <span class="json-property-enum-item">invocations</span>,
+                          <span class="json-property-enum-item">all</span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Include statistics per event in the response</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -4530,6 +4721,13 @@
                     </div>
                     <div class="prop-value">
                       <p>Event metrics split by entry point</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4563,11 +4761,17 @@
       <span class="hljs-attr">&quot;points&quot;</span>: [
         {
           <span class="hljs-attr">&quot;time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-          <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>,
+          <span class="hljs-attr">&quot;stats&quot;</span>: {
+            <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+          },
           <span class="hljs-attr">&quot;contributors&quot;</span>: [
             {
               <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
-              <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>
+              <span class="hljs-attr">&quot;stats&quot;</span>: {
+                <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+                <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+              }
             }
           ]
         }
@@ -4722,6 +4926,25 @@
                       <p>Deployment(s) added to the filter</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">stats</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-enum" title="Possible values">
+                          <span class="json-property-enum-item">none</span>,
+                          <span class="json-property-enum-item">hits</span>,
+                          <span class="json-property-enum-item">invocations</span>,
+                          <span class="json-property-enum-item">all</span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Include statistics per event in the response</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -4737,6 +4960,13 @@
                     </div>
                     <div class="prop-value">
                       <p>event metrics split by event</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4770,11 +5000,17 @@
       <span class="hljs-attr">&quot;points&quot;</span>: [
         {
           <span class="hljs-attr">&quot;time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-          <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>,
+          <span class="hljs-attr">&quot;stats&quot;</span>: {
+            <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+          },
           <span class="hljs-attr">&quot;contributors&quot;</span>: [
             {
               <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
-              <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>
+              <span class="hljs-attr">&quot;stats&quot;</span>: {
+                <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+                <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+              }
             }
           ]
         }
@@ -5086,6 +5322,13 @@
                     </div>
                     <div class="prop-value">
                       <p>List of View Categories and their info</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5728,6 +5971,25 @@
                       <p>Deployment(s) added to the filter</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">stats</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-enum" title="Possible values">
+                          <span class="json-property-enum-item">none</span>,
+                          <span class="json-property-enum-item">hits</span>,
+                          <span class="json-property-enum-item">invocations</span>,
+                          <span class="json-property-enum-item">all</span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Include statistics per event in the response</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -5743,6 +6005,13 @@
                     </div>
                     <div class="prop-value">
                       <p>Event metrics</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5776,11 +6045,17 @@
       <span class="hljs-attr">&quot;points&quot;</span>: [
         {
           <span class="hljs-attr">&quot;time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-          <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>,
+          <span class="hljs-attr">&quot;stats&quot;</span>: {
+            <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+          },
           <span class="hljs-attr">&quot;contributors&quot;</span>: [
             {
               <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
-              <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>
+              <span class="hljs-attr">&quot;stats&quot;</span>: {
+                <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+                <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+              }
             }
           ]
         }
@@ -5935,6 +6210,25 @@
                       <p>Deployment(s) added to the filter</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">stats</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-enum" title="Possible values">
+                          <span class="json-property-enum-item">none</span>,
+                          <span class="json-property-enum-item">hits</span>,
+                          <span class="json-property-enum-item">invocations</span>,
+                          <span class="json-property-enum-item">all</span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Include statistics per event in the response</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -5950,6 +6244,13 @@
                     </div>
                     <div class="prop-value">
                       <p>Event metrics split by entry point</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5983,11 +6284,17 @@
       <span class="hljs-attr">&quot;points&quot;</span>: [
         {
           <span class="hljs-attr">&quot;time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-          <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>,
+          <span class="hljs-attr">&quot;stats&quot;</span>: {
+            <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+          },
           <span class="hljs-attr">&quot;contributors&quot;</span>: [
             {
               <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
-              <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>
+              <span class="hljs-attr">&quot;stats&quot;</span>: {
+                <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+                <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+              }
             }
           ]
         }
@@ -6142,6 +6449,25 @@
                       <p>Deployment(s) added to the filter</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">stats</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-enum" title="Possible values">
+                          <span class="json-property-enum-item">none</span>,
+                          <span class="json-property-enum-item">hits</span>,
+                          <span class="json-property-enum-item">invocations</span>,
+                          <span class="json-property-enum-item">all</span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Include statistics per event in the response</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -6157,6 +6483,13 @@
                     </div>
                     <div class="prop-value">
                       <p>event metrics split by event</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6190,11 +6523,17 @@
       <span class="hljs-attr">&quot;points&quot;</span>: [
         {
           <span class="hljs-attr">&quot;time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-          <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>,
+          <span class="hljs-attr">&quot;stats&quot;</span>: {
+            <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+          },
           <span class="hljs-attr">&quot;contributors&quot;</span>: [
             {
               <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
-              <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">42</span>
+              <span class="hljs-attr">&quot;stats&quot;</span>: {
+                <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
+                <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
+              }
             }
           ]
         }
@@ -6289,6 +6628,13 @@
                     </div>
                     <div class="prop-value">
                       <p>Full list of view properties</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6959,6 +7305,13 @@
                       <p>Event data</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -7138,6 +7491,13 @@
                     </div>
                     <div class="prop-value">
                       <p>Entrypoints data</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7907,6 +8267,13 @@
                       <p>List of timers</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -8544,7 +8911,18 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="udf">
+                        <span class="json-property-name">udf:</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-format">(binary)</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
               </div>
               <div class="doc-examples">
                 <section>
@@ -8913,7 +9291,18 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="udf">
+                        <span class="json-property-name">udf:</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-format">(binary)</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -9244,6 +9633,13 @@
                       <p>List of included and excluded classes and packages</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -9344,6 +9740,13 @@
                       <p>List of excluded classes and packages</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -9432,6 +9835,13 @@
                     </div>
                     <div class="prop-value">
                       <p>List of excluded classes</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -9535,6 +9945,13 @@
                       <p>An excluded class</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -9596,7 +10013,21 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/ExcludedClassName">ExcludedClassName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -9826,6 +10257,13 @@
                       <p>List of excluded packages</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -9927,6 +10365,13 @@
                       <p>An excluded package</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -9988,7 +10433,21 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/ExcludedPackageName">ExcludedPackageName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -10218,6 +10677,13 @@
                       <p>List of included classes and packages</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -10306,6 +10772,13 @@
                     </div>
                     <div class="prop-value">
                       <p>List of included classes</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -10409,6 +10882,13 @@
                       <p>An included class</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -10470,7 +10950,21 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/IncludedClassName">IncludedClassName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -11080,6 +11574,13 @@
                       <p>List of labels</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">401 Unauthorized</div>
@@ -11120,7 +11621,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Define new label</span>
+              <span class="operation-summary">Create new label</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -11133,7 +11634,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Define new a label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization.</p>
+                  <p>Create a new label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization.</p>
                 </section>
               </div>
             </div>
@@ -11254,7 +11755,59 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-body">
+                  <p>list of events and label names to append/detach</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="items">
+                        <span class="json-property-name">items:</span>
+                        <span class="json-property-type">object[]</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">object</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="event_id">
+                                  <span class="json-property-name">event_id:</span>
+                                  <span class="json-property-type">string</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dt data-property-name="add">
+                                  <span class="json-property-name">add:</span>
+                                  <span class="json-property-type">string[]</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dt class="json-inner-schema">
+                                  <section class="json-schema-array-items">
+                                    <span class="json-property-type">string</span>
+                                    <span class="json-property-range" title="Value limits"></span>
+                                    <div class="json-inner-schema"> </div>
+                                  </section>
+                                </dt>
+                                <dt data-property-name="remove">
+                                  <span class="json-property-name">remove:</span>
+                                  <span class="json-property-type">string[]</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dt class="json-inner-schema">
+                                  <section class="json-schema-array-items">
+                                    <span class="json-property-type">string</span>
+                                    <span class="json-property-range" title="Value limits"></span>
+                                    <div class="json-inner-schema"> </div>
+                                  </section>
+                                </dt>
+                              </dl>
+                            </section>
+                          </div>
+                        </section>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
