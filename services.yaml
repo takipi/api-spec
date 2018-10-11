@@ -31,16 +31,90 @@ tags:
   - name: Code Redaction
     description: Fetching and manipulating the 3rd party and utility classes settings.
   - name: Views
-    description: Fetching information about the views and categories
+    description: Fetching information about the views
+  - name: Categories
+    description: Fetching information about the View Categories
   - name: View Metrics
     description: Fetching data points about views in order to plot graphs
   - name: Alerts
     description: APIs related to the alerting mechanism
   - name: Events
     description: Event data
+  - name: Timers
+    description: Fetching information about timers
 schemes:
 - "https"
 paths:
+  /global-settings/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List available UDF libraries
+      description: List available UDF (User Defined Functions) libraries
+      responses:
+        200:
+          description: UDF libraries list
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - UDFs
+      summary: Add a new UDF library
+      description: Add a new UDF library
+      parameters:
+        - in: body
+          name: udf
+          schema:
+            properties:
+              udf:
+                type: string
+                format: binary
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /global-settings/udfs/{library_id}:
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
+      parameters:
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          description: UDF library properties
+          schema:
+            $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - UDFs
+      summary: "Remove UDF library (TBD - Not yet implemented)"
+      description: "Remove UDF library (TBD - Not yet implemented)"
+      parameters:
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services:
     get:
       tags:
@@ -1250,7 +1324,7 @@ paths:
   /services/{service_id}/categories:
     get:
       tags:
-        - Views
+        - Categories
       summary: "List categories"
       description: "List view categories"
       parameters:
@@ -1272,7 +1346,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     post:
       tags:
-        - Views
+        - Categories
       summary: "Create category (Not implemented yet)" #shall be published only when delete call is implemented
       description: "Create category (Not implemented yet)"
       parameters:
@@ -1298,7 +1372,7 @@ paths:
   /services/{service_id}/categories/{category_id}:
     get:
       tags:
-        - Views
+        - Categories
       summary: "Get category details (Not implemented yet)"
       description: "Get category details (Not implemented yet)"
       parameters:
@@ -1323,7 +1397,7 @@ paths:
           $ref: "#/responses/ForbiddenError"
     delete:
       tags:
-        - Views
+        - Categories
       summary: "Delete category (Not implemented yet)"
       description: "Delete category (Not implemented yet)"
       parameters:
@@ -1348,6 +1422,7 @@ paths:
     post:
       tags:
         - Views
+        - Categories
       summary: "Add view to selected category"
       description: "Add view to selected category"
       parameters:
@@ -1429,6 +1504,7 @@ paths:
     get:
       tags:
         - Views
+        - Alerts
       summary: "Get view properties"
       description: "Get full list of view properties"
       parameters:
@@ -1492,6 +1568,7 @@ paths:
     post:
       tags:
         - Views
+        - Alerts
       summary: "Edit view data"
       description: "Edit view data"
       parameters:
@@ -1545,6 +1622,7 @@ paths:
   /services/{service_id}/views/{view_id}/events:
     get:
       tags:
+        - Views
         - Events
       summary: Fetch events details
       description: Fetch events data in a selected timeframe
@@ -1602,6 +1680,7 @@ paths:
   /services/{service_id}/views/{view_id}/entrypoints:
     get:
       tags:
+        - Views
         - Events
       summary: Fetch entrypoints details
       description: Fetch entrypoints data in a selected timeframe
@@ -1654,6 +1733,7 @@ paths:
   /services/{service_id}/views/{view_id}/metrics/view/graph:
     get:
       tags:
+        - Views
         - View Metrics
       summary: "Fetch event metrics"
       description: "Fetch event metrics"
@@ -1695,6 +1775,11 @@ paths:
           name: deployment
           type: string
           description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          enum: [none, hits, invocations, all]
+          description: Include statistics per event in the response
       responses:
         200:
           description: Event metrics
@@ -1719,9 +1804,8 @@ paths:
                           time:
                             type: string
                             example: "2018-02-28T22:47:09.038Z"
-                          value:
-                            type: number
-                            example: 42
+                          stats:
+                            $ref: "#/definitions/EventStats"
                           contributors:
                             type: array
                             items:
@@ -1730,9 +1814,8 @@ paths:
                                 id:
                                   type: string
                                   example: "42"
-                                value:
-                                  type: number
-                                  example: 42
+                                stats:
+                                  $ref: "#/definitions/EventStats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -1740,9 +1823,10 @@ paths:
   /services/{service_id}/views/{view_id}/metrics/entrypoint/graph:
     get:
       tags:
+        - Views
         - View Metrics
-      summary: "Fetch Event metrics split by entrypoint"
-      description: "Fetch Event metrics split by entrypoint"
+      summary: "Fetch event metrics split by entrypoint"
+      description: "Fetch event metrics split by entrypoint"
       parameters:
         - in: path
           name: service_id
@@ -1781,6 +1865,11 @@ paths:
           name: deployment
           type: string
           description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          enum: [none, hits, invocations, all]
+          description: Include statistics per event in the response
       responses:
         200:
           description: Event metrics split by entry point
@@ -1805,9 +1894,8 @@ paths:
                           time:
                             type: string
                             example: "2018-02-28T22:47:09.038Z"
-                          value:
-                            type: number
-                            example: 42
+                          stats:
+                            $ref: "#/definitions/EventStats"
                           contributors:
                             type: array
                             items:
@@ -1816,9 +1904,8 @@ paths:
                                 id:
                                   type: string
                                   example: "42"
-                                value:
-                                  type: number
-                                  example: 42
+                                stats:
+                                  $ref: "#/definitions/EventStats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -1826,6 +1913,7 @@ paths:
   /services/{service_id}/views/{view_id}/metrics/event/graph:
     get:
       tags:
+        - Views
         - View Metrics
       summary: "Fetch event metrics split by event"
       description: "Fetch event metrics split by event"
@@ -1867,6 +1955,11 @@ paths:
           name: deployment
           type: string
           description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          enum: [none, hits, invocations, all]
+          description: Include statistics per event in the response
       responses:
         200:
           description: event metrics split by event
@@ -1891,9 +1984,8 @@ paths:
                           time:
                             type: string
                             example: "2018-02-28T22:47:09.038Z"
-                          value:
-                            type: number
-                            example: 42
+                          stats:
+                            $ref: "#/definitions/EventStats"
                           contributors:
                             type: array
                             items:
@@ -1902,9 +1994,8 @@ paths:
                                 id:
                                   type: string
                                   example: "42"
-                                value:
-                                  type: number
-                                  example: 42
+                                stats:
+                                  $ref: "#/definitions/EventStats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -1912,6 +2003,7 @@ paths:
   /services/{service_id}/views/{view_id}/anomaly:
     post:
       tags:
+        - Views
         - Alerts
       summary: "Alert on anomalies"
       description: "Alert on anomalies"
@@ -2030,6 +2122,60 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         409:
           $ref: "#/responses/Conflict"
+  /services/{service_id}/events/labels:
+    post:
+      tags:
+        - Labels
+      summary: "Batch Add/Remove labels"
+      description: "Append/Detach labels to/from events"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
+        - in: body
+          name: item
+          description: list of events and label names to append/detach
+          schema:
+            properties:
+              items:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    event_id:
+                      type: string
+                      example: 42
+                    add:
+                      type: array
+                      items:
+                        type: string
+                        example: "Critical"
+                    remove:
+                      type: array
+                      items:
+                        type: string
+                        example: "Low"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}:
     get:
       tags:
@@ -2073,6 +2219,16 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
         - in: body
           name: item
           description: list of label names to append/detach
@@ -2115,6 +2271,16 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -2139,13 +2305,23 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
       responses:
         200:
           $ref: "#/responses/OK"
         401:
-          description: "BAD"
+          $ref: "#/responses/UnauthorizedError"
         404:
-          description: "NOT FOUND"
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/resolve:
     post:
       tags:
@@ -2163,6 +2339,16 @@ paths:
           description: Event to use
           type: string
           required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
       responses:
         200:
           $ref: "#/responses/OK"
@@ -2228,6 +2414,30 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{service_id}/events/{event_id}/snapshots:
+    delete:
+      tags:
+        - Events
+      summary: "Delete all event snapshots"
+      description: "Removes all existing snapshots for an event. All snapshots will be permanently deleted. Event statistics will be kept."
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{service_id}/events/{event_id}/force-snapshot:
     post:
       tags:
@@ -2282,6 +2492,224 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{service_id}/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List available UDF libraries for a service key
+      description: List all available UDFs (User Defined Functions) for selected service key
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: UDF libraries list
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - UDFs
+      summary: Add a new UDF library
+      description: Add a new UDF library
+      consumes:
+        - application/octet-stream
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body # TBD should just be an octet string of a file. will be fixed later
+          name: udf
+          schema:
+            properties:
+              udf:
+                type: string
+                format: binary
+      responses:
+        200:
+          description: UDF library was successfully added
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/udfs/{library_id}:
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          description: UDF properties
+          schema:
+            $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - UDFs
+      summary: Remove UDF library from a service key
+      description: "Remove UDF library from specified service key"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{service_id}/timers:
+    get:
+      tags:
+        - Timers
+      summary: "List timers"
+      description: "List all existing timers"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of timers
+          schema:
+            properties:
+              timers:
+                type: array
+                items:
+                  $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Timers
+      summary: "Create new timer"
+      description: "Create new timer"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: timer
+          description: Single timer
+          schema:
+            $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        409:
+          $ref: "#/responses/Conflict"
+  /services/{service_id}/timers/{timer_id}:
+    get:
+      tags:
+        - Timers
+      summary: "Get timer properties"
+      description: "Get timer properties"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Timer properties
+          schema:
+            $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Timers
+      summary: "Edit timer data"
+      description: "Edit timer data"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: View to use
+          type: string
+          required: true
+        - in: body
+          name: view
+          description: Single timer properties
+          schema:
+              $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    delete:
+      tags:
+        - Timers
+      summary: "Delete timer"
+      description: "Delete timer"
+      parameters:
+        - in: path
+          name: service_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
@@ -2478,6 +2906,9 @@ definitions:
         example: "NullPointerException in Main.main"
       type:
         type: string
+        example: "Uncaught Exception"
+      name:
+        type: string
         example: "NullPointerException"
       first_seen:
         type: string
@@ -2639,6 +3070,77 @@ definitions:
         description: OPTIONAL Relevant for hybrid storage only. Both hostname and ip may be used. For cloud storage, NA value will be returned
         type: string
         example: 123.91.12.100
+  UDFLibrary:
+    description: UDF Properties
+    type: object
+    properties:
+      id:
+        type: string
+        example: L34
+      version:
+        type: string
+        example: 1.0
+      backward_compatible:
+        type: string
+        example: true
+      functions:
+        type: array
+        items:
+          $ref: "#/definitions/UDF"
+  UDF:
+    type: object
+    properties:
+      function_type:
+        type: string
+        example: ANOMALY
+      short_description: #this is the udf name
+        type: string
+        example: Relative Threshold
+      long_description:
+        type: string
+        example: This function compares the volume of events against an absolute threshold
+      param_type:
+        type: string
+        example: TEXT
+      default_params:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              example: X
+            default_value:
+              type: string
+              example: 100
+  Timer:
+    description: Timer properties
+    type: object
+    properties:
+      id:
+        type: string
+        description: This is an auto generated ID. When creating/editing a timer, the value recevied in this field will be ignored.
+        example: 34
+      class_name:
+        type: string
+        example: DBManager
+      method_name:
+        type: string
+        example: SaveWithRetries
+      threshold:
+        type: integer
+        description: Threshold in ms
+        example: 8000
+      servers:
+        type: array
+        items:
+          type: string
+          example: na-dotCMS-2
+      applications:
+        type: array
+        items:
+          type: string
+          example: MyApp
 responses:
   OK:
     description: OK
