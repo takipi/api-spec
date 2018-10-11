@@ -208,15 +208,6 @@
                 <a href="#operation--services--service_id--views--view_id--metrics-event-graph-get"> Fetch event metrics split by event </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--views--view_id--alerts-get"> Fetch Alert settings for a View </a>
-              </li>
-              <li>
-                <a href="#operation--services--service_id--views--view_id--alerts-post"> Edit Alert settings </a>
-              </li>
-              <li>
-                <a href="#operation--services--service_id--views--view_id--alerts-delete"> Remove Alert settings </a>
-              </li>
-              <li>
                 <a href="#operation--services--service_id--views--view_id--anomaly-post"> Alert on anomalies </a>
               </li>
             </ul>
@@ -259,16 +250,10 @@
             <a href="#tag-Alerts">Alerts</a>
             <ul>
               <li>
-                <a href="#operation--services--service_id--views--view_id--get"> Get view properties </a>
-              </li>
-              <li>
-                <a href="#operation--services--service_id--views--view_id--post"> Edit view data </a>
-              </li>
-              <li>
                 <a href="#operation--services--service_id--views--view_id--alerts-get"> Fetch Alert settings for a View </a>
               </li>
               <li>
-                <a href="#operation--services--service_id--views--view_id--alerts-post"> Edit Alert settings </a>
+                <a href="#operation--services--service_id--views--view_id--alerts-post"> Edit Alert settings of a View </a>
               </li>
               <li>
                 <a href="#operation--services--service_id--views--view_id--alerts-delete"> Remove Alert settings </a>
@@ -5198,8 +5183,6 @@
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
               <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
-              <a class="label" href="#tag-Alerts">Alerts</a>
               <!---->
             </div>
             <!-- </div> -->
@@ -5349,9 +5332,7 @@
           <span class="hljs-string">&quot;Unnamed Deployment&quot;</span>
         ],
         <span class="hljs-attr">&quot;search&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
-      },
-      <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>
+      }
     }
   ]
 }
@@ -5366,8 +5347,6 @@
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
               <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
-              <a class="label" href="#tag-Alerts">Alerts</a>
               <!---->
             </div>
             <!-- </div> -->
@@ -6630,380 +6609,6 @@
                   <!-- </div> -->
                 </section>
               </div>
-            </div>
-          </div>
-          <div id="operation--services--service_id--views--view_id--alerts-get" class="operation panel" data-traverse-target="operation--services--service_id--views--view_id--alerts-get">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
-              <a class="label" href="#tag-Alerts">Alerts</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Fetch Alert settings for a View</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/views/{view_id}/alerts</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Fetch Alert settings for a View (Slack, Email, UDF, etc)</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">view_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>View ID to use (e.g. P283)</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>All alert settings of a view</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unauthorized</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">403 Forbidden</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Forbidden</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Not Found</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
-            </div>
-          </div>
-          <div id="operation--services--service_id--views--view_id--alerts-post" class="operation panel" data-traverse-target="operation--services--service_id--views--view_id--alerts-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
-              <a class="label" href="#tag-Alerts">Alerts</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Edit Alert settings</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/views/{view_id}/alerts</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Edit Alert settings</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/Alert">Alert</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>Alerts settings</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">view_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>View ID to use (e.g. P283)</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">&quot;slack_settings&quot;</span>: {
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">&quot;inhook_url&quot;</span>: <span class="hljs-string">&quot;https://hooks.slack.com/services/xxxxyyyyy/xxxx/sdf123rskfsdf1j&quot;</span>
-  },
-  <span class="hljs-attr">&quot;hip_chat_settings&quot;</span>: {
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;dfgdk2342kljsldfjslk2342fsdfkjslkj&quot;</span>,
-    <span class="hljs-attr">&quot;room&quot;</span>: <span class="hljs-string">&quot;Takipi&quot;</span>
-  },
-  <span class="hljs-attr">&quot;pager_duty_settings&quot;</span>: {
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">&quot;service_integration_key&quot;</span>: <span class="hljs-string">&quot;sflk234lkdjflsj12o8312&quot;</span>
-  },
-  <span class="hljs-attr">&quot;webhook_settings&quot;</span>: {
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
-  },
-  <span class="hljs-attr">&quot;service_now_settings&quot;</span>: {
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
-    <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
-  },
-  <span class="hljs-attr">&quot;email_settings&quot;</span>: {
-    <span class="hljs-attr">&quot;is_active&quot;</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">&quot;alert_me&quot;</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">&quot;alert_all_team_members&quot;</span>: <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">&quot;alert_additional_emails&quot;</span>: <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">&quot;additional_emails_to_alert&quot;</span>: [
-      <span class="hljs-string">&quot;user1@company.com&quot;</span>
-    ]
-  },
-  <span class="hljs-attr">&quot;udf_settings&quot;</span>: {
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L24&quot;</span>,
-    <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;apply-label&quot;</span>,
-    <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;label=sample_label_name&quot;</span>
-  },
-  <span class="hljs-attr">&quot;periodic_udf_settings&quot;</span>: {
-    <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L6&quot;</span>,
-    <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
-    <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Defines a target threshold that if the volume of events within the views exceeds will constitute an anomaly.\nthreshold = 100\n\n# A percentage value between 1 and 100 against which the volume of events / throughput is compared.\nrate = 5\n\n# Compare the number of times application threads (e.g. Servlet, Actor, Future,..) containing the events matching the target views have executed  against the number of events occurring. For example, if a Servlet containing the events within the view was invoked a 1000 times and 20 events matching the view&#x2019;s filter took place, a RATE value above 2 will invoke an alert.\nrelative_to = Thread_Calls\n\n# Compare the number of times the application method containing the events was invoked against the number of events which occurred.\n# relative_to = Method_Calls\n\n# Time period to look at, in minutes.\ntimespan = 60&quot;</span>,
-    <span class="hljs-attr">&quot;period_minutes&quot;</span>: <span class="hljs-number">60</span>
-  }
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>OK</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unauthorized</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">403 Forbidden</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Forbidden</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Not Found</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
-            </div>
-          </div>
-          <div id="operation--services--service_id--views--view_id--alerts-delete" class="operation panel" data-traverse-target="operation--services--service_id--views--view_id--alerts-delete">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
-              <a class="label" href="#tag-Alerts">Alerts</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Remove Alert settings</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">DELETE</span>
-                  <span class="operation-path">/services/{service_id}/views/{view_id}/alerts</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Disables all Alert settings for a View</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">view_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>View ID to use (e.g. P283)</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>OK</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unauthorized</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">403 Forbidden</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Forbidden</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
             </div>
           </div>
           <div id="operation--services--service_id--views--view_id--anomaly-post" class="operation panel" data-traverse-target="operation--services--service_id--views--view_id--anomaly-post">
@@ -8432,353 +8037,10 @@
               <p>APIs related to the alerting mechanism</p>
             </div>
           </div>
-          <div id="operation--services--service_id--views--view_id--get" class="operation panel" data-traverse-target="operation--services--service_id--views--view_id--get">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
-              <a class="label" href="#tag-Alerts">Alerts</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Get view properties</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{service_id}/views/{view_id}</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Get full list of view properties</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">view_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>View to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Full list of view properties</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unauthorized</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">403 Forbidden</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Forbidden</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Not Found</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;views&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;This is a DB Errors View&quot;</span>,
-      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
-      <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">&quot;default&quot;</span>: <span class="hljs-literal">false</span>,
-      <span class="hljs-attr">&quot;filters&quot;</span>: {
-        <span class="hljs-attr">&quot;first_seen&quot;</span>: {
-          <span class="hljs-attr">&quot;absolute&quot;</span>: {
-            <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
-            <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
-          },
-          <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
-        },
-        <span class="hljs-attr">&quot;labels&quot;</span>: [
-          <span class="hljs-string">&quot;Jira&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;event_type&quot;</span>: [
-          <span class="hljs-string">&quot;Swallowed Exceptions&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;event_name&quot;</span>: [
-          <span class="hljs-string">&quot;IndexOutOfBoundsException&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;event_location&quot;</span>: [
-          <span class="hljs-string">&quot;DotConnect&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;event_package&quot;</span>: [
-          <span class="hljs-string">&quot;com.dotmarketing.servlets&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;entry_point&quot;</span>: [
-          <span class="hljs-string">&quot;string&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;servers&quot;</span>: [
-          <span class="hljs-string">&quot;na-dotCMS-2&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;apps&quot;</span>: [
-          <span class="hljs-string">&quot;API&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;deployments&quot;</span>: [
-          <span class="hljs-string">&quot;2018-04-11-2&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;introduced_by&quot;</span>: [
-          <span class="hljs-string">&quot;Unnamed Deployment&quot;</span>
-        ],
-        <span class="hljs-attr">&quot;search&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
-      },
-      <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>
-    }
-  ]
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="operation--services--service_id--views--view_id--post" class="operation panel" data-traverse-target="operation--services--service_id--views--view_id--post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
-              <a class="label" href="#tag-Alerts">Alerts</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Edit view data</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{service_id}/views/{view_id}</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Edit view data</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ViewFull">ViewFull</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>Single view properties</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">service_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">view_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>View to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;This is a DB Errors View&quot;</span>,
-  <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">&quot;default&quot;</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">&quot;filters&quot;</span>: {
-    <span class="hljs-attr">&quot;first_seen&quot;</span>: {
-      <span class="hljs-attr">&quot;absolute&quot;</span>: {
-        <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
-        <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
-      },
-      <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
-    },
-    <span class="hljs-attr">&quot;labels&quot;</span>: [
-      <span class="hljs-string">&quot;Jira&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;event_type&quot;</span>: [
-      <span class="hljs-string">&quot;Swallowed Exceptions&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;event_name&quot;</span>: [
-      <span class="hljs-string">&quot;IndexOutOfBoundsException&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;event_location&quot;</span>: [
-      <span class="hljs-string">&quot;DotConnect&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;event_package&quot;</span>: [
-      <span class="hljs-string">&quot;com.dotmarketing.servlets&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;entry_point&quot;</span>: [
-      <span class="hljs-string">&quot;string&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;servers&quot;</span>: [
-      <span class="hljs-string">&quot;na-dotCMS-2&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;apps&quot;</span>: [
-      <span class="hljs-string">&quot;API&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;deployments&quot;</span>: [
-      <span class="hljs-string">&quot;2018-04-11-2&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;introduced_by&quot;</span>: [
-      <span class="hljs-string">&quot;Unnamed Deployment&quot;</span>
-    ],
-    <span class="hljs-attr">&quot;search&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
-  }
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>OK</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unauthorized</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">403 Forbidden</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Forbidden</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Not Found</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
-            </div>
-          </div>
           <div id="operation--services--service_id--views--view_id--alerts-get" class="operation panel" data-traverse-target="operation--services--service_id--views--view_id--alerts-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
               <a class="label" href="#tag-Alerts">Alerts</a>
               <!---->
             </div>
@@ -8843,9 +8105,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Alert">Alert</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>All alert settings of a view</p>
+                      <p>undefined</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -8874,22 +8142,77 @@
                   </div>
                 </section>
               </div>
-              <div class="doc-examples"> </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;slack_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;inhook_url&quot;</span>: <span class="hljs-string">&quot;https://hooks.slack.com/services/xxxxyyyyy/xxxx/sdf123rskfsdf1j&quot;</span>
+  },
+  <span class="hljs-attr">&quot;hip_chat_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;dfgdk2342kljsldfjslk2342fsdfkjslkj&quot;</span>,
+    <span class="hljs-attr">&quot;room&quot;</span>: <span class="hljs-string">&quot;Takipi&quot;</span>
+  },
+  <span class="hljs-attr">&quot;pager_duty_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;service_integration_key&quot;</span>: <span class="hljs-string">&quot;sflk234lkdjflsj12o8312&quot;</span>
+  },
+  <span class="hljs-attr">&quot;webhook_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
+  },
+  <span class="hljs-attr">&quot;service_now_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
+    <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
+    <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+  },
+  <span class="hljs-attr">&quot;email_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;is_active&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;alert_me&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;alert_all_team_members&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;alert_additional_emails&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;additional_emails_to_alert&quot;</span>: [
+      <span class="hljs-string">&quot;user1@company.com&quot;</span>
+    ]
+  },
+  <span class="hljs-attr">&quot;udf_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L24&quot;</span>,
+    <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;apply-label&quot;</span>,
+    <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;label=sample_label_name&quot;</span>
+  },
+  <span class="hljs-attr">&quot;periodic_udf_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L6&quot;</span>,
+    <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
+    <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Defines a target threshold that if the volume of events within the views exceeds will constitute an anomaly.\nthreshold = 100\n\n# A percentage value between 1 and 100 against which the volume of events / throughput is compared.\nrate = 5\n\n# Compare the number of times application threads (e.g. Servlet, Actor, Future,..) containing the events matching the target views have executed  against the number of events occurring. For example, if a Servlet containing the events within the view was invoked a 1000 times and 20 events matching the view&#x2019;s filter took place, a RATE value above 2 will invoke an alert.\nrelative_to = Thread_Calls\n\n# Compare the number of times the application method containing the events was invoked against the number of events which occurred.\n# relative_to = Method_Calls\n\n# Time period to look at, in minutes.\ntimespan = 60&quot;</span>,
+    <span class="hljs-attr">&quot;period_minutes&quot;</span>: <span class="hljs-number">60</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <div id="operation--services--service_id--views--view_id--alerts-post" class="operation panel" data-traverse-target="operation--services--service_id--views--view_id--alerts-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
               <a class="label" href="#tag-Alerts">Alerts</a>
               <!---->
             </div>
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Edit Alert settings</span>
+              <span class="operation-summary">Edit Alert settings of a View</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -8902,7 +8225,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Edit Alert settings</p>
+                  <p>Edit Alert settings of a View</p>
                 </section>
               </div>
             </div>
@@ -8959,6 +8282,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;slack_settings&quot;</span>: {
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>,
@@ -9055,8 +8379,6 @@
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-Views">Views</a>
-              <!--, -->
               <a class="label" href="#tag-Alerts">Alerts</a>
               <!---->
             </div>
@@ -14182,6 +13504,14 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
+                    <dt data-property-name="global" class="has-description">
+                      <span class="json-property-name">global:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>marks the alert as TBD</p>
+                    </dd>
                     <dt data-property-name="alert_on_new">
                       <span class="json-property-name">alert_on_new:</span>
                       <span class="json-property-type">boolean</span>
@@ -14424,6 +13754,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;slack_settings&quot;</span>: {
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>,

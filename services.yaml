@@ -1458,7 +1458,6 @@ paths:
     get:
       tags:
         - Views
-        - Alerts
       summary: "Get view properties"
       description: "Get full list of view properties"
       parameters:
@@ -1505,14 +1504,6 @@ paths:
                       example: false
                     filters:
                       $ref: "#/definitions/Filter"
-                    alert_on_new:
-                      type: boolean
-                      description: TBD - NOT YET IMPLEMENTED
-                      example: true
-                    alert_on_anomaly:
-                      type: boolean
-                      description: TBD - NOT YET IMPLEMENTED
-                      example: true
         401:
           $ref: "#/responses/UnauthorizedError"
         403:
@@ -1522,7 +1513,6 @@ paths:
     post:
       tags:
         - Views
-        - Alerts
       summary: "Edit view data"
       description: "Edit view data"
       parameters:
@@ -1948,7 +1938,6 @@ paths:
   /services/{service_id}/views/{view_id}/alerts:
     get:
       tags:
-        - Views
         - Alerts
       summary: "Fetch Alert settings for a View"
       description: "Fetch Alert settings for a View (Slack, Email, UDF, etc)"
@@ -1965,7 +1954,8 @@ paths:
           required: true
       responses:
         200:
-          $ref: "#/definitions/Alert"
+          schema:
+            $ref: "#/definitions/Alert"
         401:
           $ref: "#/responses/UnauthorizedError"
         403:
@@ -1974,10 +1964,9 @@ paths:
           $ref: "#/responses/NotFoundError"
     post:
       tags:
-        - Views
         - Alerts
-      summary: "Edit Alert settings"
-      description: "Edit Alert settings"
+      summary: "Edit Alert settings of a View"
+      description: "Edit Alert settings of a View"
       parameters:
         - in: path
           name: service_id
@@ -2005,7 +1994,6 @@ paths:
           $ref: "#/responses/NotFoundError"
     delete:
       tags:
-        - Views
         - Alerts
       summary: "Remove Alert settings"
       description: "Disables all Alert settings for a View"
@@ -3147,6 +3135,10 @@ definitions:
     description: All alert settings of a view
     type: object
     properties:
+      global:
+        type: boolean
+        description: marks the alert as TBD
+        example: false
       alert_on_new:
         type: "boolean"
         example: true
