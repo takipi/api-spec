@@ -34,7 +34,7 @@
                 <a href="#operation--services--env_id--get"> Get information about the environment (Not yet implemented) </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--rename-post"> Rename an environment </a>
+                <a href="#operation--services--env_id--post"> Rename an environment </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--team-get"> List environment team members </a>
@@ -67,9 +67,6 @@
               </li>
               <li>
                 <a href="#operation--services--env_id--team-delete"> Delete members from an environment </a>
-              </li>
-              <li>
-                <a href="#operation--services--env_id--team-change-role-post"> Change user role </a>
               </li>
             </ul>
           </section>
@@ -405,8 +402,10 @@
           <a href="#definition-Deployment"> Deployment </a>
           <a href="#definition-CodeLocation"> CodeLocation </a>
           <a href="#definition-EventAction"> EventAction </a>
-          <a href="#definition-ServiceBasic"> ServiceBasic </a>
-          <a href="#definition-TeamMembers"> TeamMembers </a>
+          <a href="#definition-EnvironmentWithRole"> EnvironmentWithRole </a>
+          <a href="#definition-EnvironmentBasic"> EnvironmentBasic </a>
+          <a href="#definition-TeamMembersBasic"> TeamMembersBasic </a>
+          <a href="#definition-TeamMembersFull"> TeamMembersFull </a>
           <a href="#definition-StorageSettings"> StorageSettings </a>
           <a href="#definition-UDFLibrary"> UDFLibrary </a>
           <a href="#definition-UDF"> UDF </a>
@@ -593,9 +592,11 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;services&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
-      <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>,
+      <span class="hljs-attr">&quot;EnvironmentBasic&quot;</span>: {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
+        <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+      },
       <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
     }
   ]
@@ -666,7 +667,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ServiceBasic">ServiceBasic</a>
+                          <a class="json-schema-ref" href="#/definitions/EnvironmentBasic">EnvironmentBasic</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -693,8 +694,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
-  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>,
-  <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -774,7 +774,7 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <div id="operation--services--env_id--rename-post" class="operation panel" data-traverse-target="operation--services--env_id--rename-post">
+          <div id="operation--services--env_id--post" class="operation panel" data-traverse-target="operation--services--env_id--post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -790,7 +790,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{env_id}/rename</span>
+                  <span class="operation-path">/services/{env_id}</span>
                 </section>
               </div>
             </div>
@@ -824,7 +824,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ServiceBasic">ServiceBasic</a>
+                          <a class="json-schema-ref" href="#/definitions/EnvironmentBasic">EnvironmentBasic</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -851,8 +851,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
-  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>,
-  <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -929,7 +928,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
+                          <a class="json-schema-ref" href="#/definitions/TeamMembersFull">TeamMembersFull</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1610,7 +1609,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
+                          <a class="json-schema-ref" href="#/definitions/TeamMembersBasic">TeamMembersBasic</a>
                         </span>
                       </div>
                     </div>
@@ -1643,10 +1642,8 @@
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
-    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
   }
 ]
 </code></pre>
@@ -1712,7 +1709,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
+                          <a class="json-schema-ref" href="#/definitions/TeamMembersBasic">TeamMembersBasic</a>
                         </span>
                       </div>
                     </div>
@@ -1745,10 +1742,8 @@
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
-    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
   }
 ]
 </code></pre>
@@ -1773,94 +1768,6 @@
                     </div>
                     <div class="prop-value">
                       <p>Unauthorized</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
-            </div>
-          </div>
-          <div id="operation--services--env_id--team-change-role-post" class="operation panel" data-traverse-target="operation--services--env_id--team-change-role-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Team-Management">Team Management</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Change user role</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{env_id}/team/change-role</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Change role for a selected team member. This call requires admin role.</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">env_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;admin&quot;</span>
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>OK</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unauthorized</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
@@ -14252,9 +14159,82 @@
               </div>
             </div>
           </div>
-          <div id="definition-ServiceBasic" class="definition panel" data-traverse-target="definition-ServiceBasic">
+          <div id="definition-EnvironmentWithRole" class="definition panel" data-traverse-target="definition-EnvironmentWithRole">
             <h2 class="panel-title">
-              <a name="/definitions/ServiceBasic"></a>ServiceBasic:
+              <a name="/definitions/EnvironmentWithRole"></a>EnvironmentWithRole: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Extended information about a environment key</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="EnvironmentBasic" class="has-description">
+                      <span class="json-property-name">EnvironmentBasic:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Basic information about a environment key</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="id">
+                            <span class="json-property-name">id:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="name">
+                            <span class="json-property-name">name:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="full_key">
+                            <span class="json-property-name">full_key:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="role" class="has-description">
+                      <span class="json-property-name">role:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>user&#39;s role in the environment</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;EnvironmentBasic&quot;</span>: {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
+    <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+  },
+  <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EnvironmentBasic" class="definition panel" data-traverse-target="definition-EnvironmentBasic">
+            <h2 class="panel-title">
+              <a name="/definitions/EnvironmentBasic"></a>EnvironmentBasic: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -14283,14 +14263,6 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="role" class="has-description">
-                      <span class="json-property-name">role:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>user&#39;s role in the environment</p>
-                    </dd>
                   </dl>
                 </section>
               </div>
@@ -14300,8 +14272,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
-  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>,
-  <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -14309,9 +14280,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-TeamMembers" class="definition panel" data-traverse-target="definition-TeamMembers">
+          <div id="definition-TeamMembersBasic" class="definition panel" data-traverse-target="definition-TeamMembersBasic">
             <h2 class="panel-title">
-              <a name="/definitions/TeamMembers"></a>TeamMembers: array
+              <a name="/definitions/TeamMembersBasic"></a>TeamMembersBasic: array
               <!-- <span class="json-property-type"><span class="json-property-type">object[]</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -14321,7 +14292,60 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>List of environment key team members</p>
+                  <p>List of environment team members</p>
+                </section>
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">object</span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema">
+                    <section class="json-schema-properties">
+                      <dl>
+                        <dt data-property-name="email">
+                          <span class="json-property-name">email:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt data-property-name="role" class="has-description">
+                          <span class="json-property-name">role:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>owner / admin / member</p>
+                        </dd>
+                      </dl>
+                    </section>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-TeamMembersFull" class="definition panel" data-traverse-target="definition-TeamMembersFull">
+            <h2 class="panel-title">
+              <a name="/definitions/TeamMembersFull"></a>TeamMembersFull: array
+              <!-- <span class="json-property-type"><span class="json-property-type">object[]</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>List of environment team members</p>
                 </section>
                 <section class="json-schema-array-items">
                   <span class="json-property-type">object</span>
