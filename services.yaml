@@ -3142,7 +3142,7 @@ definitions:
         example: "User"
   EnvironmentWithRole:
     type: object
-    description: Extended information about a environment key
+    description: Environment data including user's role
     properties:
       EnvironmentBasic:
         type: object
