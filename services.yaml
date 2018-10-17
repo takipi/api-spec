@@ -3240,6 +3240,9 @@ definitions:
           alert_all_team_members:
             type: "boolean"
             example: false
+          alert_admins:
+            type: "boolean"
+            example: true
           alert_additional_emails:
             type: "boolean"
             example: false
