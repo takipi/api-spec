@@ -230,8 +230,8 @@ paths:
     post:
       tags:
         - Team Management
-      summary: "Add members to an environment"
-      description: "Add new members to an environment"
+      summary: "Edit Team members"
+      description: "Add new members / Update role for existing members."
       parameters:
           - in: path
             name: env_id
