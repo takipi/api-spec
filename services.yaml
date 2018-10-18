@@ -207,7 +207,7 @@ paths:
   /services/{env_id}/team:
     get:
       tags:
-        - General
+        - Team Management
       summary: "List environment team members"
       description: "List team members with access to this environment"
       parameters:
@@ -230,8 +230,8 @@ paths:
     post:
       tags:
         - Team Management
-      summary: "Edit Team members"
-      description: "Add new members / Update role for existing members."
+      summary: "Add new members"
+      description: "Add new members"
       parameters:
           - in: path
             name: env_id
@@ -257,6 +257,28 @@ paths:
           - in: path
             name: env_id
             description:  Environment ID to use (e.g. S1234)
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembersBasic"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/team/change-role:
+    post:
+      tags:
+        - Team Management
+      summary: "Edit roles"
+      description: "Edit roles for selected group of users"
+      parameters:
+          - in: path
+            name: env_id
+            description: Environment to use
             type: string
             required: true
           - in: body
