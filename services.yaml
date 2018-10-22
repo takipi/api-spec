@@ -3113,20 +3113,20 @@ definitions:
         example: 2018-02-28T22:47:09.038+02:00
       creation_method:
         type: string
-        enum: [manual,udf] #in manual --> do we want to distinguish between ui and api?
+        enum: [manual,api]
         description: View creation method
         example: manual
       created_by:
         type: string
         description: View creator
-        example: John Doe #do we want to see the udf name?
+        example: John Doe
       updated_on:
         type: string
         description: View update time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
         example: 2018-05-01T10:00:00.020+03:00
       update_method:
         type: string
-        enum: [manual,udf] #in manual --> do we want to distinguish between ui and api?
+        enum: [manual,api]
         description: View update method
         example: manual
       updated_by:
