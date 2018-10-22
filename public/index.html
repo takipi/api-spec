@@ -346,6 +346,20 @@
             </ul>
           </section>
           <section>
+            <a href="#tag-Publish-Metrics">Publish Metrics</a>
+            <ul>
+              <li>
+                <a href="#operation--services--env_id--settings-publish-metrics-get"> Fetch Publish Metrics settings </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-publish-metrics-post"> Set Publish Metrics </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-publish-metrics-available_formats-get"> Fetch Available formats </a>
+              </li>
+            </ul>
+          </section>
+          <section>
             <a href="#tag-Labels">Labels</a>
             <ul>
               <li>
@@ -397,6 +411,9 @@
           <a href="#definition-UDFLibrary"> UDFLibrary </a>
           <a href="#definition-UDF"> UDF </a>
           <a href="#definition-Timer"> Timer </a>
+          <a href="#definition-PublishMetricsSettings"> PublishMetricsSettings </a>
+          <a href="#definition-MetricFormats"> MetricFormats </a>
+          <a href="#definition-Metrics"> Metrics </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -11772,6 +11789,390 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
+          <h1 id="tag-Publish-Metrics" class="swagger-summary-tag" data-traverse-target="tag-Publish-Metrics">Publish Metrics</h1>
+          <div id="operation--services--env_id--settings-publish-metrics-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-publish-metrics-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Publish-Metrics">Publish Metrics</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch Publish Metrics settings</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/publish-metrics</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Use this call to fetch data about publish metrics settings, output format and the actual metrics which are currently beeing published</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/PublishMetricsSettings">PublishMetricsSettings</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Current settings for publish metrics</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;enable&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;server&quot;</span>: <span class="hljs-string">&quot;107.23.209.117.8125&quot;</span>,
+  <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
+  <span class="hljs-attr">&quot;metrics&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-publish-metrics-post" class="operation panel" data-traverse-target="operation--services--env_id--settings-publish-metrics-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Publish-Metrics">Publish Metrics</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Set Publish Metrics</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/settings/publish-metrics</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Use this call to set and customize publish metrics</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/PublishMetricsSettings">PublishMetricsSettings</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>undefined</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;enable&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;server&quot;</span>: <span class="hljs-string">&quot;107.23.209.117.8125&quot;</span>,
+  <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
+  <span class="hljs-attr">&quot;metrics&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-publish-metrics-available_formats-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-publish-metrics-available_formats-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Publish-Metrics">Publish Metrics</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch Available formats</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/publish-metrics/available_formats</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Use this call to fetch available formats, their metrics and their default tokens</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/MetricFormats">MetricFormats</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of Available formats and metrics</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
+    <span class="hljs-attr">&quot;default_metrics&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
+      }
+    ]
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <h1 id="tag-Labels" class="swagger-summary-tag" data-traverse-target="tag-Labels">Labels</h1>
           <div id="operation--services--env_id--labels-get" class="operation panel" data-traverse-target="operation--services--env_id--labels-get">
             <!-- <section class="operation-tags row"> -->
@@ -14375,6 +14776,229 @@
     <span class="hljs-string">&quot;MyApp&quot;</span>
   ]
 }
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-PublishMetricsSettings" class="definition panel" data-traverse-target="definition-PublishMetricsSettings">
+            <h2 class="panel-title">
+              <a name="/definitions/PublishMetricsSettings"></a>PublishMetricsSettings: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="enable">
+                      <span class="json-property-name">enable:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="server">
+                      <span class="json-property-name">server:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="output_format">
+                      <span class="json-property-name">output_format:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="metrics">
+                      <span class="json-property-name">metrics:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Metrics">Metrics</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;enable&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;server&quot;</span>: <span class="hljs-string">&quot;107.23.209.117.8125&quot;</span>,
+  <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
+  <span class="hljs-attr">&quot;metrics&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+      <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-MetricFormats" class="definition panel" data-traverse-target="definition-MetricFormats">
+            <h2 class="panel-title">
+              <a name="/definitions/MetricFormats"></a>MetricFormats: array
+              <!-- <span class="json-property-type"><span class="json-property-type">object[]</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">object</span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema">
+                    <section class="json-schema-properties">
+                      <dl>
+                        <dt data-property-name="output_format">
+                          <span class="json-property-name">output_format:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt data-property-name="default_metrics">
+                          <span class="json-property-name">default_metrics:</span>
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/Metrics">Metrics</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                      </dl>
+                    </section>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
+    <span class="hljs-attr">&quot;default_metrics&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+        <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
+      }
+    ]
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Metrics" class="definition panel" data-traverse-target="definition-Metrics">
+            <h2 class="panel-title">
+              <a name="/definitions/Metrics"></a>Metrics: array
+              <!-- <span class="json-property-type"><span class="json-property-type">object[]</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">object</span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema">
+                    <section class="json-schema-properties">
+                      <dl>
+                        <dt data-property-name="name">
+                          <span class="json-property-name">name:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt data-property-name="pattern">
+                          <span class="json-property-name">pattern:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                      </dl>
+                    </section>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+    <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
+  },
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+    <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
+  },
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+    <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
+  },
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+    <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
+  },
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+    <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
+  },
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+    <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
+  }
+]
 </code></pre>
                   <!-- </div> -->
                 </section>

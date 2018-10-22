@@ -1368,6 +1368,71 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/publish-metrics:
+    get:
+      tags:
+        - Publish Metrics
+      summary: "Fetch Publish Metrics settings"
+      description: "Use this call to fetch data about publish metrics settings, output format and the actual metrics which are currently beeing published"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Current settings for publish metrics
+          schema:
+            $ref: "#/definitions/PublishMetricsSettings"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - Publish Metrics
+      summary: "Set Publish Metrics"
+      description: "Use this call to set and customize publish metrics"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: settings
+          desciption: Publish metrics settings
+          schema:
+            $ref: "#/definitions/PublishMetricsSettings"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/publish-metrics/available_formats:
+    get:
+      tags:
+        - Publish Metrics
+      summary: "Fetch Available formats"
+      description: "Use this call to fetch available formats, their metrics and their default tokens"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of Available formats and metrics
+          schema:
+            $ref: "#/definitions/MetricFormats"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/categories:
     get:
       tags:
@@ -3218,6 +3283,52 @@ definitions:
         items:
           type: string
           example: MyApp
+  PublishMetricsSettings:
+    type: object
+    properties:
+      enable:
+        type: boolean
+        example: true
+      server:
+        type: string
+        example: 107.23.209.117.8125
+      output_format:
+        type: string
+        example: splunk
+      metrics:
+        $ref: "#/definitions/Metrics"
+  MetricFormats:
+    type: array
+    items:
+      type: object
+      properties:
+        output_format:
+          type: string
+          example: splunk
+        default_metrics:
+          $ref: "#/definitions/Metrics"
+  Metrics:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        pattern:
+          type:  string
+    example:
+      - name: views
+        pattern: overops_views,${viewname},${serviceid},${application},${server},${deployment}
+      - name: events
+        pattern: overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}
+      - name: entry points
+        pattern: overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}
+      - name: custom metrics
+        pattern: overops_metrics,${serviceid},${application},${server},${deployment},${metric}
+      - name: system
+        pattern: overops_system,${serviceid},${application},${server},${systemmetrics}
+      - name: diagnostics
+        pattern: overops_jvms,${serviceid},${application},${server},${applicationpid}
 responses:
   OK:
     description: OK
