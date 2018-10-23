@@ -3166,19 +3166,15 @@ definitions:
     type: object
     description: Environment data including user's role
     properties:
-      EnvironmentBasic:
-        type: object
-        description: Basic information about a environment key
-        properties:
-          id:
-            type: string
-            example: S100
-          name:
-            type: string
-            example: Pre-prod
-          full_key:
-            type: string
-            example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      id:
+        type: string
+        example: S100
+      name:
+        type: string
+        example: Pre-prod
+      full_key:
+        type: string
+        example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
       role:
         type: string
         description: user's role in the environment
