@@ -2874,6 +2874,10 @@ definitions:
       shared:
         type: boolean
         example: false
+      admin:
+        type: boolean
+        description: Indicates that this view can be created and accessed by environment admins only.
+        example: true
   ViewFull:
     type: object
     description: Single view full properties
@@ -2889,7 +2893,7 @@ definitions:
         example: false
       admin:
         type: boolean
-        description: TBD - NOT YET IMPLEMENTED
+        description: Indicates that this view is accessible to environment admins only.
         example: true
       default:
         type: boolean
