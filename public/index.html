@@ -11880,31 +11880,31 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;enable&quot;</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">&quot;server&quot;</span>: <span class="hljs-string">&quot;107.23.209.117.8125&quot;</span>,
-  <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
+  <span class="hljs-attr">&quot;hostname&quot;</span>: <span class="hljs-string">&quot;127.0.0.1:8125&quot;</span>,
+  <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;Splunk&quot;</span>,
   <span class="hljs-attr">&quot;metrics&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Views&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Events&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Entry points&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Custom Metrics&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Diagnostics&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
     }
   ]
@@ -11982,31 +11982,31 @@
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;enable&quot;</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">&quot;server&quot;</span>: <span class="hljs-string">&quot;107.23.209.117.8125&quot;</span>,
-  <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
+  <span class="hljs-attr">&quot;hostname&quot;</span>: <span class="hljs-string">&quot;127.0.0.1:8125&quot;</span>,
+  <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;Splunk&quot;</span>,
   <span class="hljs-attr">&quot;metrics&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Views&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Events&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Entry points&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Custom Metrics&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Diagnostics&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
     }
   ]
@@ -12141,27 +12141,27 @@
     <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
     <span class="hljs-attr">&quot;default_metrics&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Views&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Events&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Entry points&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Custom Metrics&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Diagnostics&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
       }
     ]
@@ -14800,11 +14800,14 @@
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="server">
-                      <span class="json-property-name">server:</span>
+                    <dt data-property-name="hostname" class="has-description">
+                      <span class="json-property-name">hostname:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>The hostname and (optional) port of your StatsD server.</p>
+                    </dd>
                     <dt data-property-name="output_format">
                       <span class="json-property-name">output_format:</span>
                       <span class="json-property-type">string</span>
@@ -14827,31 +14830,31 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;enable&quot;</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">&quot;server&quot;</span>: <span class="hljs-string">&quot;107.23.209.117.8125&quot;</span>,
-  <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
+  <span class="hljs-attr">&quot;hostname&quot;</span>: <span class="hljs-string">&quot;127.0.0.1:8125&quot;</span>,
+  <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;Splunk&quot;</span>,
   <span class="hljs-attr">&quot;metrics&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Views&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Events&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Entry points&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Custom Metrics&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
     },
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Diagnostics&quot;</span>,
       <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
     }
   ]
@@ -14906,27 +14909,27 @@
     <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;splunk&quot;</span>,
     <span class="hljs-attr">&quot;default_metrics&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Views&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Events&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Entry points&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Custom Metrics&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
       },
       {
-        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Diagnostics&quot;</span>,
         <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
       }
     ]
@@ -14975,27 +14978,27 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;views&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Views&quot;</span>,
     <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_views,${viewname},${serviceid},${application},${server},${deployment}&quot;</span>
   },
   {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;events&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Events&quot;</span>,
     <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}&quot;</span>
   },
   {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;entry points&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Entry points&quot;</span>,
     <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}&quot;</span>
   },
   {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;custom metrics&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Custom Metrics&quot;</span>,
     <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_metrics,${serviceid},${application},${server},${deployment},${metric}&quot;</span>
   },
   {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
     <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_system,${serviceid},${application},${server},${systemmetrics}&quot;</span>
   },
   {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;diagnostics&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Diagnostics&quot;</span>,
     <span class="hljs-attr">&quot;pattern&quot;</span>: <span class="hljs-string">&quot;overops_jvms,${serviceid},${application},${server},${applicationpid}&quot;</span>
   }
 ]

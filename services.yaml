@@ -3289,12 +3289,13 @@ definitions:
       enable:
         type: boolean
         example: true
-      server:
+      hostname:
         type: string
-        example: 107.23.209.117.8125
+        description: The hostname and (optional) port of your StatsD server.
+        example: 127.0.0.1:8125
       output_format:
         type: string
-        example: splunk
+        example: Splunk
       metrics:
         $ref: "#/definitions/Metrics"
   MetricFormats:
@@ -3315,19 +3316,19 @@ definitions:
         name:
           type: string
         pattern:
-          type:  string
+          type: string
     example:
-      - name: views
+      - name: Views
         pattern: overops_views,${viewname},${serviceid},${application},${server},${deployment}
-      - name: events
+      - name: Events
         pattern: overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}
-      - name: entry points
+      - name: Entry points
         pattern: overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}
-      - name: custom metrics
+      - name: Custom Metrics
         pattern: overops_metrics,${serviceid},${application},${server},${deployment},${metric}
-      - name: system
+      - name: System
         pattern: overops_system,${serviceid},${application},${server},${systemmetrics}
-      - name: diagnostics
+      - name: Diagnostics
         pattern: overops_jvms,${serviceid},${application},${server},${applicationpid}
 responses:
   OK:
