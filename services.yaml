@@ -2117,7 +2117,7 @@ paths:
       description: "Fetch Alert settings for a View (Slack, Email, UDF, etc)"
       parameters:
         - in: path
-          name: service_id
+          name: env_id
           description: Environment ID to use (e.g. S1234)
           type: string
           required: true
@@ -2143,7 +2143,7 @@ paths:
       description: "Edit Alert settings of a View"
       parameters:
         - in: path
-          name: service_id
+          name: env_id
           description: Environment ID to use (e.g. S1234)
           type: string
           required: true
@@ -2173,7 +2173,7 @@ paths:
       description: "Disables all Alert settings for a View"
       parameters:
         - in: path
-          name: service_id
+          name: env_id
           description: Environment ID to use (e.g. S1234)
           type: string
           required: true
