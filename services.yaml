@@ -3285,7 +3285,7 @@ definitions:
     properties:
       global:
         type: boolean
-        description: marks the alert as a global alert, i.e. will affect all users that share this view. Only admins will be able to edit these alerts.
+        description: TBD - Not developed yet - marks the alert as a global alert, i.e. will affect all users that share this view. Only admins will be able to edit these alerts.
         example: false
       alert_on_new:
         type: "boolean"
