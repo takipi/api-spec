@@ -34,10 +34,7 @@
                 <a href="#operation--services--env_id--get"> Get information about the environment (Not yet implemented) </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--team-get"> List environment team members </a>
-              </li>
-              <li>
-                <a href="#operation--services--env_id--team-post"> Add team members to an environment </a>
+                <a href="#operation--services--env_id--post"> Rename an environment </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--settings-get"> Get environment settings </a>
@@ -56,6 +53,23 @@
               </li>
               <li>
                 <a href="#operation--services--env_id--settings-storage-settings-post"> Set storage settings for a service </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Team-Management">Team Management</a>
+            <ul>
+              <li>
+                <a href="#operation--services--env_id--team-get"> List environment team members </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--team-post"> Add new members </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--team-delete"> Delete members from an environment </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--team-change-role-post"> Edit roles </a>
               </li>
             </ul>
           </section>
@@ -391,8 +405,10 @@
           <a href="#definition-Deployment"> Deployment </a>
           <a href="#definition-CodeLocation"> CodeLocation </a>
           <a href="#definition-EventAction"> EventAction </a>
-          <a href="#definition-ServiceBasic"> ServiceBasic </a>
-          <a href="#definition-TeamMembers"> TeamMembers </a>
+          <a href="#definition-EnvironmentWithRole"> EnvironmentWithRole </a>
+          <a href="#definition-EnvironmentBasic"> EnvironmentBasic </a>
+          <a href="#definition-TeamMembersBasic"> TeamMembersBasic </a>
+          <a href="#definition-TeamMembersFull"> TeamMembersFull </a>
           <a href="#definition-StorageSettings"> StorageSettings </a>
           <a href="#definition-UDFLibrary"> UDFLibrary </a>
           <a href="#definition-UDF"> UDF </a>
@@ -582,7 +598,8 @@
     {
       <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
-      <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+      <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>,
+      <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
     }
   ]
 }
@@ -652,7 +669,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ServiceBasic">ServiceBasic</a>
+                          <a class="json-schema-ref" href="#/definitions/EnvironmentBasic">EnvironmentBasic</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -759,7 +776,7 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
-          <div id="operation--services--env_id--team-get" class="operation panel" data-traverse-target="operation--services--env_id--team-get">
+          <div id="operation--services--env_id--post" class="operation panel" data-traverse-target="operation--services--env_id--post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -769,56 +786,37 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">List environment team members</span>
+              <span class="operation-summary">Rename an environment</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{env_id}/team</span>
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List team members with access to this environment</p>
+                  <p>Rename an environment. This call is allowed for admins only</p>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">env_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">email</div>
-                      <div class="prop-subtitle"> in query </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Team member email</p>
-                    </div>
-                  </div>
+                <section class="swagger-request-body"> </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
                 </section>
               </div>
-              <div class="doc-examples"></div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
@@ -828,13 +826,13 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
+                          <a class="json-schema-ref" href="#/definitions/EnvironmentBasic">EnvironmentBasic</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>List of team members</p>
+                      <p>Updated environment properties</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -852,120 +850,15 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
-  {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
-    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
-  }
-]
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
+  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+}
 </code></pre>
                   <!-- </div> -->
                 </section>
               </div>
-            </div>
-          </div>
-          <div id="operation--services--env_id--team-post" class="operation panel" data-traverse-target="operation--services--env_id--team-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-General">General</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Add team members to an environment</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{env_id}/team</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Add team members to an environment</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/TeamMembers">TeamMembers</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>list of team members</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">env_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
-  {
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
-    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
-    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
-  }
-]
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>OK</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unauthorized</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
             </div>
           </div>
           <div id="operation--services--env_id--settings-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-get">
@@ -1564,6 +1457,419 @@
                     </div>
                     <div class="prop-value">
                       <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <h1 id="tag-Team-Management" class="swagger-summary-tag" data-traverse-target="tag-Team-Management">Team Management</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>APIs related to team management of a service</p>
+            </div>
+          </div>
+          <div id="operation--services--env_id--team-get" class="operation panel" data-traverse-target="operation--services--env_id--team-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Team-Management">Team Management</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List environment team members</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/team</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List team members with access to this environment</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">email</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Team member email</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/TeamMembersFull">TeamMembersFull</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of team members</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Jane Doe&quot;</span>,
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
+    <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;active&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--team-post" class="operation panel" data-traverse-target="operation--services--env_id--team-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Team-Management">Team Management</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add new members</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/team</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add new members</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/TeamMembersBasic">TeamMembersBasic</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>list of team members</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--team-delete" class="operation panel" data-traverse-target="operation--services--env_id--team-delete">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Team-Management">Team Management</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Delete members from an environment</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/services/{env_id}/team</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Delete members from an environment. This call requires admin role</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/TeamMembersBasic">TeamMembersBasic</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>list of team members</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--team-change-role-post" class="operation panel" data-traverse-target="operation--services--env_id--team-change-role-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Team-Management">Team Management</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Edit roles</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/team/change-role</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Edit roles for selected group of users</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/TeamMembersBasic">TeamMembersBasic</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>list of team members</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                 </section>
@@ -3558,7 +3864,8 @@
     {
       <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>
     }
   ]
 }
@@ -5376,7 +5683,8 @@
         {
           <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
           <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-          <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+          <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+          <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>
         }
       ]
     }
@@ -5463,7 +5771,8 @@
     {
       <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>
     }
   ]
 }
@@ -5624,7 +5933,8 @@
     {
       <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>
     }
   ]
 }
@@ -12694,6 +13004,14 @@
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="admin" class="has-description">
+                      <span class="json-property-name">admin:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Indicates that this view can be created and accessed by environment admins only.</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -12703,7 +13021,8 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-  <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -12748,7 +13067,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>TBD - NOT YET IMPLEMENTED</p>
+                      <p>Indicates that this view is accessible to environment admins only.</p>
                     </dd>
                     <dt data-property-name="default" class="has-description">
                       <span class="json-property-name">default:</span>
@@ -12915,7 +13234,8 @@
     {
       <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB Errors&quot;</span>,
-      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-attr">&quot;shared&quot;</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">&quot;admin&quot;</span>: <span class="hljs-literal">true</span>
     }
   ]
 }
@@ -13780,9 +14100,66 @@
               </div>
             </div>
           </div>
-          <div id="definition-ServiceBasic" class="definition panel" data-traverse-target="definition-ServiceBasic">
+          <div id="definition-EnvironmentWithRole" class="definition panel" data-traverse-target="definition-EnvironmentWithRole">
             <h2 class="panel-title">
-              <a name="/definitions/ServiceBasic"></a>ServiceBasic:
+              <a name="/definitions/EnvironmentWithRole"></a>EnvironmentWithRole: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Environment data including user&#39;s role</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="full_key">
+                      <span class="json-property-name">full_key:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="role" class="has-description">
+                      <span class="json-property-name">role:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>user&#39;s role in the environment</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
+  <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>,
+  <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EnvironmentBasic" class="definition panel" data-traverse-target="definition-EnvironmentBasic">
+            <h2 class="panel-title">
+              <a name="/definitions/EnvironmentBasic"></a>EnvironmentBasic: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -13828,9 +14205,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-TeamMembers" class="definition panel" data-traverse-target="definition-TeamMembers">
+          <div id="definition-TeamMembersBasic" class="definition panel" data-traverse-target="definition-TeamMembersBasic">
             <h2 class="panel-title">
-              <a name="/definitions/TeamMembers"></a>TeamMembers: array
+              <a name="/definitions/TeamMembersBasic"></a>TeamMembersBasic: array
               <!-- <span class="json-property-type"><span class="json-property-type">object[]</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -13840,7 +14217,60 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>List of environment key team members</p>
+                  <p>List of environment team members</p>
+                </section>
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">object</span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema">
+                    <section class="json-schema-properties">
+                      <dl>
+                        <dt data-property-name="email">
+                          <span class="json-property-name">email:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt data-property-name="role" class="has-description">
+                          <span class="json-property-name">role:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>owner / admin / member</p>
+                        </dd>
+                      </dl>
+                    </section>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;jane.doe@company.com&quot;</span>,
+    <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-TeamMembersFull" class="definition panel" data-traverse-target="definition-TeamMembersFull">
+            <h2 class="panel-title">
+              <a name="/definitions/TeamMembersFull"></a>TeamMembersFull: array
+              <!-- <span class="json-property-type"><span class="json-property-type">object[]</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>List of environment team members</p>
                 </section>
                 <section class="json-schema-array-items">
                   <span class="json-property-type">object</span>
