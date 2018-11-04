@@ -191,6 +191,11 @@ paths:
       summary: Rename an environment
       description: "Rename an environment. This call is allowed for admins only"
       parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
         - in: body
           name: name
           schema:
@@ -2128,8 +2133,7 @@ paths:
           required: true
       responses:
         200:
-          schema:
-            $ref: "#/definitions/Alert"
+          $ref: "#/definitions/Alert"
         401:
           $ref: "#/responses/UnauthorizedError"
         403:
