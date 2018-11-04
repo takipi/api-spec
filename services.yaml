@@ -2133,7 +2133,9 @@ paths:
           required: true
       responses:
         200:
-          $ref: "#/definitions/Alert"
+          description: Alert data
+          schema:
+            $ref: "#/definitions/Alert"
         401:
           $ref: "#/responses/UnauthorizedError"
         403:
