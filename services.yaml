@@ -2268,6 +2268,32 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/views/{view_id}/history:
+    get:
+      tags:
+        - Views
+      summary: Fetch View History
+      description: This call allows to get data about the creation and the last update to the view and provides information about the update initiator and timestamp.
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: View History
+          schema:
+            $ref: "#/definitions/ViewHistory"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/labels:
     get:
       tags:
@@ -3387,6 +3413,35 @@ definitions:
         items:
           type: string
           example: MyApp
+  ViewHistory:
+    type: object
+    properties:
+      created_on:
+        type: string
+        description: View creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: 2018-02-28T22:47:09.038+02:00
+      creation_method:
+        type: string
+        enum: [manual,api]
+        description: View creation method
+        example: manual
+      created_by:
+        type: string
+        description: View creator
+        example: John Doe
+      updated_on:
+        type: string
+        description: View update time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: 2018-05-01T10:00:00.020+03:00
+      update_method:
+        type: string
+        enum: [manual,api]
+        description: View update method
+        example: manual
+      updated_by:
+        type: string
+        description: updated by
+        example: John Doe
   Alert:
     description: All alert settings of a view
     type: object
