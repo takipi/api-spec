@@ -2268,7 +2268,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{service_id}/views/{view_id}/history:
+  /services/{env_id}/views/{view_id}/history:
     get:
       tags:
         - Views
@@ -2276,7 +2276,7 @@ paths:
       description: Fetch View History
       parameters:
         - in: path
-          name: service_id
+          name: env_id
           description: Environment to use
           type: string
           required: true
