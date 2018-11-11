@@ -30,6 +30,8 @@ basePath: /api/v1
 tags:
   - name: General
     description: Fetch general information about provisioned OverOps enviroments
+  - name: Team Management
+    description: APIs related to team management of a service
   - name: Data Redaction
     description: Fetch and manipulate data redaction of PII with target environments.
   - name: Code Filters
@@ -143,7 +145,7 @@ paths:
                 type: array
                 description: list of environment
                 items:
-                  $ref: "#/definitions/ServiceBasic"
+                  $ref: "#/definitions/EnvironmentWithRole"
         401:
           $ref: "#/responses/UnauthorizedError"
     post:
@@ -163,7 +165,7 @@ paths:
         200:
           description: New environment key properties
           schema:
-            $ref: "#/definitions/ServiceBasic"
+            $ref: "#/definitions/EnvironmentBasic"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}:
@@ -183,10 +185,34 @@ paths:
           $ref: "#/responses/TBD"
         401:
           $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - General
+      summary: Rename an environment
+      description: "Rename an environment. This call is allowed for admins only"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: name
+          schema:
+            properties:
+              name:
+                type: string
+      responses:
+        200:
+          description: Updated environment properties
+          schema:
+            $ref: "#/definitions/EnvironmentBasic"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/team:
     get:
       tags:
-        - General
+        - Team Management
       summary: "List environment team members"
       description: "List team members with access to this environment"
       parameters:
@@ -203,14 +229,35 @@ paths:
         200:
           description: List of team members
           schema:
-            $ref: "#/definitions/TeamMembers"
+            $ref: "#/definitions/TeamMembersFull"
         401:
           $ref: "#/responses/UnauthorizedError"
     post:
       tags:
-        - General
-      summary: "Add team members to an environment"
-      description: "Add team members to an environment"
+        - Team Management
+      summary: "Add new members"
+      description: "Add new members"
+      parameters:
+          - in: path
+            name: env_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembersBasic"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Team Management
+      summary: "Delete members from an environment"
+      description: "Delete members from an environment. This call requires admin role"
       parameters:
           - in: path
             name: env_id
@@ -221,7 +268,29 @@ paths:
             name: team_members
             description: list of team members
             schema:
-              $ref: "#/definitions/TeamMembers"
+              $ref: "#/definitions/TeamMembersBasic"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/team/change-role:
+    post:
+      tags:
+        - Team Management
+      summary: "Edit roles"
+      description: "Edit roles for selected group of users"
+      parameters:
+          - in: path
+            name: env_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembersBasic"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -1618,7 +1687,6 @@ paths:
     get:
       tags:
         - Views
-        - Alerts
       summary: "Get view properties"
       description: "Get full list of view properties"
       parameters:
@@ -1666,14 +1734,6 @@ paths:
                       example: false
                     filters:
                       $ref: "#/definitions/Filter"
-                    alert_on_new:
-                      type: boolean
-                      description: TBD - NOT YET IMPLEMENTED
-                      example: true
-                    alert_on_anomaly:
-                      type: boolean
-                      description: TBD - NOT YET IMPLEMENTED
-                      example: true
         401:
           $ref: "#/responses/UnauthorizedError"
         403:
@@ -1683,7 +1743,6 @@ paths:
     post:
       tags:
         - Views
-        - Alerts
       summary: "Edit view data"
       description: "Edit view data"
       parameters:
@@ -2120,10 +2179,90 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/views/{view_id}/alerts:
+    get:
+      tags:
+        - Alerts
+      summary: "Fetch Alert settings for a View"
+      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View ID to use (e.g. P283)
+          type: string
+          required: true
+      responses:
+        200:
+          description: Alert data
+          schema:
+            $ref: "#/definitions/Alert"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - Alerts
+      summary: "Edit Alert settings of a View"
+      description: "Edit Alert settings of a View"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View ID to use (e.g. P283)
+          type: string
+          required: true
+        - in: body
+          name: alert
+          description: Alerts settings
+          schema:
+              $ref: "#/definitions/Alert"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    delete:
+      tags:
+        - Alerts
+      summary: "Remove Alert settings"
+      description: "Disables all Alert settings for a View"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View ID to use (e.g. P283)
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
   /services/{env_id}/views/{view_id}/anomaly:
     post:
       tags:
-        - Views
         - Alerts
       summary: "Alert on anomalies"
       description: "Alert on anomalies"
@@ -2875,6 +3014,10 @@ definitions:
       shared:
         type: boolean
         example: false
+      admin:
+        type: boolean
+        description: Indicates that this view can be created and accessed by environment admins only.
+        example: true
   ViewFull:
     type: object
     description: Single view full properties
@@ -2890,7 +3033,7 @@ definitions:
         example: false
       admin:
         type: boolean
-        description: TBD - NOT YET IMPLEMENTED
+        description: Indicates that this view is accessible to environment admins only.
         example: true
       default:
         type: boolean
@@ -2898,14 +3041,6 @@ definitions:
         example: false
       filters:
         $ref: "#/definitions/Filter"
-      alert_on_new:
-        type: boolean
-        description: TBD - NOT YET IMPLEMENTED
-        example: true
-      alert_on_anomaly:
-        type: boolean
-        description: TBD - NOT YET IMPLEMENTED
-        example: true
   Category:
     type: object
     description: Single category properties
@@ -3034,6 +3169,9 @@ definitions:
       name:
         type: string
         example: "NullPointerException"
+      message:
+        type: string
+        example: "Error checking is-customer for null."
       first_seen:
         type: string
         example: "2018-02-28T22:47:09.038Z"
@@ -3163,7 +3301,25 @@ definitions:
       initiator_type:
         type: string
         example: "User"
-  ServiceBasic:
+  EnvironmentWithRole:
+    type: object
+    description: Environment data including user's role
+    properties:
+      id:
+        type: string
+        example: S100
+      name:
+        type: string
+        example: Pre-prod
+      full_key:
+        type: string
+        example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      role:
+        type: string
+        description: user's role in the environment
+        example: admin
+  EnvironmentBasic:
+    type: object
     description: Basic information about a environment key
     properties:
       id:
@@ -3175,8 +3331,21 @@ definitions:
       full_key:
         type: string
         example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  TeamMembers:
-    description: List of environment key team members
+  TeamMembersBasic:
+    description: List of environment team members
+    type: array
+    items:
+      type: object
+      properties:
+        email:
+          type: string
+          example: jane.doe@company.com
+        role:
+          type: string
+          description: owner / admin / member
+          example: admin
+  TeamMembersFull:
+    description: List of environment team members
     type: array
     items:
       type: object
@@ -3283,6 +3452,136 @@ definitions:
         items:
           type: string
           example: MyApp
+  Alert:
+    description: All alert settings of a view
+    type: object
+    properties:
+      global:
+        type: boolean
+        description: TBD - Not developed yet - marks the alert as a global alert, i.e. will affect all users that share this view. Only admins will be able to edit these alerts.
+        example: false
+      alert_on_new:
+        type: "boolean"
+        example: true
+      alert_on_anomaly:
+        type: "boolean"
+        example: true
+      periodic_udf_settings:
+        properties:
+          library_id:
+            type: "string"
+            example: "L6"
+          function_id:
+            type: "string"
+            example: "Relative Threshold"
+          args:
+            type: "string"
+            example: "# Defines a target threshold that if the volume of events within the views exceeds will constitute an anomaly.\nthreshold = 100\n\n# A percentage value between 1 and 100 against which the volume of events / throughput is compared.\nrate = 5\n\n# Compare the number of times application threads (e.g. Servlet, Actor, Future,..) containing the events matching the target views have executed  against the number of events occurring. For example, if a Servlet containing the events within the view was invoked a 1000 times and 20 events matching the view’s filter took place, a RATE value above 2 will invoke an alert.\nrelative_to = Thread_Calls\n\n# Compare the number of times the application method containing the events was invoked against the number of events which occurred.\n# relative_to = Method_Calls\n\n# Time period to look at, in minutes.\ntimespan = 60"
+          summary:
+            type: "string"
+            example: "Threshold(100,5.00% of Thread_Calls)"
+          period_minutes:
+            type: "number"
+            example: 60
+      slack_settings:
+        properties:
+          enabled:
+            type: "boolean"
+            example: true
+          inhook_url:
+            type: "string"
+            example: "https://hooks.slack.com/services/xxxxyyyyy/xxxx/sdf123rskfsdf1j"
+        type: "object"
+      hip_chat_settings:
+        properties:
+          enabled:
+            type: "boolean"
+            example: false
+          token:
+            type: "string"
+            example: "dfgdk2342kljsldfjslk2342fsdfkjslkj"
+          room:
+            type: "string"
+            example: "Takipi"
+        type: "object"
+      pager_duty_settings:
+        properties:
+          enabled:
+            type: "boolean"
+            example: false
+          service_integration_key:
+            type: "string"
+            example: "sflk234lkdjflsj12o8312"
+        type: "object"
+      #jira_settings: <- TBD
+      #  properties:
+      #
+      #  type: "object"
+      webhook_settings:
+        properties:
+          enabled:
+            type: "boolean"
+            example: false
+          webhook_url:
+            type: "string"
+            example: "http://hooks.company.com/overops1/P1/hook"
+        type: "object"
+      service_now_settings:
+        properties:
+          enabled:
+            type: "boolean"
+            example: false
+          url:
+            type: "string"
+            example: "http://servicenow.company.com/hooks"
+          user_id:
+            type: "string"
+            example: "admin"
+          password:
+            type: "string"
+            example: "pa$$1"
+          table:
+            type: "string"
+            example: "overops"
+        type: "object"
+      email_settings:
+        properties:
+          is_active:
+            type: "boolean"
+            example: true
+          alert_me:
+            type: "boolean"
+            example: true
+          alert_all_team_members:
+            type: "boolean"
+            example: false
+          alert_admins:
+            type: "boolean"
+            example: true
+          alert_additional_emails:
+            type: "boolean"
+            example: false
+          additional_emails_to_alert:
+            type: "array"
+            items:
+              type: string
+              example: "user1@company.com"
+        type: "object"
+      udf_settings:
+        properties:
+          enabled:
+            type: "boolean"
+            example: false
+          library_id:
+            type: "string"
+            example: "L24"
+          function_id:
+            type: "string"
+            example: "apply-label"
+          args:
+            type: "string"
+            example: "label=sample_label_name"
+        type: "object"
   PublishMetricsSettings:
     type: object
     properties:
