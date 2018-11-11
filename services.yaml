@@ -1393,7 +1393,7 @@ paths:
       tags:
         - Publish Metrics
       summary: "Set Publish Metrics"
-      description: "Use this call to set and customize publish metrics"
+      description: "Use this call to set and customize publish metrics. Use one of the presets, or customize you tokens by setting output_format to 'custom'."
       parameters:
         - in: path
           name: env_id
@@ -1417,7 +1417,7 @@ paths:
       tags:
         - Publish Metrics
       summary: "Fetch Available formats"
-      description: "Use this call to fetch available formats, their metrics and their default tokens"
+      description: "Use this call to fetch available formats / presets, their metrics and their tokens"
       parameters:
         - in: path
           name: env_id
@@ -3305,6 +3305,7 @@ definitions:
       properties:
         output_format:
           type: string
+          description: For customized metrics (which are different than the format defaults), use "custom" format
           example: splunk
         default_metrics:
           $ref: "#/definitions/Metrics"

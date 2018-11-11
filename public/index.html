@@ -11938,7 +11938,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Use this call to set and customize publish metrics</p>
+                  <p>Use this call to set and customize publish metrics. Use one of the presets, or customize you tokens by setting output_format to &#39;custom&#39;.</p>
                 </section>
               </div>
             </div>
@@ -12071,7 +12071,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Use this call to fetch available formats, their metrics and their default tokens</p>
+                  <p>Use this call to fetch available formats / presets, their metrics and their tokens</p>
                 </section>
               </div>
             </div>
@@ -14882,11 +14882,14 @@
                   <div class="json-inner-schema">
                     <section class="json-schema-properties">
                       <dl>
-                        <dt data-property-name="output_format">
+                        <dt data-property-name="output_format" class="has-description">
                           <span class="json-property-name">output_format:</span>
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
+                        <dd>
+                          <p>For customized metrics (which are different than the format defaults), use &quot;custom&quot; format</p>
+                        </dd>
                         <dt data-property-name="default_metrics">
                           <span class="json-property-name">default_metrics:</span>
                           <span class="json-property-type">
