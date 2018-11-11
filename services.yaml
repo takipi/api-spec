@@ -1497,7 +1497,7 @@ paths:
         200:
           description: List of Available formats and metrics
           schema:
-            $ref: "#/definitions/MetricFormats"
+            $ref: "#/definitions/PublishMetricFormats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -3585,7 +3585,7 @@ definitions:
   PublishMetricsSettings:
     type: object
     properties:
-      enable:
+      enabled:
         type: boolean
         example: true
       hostname:
@@ -3597,7 +3597,7 @@ definitions:
         example: Splunk
       metrics:
         $ref: "#/definitions/Metrics"
-  MetricFormats:
+  PublishMetricFormats:
     type: array
     items:
       type: object
@@ -3615,8 +3615,10 @@ definitions:
       properties:
         name:
           type: string
+          description: Metric name
         pattern:
           type: string
+          description: Metric token
     example:
       - name: Views
         pattern: overops_views,${viewname},${serviceid},${application},${server},${deployment}

@@ -429,7 +429,7 @@
           <a href="#definition-Timer"> Timer </a>
           <a href="#definition-Alert"> Alert </a>
           <a href="#definition-PublishMetricsSettings"> PublishMetricsSettings </a>
-          <a href="#definition-MetricFormats"> MetricFormats </a>
+          <a href="#definition-PublishMetricFormats"> PublishMetricFormats </a>
           <a href="#definition-Metrics"> Metrics </a>
         </nav>
       </div>
@@ -12050,7 +12050,7 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;enable&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;hostname&quot;</span>: <span class="hljs-string">&quot;127.0.0.1:8125&quot;</span>,
   <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;Splunk&quot;</span>,
   <span class="hljs-attr">&quot;metrics&quot;</span>: [
@@ -12152,7 +12152,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;enable&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;hostname&quot;</span>: <span class="hljs-string">&quot;127.0.0.1:8125&quot;</span>,
   <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;Splunk&quot;</span>,
   <span class="hljs-attr">&quot;metrics&quot;</span>: [
@@ -12275,7 +12275,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/MetricFormats">MetricFormats</a>
+                          <a class="json-schema-ref" href="#/definitions/PublishMetricFormats">PublishMetricFormats</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -15412,8 +15412,8 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="enable">
-                      <span class="json-property-name">enable:</span>
+                    <dt data-property-name="enabled">
+                      <span class="json-property-name">enabled:</span>
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
@@ -15446,7 +15446,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;enable&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;hostname&quot;</span>: <span class="hljs-string">&quot;127.0.0.1:8125&quot;</span>,
   <span class="hljs-attr">&quot;output_format&quot;</span>: <span class="hljs-string">&quot;Splunk&quot;</span>,
   <span class="hljs-attr">&quot;metrics&quot;</span>: [
@@ -15482,9 +15482,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-MetricFormats" class="definition panel" data-traverse-target="definition-MetricFormats">
+          <div id="definition-PublishMetricFormats" class="definition panel" data-traverse-target="definition-PublishMetricFormats">
             <h2 class="panel-title">
-              <a name="/definitions/MetricFormats"></a>MetricFormats: array
+              <a name="/definitions/PublishMetricFormats"></a>PublishMetricFormats: array
               <!-- <span class="json-property-type"><span class="json-property-type">object[]</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -15578,16 +15578,22 @@
                   <div class="json-inner-schema">
                     <section class="json-schema-properties">
                       <dl>
-                        <dt data-property-name="name">
+                        <dt data-property-name="name" class="has-description">
                           <span class="json-property-name">name:</span>
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
-                        <dt data-property-name="pattern">
+                        <dd>
+                          <p>Metric name</p>
+                        </dd>
+                        <dt data-property-name="pattern" class="has-description">
                           <span class="json-property-name">pattern:</span>
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
+                        <dd>
+                          <p>Metric token</p>
+                        </dd>
                       </dl>
                     </section>
                   </div>
