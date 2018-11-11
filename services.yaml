@@ -2273,7 +2273,7 @@ paths:
       tags:
         - Views
       summary: Fetch View History
-      description: Fetch View History
+      description: This call allows to get data about the creation and the last update to the view and provides information about the update initiator and timestamp.
       parameters:
         - in: path
           name: env_id
@@ -3418,7 +3418,7 @@ definitions:
     properties:
       created_on:
         type: string
-        description: View creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+        description: View creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
         example: 2018-02-28T22:47:09.038+02:00
       creation_method:
         type: string
@@ -3431,7 +3431,7 @@ definitions:
         example: John Doe
       updated_on:
         type: string
-        description: View update time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+        description: View update time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
         example: 2018-05-01T10:00:00.020+03:00
       update_method:
         type: string
@@ -3441,7 +3441,7 @@ definitions:
       updated_by:
         type: string
         description: updated by
-        example: John Doe #do we want to see the udf name?
+        example: John Doe
   Alert:
     description: All alert settings of a view
     type: object
