@@ -3234,9 +3234,17 @@ definitions:
           - DEFAULT
           - USER
         example: USER
-      color: #consider adding available colors as enum
+      color:
         type: string
         example: RED
+      created_on:
+        type: string
+        description: Label creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: 2018-02-28T22:47:09.038+02:00
+      created_by:
+        type: string
+        description: View creator
+        example: John Doe
   Server:
     type: object
     properties:
