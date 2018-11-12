@@ -3240,7 +3240,7 @@ definitions:
       created_on:
         type: string
         description: Label creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-02-28T22:47:09.038+02:00
+        example: 2018-02-28T22:47:09.038Z
       created_by:
         type: string
         description: View creator
