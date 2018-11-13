@@ -1437,6 +1437,71 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/publish-metrics:
+    get:
+      tags:
+        - Publish Metrics
+      summary: "Fetch Publish Metrics settings"
+      description: "Use this call to fetch data about publish metrics settings, output format and the actual metrics which are currently beeing published"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Current settings for publish metrics
+          schema:
+            $ref: "#/definitions/PublishMetricsSettings"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - Publish Metrics
+      summary: "Set Publish Metrics"
+      description: "Use this call to set and customize publish metrics. Use one of the presets, or customize you tokens by setting output_format to 'custom'."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: settings
+          desciption: Publish metrics settings
+          schema:
+            $ref: "#/definitions/PublishMetricsSettings"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/publish-metrics/available_formats:
+    get:
+      tags:
+        - Publish Metrics
+      summary: "Fetch Available formats"
+      description: "Use this call to fetch available formats / presets, their metrics and their tokens"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of Available formats and metrics
+          schema:
+            $ref: "#/definitions/PublishMetricFormats"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/categories:
     get:
       tags:
@@ -3195,9 +3260,17 @@ definitions:
           - DEFAULT
           - USER
         example: USER
-      color: #consider adding available colors as enum
+      color:
         type: string
         example: RED
+      created_on:
+        type: string
+        description: Label creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: 2018-02-28T22:47:09.038Z
+      created_by:
+        type: string
+        description: View creator
+        example: John Doe
   Server:
     type: object
     properties:
@@ -3572,6 +3645,56 @@ definitions:
             type: "string"
             example: "label=sample_label_name"
         type: "object"
+  PublishMetricsSettings:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+        example: true
+      hostname:
+        type: string
+        description: The hostname and (optional) port of your StatsD server.
+        example: 127.0.0.1:8125
+      output_format:
+        type: string
+        example: Splunk
+      metrics:
+        $ref: "#/definitions/Metrics"
+  PublishMetricFormats:
+    type: array
+    items:
+      type: object
+      properties:
+        output_format:
+          type: string
+          description: For customized metrics (which are different than the format defaults), use "custom" format
+          example: splunk
+        default_metrics:
+          $ref: "#/definitions/Metrics"
+  Metrics:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Metric name
+        pattern:
+          type: string
+          description: Metric token
+    example:
+      - name: Views
+        pattern: overops_views,${viewname},${serviceid},${application},${server},${deployment}
+      - name: Events
+        pattern: overops_events,${serviceid},${application},${server},${deployment},${class},${method},${eventlink},${eventid},${labels},${eventtype},${eventname},${introducedby},${entrypointclass},${entrypointmethod},${firstseen},${infra},${jiraissuekey}
+      - name: Entry points
+        pattern: overops_entrypoints,${serviceid},${application},${server},${deployment},${entrypointclass},${entrypointmetrics}
+      - name: Custom Metrics
+        pattern: overops_metrics,${serviceid},${application},${server},${deployment},${metric}
+      - name: System
+        pattern: overops_system,${serviceid},${application},${server},${systemmetrics}
+      - name: Diagnostics
+        pattern: overops_jvms,${serviceid},${application},${server},${applicationpid}
 responses:
   OK:
     description: OK
