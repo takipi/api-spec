@@ -1847,7 +1847,7 @@ paths:
               events:
                 type: array
                 items:
-                  $ref: "#/definitions/EventStats"
+                  $ref: "#/definitions/Event"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
