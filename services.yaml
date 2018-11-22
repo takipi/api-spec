@@ -1852,7 +1852,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/views/{view_id}/events-stats:
+  /services/{env_id}/views/{view_id}/events/stats:
     get:
       tags:
         - Views
