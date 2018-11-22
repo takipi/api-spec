@@ -1852,6 +1852,71 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/views/{view_id}/events-stats:
+    get:
+      tags:
+        - Views
+        - Events
+      summary: Fetch stats for all events in the specified view
+      description: Fetch stats for a target timeframe, application / server / deployment set.
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+        - in: query
+          name: stats
+          type: string
+          enum: [hits, invocations, all]
+          description: return only selected stats. 'all' is default.
+      responses:
+        200:
+          description: Event stats
+          schema:
+            type: object
+            properties:
+              events-stats:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "42"
+                    stats:
+                      $ref: "#/definitions/EventStats"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/views/{view_id}/entrypoints:
     get:
       tags:
