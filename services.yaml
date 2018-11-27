@@ -383,9 +383,10 @@ paths:
           type: string
           required: true
         - in: query
-          name: active
-          description: Show only active deployments
-          type: boolean
+          name: state
+          description: Select the state of the deployments to be returned
+          type: string
+          enum: [all, active, inactive]
       responses:
         200:
           description: List of deployments
