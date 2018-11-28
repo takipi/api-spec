@@ -383,6 +383,10 @@ paths:
           type: string
           required: true
         - in: query
+          name: active
+          description: Show only active deployments
+          type: boolean
+        - in: query
           name: state
           description: Select the state of the deployments to be returned
           type: string
