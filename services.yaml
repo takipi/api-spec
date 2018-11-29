@@ -3084,7 +3084,7 @@ paths:
           schema:
             type: object
             properties:
-              transaction-timers:
+              transaction_timers:
                 type: array
                 items:
                   $ref: "#/definitions/Timer"
