@@ -48,6 +48,8 @@ tags:
     description: Fetch and manipulate OverOps Automated Root Cause Events and Snapshots
   - name: Timers
     description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
+  - name: Transaction Timers
+    description: Fetch and manipulate OverOps Transaction Timers - bottleneck detection and performance diagnosis for Transactions
   - name: UDFs
     description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.
 schemes:
@@ -3046,6 +3048,132 @@ paths:
         - Timers
       summary: "Delete timer"
       description: "Delete timer"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+  /services/{env_id}/transaction-timers:
+    get:
+      tags:
+        - Timers
+      summary: "List Transaction Timers"
+      description: "List all existing Transaction Timers"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of Transaction Timers
+          schema:
+            type: object
+            properties:
+              transaction-timers:
+                type: array
+                items:
+                  $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Transaction Timers
+      summary: "Create New Transaction Timer"
+      description: "Create New Transaction Timer"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: timer
+          description: Single timer
+          schema:
+            $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        409:
+          $ref: "#/responses/Conflict"
+  /services/{env_id}/transaction-timers/{timer_id}:
+    get:
+      tags:
+        - Transaction Timers
+      summary: "Get Transaction Timer Properties"
+      description: "Get Transaction Timer Properties"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Transaction Timer properties
+          schema:
+            $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Transaction Timers
+      summary: "Edit Transaction Timer data"
+      description: "Edit Transaction Timer data"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: View to use
+          type: string
+          required: true
+        - in: body
+          name: view
+          description: Single timer properties
+          schema:
+              $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    delete:
+      tags:
+        - Transaction Timers
+      summary: "Delete Transaction Timer"
+      description: "Delete Transaction Timer"
       parameters:
         - in: path
           name: env_id
