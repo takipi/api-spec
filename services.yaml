@@ -1481,7 +1481,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/settings/publish-metrics/available_formats:
+  /services/{env_id}/settings/publish-metrics/available-formats:
     get:
       tags:
         - Publish Metrics
