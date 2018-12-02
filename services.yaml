@@ -3364,7 +3364,8 @@ definitions:
         type: boolean
         example: true
   CodeLocation:
-    description: A code location, for error location, etc
+    description: A code location, for error location, etc.
+      Method position is the instruction index inside the method.
     type: object
     properties:
       prettified_name:
@@ -3379,6 +3380,9 @@ definitions:
       method_desc:
         type: string
         example: "([Ljava/lang/String;)V"
+      method_position:
+        type: integer
+        example: 42
   EventAction:
     properties:
       type:
