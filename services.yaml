@@ -3278,10 +3278,16 @@ definitions:
         type: array
         items:
           type: string
-          example: "K2"
+          example: "21"
       jira_issue_url:
-        type: "string"
+        type: string
         example: "https://example.atlassian.net/browse/EX-103"
+      class_group:
+        type: string
+        example: "K121"
+      call_stack_group:
+        type: string
+        example: "K100"
       error_location:
         $ref: "#/definitions/CodeLocation"
       entry_point:
