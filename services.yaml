@@ -3530,7 +3530,7 @@ definitions:
       id:
         type: string
         description: This is an auto generated ID. When creating/editing a timer, the value recevied in this field will be ignored.
-        example: 34
+        example: "34"
       class_name:
         type: string
         example: DBManager
