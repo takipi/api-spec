@@ -3304,10 +3304,10 @@ definitions:
     properties:
       name:
         type: string
-        example: TBD
+        example: com/company/Main#main#([Ljava/lang/String;)V
       class_name:
         type: string
-        example: "com.company.Main"
+        example: "com/company/Main"
       method_name:
         type: string
         example: "main"
