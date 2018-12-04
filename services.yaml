@@ -3304,7 +3304,16 @@ definitions:
     properties:
       name:
         type: string
-        example: LoginServlet
+        example: TBD
+      class_name:
+        type: string
+        example: "com.company.Main"
+      method_name:
+        type: string
+        example: "main"
+      method_desc:
+        type: string
+        example: "([Ljava/lang/String;)V"
       stats:
         $ref: "#/definitions/EntryPointStats"
   EntryPointStats:
