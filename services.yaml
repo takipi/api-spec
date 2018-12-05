@@ -3324,7 +3324,7 @@ definitions:
         example: 42
       avg_time:
         type: number
-        description: Average Entrypoint running time (in ms)
+        description: Average entrypoint running time (in ms)
         example: 925.7
       total_time:
         type: number
@@ -3332,7 +3332,8 @@ definitions:
         example: 934
       avg_time_std_deviation:
         type: number
-        example: 2
+        description: Standard deviation of entrypoint running time (in ms)
+        example: 130
   Label:
     type: object
     properties:
