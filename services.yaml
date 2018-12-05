@@ -3322,6 +3322,17 @@ definitions:
       invocations:
         type: integer
         example: 42
+      avg_time:
+        type: double
+        description: Average Entrypoint running time (in ms)
+        example: 925.7
+      total_time:
+        type: double
+        description: Entrypoint running time (in ms)
+        example: 934
+      avg_time_std_deviation:
+        type: double
+        example: 2
   Label:
     type: object
     properties:
