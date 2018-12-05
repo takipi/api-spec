@@ -3323,15 +3323,15 @@ definitions:
         type: integer
         example: 42
       avg_time:
-        type: double
+        type: number
         description: Average Entrypoint running time (in ms)
         example: 925.7
       total_time:
-        type: double
+        type: number
         description: Entrypoint running time (in ms)
         example: 934
       avg_time_std_deviation:
-        type: double
+        type: number
         example: 2
   Label:
     type: object
