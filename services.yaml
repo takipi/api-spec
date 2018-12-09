@@ -1773,8 +1773,8 @@ paths:
     delete:
       tags:
         - Views
-      summary: "Delete view (Not implemented yet)"
-      description: "Delete view (Not implemented yet)"
+      summary: "Delete view"
+      description: "Delete view"
       parameters:
         - in: path
           name: env_id
