@@ -1071,7 +1071,9 @@
   <span class="hljs-attr">&quot;servers&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;ip57-110-0-18&quot;</span>,
-      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+      <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
     }
   ]
 }
@@ -1176,7 +1178,9 @@
   <span class="hljs-attr">&quot;applications&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;jobs-api&quot;</span>,
-      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+      <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
     }
   ]
 }
@@ -1281,7 +1285,9 @@
   <span class="hljs-attr">&quot;deployments&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;stage1.0.4&quot;</span>,
-      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+      <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
     }
   ]
 }
@@ -14397,7 +14403,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of event names</p>
+                      <p>List of event names</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14427,7 +14433,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of event packages</p>
+                      <p>List of event packages</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14457,7 +14463,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of server names</p>
+                      <p>List of server names</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14472,7 +14478,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of application names</p>
+                      <p>List of application names</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14487,7 +14493,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of deployment names</p>
+                      <p>List of deployment names</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14502,7 +14508,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) Filters events by deployment they originated in</p>
+                      <p>Filters events by deployment they originated in</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14517,7 +14523,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) Free text search</p>
+                      <p>Free text search</p>
                     </dd>
                   </dl>
                 </section>
@@ -14944,6 +14950,22 @@
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="first_seen" class="has-description">
+                      <span class="json-property-name">first_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Indicates the time when the server was first detected by OverOps</p>
+                    </dd>
+                    <dt data-property-name="last_seen" class="has-description">
+                      <span class="json-property-name">last_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The last time when the server was seen by OverOps</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -14952,7 +14974,9 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;ip57-110-0-18&quot;</span>,
-  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -14973,16 +14997,32 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="name">
+                    <dt data-property-name="name" class="has-description">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>Indicates the time when the application was first detected by OverOps</p>
+                    </dd>
                     <dt data-property-name="active">
                       <span class="json-property-name">active:</span>
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="first_seen">
+                      <span class="json-property-name">first_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="last_seen" class="has-description">
+                      <span class="json-property-name">last_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The last time when the application was seen by OverOps</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -14991,7 +15031,9 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;jobs-api&quot;</span>,
-  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -15022,6 +15064,22 @@
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="first_seen" class="has-description">
+                      <span class="json-property-name">first_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Indicates the time when the deployment was first detected by OverOps</p>
+                    </dd>
+                    <dt data-property-name="last_seen" class="has-description">
+                      <span class="json-property-name">last_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The last time when the deployment was seen by OverOps</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -15030,7 +15088,9 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;stage1.0.4&quot;</span>,
-  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->

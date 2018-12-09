@@ -3196,7 +3196,7 @@ definitions:
           example: Swallowed Exceptions
       event_name:
         type: array
-        description: (Not implemented yet) List of event names
+        description: List of event names
         items:
           type: string
           example: IndexOutOfBoundsException
@@ -3208,7 +3208,7 @@ definitions:
           example: DotConnect
       event_package:
         type: array
-        description: (Not implemented yet) List of event packages
+        description: List of event packages
         items:
           type: string
           example: com.dotmarketing.servlets
@@ -3219,31 +3219,31 @@ definitions:
           type: string
       servers:
         type: array
-        description: (Not implemented yet) List of server names
+        description: List of server names
         items:
           type: string
           example: na-dotCMS-2
       apps:
         type: array
-        description: (Not implemented yet) List of application names
+        description: List of application names
         items:
           type: string
           example: API
       deployments:
         type: array
-        description: (Not implemented yet) List of deployment names
+        description: List of deployment names
         items:
           type: string
           example: 2018-04-11-2
       introduced_by:
         type: array
-        description: (Not implemented yet) Filters events by deployment they originated in
+        description: Filters events by deployment they originated in
         items:
           type: string
           example: Unnamed Deployment
       search:
         type: string
-        description: (Not implemented yet) Free text search
+        description: Free text search
   Event:
     description: An exception, logged error and more
     type: object
@@ -3345,15 +3345,31 @@ definitions:
       active:
         type: boolean
         example: true
+      first_seen:
+        type: string
+        description: Indicates the time when the server was first detected by OverOps
+        example: "2018-02-28T22:47:09.038Z"
+      last_seen:
+        type: string
+        description: The last time when the server was seen by OverOps
+        example: "2018-03-01T08:08:08.001Z"
   Application:
     type: object
     properties:
       name:
         type: string
+        description: Indicates the time when the application was first detected by OverOps
         example: jobs-api
       active:
         type: boolean
         example: true
+      first_seen:
+        type: string
+        example: "2018-02-28T22:47:09.038Z"
+      last_seen:
+        type: string
+        description: The last time when the application was seen by OverOps
+        example: "2018-03-01T08:08:08.001Z"
   Deployment:
     type: object
     properties:
@@ -3363,6 +3379,14 @@ definitions:
       active:
         type: boolean
         example: true
+      first_seen:
+        type: string
+        description: Indicates the time when the deployment was first detected by OverOps
+        example: "2018-02-28T22:47:09.038Z"
+      last_seen:
+        type: string
+        description: The last time when the deployment was seen by OverOps
+        example: "2018-03-01T08:08:08.001Z"
   CodeLocation:
     description: A code location, for error location, etc
     type: object
