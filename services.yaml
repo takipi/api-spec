@@ -2123,12 +2123,18 @@ paths:
                 items:
                   type: object
                   properties:
-                    type:
+                    name:
                       type: string
-                      example: "event"
-                    id:
+                      example: "Main.main"
+                    class_name:
                       type: string
-                      example: "42"
+                      example: "com.company.Main"
+                    method_name:
+                      type: string
+                      example: "main"
+                    method_desc:
+                      type: string
+                      example: "([Ljava/lang/String;)V"
                     points:
                       type: array
                       items:
@@ -2138,17 +2144,7 @@ paths:
                             type: string
                             example: "2018-02-28T22:47:09.038Z"
                           stats:
-                            $ref: "#/definitions/EventStats"
-                          contributors:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                id:
-                                  type: string
-                                  example: "42"
-                                stats:
-                                  $ref: "#/definitions/EventStats"
+                            $ref: "#/definitions/EntryPointStats"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -3313,6 +3309,18 @@ definitions:
       invocations:
         type: integer
         example: 42
+      avg_time:
+        type: number
+        description: Average entrypoint running time (in ms)
+        example: 925.7
+      total_time:
+        type: number
+        description: Entrypoint running time (in ms)
+        example: 9345
+      avg_time_std_deviation:
+        type: number
+        description: Standard deviation of entrypoint running time (in ms)
+        example: 130
   Label:
     type: object
     properties:
