@@ -3329,7 +3329,7 @@ definitions:
       total_time:
         type: number
         description: Entrypoint running time (in ms)
-        example: 934
+        example: 9345
       avg_time_std_deviation:
         type: number
         description: Standard deviation of entrypoint running time (in ms)
