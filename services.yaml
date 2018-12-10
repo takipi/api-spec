@@ -2125,7 +2125,7 @@ paths:
                   properties:
                     name:
                       type: string
-                      example: "Main.main"
+                      example: "com/company/Main#main#([Ljava/lang/String;)V"
                     class_name:
                       type: string
                       example: "com.company.Main"
