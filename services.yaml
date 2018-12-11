@@ -250,7 +250,21 @@ paths:
               $ref: "#/definitions/TeamMembersBasic"
       responses:
         200:
-          $ref: "#/responses/OK"
+          description: List of added members
+          schema:
+            properties:
+              new_members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: jane.doe@company.com
+                    link:
+                      type: string
+                      description: invitation link
+                      example: https://app.overops.com/app/cst?token=c1aaa73380844358975ede0955107f5f
         401:
           $ref: "#/responses/UnauthorizedError"
     delete:
