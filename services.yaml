@@ -2528,6 +2528,38 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/force-snapshots:
+    post:
+      tags:
+        - Events
+      summary: "Batch Force events snapshots"
+      description: "Force next snapshot for multiple events"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: events
+          description: list of events to force snapshot on next time when each of them occurs
+          schema:
+            type: object
+            properties:
+              event_ids:
+                type: array
+                items:
+                  type: string
+                  example: 42
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/events/{event_id}:
     get:
       tags:
