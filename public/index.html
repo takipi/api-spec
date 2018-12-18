@@ -8634,16 +8634,26 @@
                   <p>list of events to force snapshot on next time when each of them occurs</p>
                   <section class="json-schema-properties">
                     <dl>
-                      <dt data-property-name="event_ids">
-                        <span class="json-property-name">event_ids:</span>
-                        <span class="json-property-type">string[]</span>
+                      <dt data-property-name="items">
+                        <span class="json-property-name">items:</span>
+                        <span class="json-property-type">object[]</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </dt>
                       <dt class="json-inner-schema">
                         <section class="json-schema-array-items">
-                          <span class="json-property-type">string</span>
+                          <span class="json-property-type">object</span>
                           <span class="json-property-range" title="Value limits"></span>
-                          <div class="json-inner-schema"> </div>
+                          <div class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="event_id">
+                                  <span class="json-property-name">event_id:</span>
+                                  <span class="json-property-type">string</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                              </dl>
+                            </section>
+                          </div>
                         </section>
                       </dt>
                     </dl>
@@ -8670,8 +8680,10 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;event_ids&quot;</span>: [
-    <span class="hljs-number">42</span>
+  <span class="hljs-attr">&quot;items&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;event_id&quot;</span>: <span class="hljs-number">42</span>
+    }
   ]
 }
 </code></pre>

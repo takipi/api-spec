@@ -2541,16 +2541,19 @@ paths:
           type: string
           required: true
         - in: body
-          name: events
+          name: items
           description: list of events to force snapshot on next time when each of them occurs
           schema:
             type: object
             properties:
-              event_ids:
+              items:
                 type: array
                 items:
-                  type: string
-                  example: 42
+                  type: object
+                  properties:
+                    event_id:
+                      type: string
+                      example: 42
       responses:
         200:
           $ref: "#/responses/OK"
