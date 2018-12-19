@@ -261,9 +261,13 @@ paths:
                     email:
                       type: string
                       example: jane.doe@company.com
+                    status:
+                      type: string
+                      example: invitation sent
+                      enum: [invitation sent, already exists]
                     link:
                       type: string
-                      description: invitation link
+                      description: Invitation link for newly invited members
                       example: https://app.overops.com/app/cst?token=c1aaa73380844358975ede0955107f5f
         401:
           $ref: "#/responses/UnauthorizedError"
