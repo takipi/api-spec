@@ -152,7 +152,7 @@
                 <a href="#operation--services--env_id--views--view_id--post"> Edit view data </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--views--view_id--delete"> Delete view (Not implemented yet) </a>
+                <a href="#operation--services--env_id--views--view_id--delete"> Delete view </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--views--view_id--events-get"> Fetch events details </a>
@@ -239,6 +239,9 @@
               </li>
               <li>
                 <a href="#operation--services--env_id--views--view_id--entrypoints-get"> Fetch entrypoints details </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--events-force-snapshots-post"> Batch Force events snapshots </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--events--event_id--get"> Fetch event data </a>
@@ -1071,7 +1074,9 @@
   <span class="hljs-attr">&quot;servers&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;ip57-110-0-18&quot;</span>,
-      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+      <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
     }
   ]
 }
@@ -1176,7 +1181,9 @@
   <span class="hljs-attr">&quot;applications&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;jobs-api&quot;</span>,
-      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+      <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
     }
   ]
 }
@@ -1281,7 +1288,9 @@
   <span class="hljs-attr">&quot;deployments&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;stage1.0.4&quot;</span>,
-      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+      <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
     }
   ]
 }
@@ -4427,7 +4436,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Delete view (Not implemented yet)</span>
+              <span class="operation-summary">Delete view</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -4440,7 +4449,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Delete view (Not implemented yet)</p>
+                  <p>Delete view</p>
                 </section>
               </div>
             </div>
@@ -5138,9 +5147,15 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;entrypoints&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LoginServlet&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com/company/Main#main#([Ljava/lang/String;)V&quot;</span>,
+      <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com/company/Main&quot;</span>,
+      <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+      <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>,
       <span class="hljs-attr">&quot;stats&quot;</span>: {
-        <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>
+        <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>,
+        <span class="hljs-attr">&quot;avg_time&quot;</span>: <span class="hljs-number">925.7</span>,
+        <span class="hljs-attr">&quot;total_time&quot;</span>: <span class="hljs-number">9345</span>,
+        <span class="hljs-attr">&quot;avg_time_std_deviation&quot;</span>: <span class="hljs-number">130</span>
       }
     }
   ]
@@ -5600,24 +5615,19 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;graphs&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;event&quot;</span>,
-      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com/company/Main#main#([Ljava/lang/String;)V&quot;</span>,
+      <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+      <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+      <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>,
       <span class="hljs-attr">&quot;points&quot;</span>: [
         {
           <span class="hljs-attr">&quot;time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
           <span class="hljs-attr">&quot;stats&quot;</span>: {
-            <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
-            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
-          },
-          <span class="hljs-attr">&quot;contributors&quot;</span>: [
-            {
-              <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
-              <span class="hljs-attr">&quot;stats&quot;</span>: {
-                <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
-                <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
-              }
-            }
-          ]
+            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>,
+            <span class="hljs-attr">&quot;avg_time&quot;</span>: <span class="hljs-number">925.7</span>,
+            <span class="hljs-attr">&quot;total_time&quot;</span>: <span class="hljs-number">9345</span>,
+            <span class="hljs-attr">&quot;avg_time_std_deviation&quot;</span>: <span class="hljs-number">130</span>
+          }
         }
       ]
     }
@@ -7009,24 +7019,19 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;graphs&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;event&quot;</span>,
-      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com/company/Main#main#([Ljava/lang/String;)V&quot;</span>,
+      <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+      <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+      <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>,
       <span class="hljs-attr">&quot;points&quot;</span>: [
         {
           <span class="hljs-attr">&quot;time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
           <span class="hljs-attr">&quot;stats&quot;</span>: {
-            <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
-            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
-          },
-          <span class="hljs-attr">&quot;contributors&quot;</span>: [
-            {
-              <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;42&quot;</span>,
-              <span class="hljs-attr">&quot;stats&quot;</span>: {
-                <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
-                <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
-              }
-            }
-          ]
+            <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>,
+            <span class="hljs-attr">&quot;avg_time&quot;</span>: <span class="hljs-number">925.7</span>,
+            <span class="hljs-attr">&quot;total_time&quot;</span>: <span class="hljs-number">9345</span>,
+            <span class="hljs-attr">&quot;avg_time_std_deviation&quot;</span>: <span class="hljs-number">130</span>
+          }
         }
       ]
     }
@@ -8585,9 +8590,15 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;entrypoints&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LoginServlet&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com/company/Main#main#([Ljava/lang/String;)V&quot;</span>,
+      <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com/company/Main&quot;</span>,
+      <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+      <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>,
       <span class="hljs-attr">&quot;stats&quot;</span>: {
-        <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>
+        <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>,
+        <span class="hljs-attr">&quot;avg_time&quot;</span>: <span class="hljs-number">925.7</span>,
+        <span class="hljs-attr">&quot;total_time&quot;</span>: <span class="hljs-number">9345</span>,
+        <span class="hljs-attr">&quot;avg_time_std_deviation&quot;</span>: <span class="hljs-number">130</span>
       }
     }
   ]
@@ -8596,6 +8607,136 @@
                   <!-- </div> -->
                 </section>
               </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--events-force-snapshots-post" class="operation panel" data-traverse-target="operation--services--env_id--events-force-snapshots-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Events">Events</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Batch Force events snapshots</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/events/force-snapshots</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Force next snapshot for multiple events</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>list of events to force snapshot on next time when each of them occurs</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="items">
+                        <span class="json-property-name">items:</span>
+                        <span class="json-property-type">object[]</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">object</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="event_id">
+                                  <span class="json-property-name">event_id:</span>
+                                  <span class="json-property-type">string</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                              </dl>
+                            </section>
+                          </div>
+                        </section>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;items&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;event_id&quot;</span>: <span class="hljs-number">42</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
             </div>
           </div>
           <div id="operation--services--env_id--events--event_id--get" class="operation panel" data-traverse-target="operation--services--env_id--events--event_id--get">
@@ -14397,7 +14538,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of event names</p>
+                      <p>List of event names</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14427,7 +14568,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of event packages</p>
+                      <p>List of event packages</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14457,7 +14598,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of server names</p>
+                      <p>List of server names</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14472,7 +14613,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of application names</p>
+                      <p>List of application names</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14487,7 +14628,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of deployment names</p>
+                      <p>List of deployment names</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14502,7 +14643,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) Filters events by deployment they originated in</p>
+                      <p>Filters events by deployment they originated in</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -14517,7 +14658,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) Free text search</p>
+                      <p>Free text search</p>
                     </dd>
                   </dl>
                 </section>
@@ -14794,6 +14935,21 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="class_name">
+                      <span class="json-property-name">class_name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="method_name">
+                      <span class="json-property-name">method_name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="method_desc">
+                      <span class="json-property-name">method_desc:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                     <dt data-property-name="stats">
                       <span class="json-property-name">stats:</span>
                       <span class="json-property-type">
@@ -14810,9 +14966,15 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;LoginServlet&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com/company/Main#main#([Ljava/lang/String;)V&quot;</span>,
+  <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com/company/Main&quot;</span>,
+  <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+  <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>,
   <span class="hljs-attr">&quot;stats&quot;</span>: {
-    <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>
+    <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>,
+    <span class="hljs-attr">&quot;avg_time&quot;</span>: <span class="hljs-number">925.7</span>,
+    <span class="hljs-attr">&quot;total_time&quot;</span>: <span class="hljs-number">9345</span>,
+    <span class="hljs-attr">&quot;avg_time_std_deviation&quot;</span>: <span class="hljs-number">130</span>
   }
 }
 </code></pre>
@@ -14839,6 +15001,30 @@
                       <span class="json-property-type">integer</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="avg_time" class="has-description">
+                      <span class="json-property-name">avg_time:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Average entrypoint running time (in ms)</p>
+                    </dd>
+                    <dt data-property-name="total_time" class="has-description">
+                      <span class="json-property-name">total_time:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Entrypoint running time (in ms)</p>
+                    </dd>
+                    <dt data-property-name="avg_time_std_deviation" class="has-description">
+                      <span class="json-property-name">avg_time_std_deviation:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Standard deviation of entrypoint running time (in ms)</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -14846,7 +15032,10 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>
+  <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">42</span>,
+  <span class="hljs-attr">&quot;avg_time&quot;</span>: <span class="hljs-number">925.7</span>,
+  <span class="hljs-attr">&quot;total_time&quot;</span>: <span class="hljs-number">9345</span>,
+  <span class="hljs-attr">&quot;avg_time_std_deviation&quot;</span>: <span class="hljs-number">130</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -14944,6 +15133,22 @@
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="first_seen" class="has-description">
+                      <span class="json-property-name">first_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Indicates the time when the server was first detected by OverOps</p>
+                    </dd>
+                    <dt data-property-name="last_seen" class="has-description">
+                      <span class="json-property-name">last_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The last time when the server was seen by OverOps</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -14952,7 +15157,9 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;ip57-110-0-18&quot;</span>,
-  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -14973,16 +15180,32 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="name">
+                    <dt data-property-name="name" class="has-description">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>Indicates the time when the application was first detected by OverOps</p>
+                    </dd>
                     <dt data-property-name="active">
                       <span class="json-property-name">active:</span>
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="first_seen">
+                      <span class="json-property-name">first_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="last_seen" class="has-description">
+                      <span class="json-property-name">last_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The last time when the application was seen by OverOps</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -14991,7 +15214,9 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;jobs-api&quot;</span>,
-  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -15022,6 +15247,22 @@
                       <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="first_seen" class="has-description">
+                      <span class="json-property-name">first_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Indicates the time when the deployment was first detected by OverOps</p>
+                    </dd>
+                    <dt data-property-name="last_seen" class="has-description">
+                      <span class="json-property-name">last_seen:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The last time when the deployment was seen by OverOps</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -15030,7 +15271,9 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;stage1.0.4&quot;</span>,
-  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;first_seen&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;last_seen&quot;</span>: <span class="hljs-string">&quot;2018-03-01T08:08:08.001Z&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
