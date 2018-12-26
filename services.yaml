@@ -3339,7 +3339,16 @@ definitions:
     properties:
       name:
         type: string
-        example: LoginServlet
+        example: com/company/Main#main#([Ljava/lang/String;)V
+      class_name:
+        type: string
+        example: "com/company/Main"
+      method_name:
+        type: string
+        example: "main"
+      method_desc:
+        type: string
+        example: "([Ljava/lang/String;)V"
       stats:
         $ref: "#/definitions/EntryPointStats"
   EntryPointStats:
@@ -3348,6 +3357,18 @@ definitions:
       invocations:
         type: integer
         example: 42
+      avg_time:
+        type: number
+        description: Average entrypoint running time (in ms)
+        example: 925.7
+      total_time:
+        type: number
+        description: Entrypoint running time (in ms)
+        example: 9345
+      avg_time_std_deviation:
+        type: number
+        description: Standard deviation of entrypoint running time (in ms)
+        example: 130
   Label:
     type: object
     properties:
