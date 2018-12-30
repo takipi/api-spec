@@ -3410,13 +3410,13 @@ definitions:
     properties:
       name:
         type: string
-        description: Indicates the time when the application was first detected by OverOps
         example: jobs-api
       active:
         type: boolean
         example: true
       first_seen:
         type: string
+        description: Indicates the time when the application was first detected by OverOps
         example: "2018-02-28T22:47:09.038Z"
       last_seen:
         type: string
