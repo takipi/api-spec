@@ -268,7 +268,7 @@ paths:
                     link:
                       type: string
                       description: Invitation link for newly invited members
-                      example: https://app.overops.com/app/cst?token=c1aaa73380844358975ede0955107f5f
+                      example: https://app.overops.com/app/cst?token=abcda12345678
         401:
           $ref: "#/responses/UnauthorizedError"
     delete:
