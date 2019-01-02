@@ -2002,8 +2002,12 @@ paths:
         - in: query
           name: points
           type: integer
-          description: Number of data points to return within the interval
-          required: true
+          description: Number of data points to return within the interval. **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
+        - in: query
+          name: resolution
+          type: string
+          enum: [M1, M5, H1, H8]
+          description: Select graph resolution (use M1/M5 for 1 point per 1/5 minutes; use H1/H8 for 1 point per 1/8 hours). **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
         - in: query
           name: server
           type: string
@@ -2093,8 +2097,12 @@ paths:
         - in: query
           name: points
           type: integer
-          description: Number of data points to return within the interval
-          required: true
+          description: Number of data points to return within the interval. **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
+        - in: query
+          name: resolution
+          type: string
+          enum: [M1, M5, H1, H8]
+          description: Select graph resolution (use M1/M5 for 1 point per 1/5 minutes; use H1/H8 for 1 point per 1/8 hours). **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
         - in: query
           name: server
           type: string
@@ -2180,8 +2188,12 @@ paths:
         - in: query
           name: points
           type: integer
-          description: Number of data points to return within the interval
-          required: true
+          description: Number of data points to return within the interval. **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
+        - in: query
+          name: resolution
+          type: string
+          enum: [M1, M5, H1, H8]
+          description: Select graph resolution (use M1/M5 for 1 point per 1/5 minutes; use H1/H8 for 1 point per 1/8 hours). **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
         - in: query
           name: server
           type: string
