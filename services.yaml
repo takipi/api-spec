@@ -250,7 +250,25 @@ paths:
               $ref: "#/definitions/TeamMembersBasic"
       responses:
         200:
-          $ref: "#/responses/OK"
+          description: List of added members
+          schema:
+            properties:
+              new_members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: jane.doe@company.com
+                    status:
+                      type: string
+                      example: invitation sent
+                      enum: [invitation sent, already exists]
+                    link:
+                      type: string
+                      description: Invitation link for newly invited members
+                      example: https://app.overops.com/app/cst?token=abcda12345678
         401:
           $ref: "#/responses/UnauthorizedError"
     delete:
@@ -1498,6 +1516,50 @@ paths:
           description: List of Available formats and metrics
           schema:
             $ref: "#/definitions/PublishMetricFormats"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/alerts:
+    get:
+      tags:
+        - Alerts
+      summary: "Fetch Default Alert Settings"
+      description: "Use this call to fetch default alert settings for selected environment"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of alert defaults
+          schema:
+            $ref: "#/definitions/AlertDefaults"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - Alerts
+      summary: "Update Default Alert Settings"
+      description: "Use this call to update default alert settings for selected environment which will be used as initial settings for every new alert opened in this environment. "
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: alert_defaults
+          description: Default alert settings
+          schema:
+            $ref: "#/definitions/AlertDefaults"
+      responses:
+        200:
+          $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -3422,13 +3484,13 @@ definitions:
     properties:
       name:
         type: string
-        description: Indicates the time when the application was first detected by OverOps
         example: jobs-api
       active:
         type: boolean
         example: true
       first_seen:
         type: string
+        description: Indicates the time when the application was first detected by OverOps
         example: "2018-02-28T22:47:09.038Z"
       last_seen:
         type: string
@@ -3798,6 +3860,71 @@ definitions:
             type: "string"
             example: "label=sample_label_name"
         type: "object"
+  AlertDefaults:
+    description: Default alert settings for an environment
+    type: object
+    properties:
+      email:
+        type: "object"
+        properties:
+          alert_me:
+            type: "boolean"
+            example: true
+          alert_all_team_members:
+            type: "boolean"
+            example: false
+          alert_additional_emails:
+            type: "boolean"
+            example: false
+          additional_emails_to_alert:
+            type: "array"
+            items:
+              type: string
+              example: "user1@company.com"
+      slack:
+        type: "object"
+        properties:
+          inhook_url:
+            type: "string"
+            example: "https://hooks.slack.com/services/xxxxyyyyy/xxxx/sdf123rskfsdf1j"
+      pager_duty:
+        type: "object"
+        properties:
+          service_integration_key:
+            type: "string"
+            example: "sflk234lkdjflsj12o8312"
+      service_now:
+        type: "object"
+        properties:
+          url:
+            type: "string"
+            example: "http://servicenow.company.com/hooks"
+          user_id:
+            type: "string"
+            example: "admin"
+          password:
+            type: "string"
+            example: "pa$$1"
+          table:
+            type: "string"
+            example: "overops"
+      hip_chat:
+        type: "object"
+        properties:
+          token:
+            type: "string"
+            example: "dfgdk2342kljsldfjslk2342fsdfkjslkj"
+          room:
+            type: "string"
+            example: "Takipi"
+      webhook:
+        type: "object"
+        properties:
+          webhook_url:
+            type: "string"
+            example: "http://hooks.company.com/overops1/P1/hook"
+      #jira_settings: <- TBD
+      #udf_settings <- TBD
   PublishMetricsSettings:
     type: object
     properties:
