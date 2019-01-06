@@ -30,26 +30,30 @@ basePath: /api/v1
 tags:
   - name: General
     description: Fetch general information about provisioned OverOps enviroments
+  - name: Events
+    description: Fetch and manipulate OverOps Automated Root Cause Events and Snapshots
+  - name: Views
+    description: Fetch and manipulate grouping of events (i.e. Views) according to attribute sets (e.g. "uncaught exceptions", "errors from package com.acme")
+  - name: Labels
+    description: Fetch and manipulate events labels
+  - name: Alerts
+    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
+  - name: Publish Metrics
+    description: Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools, providing control over application data from OverOps.
+  - name: View Metrics
+    description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments.
+  - name: Categories
+    description: Fetch and manipulate grouping of views into logical categories (e.g "CI/CD", "Favorites")
+  - name: UDFs
+    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.
+  - name: Timers
+    description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
   - name: Team Management
     description: APIs related to team management of a service
   - name: Data Redaction
     description: Fetch and manipulate data redaction of PII with target environments.
-  - name: Code Filters
+  - name: Code Redaction
     description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes  from OverOps analysis and data capture.
-  - name: Views
-    description: Fetch and manipulate grouping of events (i.e. Views) according to attribute sets (e.g. "uncaught exceptions", "errors from package com.acme")
-  - name: Categories
-    description: Fetch and manipulate grouping of views into logical categories (e.g "CI/CD", "Favorites")
-  - name: View Metrics
-    description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments.
-  - name: Alerts
-    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
-  - name: Events
-    description: Fetch and manipulate OverOps Automated Root Cause Events and Snapshots
-  - name: Timers
-    description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
-  - name: UDFs
-    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.
 schemes:
 - "https"
 paths:
