@@ -57,77 +57,7 @@ tags:
 schemes:
 - "https"
 paths:
-  /global-settings/udfs:
-    get:
-      tags:
-        - UDFs
-      summary: List available UDF libraries
-      description: List available UDF (User Defined Functions) libraries
-      responses:
-        200:
-          description: UDF libraries list
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/UDFLibrary"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    post:
-      tags:
-        - UDFs
-      summary: Add a new UDF library
-      description: Add a new UDF library
-      parameters:
-        - in: body
-          name: udf
-          schema:
-            type: object
-            properties:
-              udf:
-                type: string
-                format: binary
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /global-settings/udfs/{library_id}:
-    get:
-      tags:
-        - UDFs
-      summary: Get UDF library properties
-      description: Get UDF (User Defined Function) library properties
-      parameters:
-        - in: path
-          name: library_id
-          description: UDF library ID to be used
-          type: string
-          required: true
-      responses:
-        200:
-          description: UDF library properties
-          schema:
-            $ref: "#/definitions/UDFLibrary"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      tags:
-        - UDFs
-      summary: "Remove UDF library (TBD - Not yet implemented)"
-      description: "Remove UDF library (TBD - Not yet implemented)"
-      parameters:
-        - in: path
-          name: library_id
-          description: UDF library ID to be used
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
+#General
   /services:
     get:
       tags:
@@ -211,111 +141,6 @@ paths:
           description: Updated environment properties
           schema:
             $ref: "#/definitions/EnvironmentBasic"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/team:
-    get:
-      tags:
-        - Team Management
-      summary: "List environment team members"
-      description: "List team members with access to this environment"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: query
-          name: email
-          description: Team member email
-          type: string
-      responses:
-        200:
-          description: List of team members
-          schema:
-            $ref: "#/definitions/TeamMembersFull"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    post:
-      tags:
-        - Team Management
-      summary: "Add new members"
-      description: "Add new members"
-      parameters:
-          - in: path
-            name: env_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: body
-            name: team_members
-            description: list of team members
-            schema:
-              $ref: "#/definitions/TeamMembersBasic"
-      responses:
-        200:
-          description: List of added members
-          schema:
-            properties:
-              new_members:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                      example: jane.doe@company.com
-                    status:
-                      type: string
-                      example: invitation sent
-                      enum: [invitation sent, already exists]
-                    link:
-                      type: string
-                      description: Invitation link for newly invited members
-                      example: https://app.overops.com/app/cst?token=abcda12345678
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      tags:
-        - Team Management
-      summary: "Delete members from an environment"
-      description: "Delete members from an environment. This call requires admin role"
-      parameters:
-          - in: path
-            name: env_id
-            description:  Environment ID to use (e.g. S1234)
-            type: string
-            required: true
-          - in: body
-            name: team_members
-            description: list of team members
-            schema:
-              $ref: "#/definitions/TeamMembersBasic"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/team/change-role:
-    post:
-      tags:
-        - Team Management
-      summary: "Edit roles"
-      description: "Edit roles for selected group of users"
-      parameters:
-          - in: path
-            name: env_id
-            description: Environment to use
-            type: string
-            required: true
-          - in: body
-            name: team_members
-            description: list of team members
-            schema:
-              $ref: "#/definitions/TeamMembersBasic"
-      responses:
-        200:
-          $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings:
@@ -419,1000 +244,6 @@ paths:
                   $ref: "#/definitions/Deployment"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction:
-    get:
-      tags:
-        - Code Redaction
-      summary: "List all environment code redaction settings"
-      description: "List all environment code exclusions and inclusions"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of included and excluded classes and packages
-          schema:
-            type: object
-            properties:
-              exclude:
-                type: object
-                properties:
-                  classes:
-                    type: array
-                    items:
-                      $ref: "#/definitions/ExcludedClassName"
-                  packages:
-                    type: array
-                    items:
-                      $ref: "#/definitions/ExcludedPackageName"
-              include:
-                type: object
-                properties:
-                  classes:
-                    type: array
-                    items:
-                      $ref: "#/definitions/IncludedClassName"
-                  packages:
-                    type: array
-                    items:
-                      $ref: "#/definitions/IncludedPackageName"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/exclude:
-    get:
-      tags:
-        - Code Redaction
-      summary: "List all code exclusions"
-      description: "List all code exclusions"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of excluded classes and packages
-          schema:
-            type: object
-            properties:
-              classes:
-                type: array
-                items:
-                  $ref: "#/definitions/ExcludedClassName"
-              packages:
-                type: array
-                items:
-                  $ref: "#/definitions/ExcludedPackageName"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/exclude/classes:
-    get:
-      tags:
-        - Code Redaction
-      summary: "List all excluded classes"
-      description: "List all excluded classes"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of excluded classes
-          schema:
-            type: object
-            properties:
-              classes:
-                type: array
-                items:
-                  $ref: "#/definitions/ExcludedClassName"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/exclude/classes/{class_name}:
-    get:
-      tags:
-        - Code Redaction
-      summary: "Retrieve an excluded class"
-      description: "Retrieve an excluded class"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-      responses:
-        200:
-          description: An excluded class
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/ExcludedClassName"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Code Redaction
-      summary: "Add a class to the exclusion list"
-      description: "Add a class to the exclusion list. The body class name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-        - in: body
-          name: class
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/ExcludedClassName"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      tags:
-        - Code Redaction
-      summary: "Remove a class from exclusion"
-      description: "Remove a class from the exclusion list"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/exclude/packages:
-    get:
-      tags:
-        - Code Redaction
-      summary: "List all excluded packages"
-      description: "List all excluded packages"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of excluded packages
-          schema:
-            type: object
-            properties:
-              packages:
-                type: array
-                items:
-                  $ref: "#/definitions/ExcludedPackageName"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/exclude/packages/{package_name}:
-    get:
-      tags:
-        - Code Redaction
-      summary: "Retrieve an excluded package"
-      description: "Retrieve an excluded package"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-      responses:
-        200:
-          description: An excluded package
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/ExcludedPackageName"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Code Redaction
-      summary: "Add a package to the exclusion list"
-      description: "Add a package to the exclusion list. The body package name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-        - in: body
-          name: package
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/ExcludedPackageName"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      tags:
-        - Code Redaction
-      summary: "Remove a package from the exclusion list"
-      description: "Remove a package from the exclusion list"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/include:
-    get:
-      tags:
-        - Code Redaction
-      summary: "List all code inclusions"
-      description: "List all code inclusions"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of included classes and packages
-          schema:
-            type: object
-            properties:
-              classes:
-                type: array
-                items:
-                  $ref: "#/definitions/IncludedClassName"
-              packages:
-                type: array
-                items:
-                  $ref: "#/definitions/IncludedPackageName"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/include/classes:
-    get:
-      tags:
-        - Code Redaction
-      summary: "List all included classes"
-      description: "List all included classes"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of included classes
-          schema:
-            type: object
-            properties:
-              classes:
-                type: array
-                items:
-                  $ref: "#/definitions/IncludedClassName"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/include/classes/{class_name}:
-    get:
-      tags:
-        - Code Redaction
-      summary: "Retrieve an included class"
-      description: "Retrieve an included class"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-      responses:
-        200:
-          description: An included class
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/IncludedClassName"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Code Redaction
-      summary: "Add a class to the inclusion list"
-      description: "Add a class to the inclusion list. The body class name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-        - in: body
-          name: class
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/IncludedClassName"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      tags:
-        - Code Redaction
-      summary: "Remove a class from the inclusion list"
-      description: "Remove a class from the inclusion list"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/include/packages:
-    get:
-      tags:
-        - Code Redaction
-      summary: "List all included packages"
-      description: "List all included packages"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of included packages
-          schema:
-            properties:
-              packages:
-                type: array
-                items:
-                  $ref: "#/definitions/IncludedPackageName"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/code-redaction/include/packages/{package_name}:
-    get:
-      tags:
-        - Code Redaction
-      summary: "Retrieve an included package"
-      description: "Retrieve an included package"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-      responses:
-        200:
-          description: An included package
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Code Redaction
-      summary: "Add a package to the inclusion list"
-      description: "Add a package to the inclusion list. The body package name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-        - in: body
-          name: package
-          schema:
-            properties:
-              name:
-                $ref: "#/definitions/IncludedPackageName"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      tags:
-        - Code Redaction
-      summary: "Remove a package from the inclusion list"
-      description: "Remove a package from the inclusion list"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/data-redaction:
-    get:
-      tags:
-        - Data Redaction
-      summary: "List all data redactions"
-      description: "List all data redactions"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of data redaction
-          schema:
-            type: object
-            properties:
-              packages:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: "com.example"
-              patterns:
-                type: array
-                items:
-                  $ref: "#/definitions/Pattern"
-              identifiers:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: "password"
-              classes:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: "IPv4"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/data-redaction/patterns:
-    get:
-      tags:
-        - Data Redaction
-      summary: "List all regex patterns"
-      description: "List all regex patterns"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of regex patterns
-          schema:
-            type: object
-            properties:
-              patterns:
-                type: array
-                items:
-                  $ref: "#/definitions/Pattern"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/data-redaction/patterns/{pattern}:
-    get:
-      tags:
-        - Data Redaction
-      summary: "Retrieve a pattern"
-      description: "Retrieve a pattern"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: pattern
-          description: A RegEx pattern name
-          type: string
-          required: true
-      responses:
-        200:
-          description: A pattern
-          schema:
-            $ref: '#/definitions/Pattern'
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Data Redaction
-      summary: "Create a pattern"
-      description: "Add a RegEx pattern to be redacted. The pattern name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: pattern
-          description: A RegEx pattern name
-          type: string
-          required: true
-        - in: body
-          name: pattern
-          schema:
-            $ref: '#/definitions/Pattern'
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      tags:
-        - Data Redaction
-      summary: "Delete a pattern"
-      description: "Removes a pattern from the redaction list"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: pattern
-          description: A RegEx pattern name
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/data-redaction/identifiers:
-    get:
-      tags:
-        - Data Redaction
-      summary: "List all identifiers"
-      description: "List all identifiers"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of identifiers
-          schema:
-            type: object
-            properties:
-              identifiers:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: "password"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/data-redaction/identifiers/{identifier}:
-    get:
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: identifier
-          description: A code identifier
-          type: string
-          required: true
-      tags:
-        - Data Redaction
-      summary: "Retrieve an identifier"
-      description: "Retrieve an identifier"
-      responses:
-        200:
-          description: If the redaction exists
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "password"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Data Redaction
-      summary: "Add an identifier"
-      description: "Add an identifier. The body identifier name must match the resource identifier"
-      operationId: addIdentifier
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: identifier
-          description: A code identifier
-          type: string
-          required: true
-        - name: name
-          in: body
-          description: Identifier object
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "password"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: identifier
-          description: A code identifier
-          type: string
-          required: true
-      tags:
-        - Data Redaction
-      summary:  "Delete identifier"
-      description: "Delete identifier"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/data-redaction/classes:
-    get:
-      tags:
-        - Data Redaction
-      summary: "List all classes"
-      description: "List all classes"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of classes
-          schema:
-            type: object
-            properties:
-              classes:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: "IPv4"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/data-redaction/classes/{class_name}:
-    get:
-      tags:
-        - Data Redaction
-      summary: "Retrieve a class"
-      description: "Retrieve a class from the data redaction list"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          description: Class name to redact.
-          type: string
-          required: true
-      responses:
-        200:
-          description: If the redaction exists
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "IPv4"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Data Redaction
-      summary: "Add a class for data redaction"
-      description: "Add a class to the redaction list. The body class name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          description: Class name to redact.
-          type: string
-          required: true
-        - in: body
-          description: A JSON representing a class to add for redaction
-          name: name
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "IPv4"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      tags:
-        - Data Redaction
-      summary:  "Delete a class"
-      description: "Delete a class"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          description: Class name to redact.
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/data-redaction/packages:
-    get:
-      tags:
-        - Data Redaction
-      summary: "List all packages"
-      description: "List all packages"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of packages
-          schema:
-            type: object
-            properties:
-              packages:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: "com.example"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/data-redaction/packages/{package_name}:
-    get:
-      tags:
-        - Data Redaction
-      summary: "Retrieve a package"
-      description: "Retrieve a package"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          description: Fully qualified Java package name
-          type: string
-          required: true
-      responses:
-        200:
-          description: If the redaction exists
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "com.example"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Data Redaction
-      summary: "Create a package"
-      description: "Create a package. The body package name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          description: Fully qualified Java package name
-          type: string
-          required: true
-        - in: body
-          name: name
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "com.example"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    delete:
-      tags:
-        - Data Redaction
-      summary: "Delete package"
-      description: "Delete package"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          description: Fully qualified Java package name
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/storage-settings:
     get:
       tags:
@@ -1459,170 +290,48 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/settings/publish-metrics:
-    get:
-      tags:
-        - Publish Metrics
-      summary: "Fetch Publish Metrics settings"
-      description: "Use this call to fetch data about publish metrics settings, output format and the actual metrics which are currently beeing published"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-      responses:
-        200:
-          description: Current settings for publish metrics
-          schema:
-            $ref: "#/definitions/PublishMetricsSettings"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
+#Events
+  /services/{env_id}/events/force-snapshots:
     post:
       tags:
-        - Publish Metrics
-      summary: "Set Publish Metrics"
-      description: "Use this call to set and customize publish metrics. Use one of the presets, or customize you tokens by setting output_format to 'custom'."
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: body
-          name: settings
-          description: Publish metrics settings
-          schema:
-            $ref: "#/definitions/PublishMetricsSettings"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{env_id}/settings/publish-metrics/available_formats:
-    get:
-      tags:
-        - Publish Metrics
-      summary: "Fetch Available formats"
-      description: "Use this call to fetch available formats / presets, their metrics and their tokens"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of Available formats and metrics
-          schema:
-            $ref: "#/definitions/PublishMetricFormats"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{env_id}/settings/alerts:
-    get:
-      tags:
-        - Alerts
-      summary: "Fetch Default Alert Settings"
-      description: "Use this call to fetch default alert settings for selected environment"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of alert defaults
-          schema:
-            $ref: "#/definitions/AlertDefaults"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-    post:
-      tags:
-        - Alerts
-      summary: "Update Default Alert Settings"
-      description: "Use this call to update default alert settings for selected environment which will be used as initial settings for every new alert opened in this environment. "
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: body
-          name: alert_defaults
-          description: Default alert settings
-          schema:
-            $ref: "#/definitions/AlertDefaults"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{env_id}/categories:
-    get:
-      tags:
-        - Categories
-      summary: "List categories"
-      description: "List view categories"
+        - Events
+      summary: "Batch Force events snapshots"
+      description: "Force next snapshot for multiple events"
       parameters:
         - in: path
           name: env_id
           description: Environment ID to use (e.g. S1234)
           type: string
           required: true
-      responses:
-        200:
-          description: List of View Categories and their info
+        - in: body
+          name: items
+          description: list of events to force snapshot on next time when each of them occurs
           schema:
             type: object
             properties:
-              categories:
+              items:
                 type: array
                 items:
-                  $ref: "#/definitions/Category"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    post:
-      tags:
-        - Categories
-      summary: "Create category (Not implemented yet)" #shall be published only when delete call is implemented
-      description: "Create category (Not implemented yet)"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: body
-          name: category
-          description: category properties
-          schema:
-            $ref: "#/definitions/Category"
+                  type: object
+                  properties:
+                    event_id:
+                      type: string
+                      example: 42
       responses:
         200:
-          $ref: "#/responses/TBD"
+          $ref: "#/responses/OK"
         400:
           $ref: "#/responses/BadRequestError"
-        409:
-          $ref: "#/responses/Conflict"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/categories/{category_id}:
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/{event_id}:
     get:
       tags:
-        - Categories
-      summary: "Get category details (Not implemented yet)"
-      description: "Get category details (Not implemented yet)"
+        - Events
+      summary: "Fetch event data"
+      description: "Fetch event data"
       parameters:
         - in: path
           name: env_id
@@ -1630,24 +339,25 @@ paths:
           type: string
           required: true
         - in: path
-          name: category_id
-          description: View category to use
+          name: event_id
+          description: Event to use
           type: string
           required: true
       responses:
         200:
-          description: Category info
+          description: Event data
           schema:
-            $ref: "#/definitions/Category"
+            $ref: "#/definitions/Event"
         401:
           $ref: "#/responses/UnauthorizedError"
-        403:
-          $ref: "#/responses/ForbiddenError"
-    delete:
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/{event_id}/inbox:
+    post:
       tags:
-        - Categories
-      summary: "Delete category (Not implemented yet)"
-      description: "Delete category (Not implemented yet)"
+        - Labels
+      summary: "Move to Inbox"
+      description: "Move the specified event into Inbox"
       parameters:
         - in: path
           name: env_id
@@ -1655,8 +365,168 @@ paths:
           type: string
           required: true
         - in: path
-          name: category_id
-          description: View category to use
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/{event_id}/delete:
+    post:
+      tags:
+        - Labels
+      summary: "Move to Trash"
+      description: "Move the specified event into Trash"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/{event_id}/resolve:
+    post:
+      tags:
+        - Labels
+      summary: "Mark as resolved"
+      description: "Marks the specified event as resolved"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/{event_id}/snapshot:
+    get:
+      tags:
+        - Events
+      summary: "Fetch event snapshot"
+      description: "Fetch event snapshot.
+        Fetches the last relevant snapshot for the specific filters provided.
+        All filters are optional."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+        - in: query
+          name: similar_event_id
+          type: string
+          description: Event(s) added to the filter
+      responses:
+        200:
+          description: Link to snapshot
+          schema:
+            type: object
+            properties:
+              link:
+                type: string
+                example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/{event_id}/snapshots:
+    delete:
+      tags:
+        - Events
+      summary: "Delete all event snapshots"
+      description: "Removes all existing snapshots for an event. All snapshots will be permanently deleted. Event statistics will be kept."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
           type: string
           required: true
       responses:
@@ -1664,15 +534,14 @@ paths:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
-        403:
-          $ref: "#/responses/ForbiddenError"
-  /services/{env_id}/categories/{category_id}/views:
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/{event_id}/force-snapshot:
     post:
       tags:
-        - Views
-        - Categories
-      summary: "Add view to selected category"
-      description: "Add view to selected category"
+        - Events
+      summary: Force Event Snapshot
+      description: Force snapshot for the next time the event occurs
       parameters:
         - in: path
           name: env_id
@@ -1680,26 +549,205 @@ paths:
           type: string
           required: true
         - in: path
-          name: category_id
-          description: View category to use
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/events/{event_id}/actions:
+    get:
+      tags:
+        - Events
+      summary: "Fetch event actions"
+      description: "Fetch event actions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: type
+          description: Filter by specific type
+          type: string
+      responses:
+        200:
+          description: Event actions
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/EventAction"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+#Labels
+  /services/{env_id}/labels:
+    get:
+      tags:
+        - Labels
+      summary: "List labels"
+      description: "List all existing labels"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of labels
+          schema:
+            type: object
+            properties:
+              labels:
+                type: array
+                items:
+                  $ref: "#/definitions/Label"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Labels
+      summary: "Create new label"
+      description: "Create a new label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: body
-          description: View ID (string)
-          name: view_id
-          required: true
+          name: label
+          description: Single label
           schema:
-            type: string
-            example: P12
+            $ref: "#/definitions/Label"
       responses:
         200:
           $ref: "#/responses/OK"
-        404:
-          $ref: "#/responses/NotFoundError"
-        403:
-          $ref: "#/responses/ForbiddenError"
+        400:
+          $ref: "#/responses/BadRequestError"
         401:
           $ref: "#/responses/UnauthorizedError"
+        409:
+          $ref: "#/responses/Conflict"
+  /services/{env_id}/events/labels:
+    post:
+      tags:
+        - Labels
+      summary: "Batch Add/Remove labels"
+      description: "Append/Detach labels to/from events"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
+        - in: body
+          name: item
+          description: list of events and label names to append/detach
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    event_id:
+                      type: string
+                      example: 42
+                    add:
+                      type: array
+                      items:
+                        type: string
+                        example: "Critical"
+                    remove:
+                      type: array
+                      items:
+                        type: string
+                        example: "Low"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/events/{event_id}/labels:
+    post:
+      tags:
+        - Labels
+      summary: "Add/Remove labels"
+      description: "Append and remove label(s) from an event"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: event_id
+          description: Event to use
+          type: string
+          required: true
+        - in: query
+          name: force
+          description: Force adding labels, even if it exists
+          type: boolean
+          default: false
+        - in: query
+          name: handle_similar_events
+          description: Change the labels on all similar events
+          type: boolean
+          default: true
+        - in: body
+          name: item
+          description: list of label names to add / remove
+          schema:
+            type: object
+            properties:
+              add:
+                type: array
+                items:
+                  type: string
+                  example: "Critical"
+              remove:
+                type: array
+                items:
+                  type: string
+                  example: "Low"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+#Views
   /services/{env_id}/views:
     get:
       tags:
@@ -2318,87 +1366,6 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/views/{view_id}/alerts:
-    get:
-      tags:
-        - Alerts
-      summary: "Fetch Alert settings for a View"
-      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc)"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: view_id
-          description: View ID to use (e.g. P283)
-          type: string
-          required: true
-      responses:
-        200:
-          description: Alert data
-          schema:
-            $ref: "#/definitions/Alert"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        403:
-          $ref: "#/responses/ForbiddenError"
-        404:
-          $ref: "#/responses/NotFoundError"
-    post:
-      tags:
-        - Alerts
-      summary: "Edit Alert settings of a View"
-      description: "Edit Alert settings of a View"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: view_id
-          description: View ID to use (e.g. P283)
-          type: string
-          required: true
-        - in: body
-          name: alert
-          description: Alerts settings
-          schema:
-              $ref: "#/definitions/Alert"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        403:
-          $ref: "#/responses/ForbiddenError"
-        404:
-          $ref: "#/responses/NotFoundError"
-    delete:
-      tags:
-        - Alerts
-      summary: "Remove Alert settings"
-      description: "Disables all Alert settings for a View"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: view_id
-          description: View ID to use (e.g. P283)
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        403:
-          $ref: "#/responses/ForbiddenError"
   /services/{env_id}/views/{view_id}/anomaly:
     post:
       tags:
@@ -2498,151 +1465,57 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/labels:
+#Alerts
+  /services/{env_id}/settings/alerts:
     get:
       tags:
-        - Labels
-      summary: "List labels"
-      description: "List all existing labels"
+        - Alerts
+      summary: "Fetch Default Alert Settings"
+      description: "Use this call to fetch default alert settings for selected environment"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Environment to use
           type: string
           required: true
       responses:
         200:
-          description: List of labels
+          description: List of alert defaults
           schema:
-            type: object
-            properties:
-              labels:
-                type: array
-                items:
-                  $ref: "#/definitions/Label"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    post:
-      tags:
-        - Labels
-      summary: "Create new label"
-      description: "Create a new label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization."
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: body
-          name: label
-          description: Single label
-          schema:
-            $ref: "#/definitions/Label"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        409:
-          $ref: "#/responses/Conflict"
-  /services/{env_id}/events/labels:
-    post:
-      tags:
-        - Labels
-      summary: "Batch Add/Remove labels"
-      description: "Append/Detach labels to/from events"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: query
-          name: force
-          description: Force adding labels, even if it exists
-          type: boolean
-          default: false
-        - in: query
-          name: handle_similar_events
-          description: Change the labels on all similar events
-          type: boolean
-          default: true
-        - in: body
-          name: item
-          description: list of events and label names to append/detach
-          schema:
-            type: object
-            properties:
-              items:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    event_id:
-                      type: string
-                      example: 42
-                    add:
-                      type: array
-                      items:
-                        type: string
-                        example: "Critical"
-                    remove:
-                      type: array
-                      items:
-                        type: string
-                        example: "Low"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
+            $ref: "#/definitions/AlertDefaults"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/events/force-snapshots:
     post:
       tags:
-        - Events
-      summary: "Batch Force events snapshots"
-      description: "Force next snapshot for multiple events"
+        - Alerts
+      summary: "Update Default Alert Settings"
+      description: "Use this call to update default alert settings for selected environment which will be used as initial settings for every new alert opened in this environment. "
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Environment to use
           type: string
           required: true
         - in: body
-          name: items
-          description: list of events to force snapshot on next time when each of them occurs
+          name: alert_defaults
+          description: Default alert settings
           schema:
-            type: object
-            properties:
-              items:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    event_id:
-                      type: string
-                      example: 42
+            $ref: "#/definitions/AlertDefaults"
       responses:
         200:
           $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/events/{event_id}:
+  /services/{env_id}/views/{view_id}/alerts:
     get:
       tags:
-        - Events
-      summary: "Fetch event data"
-      description: "Fetch event data"
+        - Alerts
+      summary: "Fetch Alert settings for a View"
+      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc)"
       parameters:
         - in: path
           name: env_id
@@ -2650,25 +1523,26 @@ paths:
           type: string
           required: true
         - in: path
-          name: event_id
-          description: Event to use
+          name: view_id
+          description: View ID to use (e.g. P283)
           type: string
           required: true
       responses:
         200:
-          description: Event data
+          description: Alert data
           schema:
-            $ref: "#/definitions/Event"
+            $ref: "#/definitions/Alert"
         401:
           $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/events/{event_id}/labels:
     post:
       tags:
-        - Labels
-      summary: "Add/Remove labels"
-      description: "Append and remove label(s) from an event"
+        - Alerts
+      summary: "Edit Alert settings of a View"
+      description: "Edit Alert settings of a View"
       parameters:
         - in: path
           name: env_id
@@ -2676,211 +1550,29 @@ paths:
           type: string
           required: true
         - in: path
-          name: event_id
-          description: Event to use
+          name: view_id
+          description: View ID to use (e.g. P283)
           type: string
           required: true
-        - in: query
-          name: force
-          description: Force adding labels, even if it exists
-          type: boolean
-          default: false
-        - in: query
-          name: handle_similar_events
-          description: Change the labels on all similar events
-          type: boolean
-          default: true
         - in: body
-          name: item
-          description: list of label names to add / remove
+          name: alert
+          description: Alerts settings
           schema:
-            type: object
-            properties:
-              add:
-                type: array
-                items:
-                  type: string
-                  example: "Critical"
-              remove:
-                type: array
-                items:
-                  type: string
-                  example: "Low"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{env_id}/events/{event_id}/inbox:
-    post:
-      tags:
-        - Labels
-      summary: "Move to Inbox"
-      description: "Move the specified event into Inbox"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: event_id
-          description: Event to use
-          type: string
-          required: true
-        - in: query
-          name: force
-          description: Force adding labels, even if it exists
-          type: boolean
-          default: false
-        - in: query
-          name: handle_similar_events
-          description: Change the labels on all similar events
-          type: boolean
-          default: true
+              $ref: "#/definitions/Alert"
       responses:
         200:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/events/{event_id}/delete:
-    post:
-      tags:
-        - Labels
-      summary: "Move to Trash"
-      description: "Move the specified event into Trash"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: event_id
-          description: Event to use
-          type: string
-          required: true
-        - in: query
-          name: force
-          description: Force adding labels, even if it exists
-          type: boolean
-          default: false
-        - in: query
-          name: handle_similar_events
-          description: Change the labels on all similar events
-          type: boolean
-          default: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{env_id}/events/{event_id}/resolve:
-    post:
-      tags:
-        - Labels
-      summary: "Mark as resolved"
-      description: "Marks the specified event as resolved"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: event_id
-          description: Event to use
-          type: string
-          required: true
-        - in: query
-          name: force
-          description: Force adding labels, even if it exists
-          type: boolean
-          default: false
-        - in: query
-          name: handle_similar_events
-          description: Change the labels on all similar events
-          type: boolean
-          default: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{env_id}/events/{event_id}/snapshot:
-    get:
-      tags:
-        - Events
-      summary: "Fetch event snapshot"
-      description: "Fetch event snapshot.
-        Fetches the last relevant snapshot for the specific filters provided.
-        All filters are optional."
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: event_id
-          description: Event to use
-          type: string
-          required: true
-        - in: query
-          name: from
-          type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-          required: true
-        - in: query
-          name: to
-          type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-          required: true
-        - in: query
-          name: server
-          type: string
-          description: Server(s) added to the filter
-        - in: query
-          name: app
-          type: string
-          description: Application(s) added to the filter
-        - in: query
-          name: deployment
-          type: string
-          description: Deployment(s) added to the filter
-        - in: query
-          name: similar_event_id
-          type: string
-          description: Event(s) added to the filter
-      responses:
-        200:
-          description: Link to snapshot
-          schema:
-            type: object
-            properties:
-              link:
-                type: string
-                example: "https://app.overops.com/tale.html?event=Ux42fkaa--"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{env_id}/events/{event_id}/snapshots:
     delete:
       tags:
-        - Events
-      summary: "Delete all event snapshots"
-      description: "Removes all existing snapshots for an event. All snapshots will be permanently deleted. Event statistics will be kept."
+        - Alerts
+      summary: "Remove Alert settings"
+      description: "Disables all Alert settings for a View"
       parameters:
         - in: path
           name: env_id
@@ -2888,8 +1580,8 @@ paths:
           type: string
           required: true
         - in: path
-          name: event_id
-          description: Event to use
+          name: view_id
+          description: View ID to use (e.g. P283)
           type: string
           required: true
       responses:
@@ -2897,36 +1589,130 @@ paths:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
-        404:
-          $ref: "#/responses/NotFoundError"
-  /services/{env_id}/events/{event_id}/force-snapshot:
-    post:
-      tags:
-        - Events
-      summary: Force Event Snapshot
-      description: Force snapshot for the next time the event occurs
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: event_id
-          description: Event to use
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/events/{event_id}/actions:
+        403:
+          $ref: "#/responses/ForbiddenError"
+#Publish Metrics
+  /services/{env_id}/settings/publish-metrics:
     get:
       tags:
-        - Events
-      summary: "Fetch event actions"
-      description: "Fetch event actions"
+        - Publish Metrics
+      summary: "Fetch Publish Metrics settings"
+      description: "Use this call to fetch data about publish metrics settings, output format and the actual metrics which are currently beeing published"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Current settings for publish metrics
+          schema:
+            $ref: "#/definitions/PublishMetricsSettings"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - Publish Metrics
+      summary: "Set Publish Metrics"
+      description: "Use this call to set and customize publish metrics. Use one of the presets, or customize you tokens by setting output_format to 'custom'."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: settings
+          description: Publish metrics settings
+          schema:
+            $ref: "#/definitions/PublishMetricsSettings"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/publish-metrics/available_formats:
+    get:
+      tags:
+        - Publish Metrics
+      summary: "Fetch Available formats"
+      description: "Use this call to fetch available formats / presets, their metrics and their tokens"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of Available formats and metrics
+          schema:
+            $ref: "#/definitions/PublishMetricFormats"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+#Categories
+  /services/{env_id}/categories:
+    get:
+      tags:
+        - Categories
+      summary: "List categories"
+      description: "List view categories"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of View Categories and their info
+          schema:
+            type: object
+            properties:
+              categories:
+                type: array
+                items:
+                  $ref: "#/definitions/Category"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Categories
+      summary: "Create category (Not implemented yet)" #shall be published only when delete call is implemented
+      description: "Create category (Not implemented yet)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: category
+          description: category properties
+          schema:
+            $ref: "#/definitions/Category"
+      responses:
+        200:
+          $ref: "#/responses/TBD"
+        400:
+          $ref: "#/responses/BadRequestError"
+        409:
+          $ref: "#/responses/Conflict"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/categories/{category_id}:
+    get:
+      tags:
+        - Categories
+      summary: "Get category details (Not implemented yet)"
+      description: "Get category details (Not implemented yet)"
       parameters:
         - in: path
           name: env_id
@@ -2934,25 +1720,148 @@ paths:
           type: string
           required: true
         - in: path
-          name: event_id
-          description: Event to use
+          name: category_id
+          description: View category to use
           type: string
           required: true
-        - in: query
-          name: type
-          description: Filter by specific type
-          type: string
       responses:
         200:
-          description: Event actions
+          description: Category info
           schema:
-            type: array
-            items:
-              $ref: "#/definitions/EventAction"
+            $ref: "#/definitions/Category"
         401:
           $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+    delete:
+      tags:
+        - Categories
+      summary: "Delete category (Not implemented yet)"
+      description: "Delete category (Not implemented yet)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: category_id
+          description: View category to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+  /services/{env_id}/categories/{category_id}/views:
+    post:
+      tags:
+        - Views
+        - Categories
+      summary: "Add view to selected category"
+      description: "Add view to selected category"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: category_id
+          description: View category to use
+          type: string
+          required: true
+        - in: body
+          description: View ID (string)
+          name: view_id
+          required: true
+          schema:
+            type: string
+            example: P12
+      responses:
+        200:
+          $ref: "#/responses/OK"
         404:
           $ref: "#/responses/NotFoundError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+#UDFs
+  /global-settings/udfs:
+    get:
+      tags:
+        - UDFs
+      summary: List available UDF libraries
+      description: List available UDF (User Defined Functions) libraries
+      responses:
+        200:
+          description: UDF libraries list
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - UDFs
+      summary: Add a new UDF library
+      description: Add a new UDF library
+      parameters:
+        - in: body
+          name: udf
+          schema:
+            type: object
+            properties:
+              udf:
+                type: string
+                format: binary
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /global-settings/udfs/{library_id}:
+    get:
+      tags:
+        - UDFs
+      summary: Get UDF library properties
+      description: Get UDF (User Defined Function) library properties
+      parameters:
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          description: UDF library properties
+          schema:
+            $ref: "#/definitions/UDFLibrary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - UDFs
+      summary: "Remove UDF library (TBD - Not yet implemented)"
+      description: "Remove UDF library (TBD - Not yet implemented)"
+      parameters:
+        - in: path
+          name: library_id
+          description: UDF library ID to be used
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/udfs:
     get:
       tags:
@@ -3047,6 +1956,7 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+#Timers
   /services/{env_id}/timers:
     get:
       tags:
@@ -3173,6 +2083,1108 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         403:
           $ref: "#/responses/ForbiddenError"
+#Team Management
+  /services/{env_id}/team:
+    get:
+      tags:
+        - Team Management
+      summary: "List environment team members"
+      description: "List team members with access to this environment"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: query
+          name: email
+          description: Team member email
+          type: string
+      responses:
+        200:
+          description: List of team members
+          schema:
+            $ref: "#/definitions/TeamMembersFull"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Team Management
+      summary: "Add new members"
+      description: "Add new members"
+      parameters:
+          - in: path
+            name: env_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembersBasic"
+      responses:
+        200:
+          description: List of added members
+          schema:
+            properties:
+              new_members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: jane.doe@company.com
+                    status:
+                      type: string
+                      example: invitation sent
+                      enum: [invitation sent, already exists]
+                    link:
+                      type: string
+                      description: Invitation link for newly invited members
+                      example: https://app.overops.com/app/cst?token=abcda12345678
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Team Management
+      summary: "Delete members from an environment"
+      description: "Delete members from an environment. This call requires admin role"
+      parameters:
+          - in: path
+            name: env_id
+            description:  Environment ID to use (e.g. S1234)
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembersBasic"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/team/change-role:
+    post:
+      tags:
+        - Team Management
+      summary: "Edit roles"
+      description: "Edit roles for selected group of users"
+      parameters:
+          - in: path
+            name: env_id
+            description: Environment to use
+            type: string
+            required: true
+          - in: body
+            name: team_members
+            description: list of team members
+            schema:
+              $ref: "#/definitions/TeamMembersBasic"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+#Data Redaction
+  /services/{env_id}/settings/data-redaction:
+    get:
+      tags:
+        - Data Redaction
+      summary: "List all data redactions"
+      description: "List all data redactions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of data redaction
+          schema:
+            type: object
+            properties:
+              packages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: "com.example"
+              patterns:
+                type: array
+                items:
+                  $ref: "#/definitions/Pattern"
+              identifiers:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: "password"
+              classes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: "IPv4"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/data-redaction/patterns:
+    get:
+      tags:
+        - Data Redaction
+      summary: "List all regex patterns"
+      description: "List all regex patterns"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of regex patterns
+          schema:
+            type: object
+            properties:
+              patterns:
+                type: array
+                items:
+                  $ref: "#/definitions/Pattern"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/data-redaction/patterns/{pattern}:
+    get:
+      tags:
+        - Data Redaction
+      summary: "Retrieve a pattern"
+      description: "Retrieve a pattern"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: pattern
+          description: A RegEx pattern name
+          type: string
+          required: true
+      responses:
+        200:
+          description: A pattern
+          schema:
+            $ref: '#/definitions/Pattern'
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Data Redaction
+      summary: "Create a pattern"
+      description: "Add a RegEx pattern to be redacted. The pattern name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: pattern
+          description: A RegEx pattern name
+          type: string
+          required: true
+        - in: body
+          name: pattern
+          schema:
+            $ref: '#/definitions/Pattern'
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Data Redaction
+      summary: "Delete a pattern"
+      description: "Removes a pattern from the redaction list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: pattern
+          description: A RegEx pattern name
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/data-redaction/identifiers:
+    get:
+      tags:
+        - Data Redaction
+      summary: "List all identifiers"
+      description: "List all identifiers"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of identifiers
+          schema:
+            type: object
+            properties:
+              identifiers:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: "password"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/data-redaction/identifiers/{identifier}:
+    get:
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: identifier
+          description: A code identifier
+          type: string
+          required: true
+      tags:
+        - Data Redaction
+      summary: "Retrieve an identifier"
+      description: "Retrieve an identifier"
+      responses:
+        200:
+          description: If the redaction exists
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "password"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Data Redaction
+      summary: "Add an identifier"
+      description: "Add an identifier. The body identifier name must match the resource identifier"
+      operationId: addIdentifier
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: identifier
+          description: A code identifier
+          type: string
+          required: true
+        - name: name
+          in: body
+          description: Identifier object
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "password"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: identifier
+          description: A code identifier
+          type: string
+          required: true
+      tags:
+        - Data Redaction
+      summary:  "Delete identifier"
+      description: "Delete identifier"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/data-redaction/classes:
+    get:
+      tags:
+        - Data Redaction
+      summary: "List all classes"
+      description: "List all classes"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of classes
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: "IPv4"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/data-redaction/classes/{class_name}:
+    get:
+      tags:
+        - Data Redaction
+      summary: "Retrieve a class"
+      description: "Retrieve a class from the data redaction list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          description: Class name to redact.
+          type: string
+          required: true
+      responses:
+        200:
+          description: If the redaction exists
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "IPv4"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Data Redaction
+      summary: "Add a class for data redaction"
+      description: "Add a class to the redaction list. The body class name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          description: Class name to redact.
+          type: string
+          required: true
+        - in: body
+          description: A JSON representing a class to add for redaction
+          name: name
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "IPv4"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Data Redaction
+      summary:  "Delete a class"
+      description: "Delete a class"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          description: Class name to redact.
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/data-redaction/packages:
+    get:
+      tags:
+        - Data Redaction
+      summary: "List all packages"
+      description: "List all packages"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of packages
+          schema:
+            type: object
+            properties:
+              packages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: "com.example"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/data-redaction/packages/{package_name}:
+    get:
+      tags:
+        - Data Redaction
+      summary: "Retrieve a package"
+      description: "Retrieve a package"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          description: Fully qualified Java package name
+          type: string
+          required: true
+      responses:
+        200:
+          description: If the redaction exists
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "com.example"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Data Redaction
+      summary: "Create a package"
+      description: "Create a package. The body package name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          description: Fully qualified Java package name
+          type: string
+          required: true
+        - in: body
+          name: name
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "com.example"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Data Redaction
+      summary: "Delete package"
+      description: "Delete package"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          description: Fully qualified Java package name
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+#Code Redaction
+  /services/{env_id}/settings/code-redaction:
+    get:
+      tags:
+        - Code Redaction
+      summary: "List all environment code redaction settings"
+      description: "List all environment code exclusions and inclusions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of included and excluded classes and packages
+          schema:
+            type: object
+            properties:
+              exclude:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      $ref: "#/definitions/ExcludedClassName"
+                  packages:
+                    type: array
+                    items:
+                      $ref: "#/definitions/ExcludedPackageName"
+              include:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      $ref: "#/definitions/IncludedClassName"
+                  packages:
+                    type: array
+                    items:
+                      $ref: "#/definitions/IncludedPackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/exclude:
+    get:
+      tags:
+        - Code Redaction
+      summary: "List all code exclusions"
+      description: "List all code exclusions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of excluded classes and packages
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ExcludedClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/ExcludedPackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/exclude/classes:
+    get:
+      tags:
+        - Code Redaction
+      summary: "List all excluded classes"
+      description: "List all excluded classes"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of excluded classes
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ExcludedClassName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/exclude/classes/{class_name}:
+    get:
+      tags:
+        - Code Redaction
+      summary: "Retrieve an excluded class"
+      description: "Retrieve an excluded class"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+      responses:
+        200:
+          description: An excluded class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ExcludedClassName"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Code Redaction
+      summary: "Add a class to the exclusion list"
+      description: "Add a class to the exclusion list. The body class name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ExcludedClassName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Code Redaction
+      summary: "Remove a class from exclusion"
+      description: "Remove a class from the exclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/exclude/packages:
+    get:
+      tags:
+        - Code Redaction
+      summary: "List all excluded packages"
+      description: "List all excluded packages"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of excluded packages
+          schema:
+            type: object
+            properties:
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/ExcludedPackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/exclude/packages/{package_name}:
+    get:
+      tags:
+        - Code Redaction
+      summary: "Retrieve an excluded package"
+      description: "Retrieve an excluded package"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+      responses:
+        200:
+          description: An excluded package
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ExcludedPackageName"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Code Redaction
+      summary: "Add a package to the exclusion list"
+      description: "Add a package to the exclusion list. The body package name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ExcludedPackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Code Redaction
+      summary: "Remove a package from the exclusion list"
+      description: "Remove a package from the exclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/include:
+    get:
+      tags:
+        - Code Redaction
+      summary: "List all code inclusions"
+      description: "List all code inclusions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of included classes and packages
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/IncludedClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/IncludedPackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/include/classes:
+    get:
+      tags:
+        - Code Redaction
+      summary: "List all included classes"
+      description: "List all included classes"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of included classes
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/IncludedClassName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/include/classes/{class_name}:
+    get:
+      tags:
+        - Code Redaction
+      summary: "Retrieve an included class"
+      description: "Retrieve an included class"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+      responses:
+        200:
+          description: An included class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/IncludedClassName"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Code Redaction
+      summary: "Add a class to the inclusion list"
+      description: "Add a class to the inclusion list. The body class name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/IncludedClassName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Code Redaction
+      summary: "Remove a class from the inclusion list"
+      description: "Remove a class from the inclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/include/packages:
+    get:
+      tags:
+        - Code Redaction
+      summary: "List all included packages"
+      description: "List all included packages"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of included packages
+          schema:
+            properties:
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/IncludedPackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/code-redaction/include/packages/{package_name}:
+    get:
+      tags:
+        - Code Redaction
+      summary: "Retrieve an included package"
+      description: "Retrieve an included package"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+      responses:
+        200:
+          description: An included package
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Code Redaction
+      summary: "Add a package to the inclusion list"
+      description: "Add a package to the inclusion list. The body package name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            properties:
+              name:
+                $ref: "#/definitions/IncludedPackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Code Redaction
+      summary: "Remove a package from the inclusion list"
+      description: "Remove a package from the inclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
