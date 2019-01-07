@@ -38,6 +38,8 @@ tags:
     description: Fetch and manipulate events labels
   - name: Alerts
     description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
+  - name: Timers
+    description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
   - name: Publish Metrics
     description: Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools, providing control over application data from OverOps.
   - name: View Metrics
@@ -46,8 +48,6 @@ tags:
     description: Fetch and manipulate grouping of views into logical categories (e.g "CI/CD", "Favorites")
   - name: UDFs
     description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.
-  - name: Timers
-    description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
   - name: Team Management
     description: APIs related to team management of a service
   - name: Data Redaction
@@ -1591,6 +1591,133 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         403:
           $ref: "#/responses/ForbiddenError"
+#Timers
+  /services/{env_id}/timers:
+    get:
+      tags:
+        - Timers
+      summary: "List timers"
+      description: "List all existing timers"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of timers
+          schema:
+            type: object
+            properties:
+              timers:
+                type: array
+                items:
+                  $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Timers
+      summary: "Create new timer"
+      description: "Create new timer"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: timer
+          description: Single timer
+          schema:
+            $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        409:
+          $ref: "#/responses/Conflict"
+  /services/{env_id}/timers/{timer_id}:
+    get:
+      tags:
+        - Timers
+      summary: "Get timer properties"
+      description: "Get timer properties"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Timer properties
+          schema:
+            $ref: "#/definitions/Timer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Timers
+      summary: "Edit timer data"
+      description: "Edit timer data"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: View to use
+          type: string
+          required: true
+        - in: body
+          name: view
+          description: Single timer properties
+          schema:
+              $ref: "#/definitions/Timer"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    delete:
+      tags:
+        - Timers
+      summary: "Delete timer"
+      description: "Delete timer"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: timer_id
+          description: Timer to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
 #Publish Metrics
   /services/{env_id}/settings/publish-metrics:
     get:
@@ -1956,133 +2083,6 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-#Timers
-  /services/{env_id}/timers:
-    get:
-      tags:
-        - Timers
-      summary: "List timers"
-      description: "List all existing timers"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-      responses:
-        200:
-          description: List of timers
-          schema:
-            type: object
-            properties:
-              timers:
-                type: array
-                items:
-                  $ref: "#/definitions/Timer"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    post:
-      tags:
-        - Timers
-      summary: "Create new timer"
-      description: "Create new timer"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: body
-          name: timer
-          description: Single timer
-          schema:
-            $ref: "#/definitions/Timer"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        409:
-          $ref: "#/responses/Conflict"
-  /services/{env_id}/timers/{timer_id}:
-    get:
-      tags:
-        - Timers
-      summary: "Get timer properties"
-      description: "Get timer properties"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: timer_id
-          description: Timer to use
-          type: string
-          required: true
-      responses:
-        200:
-          description: Timer properties
-          schema:
-            $ref: "#/definitions/Timer"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    post:
-      tags:
-        - Timers
-      summary: "Edit timer data"
-      description: "Edit timer data"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: timer_id
-          description: View to use
-          type: string
-          required: true
-        - in: body
-          name: view
-          description: Single timer properties
-          schema:
-              $ref: "#/definitions/Timer"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        403:
-          $ref: "#/responses/ForbiddenError"
-        404:
-          $ref: "#/responses/NotFoundError"
-    delete:
-      tags:
-        - Timers
-      summary: "Delete timer"
-      description: "Delete timer"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: timer_id
-          description: Timer to use
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-        403:
-          $ref: "#/responses/ForbiddenError"
 #Team Management
   /services/{env_id}/team:
     get:
