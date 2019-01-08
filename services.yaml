@@ -3628,7 +3628,11 @@ definitions:
         state:
           type: string
           description: active / pending invitation
-          example: active
+          example: "pending invitation"
+        link:
+          type: string
+          description: Invitation link for newly invited members (pending invitation status)
+          example: https://app.overops.com/app/cst?token=abcda12345678
   StorageSettings:
     type: object
     properties:
