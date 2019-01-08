@@ -290,6 +290,52 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/advanced-settings:
+    get:
+      tags:
+        - General
+      summary: "Get advanced settings for an environment"
+      description: "Get advanced settings for an environment"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Environment advanced settings
+          schema:
+            $ref: "#/definitions/EnvironmentAdvancedSettings"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - General
+      summary: "Set advanced settings for an environment"
+      description: "Set advanced settings for an environment"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: advanced_settings
+          schema:
+            $ref: "#/definitions/EnvironmentAdvancedSettings"
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
 #Events
   /services/{env_id}/events/force-snapshots:
     post:
@@ -3585,7 +3631,7 @@ definitions:
         example: admin
   EnvironmentBasic:
     type: object
-    description: Basic information about a environment key
+    description: Basic information about a environment
     properties:
       id:
         type: string
@@ -3596,6 +3642,28 @@ definitions:
       full_key:
         type: string
         example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  EnvironmentAdvancedSettings:
+    type: object
+    description: Advanced settings for an environment
+    properties:
+      allowed-ips:
+        type: array
+        description: Limit access to a list of selected IPs
+        items:
+          type: string
+          example: "127.0.0.1"
+      show-rethrows:
+        type: boolean
+        description: Show exception rethrows in the dashboard
+        example: true
+      show-log-links:
+        type: boolean
+        description: Enable log links for exceptions (requires JVM restart, supported in version 4.9.0 or above)
+        example: false
+      clear-env-filters:
+        type: boolean
+        description: Clear servers, applications and deployments filters when moving between views
+        example: false
   TeamMembersBasic:
     description: List of environment team members
     type: array

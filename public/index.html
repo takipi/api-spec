@@ -54,6 +54,12 @@
               <li>
                 <a href="#operation--services--env_id--settings-storage-settings-post"> Set storage settings for a service </a>
               </li>
+              <li>
+                <a href="#operation--services--env_id--settings-advanced-settings-get"> Get advanced settings for an environment </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-advanced-settings-post"> Set advanced settings for an environment </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -435,6 +441,7 @@
           <a href="#definition-EventAction"> EventAction </a>
           <a href="#definition-EnvironmentWithRole"> EnvironmentWithRole </a>
           <a href="#definition-EnvironmentBasic"> EnvironmentBasic </a>
+          <a href="#definition-EnvironmentAdvancedSettings"> EnvironmentAdvancedSettings </a>
           <a href="#definition-TeamMembersBasic"> TeamMembersBasic </a>
           <a href="#definition-TeamMembersFull"> TeamMembersFull </a>
           <a href="#definition-StorageSettings"> StorageSettings </a>
@@ -1473,6 +1480,226 @@
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;HYBRID&quot;</span>,
   <span class="hljs-attr">&quot;hostname&quot;</span>: <span class="hljs-string">&quot;storage.company.com&quot;</span>,
   <span class="hljs-attr">&quot;frontend_hostname&quot;</span>: <span class="hljs-string">&quot;123.91.12.100&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-advanced-settings-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-advanced-settings-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-General">General</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get advanced settings for an environment</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/advanced-settings</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Get advanced settings for an environment</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/EnvironmentAdvancedSettings">EnvironmentAdvancedSettings</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment advanced settings</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;allowed-ips&quot;</span>: [
+    <span class="hljs-string">&quot;127.0.0.1&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;show-rethrows&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;show-log-links&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;clear-env-filters&quot;</span>: <span class="hljs-literal">false</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-advanced-settings-post" class="operation panel" data-traverse-target="operation--services--env_id--settings-advanced-settings-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-General">General</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Set advanced settings for an environment</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/settings/advanced-settings</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Set advanced settings for an environment</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/EnvironmentAdvancedSettings">EnvironmentAdvancedSettings</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>undefined</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;allowed-ips&quot;</span>: [
+    <span class="hljs-string">&quot;127.0.0.1&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;show-rethrows&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;show-log-links&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;clear-env-filters&quot;</span>: <span class="hljs-literal">false</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -15875,7 +16102,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Basic information about a environment key</p>
+                  <p>Basic information about a environment</p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -15904,6 +16131,81 @@
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
   <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EnvironmentAdvancedSettings" class="definition panel" data-traverse-target="definition-EnvironmentAdvancedSettings">
+            <h2 class="panel-title">
+              <a name="/definitions/EnvironmentAdvancedSettings"></a>EnvironmentAdvancedSettings: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Advanced settings for an environment</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="allowed-ips" class="has-description">
+                      <span class="json-property-name">allowed-ips:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Limit access to a list of selected IPs</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="show-rethrows" class="has-description">
+                      <span class="json-property-name">show-rethrows:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Show exception rethrows in the dashboard</p>
+                    </dd>
+                    <dt data-property-name="show-log-links" class="has-description">
+                      <span class="json-property-name">show-log-links:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Enable log links for exceptions (requires JVM restart, supported in version 4.9.0 or above)</p>
+                    </dd>
+                    <dt data-property-name="clear-env-filters" class="has-description">
+                      <span class="json-property-name">clear-env-filters:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Clear servers, applications and deployments filters when moving between views</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;allowed-ips&quot;</span>: [
+    <span class="hljs-string">&quot;127.0.0.1&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;show-rethrows&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;show-log-links&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;clear-env-filters&quot;</span>: <span class="hljs-literal">false</span>
 }
 </code></pre>
                   <!-- </div> -->
