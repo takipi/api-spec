@@ -3646,21 +3646,21 @@ definitions:
     type: object
     description: Advanced settings for an environment
     properties:
-      allowed-ips:
+      allowed_ips:
         type: array
         description: Limit access to a list of selected IPs
         items:
           type: string
           example: "127.0.0.1"
-      show-rethrows:
+      show_rethrows:
         type: boolean
         description: Show exception rethrows in the dashboard
         example: true
-      show-log-links:
+      show_log_links:
         type: boolean
         description: Enable log links for exceptions (requires JVM restart, supported in version 4.9.0 or above)
         example: false
-      clear-env-filters:
+      clear_env_filters:
         type: boolean
         description: Clear servers, applications and deployments filters when moving between views
         example: false
