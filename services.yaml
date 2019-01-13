@@ -290,6 +290,60 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/reliability-settings:
+    get:
+      tags:
+        - General
+      summary: "Fetch reliability settings JSON"
+      description: "Fetch reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Reliability dashboards settings JSON
+          schema:
+            type: object
+            properties:
+              reliability_settings_json:
+                type: string
+                format: binary
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - General
+      summary: "Upload reliability settings JSON"
+      description: "Upload reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: reliability_settings_json
+          schema:
+            type: object
+            properties:
+              reliability_settings_json:
+                type: string
+                format: binary
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
 #Events
   /services/{env_id}/events/force-snapshots:
     post:
