@@ -2262,6 +2262,9 @@ paths:
           schema:
             type: object
             properties:
+              enabled:
+                type: boolean
+                example: true
               packages:
                 type: array
                 items:
@@ -2290,6 +2293,33 @@ paths:
                     name:
                       type: string
                       example: "IPv4"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Data Redaction
+      summary: "Enable / disable data redaction"
+      description: "Enable / disable data redaction for a selected environment. This call is allowed for admins only. **IMPORTANT:** *This call affects all filters*"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          description: Data redaction filtering status (true = enabled, false = disabled)
+          name: enabled
+          schema:
+            type: object
+            properties:
+              enabled:
+                type: boolean
+                example: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/data-redaction/patterns:
