@@ -52,6 +52,8 @@ tags:
     description: APIs related to team management of a service
   - name: Data Redaction
     description: Fetch and manipulate data redaction of PII with target environments.
+  - name: TestTag
+    description: just a test
   - name: Code Redaction
     description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes  from OverOps analysis and data capture.
 schemes:
