@@ -65,14 +65,12 @@ paths:
       tags:
         - Super-Admin
       summary: "Set new release notification"
-      description: "Push new notification of whats-new. This will result in enabling the 'What's New' button on the application's top bar to indicate that a new version release notes are available in the documentation site."
+      description: "Push new notification of whats-new. This will result in enabling the 'What's New' button on the application's top bar to indicate that a new version's release notes are available in the documentation site."
       responses:
         200:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
-        409:
-          $ref: "#/responses/Conflict"
 #General
   /services:
     get:
