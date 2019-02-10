@@ -28,7 +28,7 @@ security:
 host: api.overops.com
 basePath: /api/v1
 tags:
-  - name: Super-Admin
+  - name: Internal
     description: Perform generic super-admin operations on specific or all provisioned OverOps enviroments
   - name: General
     description: Fetch general information about provisioned OverOps enviroments
@@ -59,11 +59,11 @@ tags:
 schemes:
 - "https"
 paths:
-#Super-Admin
-  /services/super-admin/whats-new:
+#Internal
+  /global-settings/internal/whats-new:
     post:
       tags:
-        - Super-Admin
+        - Internal
       summary: "Set new release notification"
       description: "Push new notification of whats-new. This will result in enabling the 'What's New' button on the application's top bar to indicate that a new version's release notes are available in the documentation site."
       responses:
