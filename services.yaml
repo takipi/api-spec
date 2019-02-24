@@ -69,8 +69,8 @@ paths:
       responses:
         200:
           $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
 #General
   /services:
     get:
