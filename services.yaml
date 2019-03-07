@@ -3691,7 +3691,7 @@ definitions:
           example: jane.doe@company.com
         role:
           type: string
-          description: owner / admin / member
+          description: owner / admin / member / viewer
           example: admin
   TeamMembersFull:
     description: List of environment team members
@@ -3707,7 +3707,7 @@ definitions:
           example: jane.doe@company.com
         role:
           type: string
-          description: owner / admin / member
+          description: owner / admin / member / viewer
           example: admin
         state:
           type: string
