@@ -22,6 +22,14 @@
           <a href="#authentication">Authentication</a>
           <h5>Operations</h5>
           <section>
+            <a href="#tag-Internal">Internal</a>
+            <ul>
+              <li>
+                <a href="#operation--global-settings-internal-whats-new-post"> Set new release notification </a>
+              </li>
+            </ul>
+          </section>
+          <section>
             <a href="#tag-General">General</a>
             <ul>
               <li>
@@ -545,6 +553,67 @@
                   </div>
                 </section>
               </div>
+            </div>
+          </div>
+          <h1 id="tag-Internal" class="swagger-summary-tag" data-traverse-target="tag-Internal">Internal</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Perform generic super-admin operations on specific or all provisioned OverOps enviroments</p>
+            </div>
+          </div>
+          <div id="operation--global-settings-internal-whats-new-post" class="operation panel" data-traverse-target="operation--global-settings-internal-whats-new-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Internal">Internal</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Set new release notification</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/global-settings/internal/whats-new</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Push new notification of whats-new. This will result in enabling the &#39;What&#39;s New&#39; button on the application&#39;s top bar to indicate that a new version&#39;s release notes are available in the documentation site.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">403 Forbidden</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Forbidden</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
             </div>
           </div>
           <h1 id="tag-General" class="swagger-summary-tag" data-traverse-target="tag-General">General</h1>
