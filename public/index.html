@@ -456,7 +456,7 @@
           <a href="#definition-ViewHistory"> ViewHistory </a>
           <a href="#definition-Alert"> Alert </a>
           <a href="#definition-AlertDefaults"> AlertDefaults </a>
-          <a href="#definition-AlertSummary"> AlertSummary </a>
+          <a href="#definition-ViewAlertsSummary"> ViewAlertsSummary </a>
           <a href="#definition-PublishMetricsSettings"> PublishMetricsSettings </a>
           <a href="#definition-PublishMetricFormats"> PublishMetricFormats </a>
           <a href="#definition-Metrics"> Metrics </a>
@@ -7483,7 +7483,14 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>List of alerts in current environment (alerts which were set by calling/selected user and global alerts)</p>
+                      <p>List of alerts in current environment, agregated in views (alerts which were set by calling/selected user and global alerts)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -7509,7 +7516,30 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> -->
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;alerts&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;view_id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
+      <span class="hljs-attr">&quot;view&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+      <span class="hljs-attr">&quot;category&quot;</span>: <span class="hljs-string">&quot;Applications&quot;</span>,
+      <span class="hljs-attr">&quot;alerts&quot;</span>: {
+        <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">&quot;anomaly alert&quot;</span>: {
+          <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">&quot;periodic_udf_settings&quot;</span>: {
+            <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L6&quot;</span>,
+            <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>
+          }
+        },
+        <span class="hljs-attr">&quot;channels&quot;</span>: [
+          <span class="hljs-string">&quot;SLACK&quot;</span>
+        ]
+      }
+    }
+  ]
+}
+</code></pre>
                   <!-- </div> -->
                 </section>
               </div>
@@ -17405,9 +17435,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-AlertSummary" class="definition panel" data-traverse-target="definition-AlertSummary">
+          <div id="definition-ViewAlertsSummary" class="definition panel" data-traverse-target="definition-ViewAlertsSummary">
             <h2 class="panel-title">
-              <a name="/definitions/AlertSummary"></a>AlertSummary: object
+              <a name="/definitions/ViewAlertsSummary"></a>ViewAlertsSummary: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -17469,30 +17499,63 @@
                           <dd>
                             <p>Indicates alerts which are sent on new events</p>
                           </dd>
-                          <dt data-property-name="alert_on_anomaly">
-                            <span class="json-property-name">alert_on_anomaly:</span>
-                            <span class="json-property-type">boolean</span>
-                            <span class="json-property-range" title="Value limits"></span>
-                          </dt>
-                          <dt data-property-name="periodic_udf_settings">
-                            <span class="json-property-name">periodic_udf_settings:</span>
+                          <dt data-property-name="anomaly-alert">
+                            <span class="json-property-name">anomaly alert:</span>
                             <span class="json-property-type">object</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
                           <dt class="json-inner-schema">
                             <section class="json-schema-properties">
                               <dl>
-                                <dt data-property-name="library_id">
-                                  <span class="json-property-name">library_id:</span>
-                                  <span class="json-property-type">string</span>
+                                <dt data-property-name="alert_on_anomaly">
+                                  <span class="json-property-name">alert_on_anomaly:</span>
+                                  <span class="json-property-type">boolean</span>
                                   <span class="json-property-range" title="Value limits"></span>
                                 </dt>
-                                <dt data-property-name="function_id">
-                                  <span class="json-property-name">function_id:</span>
-                                  <span class="json-property-type">string</span>
+                                <dt data-property-name="periodic_udf_settings">
+                                  <span class="json-property-name">periodic_udf_settings:</span>
+                                  <span class="json-property-type">object</span>
                                   <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dt class="json-inner-schema">
+                                  <section class="json-schema-properties">
+                                    <dl>
+                                      <dt data-property-name="library_id">
+                                        <span class="json-property-name">library_id:</span>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dt data-property-name="function_id">
+                                        <span class="json-property-name">function_id:</span>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                    </dl>
+                                  </section>
                                 </dt>
                               </dl>
+                            </section>
+                          </dt>
+                          <dt data-property-name="channels">
+                            <span class="json-property-name">channels:</span>
+                            <span class="json-property-type">string[]</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-array-items">
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-enum" title="Possible values">
+                                <span class="json-property-enum-item">EMAIL</span>,
+                                <span class="json-property-enum-item">SLACK</span>,
+                                <span class="json-property-enum-item">HIPCHAT</span>,
+                                <span class="json-property-enum-item">PAGERDUTY</span>,
+                                <span class="json-property-enum-item">JIRA</span>,
+                                <span class="json-property-enum-item">WEBHOOK</span>,
+                                <span class="json-property-enum-item">SERVICENOW</span>,
+                                <span class="json-property-enum-item">UDF</span>
+                              </span>
+                              <span class="json-property-range" title="Value limits"></span>
+                              <div class="json-inner-schema"> </div>
                             </section>
                           </dt>
                         </dl>
@@ -17511,11 +17574,16 @@
   <span class="hljs-attr">&quot;alerts&quot;</span>: {
     <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">&quot;periodic_udf_settings&quot;</span>: {
-      <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L6&quot;</span>,
-      <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>
-    }
+    <span class="hljs-attr">&quot;anomaly alert&quot;</span>: {
+      <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;periodic_udf_settings&quot;</span>: {
+        <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L6&quot;</span>,
+        <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>
+      }
+    },
+    <span class="hljs-attr">&quot;channels&quot;</span>: [
+      <span class="hljs-string">&quot;SLACK&quot;</span>
+    ]
   }
 }
 </code></pre>

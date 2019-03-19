@@ -1663,13 +1663,15 @@ paths:
           type: string
       responses:
         200:
-          description: List of alerts in current environment (alerts which were set by calling/selected user and global alerts)
+          description: List of alerts in current environment, agregated in views (alerts which were set by calling/selected user and global alerts)
           schema:
-            alerts:
-              type: array
-              description: list of alerts
-              items:
-                $ref: "#/definitions/AlertSummary"
+            type: object
+            properties:
+              alerts:
+                type: array
+                description: list of alerts
+                items:
+                  $ref: "#/definitions/ViewAlertsSummary"
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -4058,7 +4060,7 @@ definitions:
             example: "http://hooks.company.com/overops1/P1/hook"
       #jira_settings: <- TBD
       #udf_settings <- TBD
-  AlertSummary:
+  ViewAlertsSummary:
     description: basic alerts info for a single view
     type: object
     properties:
@@ -4085,17 +4087,26 @@ definitions:
             type: "boolean"
             description: Indicates alerts which are sent on new events
             example: true
-          alert_on_anomaly:
-            type: "boolean"
-            example: true
-          periodic_udf_settings:
+          anomaly alert:
+            type: object
             properties:
-              library_id:
-                type: "string"
-                example: "L6"
-              function_id:
-                type: "string"
-                example: "Relative Threshold"
+              alert_on_anomaly:
+                type: "boolean"
+                example: true
+              periodic_udf_settings:
+                properties:
+                  library_id:
+                    type: "string"
+                    example: "L6"
+                  function_id:
+                    type: "string"
+                    example: "Relative Threshold"
+          channels:
+            type: array
+            items:
+              type: string
+              enum: [EMAIL, SLACK, HIPCHAT, PAGERDUTY, JIRA, WEBHOOK, SERVICENOW, UDF]
+              example: SLACK
   PublishMetricsSettings:
     type: object
     properties:
