@@ -1645,6 +1645,35 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         403:
           $ref: "#/responses/ForbiddenError"
+  /services/{env_id}/alerts:
+    get:
+      tags:
+        - Alerts
+      summary: "Fetch Active Alerts for an Environment"
+      description: "Use this call to fetch all active alerts on current environment. admins can use the query parameter to fetch alerts which were set by other member/admin"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: email
+          description: Team member email. When this parameter is used, the alerts will be fetched for the selected user.
+          type: string
+      responses:
+        200:
+          description: List of alerts in current environment (alerts which were set by calling/selected user and global alerts)
+          schema:
+            alerts:
+              type: array
+              description: list of alerts
+              items:
+                $ref: "#/definitions/AlertSummary"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
 #Timers
   /services/{env_id}/timers:
     get:
@@ -3840,7 +3869,7 @@ definitions:
     properties:
       global:
         type: boolean
-        description: TBD - Not developed yet - marks the alert as a global alert, i.e. will affect all users that share this view. Only admins will be able to edit these alerts.
+        description: Marks the alert as a global alert, i.e. will affect all users that share this view. Only admins will be able to edit these alerts.
         example: false
       alert_on_new:
         type: "boolean"
@@ -4029,6 +4058,44 @@ definitions:
             example: "http://hooks.company.com/overops1/P1/hook"
       #jira_settings: <- TBD
       #udf_settings <- TBD
+  AlertSummary:
+    description: basic alerts info for a single view
+    type: object
+    properties:
+      view_id:
+        type: string
+        description: View ID
+        example: P12
+      view:
+        type: string
+        description: View Name
+        example: "API"
+      category:
+        type: string
+        description: Category Name
+        example: "Applications"
+      alerts:
+        type: object
+        properties:
+          global:
+            type: boolean
+            description: Indicates alerts which are global, i.e. will affect all users that share this view.
+            example: false
+          alert_on_new:
+            type: "boolean"
+            description: Indicates alerts which are sent on new events
+            example: true
+          alert_on_anomaly:
+            type: "boolean"
+            example: true
+          periodic_udf_settings:
+            properties:
+              library_id:
+                type: "string"
+                example: "L6"
+              function_id:
+                type: "string"
+                example: "Relative Threshold"
   PublishMetricsSettings:
     type: object
     properties:
