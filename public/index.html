@@ -7521,20 +7521,29 @@
     {
       <span class="hljs-attr">&quot;view_id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
       <span class="hljs-attr">&quot;view&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
-      <span class="hljs-attr">&quot;category&quot;</span>: <span class="hljs-string">&quot;Applications&quot;</span>,
+      <span class="hljs-attr">&quot;categories&quot;</span>: <span class="hljs-string">&quot;Applications&quot;</span>,
       <span class="hljs-attr">&quot;alerts&quot;</span>: {
         <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
         <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">&quot;anomaly alert&quot;</span>: {
+        <span class="hljs-attr">&quot;anomaly_alert&quot;</span>: {
           <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>,
-          <span class="hljs-attr">&quot;periodic_udf_settings&quot;</span>: {
+          <span class="hljs-attr">&quot;anomaly_function&quot;</span>: {
             <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L6&quot;</span>,
-            <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>
-          }
+            <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
+            <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Anomaly(last 1d vs. prev 7d, &#x394; &gt; 100%)\&quot;&quot;</span>,
+            <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# the active time window (min) to inspect\nactiveTimespan = 1d\n\n# The baseline time window to compare against (min)\nbaseTimespan = 7d\n\n# Change in % that would be considered a regression\nregressionDelta = 100\n\n# Min rate in % that an event must exceed\nminErrorRateThreshold = 10\n\n# Min fixed volume that an event must exceed\nminVolumeThreshold = 1000&quot;</span>
+          },
+          <span class="hljs-attr">&quot;period&quot;</span>: <span class="hljs-number">3</span>
         },
         <span class="hljs-attr">&quot;channels&quot;</span>: [
           <span class="hljs-string">&quot;SLACK&quot;</span>
-        ]
+        ],
+        <span class="hljs-attr">&quot;channel_function&quot;</span>: {
+          <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L8&quot;</span>,
+          <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Tier Routing&quot;</span>,
+          <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Anomaly(last 1d vs. prev 7d, &#x394; &gt; 100%)\&quot;&quot;</span>,
+          <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Category name where tiers views will be created.\ncategory_name=tiers\n\n# Link to the full tiers list: https://git.io/fpPT0\n# Enhance it with a delimited list: A=B;C=D;E=F, where the first item is a package (e.g com.mongo), and the second is a tier (e.g MongoDB).\nnamespaces=com.sparktale.bugtale.server.common.distribute.redis=Redis;org.redisson=Redisson;com.sparktale.bugtale.server.common.distribute.guava=Guava-Cache;com.sparktale.bugtale.util.cache=Cache;com.sparktale.bugtale.server.app.dashboard.cache=Cache;com.sparktale.bugtale.server.common.stats=SQL-Stats;com.sparktale.bugtale.server.common.pds=SQL-Pds;com.sparktale.bugtale.qsql=SQL-Queue;com.sparktale.bugtale.server.services.queue.qsql=SQL-Queue;com.sparktale.bugtale.shared.backend.rdbms=SQL-Common;com.sparktale.bugtale.server.common.queue=Local-Queue;com.sparktale.bugtale.server.common.alerts=Alerts-Engine;com.sparktale.bugtale.decoding=Snapshot-Analysis;com.sparktale.bugtale.server.common.hits=Snapshot-Analysis;com.sparktale.bugtale.server.common.tailor=Snapshot-Analysis;com.sparktale.bugtale.server.analysis=Code-Analysis;com.sparktale.bugtale.server.worker.analysis=Code-Analysis;com.sparktale.bugtale.server.common.source=Code-Analysis;com.sparktale.bugtale.analyzer=Code-Analysis;com.sparktale.bugtale.decompiler=Decompiler;com.takipi.integrations.grafana=OverOps-Influx-Backend;com.sparktale.common.util=Utils;com.sparktale.bugtale.shared.backend.util=Utils&quot;</span>
+        }
       }
     }
   ]
@@ -17467,14 +17476,21 @@
                     <dd>
                       <p>View Name</p>
                     </dd>
-                    <dt data-property-name="category" class="has-description">
-                      <span class="json-property-name">category:</span>
-                      <span class="json-property-type">string</span>
+                    <dt data-property-name="categories" class="has-description">
+                      <span class="json-property-name">categories:</span>
+                      <span class="json-property-type">string[]</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Category Name</p>
+                      <p>Categories Names</p>
                     </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
                     <dt data-property-name="alerts">
                       <span class="json-property-name">alerts:</span>
                       <span class="json-property-type">object</span>
@@ -17499,8 +17515,8 @@
                           <dd>
                             <p>Indicates alerts which are sent on new events</p>
                           </dd>
-                          <dt data-property-name="anomaly-alert">
-                            <span class="json-property-name">anomaly alert:</span>
+                          <dt data-property-name="anomaly_alert">
+                            <span class="json-property-name">anomaly_alert:</span>
                             <span class="json-property-type">object</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
@@ -17512,8 +17528,8 @@
                                   <span class="json-property-type">boolean</span>
                                   <span class="json-property-range" title="Value limits"></span>
                                 </dt>
-                                <dt data-property-name="periodic_udf_settings">
-                                  <span class="json-property-name">periodic_udf_settings:</span>
+                                <dt data-property-name="anomaly_function">
+                                  <span class="json-property-name">anomaly_function:</span>
                                   <span class="json-property-type">object</span>
                                   <span class="json-property-range" title="Value limits"></span>
                                 </dt>
@@ -17530,8 +17546,23 @@
                                         <span class="json-property-type">string</span>
                                         <span class="json-property-range" title="Value limits"></span>
                                       </dt>
+                                      <dt data-property-name="summary">
+                                        <span class="json-property-name">summary:</span>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dt data-property-name="args">
+                                        <span class="json-property-name">args:</span>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
                                     </dl>
                                   </section>
+                                </dt>
+                                <dt data-property-name="period">
+                                  <span class="json-property-name">period:</span>
+                                  <span class="json-property-type">integer</span>
+                                  <span class="json-property-range" title="Value limits"></span>
                                 </dt>
                               </dl>
                             </section>
@@ -17558,6 +17589,37 @@
                               <div class="json-inner-schema"> </div>
                             </section>
                           </dt>
+                          <dt data-property-name="channel_function">
+                            <span class="json-property-name">channel_function:</span>
+                            <span class="json-property-type">object</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="library_id">
+                                  <span class="json-property-name">library_id:</span>
+                                  <span class="json-property-type">string</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dt data-property-name="function_id">
+                                  <span class="json-property-name">function_id:</span>
+                                  <span class="json-property-type">string</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dt data-property-name="summary">
+                                  <span class="json-property-name">summary:</span>
+                                  <span class="json-property-type">string</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dt data-property-name="args">
+                                  <span class="json-property-name">args:</span>
+                                  <span class="json-property-type">string</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                              </dl>
+                            </section>
+                          </dt>
                         </dl>
                       </section>
                     </dt>
@@ -17570,20 +17632,29 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;view_id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
   <span class="hljs-attr">&quot;view&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
-  <span class="hljs-attr">&quot;category&quot;</span>: <span class="hljs-string">&quot;Applications&quot;</span>,
+  <span class="hljs-attr">&quot;categories&quot;</span>: <span class="hljs-string">&quot;Applications&quot;</span>,
   <span class="hljs-attr">&quot;alerts&quot;</span>: {
     <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">&quot;anomaly alert&quot;</span>: {
+    <span class="hljs-attr">&quot;anomaly_alert&quot;</span>: {
       <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">&quot;periodic_udf_settings&quot;</span>: {
+      <span class="hljs-attr">&quot;anomaly_function&quot;</span>: {
         <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L6&quot;</span>,
-        <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>
-      }
+        <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
+        <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Anomaly(last 1d vs. prev 7d, &#x394; &gt; 100%)\&quot;&quot;</span>,
+        <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# the active time window (min) to inspect\nactiveTimespan = 1d\n\n# The baseline time window to compare against (min)\nbaseTimespan = 7d\n\n# Change in % that would be considered a regression\nregressionDelta = 100\n\n# Min rate in % that an event must exceed\nminErrorRateThreshold = 10\n\n# Min fixed volume that an event must exceed\nminVolumeThreshold = 1000&quot;</span>
+      },
+      <span class="hljs-attr">&quot;period&quot;</span>: <span class="hljs-number">3</span>
     },
     <span class="hljs-attr">&quot;channels&quot;</span>: [
       <span class="hljs-string">&quot;SLACK&quot;</span>
-    ]
+    ],
+    <span class="hljs-attr">&quot;channel_function&quot;</span>: {
+      <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L8&quot;</span>,
+      <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Tier Routing&quot;</span>,
+      <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Anomaly(last 1d vs. prev 7d, &#x394; &gt; 100%)\&quot;&quot;</span>,
+      <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Category name where tiers views will be created.\ncategory_name=tiers\n\n# Link to the full tiers list: https://git.io/fpPT0\n# Enhance it with a delimited list: A=B;C=D;E=F, where the first item is a package (e.g com.mongo), and the second is a tier (e.g MongoDB).\nnamespaces=com.sparktale.bugtale.server.common.distribute.redis=Redis;org.redisson=Redisson;com.sparktale.bugtale.server.common.distribute.guava=Guava-Cache;com.sparktale.bugtale.util.cache=Cache;com.sparktale.bugtale.server.app.dashboard.cache=Cache;com.sparktale.bugtale.server.common.stats=SQL-Stats;com.sparktale.bugtale.server.common.pds=SQL-Pds;com.sparktale.bugtale.qsql=SQL-Queue;com.sparktale.bugtale.server.services.queue.qsql=SQL-Queue;com.sparktale.bugtale.shared.backend.rdbms=SQL-Common;com.sparktale.bugtale.server.common.queue=Local-Queue;com.sparktale.bugtale.server.common.alerts=Alerts-Engine;com.sparktale.bugtale.decoding=Snapshot-Analysis;com.sparktale.bugtale.server.common.hits=Snapshot-Analysis;com.sparktale.bugtale.server.common.tailor=Snapshot-Analysis;com.sparktale.bugtale.server.analysis=Code-Analysis;com.sparktale.bugtale.server.worker.analysis=Code-Analysis;com.sparktale.bugtale.server.common.source=Code-Analysis;com.sparktale.bugtale.analyzer=Code-Analysis;com.sparktale.bugtale.decompiler=Decompiler;com.takipi.integrations.grafana=OverOps-Influx-Backend;com.sparktale.common.util=Utils;com.sparktale.bugtale.shared.backend.util=Utils&quot;</span>
+    }
   }
 }
 </code></pre>

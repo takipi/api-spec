@@ -4072,9 +4072,11 @@ definitions:
         type: string
         description: View Name
         example: "API"
-      category:
-        type: string
-        description: Category Name
+      categories:
+        type: array
+        description: Categories Names
+        items:
+          type: string
         example: "Applications"
       alerts:
         type: object
@@ -4087,13 +4089,14 @@ definitions:
             type: "boolean"
             description: Indicates alerts which are sent on new events
             example: true
-          anomaly alert:
+          anomaly_alert:
             type: object
             properties:
               alert_on_anomaly:
                 type: "boolean"
                 example: true
-              periodic_udf_settings:
+              anomaly_function:
+                type: object
                 properties:
                   library_id:
                     type: "string"
@@ -4101,12 +4104,36 @@ definitions:
                   function_id:
                     type: "string"
                     example: "Relative Threshold"
+                  summary:
+                    type: string
+                    example: Anomaly(last 1d vs. prev 7d, Δ > 100%)"
+                  args:
+                    type: string
+                    example: "# the active time window (min) to inspect\nactiveTimespan = 1d\n\n# The baseline time window to compare against (min)\nbaseTimespan = 7d\n\n# Change in % that would be considered a regression\nregressionDelta = 100\n\n# Min rate in % that an event must exceed\nminErrorRateThreshold = 10\n\n# Min fixed volume that an event must exceed\nminVolumeThreshold = 1000"
+              period:
+                type: integer
+                example: 3
           channels:
             type: array
             items:
               type: string
               enum: [EMAIL, SLACK, HIPCHAT, PAGERDUTY, JIRA, WEBHOOK, SERVICENOW, UDF]
               example: SLACK
+          channel_function:
+            type: object
+            properties:
+              library_id:
+                type: "string"
+                example: "L8"
+              function_id:
+                type: "string"
+                example: "Tier Routing"
+              summary:
+                type: string
+                example: Anomaly(last 1d vs. prev 7d, Δ > 100%)"
+              args:
+                type: string
+                example: "# Category name where tiers views will be created.\ncategory_name=tiers\n\n# Link to the full tiers list: https://git.io/fpPT0\n# Enhance it with a delimited list: A=B;C=D;E=F, where the first item is a package (e.g com.mongo), and the second is a tier (e.g MongoDB).\nnamespaces=com.sparktale.bugtale.server.common.distribute.redis=Redis;org.redisson=Redisson;com.sparktale.bugtale.server.common.distribute.guava=Guava-Cache;com.sparktale.bugtale.util.cache=Cache;com.sparktale.bugtale.server.app.dashboard.cache=Cache;com.sparktale.bugtale.server.common.stats=SQL-Stats;com.sparktale.bugtale.server.common.pds=SQL-Pds;com.sparktale.bugtale.qsql=SQL-Queue;com.sparktale.bugtale.server.services.queue.qsql=SQL-Queue;com.sparktale.bugtale.shared.backend.rdbms=SQL-Common;com.sparktale.bugtale.server.common.queue=Local-Queue;com.sparktale.bugtale.server.common.alerts=Alerts-Engine;com.sparktale.bugtale.decoding=Snapshot-Analysis;com.sparktale.bugtale.server.common.hits=Snapshot-Analysis;com.sparktale.bugtale.server.common.tailor=Snapshot-Analysis;com.sparktale.bugtale.server.analysis=Code-Analysis;com.sparktale.bugtale.server.worker.analysis=Code-Analysis;com.sparktale.bugtale.server.common.source=Code-Analysis;com.sparktale.bugtale.analyzer=Code-Analysis;com.sparktale.bugtale.decompiler=Decompiler;com.takipi.integrations.grafana=OverOps-Influx-Backend;com.sparktale.common.util=Utils;com.sparktale.bugtale.shared.backend.util=Utils"
   PublishMetricsSettings:
     type: object
     properties:
