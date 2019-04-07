@@ -1663,7 +1663,7 @@ paths:
           type: string
       responses:
         200:
-          description: List of alerts in current environment, agregated in views (alerts which were set by calling/selected user and global alerts)
+          description: List of alerts in current environment, aggregated in views (alerts which were set by calling/selected user and global alerts)
           schema:
             type: object
             properties:
