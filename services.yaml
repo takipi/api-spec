@@ -336,6 +336,60 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/reliability-settings:
+    get:
+      tags:
+        - General
+      summary: "Fetch reliability settings JSON"
+      description: "Fetch reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Reliability dashboards settings JSON
+          schema:
+            type: object
+            properties:
+              reliability_settings_json:
+                type: string
+                format: binary
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - General
+      summary: "Upload reliability settings JSON"
+      description: "Upload reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: reliability_settings_json
+          schema:
+            type: object
+            properties:
+              reliability_settings_json:
+                type: string
+                format: binary
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
 #Events
   /services/{env_id}/events/force-snapshots:
     post:
@@ -2254,6 +2308,9 @@ paths:
           schema:
             type: object
             properties:
+              enabled:
+                type: boolean
+                example: true
               packages:
                 type: array
                 items:
@@ -2282,6 +2339,33 @@ paths:
                     name:
                       type: string
                       example: "IPv4"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Data Redaction
+      summary: "Enable / disable data redaction"
+      description: "Enable / disable data redaction for a selected environment. This call is allowed for admins only. **IMPORTANT:** *This call affects all filters*"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          description: Data redaction filtering status (true = enabled, false = disabled)
+          name: enabled
+          schema:
+            type: object
+            properties:
+              enabled:
+                type: boolean
+                example: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/data-redaction/patterns:
@@ -3675,7 +3759,7 @@ definitions:
           example: jane.doe@company.com
         role:
           type: string
-          description: owner / admin / member
+          description: owner / admin / member / viewer
           example: admin
   TeamMembersFull:
     description: List of environment team members
@@ -3691,12 +3775,16 @@ definitions:
           example: jane.doe@company.com
         role:
           type: string
-          description: owner / admin / member
+          description: owner / admin / member / viewer
           example: admin
         state:
           type: string
           description: active / pending invitation
-          example: active
+          example: "pending invitation"
+        link:
+          type: string
+          description: Invitation link for newly invited members (pending invitation status)
+          example: https://app.overops.com/app/cst?token=abcda12345678
   StorageSettings:
     type: object
     properties:
