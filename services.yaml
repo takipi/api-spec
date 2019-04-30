@@ -3557,6 +3557,10 @@ definitions:
         $ref: "#/definitions/CodeLocation"
       stats:
         $ref: "#/definitions/EventStats"
+      stack_frames:
+        type: array
+        items:
+          $ref: "#/definitions/CodeLocation"
   EventStats:
     type: object
     properties:
