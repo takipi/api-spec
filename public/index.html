@@ -376,6 +376,9 @@
                 <a href="#operation--services--env_id--settings-code-redaction-exclude-get"> List all code exclusions </a>
               </li>
               <li>
+                <a href="#operation--services--env_id--settings-code-redaction-exclude-post"> Add a bulk of code exclusions </a>
+              </li>
+              <li>
                 <a href="#operation--services--env_id--settings-code-redaction-exclude-classes-get"> List all excluded classes </a>
               </li>
               <li>
@@ -401,6 +404,9 @@
               </li>
               <li>
                 <a href="#operation--services--env_id--settings-code-redaction-include-get"> List all code inclusions </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-code-redaction-include-post"> Add a bulk of code inclusions </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--settings-code-redaction-include-classes-get"> List all included classes </a>
@@ -1715,6 +1721,45 @@
                 </section>
               </div>
             </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
           </div>
           <div id="operation--services--env_id--settings-reliability-settings-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-reliability-settings-get">
             <!-- <section class="operation-tags row"> -->
@@ -2199,7 +2244,15 @@
   <span class="hljs-attr">&quot;stats&quot;</span>: {
     <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
     <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
-  }
+  },
+  <span class="hljs-attr">&quot;stack_frames&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+      <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+      <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+      <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+    }
+  ]
 }
 </code></pre>
                   <!-- </div> -->
@@ -2954,7 +3007,15 @@
       <span class="hljs-attr">&quot;stats&quot;</span>: {
         <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
         <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
-      }
+      },
+      <span class="hljs-attr">&quot;stack_frames&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+          <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+          <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+          <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+        }
+      ]
     }
   ]
 }
@@ -4298,7 +4359,15 @@
       <span class="hljs-attr">&quot;stats&quot;</span>: {
         <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
         <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
-      }
+      },
+      <span class="hljs-attr">&quot;stack_frames&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+          <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+          <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+          <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+        }
+      ]
     }
   ]
 }
@@ -13225,6 +13294,139 @@
               </div>
             </div>
           </div>
+          <div id="operation--services--env_id--settings-code-redaction-exclude-post" class="operation panel" data-traverse-target="operation--services--env_id--settings-code-redaction-exclude-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Code-Redaction">Code Redaction</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add a bulk of code exclusions</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/settings/code-redaction/exclude</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add a bulk of code exclusions</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>code exclusions</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="classes">
+                        <span class="json-property-name">classes:</span>
+                        <span class="json-property-type">
+                          <span class="json-schema-ref-array">
+                            <a class="json-schema-ref" href="#/definitions/ExcludedClassName">ExcludedClassName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/ExcludedClassName">ExcludedClassName</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                      <dt data-property-name="packages">
+                        <span class="json-property-name">packages:</span>
+                        <span class="json-property-type">
+                          <span class="json-schema-ref-array">
+                            <a class="json-schema-ref" href="#/definitions/ExcludedPackageName">ExcludedPackageName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/ExcludedPackageName">ExcludedPackageName</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;classes&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.BadClassName&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;packages&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.package.bad&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
           <div id="operation--services--env_id--settings-code-redaction-exclude-classes-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-code-redaction-exclude-classes-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -14160,6 +14362,139 @@
                   <!-- </div> -->
                 </section>
               </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-code-redaction-include-post" class="operation panel" data-traverse-target="operation--services--env_id--settings-code-redaction-include-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Code-Redaction">Code Redaction</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add a bulk of code inclusions</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/settings/code-redaction/include</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add a bulk of code inclusions</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>code inclusions</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="classes">
+                        <span class="json-property-name">classes:</span>
+                        <span class="json-property-type">
+                          <span class="json-schema-ref-array">
+                            <a class="json-schema-ref" href="#/definitions/IncludedClassName">IncludedClassName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/IncludedClassName">IncludedClassName</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                      <dt data-property-name="packages">
+                        <span class="json-property-name">packages:</span>
+                        <span class="json-property-type">
+                          <span class="json-schema-ref-array">
+                            <a class="json-schema-ref" href="#/definitions/IncludedPackageName">IncludedPackageName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/IncludedPackageName">IncludedPackageName</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;classes&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.GoodClassName&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;packages&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.package.good&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
             </div>
           </div>
           <div id="operation--services--env_id--settings-code-redaction-include-classes-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-code-redaction-include-classes-get">
@@ -15745,6 +16080,26 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="stack_frames">
+                      <span class="json-property-name">stack_frames:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/CodeLocation">CodeLocation</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/CodeLocation">CodeLocation</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
                   </dl>
                 </section>
               </div>
@@ -15787,7 +16142,15 @@
   <span class="hljs-attr">&quot;stats&quot;</span>: {
     <span class="hljs-attr">&quot;hits&quot;</span>: <span class="hljs-number">42</span>,
     <span class="hljs-attr">&quot;invocations&quot;</span>: <span class="hljs-number">51929</span>
-  }
+  },
+  <span class="hljs-attr">&quot;stack_frames&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
+      <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
+      <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
+      <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+    }
+  ]
 }
 </code></pre>
                   <!-- </div> -->
