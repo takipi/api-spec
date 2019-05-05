@@ -2824,6 +2824,37 @@ paths:
                   $ref: "#/definitions/ExcludedPackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Code Redaction
+      summary: "Add a bulk of code exclusions"
+      description: "Add a bulk of code exclusions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: exclusions
+          description: code exclusions
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ExcludedClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/ExcludedPackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude/classes:
     get:
       tags:
@@ -3062,6 +3093,37 @@ paths:
                 type: array
                 items:
                   $ref: "#/definitions/IncludedPackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Code Redaction
+      summary: "Add a bulk of code inclusions"
+      description: "Add a bulk of code inclusions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: inclusions
+          description: code inclusions
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/IncludedClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/IncludedPackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/include/classes:
