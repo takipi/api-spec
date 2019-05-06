@@ -231,13 +231,13 @@
             <a href="#tag-System-Metrics">System Metrics</a>
             <ul>
               <li>
-                <a href="#operation--services--env_id--metrics-system-get"> Get Metadatas </a>
+                <a href="#operation--services--env_id--metrics-system-get"> Get all metadata </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--metrics-system--metric_name--get"> Get Specific Metadata </a>
+                <a href="#operation--services--env_id--metrics-system--metric_name--get"> Get a specific metric&#x27;s metadata </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--metrics-system--metric_name--graph-get"> Fetch Metrics data </a>
+                <a href="#operation--services--env_id--metrics-system--metric_name--graph-get"> Fetch metric graph/data </a>
               </li>
             </ul>
           </section>
@@ -3625,8 +3625,8 @@
   <span class="hljs-attr">&quot;filters&quot;</span>: {
     <span class="hljs-attr">&quot;first_seen&quot;</span>: {
       <span class="hljs-attr">&quot;absolute&quot;</span>: {
-        <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
-        <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
+        <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>,
+        <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>
       },
       <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
     },
@@ -3833,8 +3833,8 @@
       <span class="hljs-attr">&quot;filters&quot;</span>: {
         <span class="hljs-attr">&quot;first_seen&quot;</span>: {
           <span class="hljs-attr">&quot;absolute&quot;</span>: {
-            <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
-            <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
+            <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>,
+            <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>
           },
           <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
         },
@@ -3967,8 +3967,8 @@
   <span class="hljs-attr">&quot;filters&quot;</span>: {
     <span class="hljs-attr">&quot;first_seen&quot;</span>: {
       <span class="hljs-attr">&quot;absolute&quot;</span>: {
-        <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
-        <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
+        <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>,
+        <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>
       },
       <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
     },
@@ -5673,10 +5673,10 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;created_on&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;created_on&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>,
   <span class="hljs-attr">&quot;creation_method&quot;</span>: <span class="hljs-string">&quot;manual&quot;</span>,
   <span class="hljs-attr">&quot;created_by&quot;</span>: <span class="hljs-string">&quot;John Doe&quot;</span>,
-  <span class="hljs-attr">&quot;updated_on&quot;</span>: <span class="hljs-string">&quot;2018-05-01T07:00:00.020Z&quot;</span>,
+  <span class="hljs-attr">&quot;updated_on&quot;</span>: <span class="hljs-string">&quot;2018-05-01T10:00:00.020+03:00&quot;</span>,
   <span class="hljs-attr">&quot;update_method&quot;</span>: <span class="hljs-string">&quot;manual&quot;</span>,
   <span class="hljs-attr">&quot;updated_by&quot;</span>: <span class="hljs-string">&quot;John Doe&quot;</span>
 }
@@ -8648,7 +8648,7 @@
           <h1 id="tag-System-Metrics" class="swagger-summary-tag" data-traverse-target="tag-System-Metrics">System Metrics</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch JVM system metrics data</p>
+              <p>Fetch system metrics</p>
             </div>
           </div>
           <div id="operation--services--env_id--metrics-system-get" class="operation panel" data-traverse-target="operation--services--env_id--metrics-system-get">
@@ -8661,7 +8661,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Get Metadatas</span>
+              <span class="operation-summary">Get all metadata</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -8674,7 +8674,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get a list of all existing JVM Metrics</p>
+                  <p>Get a list of all available system metrics</p>
                 </section>
               </div>
             </div>
@@ -8709,7 +8709,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>List of metadatas</p>
+                      <p>List of all system metrics&#39; metadata</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -8771,7 +8771,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Get Specific Metadata</span>
+              <span class="operation-summary">Get a specific metric&apos;s metadata</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -8784,7 +8784,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch info about specific Metadata</p>
+                  <p>Fetch info about a specific metric</p>
                 </section>
               </div>
             </div>
@@ -8837,7 +8837,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>List of metadatas</p>
+                      <p>The requested metric&#39;s metadata</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -8888,7 +8888,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Fetch Metrics data</span>
+              <span class="operation-summary">Fetch metric graph/data</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -9088,7 +9088,7 @@
   <span class="hljs-attr">&quot;points&quot;</span>: [
     {
       <span class="hljs-attr">&quot;time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;3.526287896E9&quot;</span>
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">3.526287896</span>
     }
   ]
 }
@@ -15997,8 +15997,8 @@
   <span class="hljs-attr">&quot;filters&quot;</span>: {
     <span class="hljs-attr">&quot;first_seen&quot;</span>: {
       <span class="hljs-attr">&quot;absolute&quot;</span>: {
-        <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
-        <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
+        <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>,
+        <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>
       },
       <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
     },
@@ -16390,8 +16390,8 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;first_seen&quot;</span>: {
     <span class="hljs-attr">&quot;absolute&quot;</span>: {
-      <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
-      <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>
+      <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>,
+      <span class="hljs-attr">&quot;to&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>
     },
     <span class="hljs-attr">&quot;relative&quot;</span>: <span class="hljs-string">&quot;last_6h&quot;</span>
   },
@@ -17847,10 +17847,10 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;created_on&quot;</span>: <span class="hljs-string">&quot;2018-02-28T20:47:09.038Z&quot;</span>,
+  <span class="hljs-attr">&quot;created_on&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038+02:00&quot;</span>,
   <span class="hljs-attr">&quot;creation_method&quot;</span>: <span class="hljs-string">&quot;manual&quot;</span>,
   <span class="hljs-attr">&quot;created_by&quot;</span>: <span class="hljs-string">&quot;John Doe&quot;</span>,
-  <span class="hljs-attr">&quot;updated_on&quot;</span>: <span class="hljs-string">&quot;2018-05-01T07:00:00.020Z&quot;</span>,
+  <span class="hljs-attr">&quot;updated_on&quot;</span>: <span class="hljs-string">&quot;2018-05-01T10:00:00.020+03:00&quot;</span>,
   <span class="hljs-attr">&quot;update_method&quot;</span>: <span class="hljs-string">&quot;manual&quot;</span>,
   <span class="hljs-attr">&quot;updated_by&quot;</span>: <span class="hljs-string">&quot;John Doe&quot;</span>
 }
@@ -18730,7 +18730,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>unit name for custom metadatas</p>
+                      <p>singular suffix/descriptor for custom units</p>
                     </dd>
                     <dt data-property-name="plural_suffix" class="has-description">
                       <span class="json-property-name">plural_suffix:</span>
@@ -18738,7 +18738,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>unit plural name for custom metadatas</p>
+                      <p>plural suffix/descriptor for custom units</p>
                     </dd>
                   </dl>
                 </section>

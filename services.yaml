@@ -43,7 +43,7 @@ tags:
   - name: Publish Metrics
     description: Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools, providing control over application data from OverOps.
   - name: System Metrics
-    description: Fetch JVM system metrics data
+    description: Fetch system metrics
   - name: View Metrics
     description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments.
   - name: Categories
@@ -1891,8 +1891,8 @@ paths:
     get:
       tags:
         - System Metrics
-      summary: "Get Metadatas"
-      description: "Get a list of all existing JVM Metrics"
+      summary: "Get all metadata"
+      description: "Get a list of all available system metrics"
       parameters:
         - in: path
           name: env_id
@@ -1901,7 +1901,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of metadatas
+          description: List of all system metrics' metadata
           schema:
             type: object
             properties:
@@ -1917,8 +1917,8 @@ paths:
     get:
       tags:
         - System Metrics
-      summary: "Get Specific Metadata"
-      description: "Fetch info about specific Metadata"
+      summary: "Get a specific metric's metadata"
+      description: "Fetch info about a specific metric"
       parameters:
         - in: path
           name: env_id
@@ -1932,7 +1932,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of metadatas
+          description: The requested metric's metadata
           schema:
             $ref: "#/definitions/SystemMetrics"
         401:
@@ -1943,7 +1943,7 @@ paths:
     get:
       tags:
         - System Metrics
-      summary: Fetch Metrics data
+      summary: Fetch metric graph/data
       description: Fetch data for a specific system metric within a target timeframe, application / server / deployment set.
       parameters:
         - in: path
@@ -2001,11 +2001,11 @@ paths:
                     time:
                       type: string
                       description: Point acquisition time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-                      example: 2018-02-28T22:47:09.038Z
+                      example: "2018-02-28T22:47:09.038Z"
                     value:
-                      type: double
-                      desctiption: value
-                      example: 3.526287896E9
+                      type: number
+                      description: value
+                      example: 3.526287896
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -3611,11 +3611,11 @@ definitions:
               from:
                 type: string
                 description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-                example: 2018-02-28T22:47:09.038+02:00
+                example: "2018-02-28T22:47:09.038+02:00"
               to:
                 type: string
                 description: End time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-                example: 2018-02-28T22:47:09.038+02:00
+                example: "2018-02-28T22:47:09.038+02:00"
           relative:
             type: string
             enum: [last_hour, last_3h, last_6h, last_12h, last_24h, last_48h, last_7d, last_14d, last_30d]
@@ -3673,7 +3673,7 @@ definitions:
         description: List of deployment names
         items:
           type: string
-          example: 2018-04-11-2
+          example: "2018-04-11-2"
       introduced_by:
         type: array
         description: Filters events by deployment they originated in
@@ -3795,7 +3795,7 @@ definitions:
       created_on:
         type: string
         description: Label creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-02-28T22:47:09.038Z
+        example: "2018-02-28T22:47:09.038Z"
       created_by:
         type: string
         description: View creator
@@ -4071,7 +4071,7 @@ definitions:
       created_on:
         type: string
         description: View creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-02-28T22:47:09.038+02:00
+        example: "2018-02-28T22:47:09.038+02:00"
       creation_method:
         type: string
         enum: [manual,api]
@@ -4084,7 +4084,7 @@ definitions:
       updated_on:
         type: string
         description: View update time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-05-01T10:00:00.020+03:00
+        example: "2018-05-01T10:00:00.020+03:00"
       update_method:
         type: string
         enum: [manual,api]
@@ -4362,10 +4362,10 @@ definitions:
         enum: [NONE, CUSTOM, TIMES, NANOSECONDS, MICROSECONDS, MILLISECONDS, SECONDS, MINUTES, HOURS, DAYS, BYTES, KIBIBYTE, MEBIBYTE, GIBIBYTE]
       suffix:
         type: string
-        description: unit name for custom metadatas
+        description: singular suffix/descriptor for custom units
       plural_suffix:
         type: string
-        description: unit plural name for custom metadatas
+        description: plural suffix/descriptor for custom units
 responses:
   OK:
     description: OK
