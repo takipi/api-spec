@@ -1693,6 +1693,35 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         403:
           $ref: "#/responses/ForbiddenError"
+  /services/{env_id}/views/{view_id}/custom-alert:
+    post:
+      tags:
+        - Alerts
+      summary: "Send custom alert"
+      description: "Send custom alert"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View ID to use (e.g. P283)
+          type: string
+          required: true
+        - in: body
+          name: alert
+          description: CustomAlert
+          schema:
+              $ref: "#/definitions/CustomAlert"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
 #Timers
   /services/{env_id}/timers:
     get:
@@ -4289,6 +4318,29 @@ definitions:
             example: "http://hooks.company.com/overops1/P1/hook"
       #jira_settings: <- TBD
       #udf_settings <- TBD
+  CustomAlert:
+    description: Custom Alert
+    type: object
+    properties:
+      title:
+        type: string
+        example: "Logged Warning in Some.File"
+      body:
+        type: string
+        example: "A new logged warning has been detected in Staging2! (alert added by 4 members)"
+      links:
+        type: array
+        items:
+          type: object
+          properties:
+            pre_link_text:
+              type: string
+            link_text:
+              type: string
+            post_link_text:
+              type: string
+            link:
+              type: string
   PublishMetricsSettings:
     type: object
     properties:
