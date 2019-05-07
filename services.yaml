@@ -42,6 +42,8 @@ tags:
     description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
   - name: Publish Metrics
     description: Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools, providing control over application data from OverOps.
+  - name: System Metrics
+    description: Fetch system metrics
   - name: View Metrics
     description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments.
   - name: Categories
@@ -1190,8 +1192,8 @@ paths:
       tags:
         - Views
         - View Metrics
-      summary: "Fetch event metrics"
-      description: "Fetch event metrics"
+      summary: "Fetch event metrics split by view"
+      description: "Fetch event metrics split by view"
       parameters:
         - in: path
           name: env_id
@@ -1880,6 +1882,130 @@ paths:
           description: List of Available formats and metrics
           schema:
             $ref: "#/definitions/PublishMetricFormats"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+#System Metrics
+  /services/{env_id}/metrics/system:
+    get:
+      tags:
+        - System Metrics
+      summary: "Get all metadata"
+      description: "Get a list of all available system metrics"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of all system metrics' metadata
+          schema:
+            type: object
+            properties:
+              metrics:
+                type: array
+                items:
+                  $ref: "#/definitions/SystemMetrics"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/metrics/system/{metric_name}:
+    get:
+      tags:
+        - System Metrics
+      summary: "Get a specific metric's metadata"
+      description: "Fetch info about a specific metric"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: metric_name
+          description: Metric name to fetch
+          type: string
+          required: true
+      responses:
+        200:
+          description: The requested metric's metadata
+          schema:
+            $ref: "#/definitions/SystemMetrics"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/metrics/system/{metric_name}/graph:
+    get:
+      tags:
+        - System Metrics
+      summary: Fetch metric graph/data
+      description: Fetch data for a specific system metric within a target timeframe, application / server / deployment set.
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: metric_name
+          description: Metric name to fetch
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: points
+          type: integer
+          description: Number of data points to return within the interval. **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
+        - in: query
+          name: resolution
+          type: string
+          enum: [M1, M5, H1, H8]
+          description: Select graph resolution (use M1/M5 for 1 point per 1/5 minutes; use H1/H8 for 1 point per 1/8 hours). **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: List of points
+          schema:
+            type: object
+            properties:
+              points:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    time:
+                      type: string
+                      description: Point acquisition time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+                      example: "2018-02-28T22:47:09.038Z"
+                    value:
+                      type: number
+                      description: value
+                      example: 3.526287896
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
@@ -3485,11 +3611,11 @@ definitions:
               from:
                 type: string
                 description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-                example: 2018-02-28T22:47:09.038+02:00
+                example: "2018-02-28T22:47:09.038+02:00"
               to:
                 type: string
                 description: End time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-                example: 2018-02-28T22:47:09.038+02:00
+                example: "2018-02-28T22:47:09.038+02:00"
           relative:
             type: string
             enum: [last_hour, last_3h, last_6h, last_12h, last_24h, last_48h, last_7d, last_14d, last_30d]
@@ -3547,7 +3673,7 @@ definitions:
         description: List of deployment names
         items:
           type: string
-          example: 2018-04-11-2
+          example: "2018-04-11-2"
       introduced_by:
         type: array
         description: Filters events by deployment they originated in
@@ -3669,7 +3795,7 @@ definitions:
       created_on:
         type: string
         description: Label creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-02-28T22:47:09.038Z
+        example: "2018-02-28T22:47:09.038Z"
       created_by:
         type: string
         description: View creator
@@ -3945,7 +4071,7 @@ definitions:
       created_on:
         type: string
         description: View creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-02-28T22:47:09.038+02:00
+        example: "2018-02-28T22:47:09.038+02:00"
       creation_method:
         type: string
         enum: [manual,api]
@@ -3958,7 +4084,7 @@ definitions:
       updated_on:
         type: string
         description: View update time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-05-01T10:00:00.020+03:00
+        example: "2018-05-01T10:00:00.020+03:00"
       update_method:
         type: string
         enum: [manual,api]
@@ -4213,6 +4339,33 @@ definitions:
         pattern: overops_system,${serviceid},${application},${server},${systemmetrics}
       - name: Diagnostics
         pattern: overops_jvms,${serviceid},${application},${server},${applicationpid}
+  SystemMetrics:
+    type: object
+    properties:
+      name:
+        type:  string
+        description: Metric name
+        example: memory-metaspace-used
+      display_name:
+        type: string
+        description: Displayed names
+        example: Used Metaspace Size
+      unit:
+        $ref: "#/definitions/SystemMetadataUnit"
+  SystemMetadataUnit:
+    type: object
+    properties:
+      type:
+        type: string
+        description: unit type
+        example: BYTES
+        enum: [NONE, CUSTOM, TIMES, NANOSECONDS, MICROSECONDS, MILLISECONDS, SECONDS, MINUTES, HOURS, DAYS, BYTES, KIBIBYTE, MEBIBYTE, GIBIBYTE]
+      suffix:
+        type: string
+        description: singular suffix/descriptor for custom units
+      plural_suffix:
+        type: string
+        description: plural suffix/descriptor for custom units
 responses:
   OK:
     description: OK
