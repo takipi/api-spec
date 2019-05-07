@@ -1610,7 +1610,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/settings/alerts/service_now:
+  /services/{env_id}/settings/alerts/servicenow/tables:
     get:
       tags:
         - Alerts
@@ -1646,9 +1646,15 @@ paths:
               tables:
                 type: array
                 items:
-                  type: string
-                  description: Service Now Table names
-                  example: "Report Layer (sys_report_layer)"
+                  type: object
+                  description: Service Now Tables
+                  properties:
+                    display_name:
+                      type: string
+                      example: "Report Layer"
+                    internal_name:
+                      type: string
+                      example: "sys_report_layer"          
         401:
           $ref: "#/responses/UnauthorizedError"
         404:
