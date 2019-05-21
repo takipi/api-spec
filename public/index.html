@@ -7083,7 +7083,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;hip_chat&quot;</span>: {
     <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;dfgdk2342kljsldfjslk2342fsdfkjslkj&quot;</span>,
@@ -7183,7 +7183,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;hip_chat&quot;</span>: {
     <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;dfgdk2342kljsldfjslk2342fsdfkjslkj&quot;</span>,
@@ -7357,8 +7357,8 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;tables&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;display_name&quot;</span>: <span class="hljs-string">&quot;Report Layer&quot;</span>,
-      <span class="hljs-attr">&quot;internal_name&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
+      <span class="hljs-attr">&quot;label&quot;</span>: <span class="hljs-string">&quot;Report Layer&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
     }
   ]
 }
@@ -7511,7 +7511,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;email_settings&quot;</span>: {
     <span class="hljs-attr">&quot;is_active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -7648,7 +7648,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;email_settings&quot;</span>: {
     <span class="hljs-attr">&quot;is_active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -17719,11 +17719,14 @@
                             <span class="json-property-type">string</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
-                          <dt data-property-name="table">
+                          <dt data-property-name="table" class="has-description">
                             <span class="json-property-name">table:</span>
                             <span class="json-property-type">string</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
+                          <dd>
+                            <p>the name (internal name) of a servicenow table to be used</p>
+                          </dd>
                         </dl>
                       </section>
                     </dt>
@@ -17845,7 +17848,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;email_settings&quot;</span>: {
     <span class="hljs-attr">&quot;is_active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -17979,11 +17982,14 @@
                             <span class="json-property-type">string</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
-                          <dt data-property-name="table">
+                          <dt data-property-name="table" class="has-description">
                             <span class="json-property-name">table:</span>
                             <span class="json-property-type">string</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
+                          <dd>
+                            <p>the name (internal name) of a servicenow table to be used</p>
+                          </dd>
                         </dl>
                       </section>
                     </dt>
@@ -18049,7 +18055,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;hip_chat&quot;</span>: {
     <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;dfgdk2342kljsldfjslk2342fsdfkjslkj&quot;</span>,
