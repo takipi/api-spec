@@ -1610,7 +1610,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
-  /services/{env_id}/settings/alerts/servicenow/tables:
+  /services/{env_id}/alerts/servicenow/tables:
     get:
       tags:
         - Alerts
