@@ -1613,7 +1613,7 @@ paths:
         404:
           $ref: "#/responses/NotFoundError"
   /services/{env_id}/alerts/servicenow/tables:
-    get:
+    post:
       tags:
         - Alerts
       summary: "Fetch ServiceNow Tables"
