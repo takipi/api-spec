@@ -2979,22 +2979,22 @@ paths:
                   classes:
                     type: array
                     items:
-                      $ref: "#/definitions/ExcludedClassName"
+                      $ref: "#/definitions/ClassName"
                   packages:
                     type: array
                     items:
-                      $ref: "#/definitions/ExcludedPackageName"
+                      $ref: "#/definitions/PackageName"
               include:
                 type: object
                 properties:
                   classes:
                     type: array
                     items:
-                      $ref: "#/definitions/IncludedClassName"
+                      $ref: "#/definitions/ClassName"
                   packages:
                     type: array
                     items:
-                      $ref: "#/definitions/IncludedPackageName"
+                      $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude:
@@ -3018,11 +3018,11 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
     post:
@@ -3046,11 +3046,11 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedPackageName"
+                  $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3077,7 +3077,7 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedClassName"
+                  $ref: "#/definitions/ClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude/classes/{class_name}:
@@ -3104,7 +3104,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedClassName"
+                $ref: "#/definitions/ClassName"
         404:
           $ref: "#/responses/NotFoundError"
         401:
@@ -3131,7 +3131,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedClassName"
+                $ref: "#/definitions/ClassName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3183,7 +3183,7 @@ paths:
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude/packages/{package_name}:
@@ -3210,7 +3210,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedPackageName"
+                $ref: "#/definitions/PackageName"
         404:
           $ref: "#/responses/NotFoundError"
         401:
@@ -3237,7 +3237,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedPackageName"
+                $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3289,11 +3289,11 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
     post:
@@ -3317,11 +3317,11 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedPackageName"
+                  $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3348,7 +3348,7 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedClassName"
+                  $ref: "#/definitions/ClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/include/classes/{class_name}:
@@ -3375,7 +3375,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/IncludedClassName"
+                $ref: "#/definitions/ClassName"
         404:
           $ref: "#/responses/NotFoundError"
         401:
@@ -3402,7 +3402,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/IncludedClassName"
+                $ref: "#/definitions/ClassName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3453,7 +3453,7 @@ paths:
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/include/packages/{package_name}:
@@ -3501,7 +3501,7 @@ paths:
           schema:
             properties:
               name:
-                $ref: "#/definitions/IncludedPackageName"
+                $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3532,6 +3532,167 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+#Preferred Entrypoints
+  /services/{env_id}/settings/entrypoints:
+    get:
+      tags:
+        - Entrypoints
+      summary: "List all preferred and excluded entrypoints"
+      description: "List all packages and classes that should be handled as preferred or excluded entrypoints"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of preferred and excluded entrypoint classes and packages
+          schema:
+            type: object
+            properties:
+              excluded:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      $ref: "#/definitions/ClassName"
+                  packages:
+                    type: array
+                    items:
+                      $ref: "#/definitions/PackageName"
+              preferred:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      $ref: "#/definitions/ClassName"
+                  packages:
+                    type: array
+                    items:
+                      $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/excluded:
+    get:
+      tags:
+        - Entrypoints
+      summary: "List all entrypoint exclusions"
+      description: "List all classes and packages that should be set as lowest priority entrypoints (i.e. will be set as entrypoints only if no other entrypoints were found in the event call stack)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of excluded classes and packages
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Entrypoints
+      summary: "Add a bulk of entrypoint exclusions"
+      description: "Add a bulk of entrypoint exclusions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: excluded
+          description: entrypoint exclusions
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/preferred:
+    get:
+      tags:
+        - Entrypoints
+      summary: "List all preferred entrypoints"
+      description: "List all packages and classes that will be set as entrypoints in highest priority"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of classes and packages that should be handled as preffered entrypoints
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Entrypoints
+      summary: "Add a bulk of preferred entrypoints"
+      description: "Add a bulk of classes and packages that should bet set as entrypoints in highest priority"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: preferred
+          description: list of preferred entrypoints
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
@@ -3549,18 +3710,12 @@ definitions:
       is_active:
         type: boolean
         example: true
-  IncludedClassName:
+  ClassName:
     type: string
-    example: "com.company.GoodClassName"
-  IncludedPackageName:
+    example: "com.company.ClassName"
+  PackageName:
     type: string
-    example: "com.company.package.good"
-  ExcludedClassName:
-    type: string
-    example: "com.company.BadClassName"
-  ExcludedPackageName:
-    type: string
-    example: "com.company.package.bad"
+    example: "com.company.package.name"
   ViewBasic:
     type: object
     properties:
