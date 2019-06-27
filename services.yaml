@@ -3929,7 +3929,7 @@ paths:
                   $ref: "#/definitions/ClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/preferred/{class_name}:
+  /services/{env_id}/settings/entrypoints/preferred/classes/{class_name}:
     get:
       tags:
         - Entrypoints
@@ -4034,7 +4034,7 @@ paths:
                   $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/preferred/{package_name}:
+  /services/{env_id}/settings/entrypoints/preferred/packages/{package_name}:
     get:
       tags:
         - Entrypoints
