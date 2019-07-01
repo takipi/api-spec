@@ -3532,13 +3532,13 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-#Preferred Entrypoints
+# Entrypoints Prioritization
   /services/{env_id}/settings/entrypoints:
     get:
       tags:
         - Entrypoints
-      summary: "List all preferred and excluded entrypoints"
-      description: "List all packages and classes that should be handled as preferred or excluded entrypoints"
+      summary: "List all prioritized and deprioritized entrypoints"
+      description: "List all packages and classes that should be handled as prioritized or deprioritized entrypoints"
       parameters:
         - in: path
           name: env_id
@@ -3547,11 +3547,11 @@ paths:
           required: true
       responses:
         200:
-          description: List of preferred and excluded entrypoint classes and packages
+          description: List of prioritized and deprioritized entrypoint classes and packages
           schema:
             type: object
             properties:
-              excluded:
+              deprioritized:
                 type: object
                 properties:
                   classes:
@@ -3562,7 +3562,7 @@ paths:
                     type: array
                     items:
                       $ref: "#/definitions/PackageName"
-              preferred:
+              prioritized:
                 type: object
                 properties:
                   classes:
@@ -3575,11 +3575,11 @@ paths:
                       $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/excluded:
+  /services/{env_id}/settings/entrypoints/deprioritized:
     get:
       tags:
         - Entrypoints
-      summary: "List all entrypoint exclusions"
+      summary: "List all deprioritized entrypoints"
       description: "List all classes and packages that should be set as lowest priority entrypoints (i.e. will be set as entrypoints only if no other entrypoints were found in the event call stack)"
       parameters:
         - in: path
@@ -3589,7 +3589,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of excluded classes and packages
+          description: List of deprioritized classes and packages
           schema:
             type: object
             properties:
@@ -3606,8 +3606,8 @@ paths:
     post:
       tags:
         - Entrypoints
-      summary: "Add a bulk of entrypoint exclusions"
-      description: "Add a bulk of entrypoint exclusions"
+      summary: "Add a bulk of deprioritized entrypoints"
+      description: "Add a bulk of deprioritized entrypoints"
       parameters:
         - in: path
           name: env_id
@@ -3615,8 +3615,8 @@ paths:
           type: string
           required: true
         - in: body
-          name: excluded
-          description: entrypoint exclusions
+          name: deprioritized
+          description: deprioritized entrypoints
           required: true
           schema:
             type: object
@@ -3634,11 +3634,11 @@ paths:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/preferred:
+  /services/{env_id}/settings/entrypoints/prioritized:
     get:
       tags:
         - Entrypoints
-      summary: "List all preferred entrypoints"
+      summary: "List all prioritized entrypoints"
       description: "List all packages and classes that will be set as entrypoints in highest priority"
       parameters:
         - in: path
@@ -3665,7 +3665,7 @@ paths:
     post:
       tags:
         - Entrypoints
-      summary: "Add a bulk of preferred entrypoints"
+      summary: "Add a bulk of prioritized entrypoints"
       description: "Add a bulk of classes and packages that should bet set as entrypoints in highest priority"
       parameters:
         - in: path
@@ -3674,8 +3674,8 @@ paths:
           type: string
           required: true
         - in: body
-          name: preferred
-          description: list of preferred entrypoints
+          name: prioritized
+          description: list of prioritized entrypoints
           required: true
           schema:
             type: object
@@ -3693,11 +3693,11 @@ paths:
           $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/excluded/classes:
+  /services/{env_id}/settings/entrypoints/deprioritized/classes:
     get:
       tags:
         - Entrypoints
-      summary: "List all entrypoint class exclusions"
+      summary: "List all classes associated with deprioritized entrypoints"
       description: "List all classes that should be set as lowest priority entrypoints (i.e. will be set as entrypoints only if no other entrypoints were found in the event call stack)"
       parameters:
         - in: path
@@ -3707,7 +3707,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of excluded classes
+          description: List of deprioritized classes
           schema:
             type: object
             properties:
@@ -3717,65 +3717,65 @@ paths:
                   $ref: "#/definitions/ClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/excluded/classes/{class_name}:
-    get:
-      tags:
-        - Entrypoints
-      summary: "Fetch an excluded class"
-      description: "Fetch an excluded class"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-      responses:
-        200:
-          description: An excluded class
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/ClassName"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Entrypoints
-      summary: "Add a class to the exclusion list"
-      description: "Add a class to the exclusion list. The body class name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-        - in: body
-          name: class
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/ClassName"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/classes/{class_name}:
+    # get:
+    #   tags:
+    #     - Entrypoints
+    #   summary: "Fetch an deprioritized class"
+    #   description: "Fetch an deprioritized class"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: class_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java class name
+    #   responses:
+    #     200:
+    #       description: An deprioritized class
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/ClassName"
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    # put:
+    #   tags:
+    #     - Entrypoints
+    #   summary: "Add a class to the exclusion list"
+    #   description: "Add a class to the exclusion list. The body class name must match the resource identifier"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: class_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java class name
+    #     - in: body
+    #       name: class
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/ClassName"
+    #   responses:
+    #     200:
+    #       $ref: "#/responses/OK"
+    #     400:
+    #       $ref: "#/responses/BadRequestError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Entrypoints
@@ -3799,11 +3799,11 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/excluded/packages:
+  /services/{env_id}/settings/entrypoints/deprioritized/packages:
     get:
       tags:
         - Entrypoints
-      summary: "List all packages associated with excluded entrypoints"
+      summary: "List all packages associated with deprioritized entrypoints"
       description: "List all packages that should be set as lowest priority entrypoints (i.e. will be set as entrypoints only if no other entrypoints were found in the event call stack)"
       parameters:
         - in: path
@@ -3813,7 +3813,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of excluded packages
+          description: List of deprioritized packages
           schema:
             type: object
             properties:
@@ -3823,65 +3823,65 @@ paths:
                   $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/excluded/packages/{package_name}:
-    get:
-      tags:
-        - Entrypoints
-      summary: "Retrieve an excluded package"
-      description: "Retrieve an excluded package"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-      responses:
-        200:
-          description: An excluded package
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/PackageName"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Entrypoints
-      summary: "Add a package to the exclusion list"
-      description: "Add a package to the exclusion list. The body package name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-        - in: body
-          name: package
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/PackageName"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/packages/{package_name}:
+    # get:
+    #   tags:
+    #     - Entrypoints
+    #   summary: "Retrieve an deprioritized package"
+    #   description: "Retrieve an deprioritized package"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: package_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java package name
+    #   responses:
+    #     200:
+    #       description: An deprioritized package
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/PackageName"
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    # put:
+    #   tags:
+    #     - Entrypoints
+    #   summary: "Add a package to the exclusion list"
+    #   description: "Add a package to the exclusion list. The body package name must match the resource identifier"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: package_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java package name
+    #     - in: body
+    #       name: package
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/PackageName"
+    #   responses:
+    #     200:
+    #       $ref: "#/responses/OK"
+    #     400:
+    #       $ref: "#/responses/BadRequestError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Entrypoints
@@ -3905,12 +3905,12 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/preferred/classes:
+  /services/{env_id}/settings/entrypoints/prioritized/classes:
     get:
       tags:
         - Entrypoints
-      summary: "List all preferred entrypoint classes"
-      description: "List all preferred entrypoint classes"
+      summary: "List all prioritized entrypoint classes"
+      description: "List all prioritized entrypoint classes"
       parameters:
         - in: path
           name: env_id
@@ -3919,7 +3919,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of preferred entrypoint classes
+          description: List of prioritized entrypoint classes
           schema:
             type: object
             properties:
@@ -3929,70 +3929,70 @@ paths:
                   $ref: "#/definitions/ClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/preferred/classes/{class_name}:
-    get:
-      tags:
-        - Entrypoints
-      summary: "Retrieve a preferred entrypoint class"
-      description: "Retrieve a preferred entrypoint class"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-      responses:
-        200:
-          description: An included class
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/ClassName"
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Entrypoints
-      summary: "Add a class to the preferred entrypoints list"
-      description: "Add a class to the preferred entrypoints list. The body class name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: class_name
-          type: string
-          required: true
-          description: Fully qualified Java class name
-        - in: body
-          name: class
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/definitions/ClassName"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/classes/{class_name}:
+    # get:
+    #   tags:
+    #     - Entrypoints
+    #   summary: "Retrieve a prioritized entrypoint class"
+    #   description: "Retrieve a prioritized entrypoint class"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: class_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java class name
+    #   responses:
+    #     200:
+    #       description: An included class
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/ClassName"
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    # put:
+    #   tags:
+    #     - Entrypoints
+    #   summary: "Add a class to the prioritized entrypoints list"
+    #   description: "Add a class to the prioritized entrypoints list. The body class name must match the resource identifier"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: class_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java class name
+    #     - in: body
+    #       name: class
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/ClassName"
+    #   responses:
+    #     200:
+    #       $ref: "#/responses/OK"
+    #     400:
+    #       $ref: "#/responses/BadRequestError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Entrypoints
-      summary: "Remove a class from the preferred entrypoints list"
-      description: "Remove a class from the preferred entrypoints list"
+      summary: "Remove a class from the prioritized entrypoints list"
+      description: "Remove a class from the prioritized entrypoints list"
       parameters:
         - in: path
           name: env_id
@@ -4011,12 +4011,12 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/preferred/packages:
+  /services/{env_id}/settings/entrypoints/prioritized/packages:
     get:
       tags:
         - Entrypoints
-      summary: "List all preferred entrypoint packages"
-      description: "List all preferred entrypoint packages"
+      summary: "List all prioritized entrypoint packages"
+      description: "List all prioritized entrypoint packages"
       parameters:
         - in: path
           name: env_id
@@ -4034,64 +4034,64 @@ paths:
                   $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/settings/entrypoints/preferred/packages/{package_name}:
-    get:
-      tags:
-        - Entrypoints
-      summary: "Retrieve a preferred entrypoints package"
-      description: "Retrieve a preferred entrypoints package"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-      responses:
-        200:
-          description: Preferred entrypoint package
-        404:
-          $ref: "#/responses/NotFoundError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
-    put:
-      tags:
-        - Entrypoints
-      summary: "Add a package to the preferred entrypoints list"
-      description: "Add a package to the preferred entrypoints list. The body package name must match the resource identifier"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment ID to use (e.g. S1234)
-          type: string
-          required: true
-        - in: path
-          name: package_name
-          type: string
-          required: true
-          description: Fully qualified Java package name
-        - in: body
-          name: package
-          schema:
-            properties:
-              name:
-                $ref: "#/definitions/PackageName"
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        400:
-          $ref: "#/responses/BadRequestError"
-        401:
-          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/packages/{package_name}:
+    # get:
+    #   tags:
+    #     - Entrypoints
+    #   summary: "Retrieve a prioritized entrypoints package"
+    #   description: "Retrieve a prioritized entrypoints package"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: package_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java package name
+    #   responses:
+    #     200:
+    #       description: prioritized entrypoint package
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    # put:
+    #   tags:
+    #     - Entrypoints
+    #   summary: "Add a package to the prioritized entrypoints list"
+    #   description: "Add a package to the prioritized entrypoints list. The body package name must match the resource identifier"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: package_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java package name
+    #     - in: body
+    #       name: package
+    #       schema:
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/PackageName"
+    #   responses:
+    #     200:
+    #       $ref: "#/responses/OK"
+    #     400:
+    #       $ref: "#/responses/BadRequestError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Entrypoints
-      summary: "Remove a package from the preferred entrypoints list"
-      description: "Remove a package from the preferred entrypoints list"
+      summary: "Remove a package from the prioritized entrypoints list"
+      description: "Remove a package from the prioritized entrypoints list"
       parameters:
         - in: path
           name: env_id
