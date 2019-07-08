@@ -125,7 +125,7 @@ paths:
       tags:
         - General
       summary: Rename an environment
-      description: "Rename an environment. This call is allowed for admins only"
+      description: "Renames an existing environment. This call is allowed for admins only"
       parameters:
         - in: path
           name: env_id
@@ -167,7 +167,7 @@ paths:
       tags:
         - General
       summary: "List servers"
-      description: "List all (or just active) servers that were used to monitor applications.
+      description: "List all (or only active) servers that were used to monitor applications.
         These can be either the IP/Hostname of a host or a cluster identifier. [How to name your Server](https://doc.overops.com/docs/naming-your-application-server-deployment)"
       parameters:
         - in: path
@@ -195,7 +195,7 @@ paths:
       tags:
         - General
       summary: "List applications"
-      description: "List all (or just active) applications that were used to monitor applications.
+      description: "List all (or only active) applications that were used to monitor applications.
         These can be either an application name, an integration suite name or a specific instance. [How to name your Application](https://doc.overops.com/docs/naming-your-application-server-deployment)"
       parameters:
         - in: path
@@ -223,7 +223,7 @@ paths:
       tags:
         - General
       summary: "List deployments"
-      description: "List all (or just active) deployments that were monitoring in the environment.
+      description: "List all (or only active) deployments that were monitoring in the environment.
         These can be either the Jenkins build number, Git commit, Maven version, etc. [How to tag your deployment](https://doc.overops.com/docs/naming-your-application-server-deployment)"
       parameters:
         - in: path
@@ -251,7 +251,7 @@ paths:
       tags:
         - General
       summary: "Get storage settings of an environment"
-      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
+      description: "In a Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key, before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-installation) for complete information"
       parameters:
         - in: path
           name: env_id
@@ -271,7 +271,7 @@ paths:
       tags:
         - General
       summary: "Set storage settings for a service"
-      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. This API call allows you to configure your storage server as part of your Hybrid OverOps setup. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
+      description: "In a Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key, before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-installation) for complete information"
       parameters:
         - in: path
           name: env_id
@@ -1573,7 +1573,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch Default Alert Settings"
-      description: "Use this call to fetch default alert settings for selected environment"
+      description: "Use this call to get the default alert settings for the selected environment"
       parameters:
         - in: path
           name: env_id
@@ -1617,7 +1617,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch Alert settings for a View"
-      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc)"
+      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc.) Note that for every change the you make, you'll need to specify all the fields that were previously set - missing fields will be assigned default (empty) values and nullified."
       parameters:
         - in: path
           name: env_id
