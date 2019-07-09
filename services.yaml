@@ -3746,36 +3746,36 @@ paths:
     #       $ref: "#/responses/NotFoundError"
     #     401:
     #       $ref: "#/responses/UnauthorizedError"
-    # put:
-    #   tags:
-    #     - Entrypoints
-    #   summary: "Add a class to the exclusion list"
-    #   description: "Add a class to the exclusion list. The body class name must match the resource identifier"
-    #   parameters:
-    #     - in: path
-    #       name: env_id
-    #       description: Environment ID to use (e.g. S1234)
-    #       type: string
-    #       required: true
-    #     - in: path
-    #       name: class_name
-    #       type: string
-    #       required: true
-    #       description: Fully qualified Java class name
-    #     - in: body
-    #       name: class
-    #       schema:
-    #         type: object
-    #         properties:
-    #           name:
-    #             $ref: "#/definitions/ClassName"
-    #   responses:
-    #     200:
-    #       $ref: "#/responses/OK"
-    #     400:
-    #       $ref: "#/responses/BadRequestError"
-    #     401:
-    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entrypoints
+      summary: "Add a class to the exclusion list"
+      description: "Add a class to the exclusion list. The body class name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ClassName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Entrypoints
@@ -3852,36 +3852,36 @@ paths:
     #       $ref: "#/responses/NotFoundError"
     #     401:
     #       $ref: "#/responses/UnauthorizedError"
-    # put:
-    #   tags:
-    #     - Entrypoints
-    #   summary: "Add a package to the exclusion list"
-    #   description: "Add a package to the exclusion list. The body package name must match the resource identifier"
-    #   parameters:
-    #     - in: path
-    #       name: env_id
-    #       description: Environment ID to use (e.g. S1234)
-    #       type: string
-    #       required: true
-    #     - in: path
-    #       name: package_name
-    #       type: string
-    #       required: true
-    #       description: Fully qualified Java package name
-    #     - in: body
-    #       name: package
-    #       schema:
-    #         type: object
-    #         properties:
-    #           name:
-    #             $ref: "#/definitions/PackageName"
-    #   responses:
-    #     200:
-    #       $ref: "#/responses/OK"
-    #     400:
-    #       $ref: "#/responses/BadRequestError"
-    #     401:
-    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entrypoints
+      summary: "Add a package to the exclusion list"
+      description: "Add a package to the exclusion list. The body package name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Entrypoints
@@ -3958,36 +3958,36 @@ paths:
     #       $ref: "#/responses/NotFoundError"
     #     401:
     #       $ref: "#/responses/UnauthorizedError"
-    # put:
-    #   tags:
-    #     - Entrypoints
-    #   summary: "Add a class to the prioritized entrypoints list"
-    #   description: "Add a class to the prioritized entrypoints list. The body class name must match the resource identifier"
-    #   parameters:
-    #     - in: path
-    #       name: env_id
-    #       description: Environment ID to use (e.g. S1234)
-    #       type: string
-    #       required: true
-    #     - in: path
-    #       name: class_name
-    #       type: string
-    #       required: true
-    #       description: Fully qualified Java class name
-    #     - in: body
-    #       name: class
-    #       schema:
-    #         type: object
-    #         properties:
-    #           name:
-    #             $ref: "#/definitions/ClassName"
-    #   responses:
-    #     200:
-    #       $ref: "#/responses/OK"
-    #     400:
-    #       $ref: "#/responses/BadRequestError"
-    #     401:
-    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entrypoints
+      summary: "Add a class to the prioritized entrypoints list"
+      description: "Add a class to the prioritized entrypoints list. The body class name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ClassName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Entrypoints
@@ -4058,35 +4058,35 @@ paths:
     #       $ref: "#/responses/NotFoundError"
     #     401:
     #       $ref: "#/responses/UnauthorizedError"
-    # put:
-    #   tags:
-    #     - Entrypoints
-    #   summary: "Add a package to the prioritized entrypoints list"
-    #   description: "Add a package to the prioritized entrypoints list. The body package name must match the resource identifier"
-    #   parameters:
-    #     - in: path
-    #       name: env_id
-    #       description: Environment ID to use (e.g. S1234)
-    #       type: string
-    #       required: true
-    #     - in: path
-    #       name: package_name
-    #       type: string
-    #       required: true
-    #       description: Fully qualified Java package name
-    #     - in: body
-    #       name: package
-    #       schema:
-    #         properties:
-    #           name:
-    #             $ref: "#/definitions/PackageName"
-    #   responses:
-    #     200:
-    #       $ref: "#/responses/OK"
-    #     400:
-    #       $ref: "#/responses/BadRequestError"
-    #     401:
-    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entrypoints
+      summary: "Add a package to the prioritized entrypoints list"
+      description: "Add a package to the prioritized entrypoints list. The body package name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            properties:
+              name:
+                $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
         - Entrypoints
