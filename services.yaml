@@ -1617,7 +1617,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch Alert settings for a View"
-      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc.) Note that for every change the you make, you'll need to specify all the fields that were previously set - missing fields will be assigned empty values and nullified."
+      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc.) For every change you make, you'll need to specify all the fields that were previously set - missing fields will be assigned empty values and nullified."
       parameters:
         - in: path
           name: env_id
