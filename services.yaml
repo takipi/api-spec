@@ -33,11 +33,11 @@ tags:
   - name: Events
     description: Fetch and manipulate OverOps Automated Root Cause Events and Snapshots
   - name: Views
-    description: Fetch and manipulate grouping of events (i.e. Views) according to attribute sets (e.g. "uncaught exceptions", "errors from package com.acme")
+    description: Fetch and manipulate grouping of events (i.e., Views) according to attribute sets (e.g., "uncaught exceptions", "errors from package com.acme")
   - name: Labels
     description: Fetch and manipulate events labels
   - name: Alerts
-    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
+    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies. The can include, for example, the introduction of new events and regressions to different communication channels, such as Email, Jira, Slack, and Uder Defined Functions (UDFs).
   - name: Timers
     description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
   - name: Publish Metrics
@@ -49,13 +49,13 @@ tags:
   - name: Categories
     description: Fetch and manipulate grouping of views into logical categories (e.g "CI/CD", "Favorites")
   - name: UDFs
-    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.
+    description: Fetch and manipulate User Defined Functions (UDFs) - OverOps extensions using Lambdas.
   - name: Team Management
     description: APIs related to team management of a service
   - name: Data Redaction
     description: Fetch and manipulate data redaction of PII with target environments.
   - name: Code Redaction
-    description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes  from OverOps analysis and data capture.
+    description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes from OverOps analysis and data capture.
 schemes:
 - "https"
 paths:
@@ -343,7 +343,7 @@ paths:
       tags:
         - General
       summary: "Fetch reliability settings JSON"
-      description: "Fetch reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      description: "Fetch the reliability settings JSON, which defines all the thresholds and preferences for the OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
       parameters:
         - in: path
           name: env_id
@@ -367,7 +367,7 @@ paths:
       tags:
         - General
       summary: "Upload reliability settings JSON"
-      description: "Upload reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      description: "Upload the reliability settings JSON, which defines all the thresholds and preferences for the OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
       parameters:
         - in: path
           name: env_id
@@ -721,7 +721,7 @@ paths:
       tags:
         - Labels
       summary: "Create new label"
-      description: "Create a new label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization."
+      description: "Labels are used to tag events with custom classifications, and help to support use cases such as classifying an event as severe / regressed or assigning it to a specific developer or team (e.g., prod-team-A) or any other user defined categorization."
       parameters:
         - in: path
           name: env_id
