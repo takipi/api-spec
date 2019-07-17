@@ -183,6 +183,9 @@
                 <a href="#operation--services--env_id--settings-alerts-post"> Update Default Alert Settings </a>
               </li>
               <li>
+                <a href="#operation--services--env_id--alerts-servicenow-tables-post"> Fetch ServiceNow Tables </a>
+              </li>
+              <li>
                 <a href="#operation--services--env_id--views--view_id--alerts-get"> Fetch Alert settings for a View </a>
               </li>
               <li>
@@ -7100,7 +7103,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;hip_chat&quot;</span>: {
     <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;dfgdk2342kljsldfjslk2342fsdfkjslkj&quot;</span>,
@@ -7200,7 +7203,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;hip_chat&quot;</span>: {
     <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;dfgdk2342kljsldfjslk2342fsdfkjslkj&quot;</span>,
@@ -7245,6 +7248,144 @@
                 </section>
               </div>
               <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--alerts-servicenow-tables-post" class="operation panel" data-traverse-target="operation--services--env_id--alerts-servicenow-tables-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Alerts">Alerts</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch ServiceNow Tables</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/alerts/servicenow/tables</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Use this call to Load ServiceNow tables associated with specific credentials</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>ServiceNow Credentials</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="url">
+                        <span class="json-property-name">url:</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt data-property-name="user_id">
+                        <span class="json-property-name">user_id:</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt data-property-name="password">
+                        <span class="json-property-name">password:</span>
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
+  <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
+  <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of ServiceNow tables</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;tables&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;label&quot;</span>: <span class="hljs-string">&quot;Report Layer&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <div id="operation--services--env_id--views--view_id--alerts-get" class="operation panel" data-traverse-target="operation--services--env_id--views--view_id--alerts-get">
@@ -7390,7 +7531,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;email_settings&quot;</span>: {
     <span class="hljs-attr">&quot;is_active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -7527,7 +7668,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;email_settings&quot;</span>: {
     <span class="hljs-attr">&quot;is_active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -18179,11 +18320,14 @@
                             <span class="json-property-type">string</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
-                          <dt data-property-name="table">
+                          <dt data-property-name="table" class="has-description">
                             <span class="json-property-name">table:</span>
                             <span class="json-property-type">string</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
+                          <dd>
+                            <p>the name (internal name) of a servicenow table to be used</p>
+                          </dd>
                         </dl>
                       </section>
                     </dt>
@@ -18305,7 +18449,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;email_settings&quot;</span>: {
     <span class="hljs-attr">&quot;is_active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -18439,11 +18583,14 @@
                             <span class="json-property-type">string</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
-                          <dt data-property-name="table">
+                          <dt data-property-name="table" class="has-description">
                             <span class="json-property-name">table:</span>
                             <span class="json-property-type">string</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
+                          <dd>
+                            <p>the name (internal name) of a servicenow table to be used</p>
+                          </dd>
                         </dl>
                       </section>
                     </dt>
@@ -18509,7 +18656,7 @@
     <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
     <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
-    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;overops&quot;</span>
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
   },
   <span class="hljs-attr">&quot;hip_chat&quot;</span>: {
     <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;dfgdk2342kljsldfjslk2342fsdfkjslkj&quot;</span>,

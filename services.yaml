@@ -1612,6 +1612,55 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/alerts/servicenow/tables:
+    post:
+      tags:
+        - Alerts
+      summary: "Fetch ServiceNow Tables"
+      description: "Use this call to Load ServiceNow tables associated with specific credentials"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: credentials
+          description: ServiceNow Credentials
+          schema:
+            type: object
+            properties:
+              url:
+                type: "string"
+                example: "http://servicenow.company.com/hooks"
+              user_id:
+                type: "string"
+                example: "admin"
+              password:
+                type: "string"
+                example: "pa$$1"
+      responses:
+        200:
+          description: List of ServiceNow tables
+          schema:
+            type: object
+            properties:
+              tables:
+                type: array
+                items:
+                  type: object
+                  description: Service Now Tables
+                  properties:
+                    label:
+                      type: string
+                      example: "Report Layer"
+                    name:
+                      type: string
+                      example: "sys_report_layer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/views/{view_id}/alerts:
     get:
       tags:
@@ -4212,8 +4261,9 @@ definitions:
             type: "string"
             example: "pa$$1"
           table:
+            description: the name (internal name) of a servicenow table to be used
             type: "string"
-            example: "overops"
+            example: "sys_report_layer"
         type: "object"
       email_settings:
         properties:
@@ -4299,8 +4349,9 @@ definitions:
             type: "string"
             example: "pa$$1"
           table:
+            description: the name (internal name) of a servicenow table to be used
             type: "string"
-            example: "overops"
+            example: "sys_report_layer"
       hip_chat:
         type: "object"
         properties:
