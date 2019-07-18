@@ -2101,6 +2101,14 @@ paths:
           description: Environment ID to use (e.g. S1234)
           type: string
           required: true
+        - in: query
+          name: name
+          description: Category name
+          type: string
+        - in: query
+          name: views
+          description: List views associated with each category in the response
+          type: boolean
       responses:
         200:
           description: List of View Categories and their info
