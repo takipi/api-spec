@@ -4026,6 +4026,10 @@ definitions:
         type: boolean
         description: Clear servers, applications and deployments filters when moving between views
         example: false
+      enhanced_decompilation:
+        type: boolean
+        description: Enable enhanced decompilation (This will use raw bytecode but won't store it)
+        example: true
   TeamMembersBasic:
     description: List of environment team members
     type: array
