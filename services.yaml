@@ -1138,8 +1138,8 @@ paths:
       tags:
         - Views
         - Events
-      summary: Fetch entrypoints details
-      description: Fetch entrypoints data in a selected timeframe
+      summary: Fetch entry points details
+      description: Fetch entry points data in a selected timeframe
       parameters:
         - in: path
           name: env_id
@@ -1175,7 +1175,7 @@ paths:
           description: Deployment(s) added to the filter
       responses:
         200:
-          description: Entrypoints data
+          description: Entry points data
           schema:
             type: object
             properties:
@@ -1287,8 +1287,8 @@ paths:
       tags:
         - Views
         - View Metrics
-      summary: "Fetch event metrics split by entrypoint"
-      description: "Fetch event metrics split by entrypoint"
+      summary: "Fetch event metrics split by entry point"
+      description: "Fetch event metrics split by entry point"
       parameters:
         - in: path
           name: env_id
@@ -3589,13 +3589,13 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-# Entrypoints Prioritization
+# Entry points Prioritization
   /services/{env_id}/settings/entrypoints:
     get:
       tags:
-        - Entrypoints
-      summary: "List all prioritized and deprioritized entrypoints"
-      description: "List all packages and classes that should be handled as prioritized or deprioritized entrypoints"
+        - Entry Points
+      summary: "List all prioritized and deprioritized entry  points"
+      description: "List all packages and classes that should be handled as prioritized or deprioritized entry points"
       parameters:
         - in: path
           name: env_id
@@ -3604,7 +3604,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of prioritized and deprioritized entrypoint classes and packages
+          description: List of prioritized and deprioritized entry point classes and packages
           schema:
             type: object
             properties:
@@ -3635,9 +3635,9 @@ paths:
   /services/{env_id}/settings/entrypoints/deprioritized:
     get:
       tags:
-        - Entrypoints
-      summary: "List all deprioritized entrypoints"
-      description: "List all classes and packages that should be set as lowest priority entrypoints (i.e. will be set as entrypoints only if no other entrypoints were found in the event call stack)"
+        - Entry Points
+      summary: "List all deprioritized entry points"
+      description: "List all classes and packages that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)"
       parameters:
         - in: path
           name: env_id
@@ -3662,9 +3662,9 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     post:
       tags:
-        - Entrypoints
-      summary: "Add a bulk of deprioritized entrypoints"
-      description: "Add a bulk of deprioritized entrypoints"
+        - Entry Points
+      summary: "Add a bulk of deprioritized entry points"
+      description: "Add a bulk of deprioritized entry points"
       parameters:
         - in: path
           name: env_id
@@ -3673,7 +3673,7 @@ paths:
           required: true
         - in: body
           name: deprioritized
-          description: deprioritized entrypoints
+          description: deprioritized entry points
           required: true
           schema:
             type: object
@@ -3694,9 +3694,9 @@ paths:
   /services/{env_id}/settings/entrypoints/prioritized:
     get:
       tags:
-        - Entrypoints
-      summary: "List all prioritized entrypoints"
-      description: "List all packages and classes that will be set as entrypoints in highest priority"
+        - Entry Points
+      summary: "List all prioritized entry points"
+      description: "List all packages and classes that will be set as entry points in highest priority"
       parameters:
         - in: path
           name: env_id
@@ -3705,7 +3705,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of classes and packages that should be handled as preffered entrypoints
+          description: List of classes and packages that should be handled as preffered entry points
           schema:
             type: object
             properties:
@@ -3721,9 +3721,9 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     post:
       tags:
-        - Entrypoints
-      summary: "Add a bulk of prioritized entrypoints"
-      description: "Add a bulk of classes and packages that should bet set as entrypoints in highest priority"
+        - Entry Points
+      summary: "Add a bulk of prioritized entry points"
+      description: "Add a bulk of classes and packages that should bet set as entry points in highest priority"
       parameters:
         - in: path
           name: env_id
@@ -3732,7 +3732,7 @@ paths:
           required: true
         - in: body
           name: prioritized
-          description: list of prioritized entrypoints
+          description: list of prioritized entry points
           required: true
           schema:
             type: object
@@ -3753,9 +3753,9 @@ paths:
   /services/{env_id}/settings/entrypoints/deprioritized/classes:
     get:
       tags:
-        - Entrypoints
-      summary: "List all classes associated with deprioritized entrypoints"
-      description: "List all classes that should be set as lowest priority entrypoints (i.e. will be set as entrypoints only if no other entrypoints were found in the event call stack)"
+        - Entry Points
+      summary: "List all classes associated with deprioritized entry points"
+      description: "List all classes that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)"
       parameters:
         - in: path
           name: env_id
@@ -3777,7 +3777,7 @@ paths:
   /services/{env_id}/settings/entrypoints/deprioritized/classes/{class_name}:
     # get:
     #   tags:
-    #     - Entrypoints
+    #     - Entry Points
     #   summary: "Fetch an deprioritized class"
     #   description: "Fetch an deprioritized class"
     #   parameters:
@@ -3805,7 +3805,7 @@ paths:
     #       $ref: "#/responses/UnauthorizedError"
     put:
       tags:
-        - Entrypoints
+        - Entry Points
       summary: "Add a class to the exclusion list"
       description: "Add a class to the exclusion list. The body class name must match the resource identifier"
       parameters:
@@ -3835,7 +3835,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
-        - Entrypoints
+        - Entry Points
       summary: "Remove a class from exclusion"
       description: "Remove a class from the exclusion list"
       parameters:
@@ -3859,9 +3859,9 @@ paths:
   /services/{env_id}/settings/entrypoints/deprioritized/packages:
     get:
       tags:
-        - Entrypoints
-      summary: "List all packages associated with deprioritized entrypoints"
-      description: "List all packages that should be set as lowest priority entrypoints (i.e. will be set as entrypoints only if no other entrypoints were found in the event call stack)"
+        - Entry Points
+      summary: "List all packages associated with deprioritized entry points"
+      description: "List all packages that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)"
       parameters:
         - in: path
           name: env_id
@@ -3883,7 +3883,7 @@ paths:
   /services/{env_id}/settings/entrypoints/deprioritized/packages/{package_name}:
     # get:
     #   tags:
-    #     - Entrypoints
+    #     - Entry Points
     #   summary: "Retrieve an deprioritized package"
     #   description: "Retrieve an deprioritized package"
     #   parameters:
@@ -3911,7 +3911,7 @@ paths:
     #       $ref: "#/responses/UnauthorizedError"
     put:
       tags:
-        - Entrypoints
+        - Entry Points
       summary: "Add a package to the exclusion list"
       description: "Add a package to the exclusion list. The body package name must match the resource identifier"
       parameters:
@@ -3941,7 +3941,7 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
-        - Entrypoints
+        - Entry Points
       summary: "Remove a package from the exclusion list"
       description: "Remove a package from the exclusion list"
       parameters:
@@ -3965,9 +3965,9 @@ paths:
   /services/{env_id}/settings/entrypoints/prioritized/classes:
     get:
       tags:
-        - Entrypoints
-      summary: "List all prioritized entrypoint classes"
-      description: "List all prioritized entrypoint classes"
+        - Entry Points
+      summary: "List all prioritized entry point classes"
+      description: "List all prioritized entry point classes"
       parameters:
         - in: path
           name: env_id
@@ -3976,7 +3976,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of prioritized entrypoint classes
+          description: List of prioritized entry point classes
           schema:
             type: object
             properties:
@@ -3989,9 +3989,9 @@ paths:
   /services/{env_id}/settings/entrypoints/prioritized/classes/{class_name}:
     # get:
     #   tags:
-    #     - Entrypoints
-    #   summary: "Retrieve a prioritized entrypoint class"
-    #   description: "Retrieve a prioritized entrypoint class"
+    #     - Entry Points
+    #   summary: "Retrieve a prioritized entry point class"
+    #   description: "Retrieve a prioritized entry point class"
     #   parameters:
     #     - in: path
     #       name: env_id
@@ -4017,9 +4017,9 @@ paths:
     #       $ref: "#/responses/UnauthorizedError"
     put:
       tags:
-        - Entrypoints
-      summary: "Add a class to the prioritized entrypoints list"
-      description: "Add a class to the prioritized entrypoints list. The body class name must match the resource identifier"
+        - Entry Points
+      summary: "Add a class to the prioritized entry points list"
+      description: "Add a class to the prioritized entry points list. The body class name must match the resource identifier"
       parameters:
         - in: path
           name: env_id
@@ -4047,9 +4047,9 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
-        - Entrypoints
-      summary: "Remove a class from the prioritized entrypoints list"
-      description: "Remove a class from the prioritized entrypoints list"
+        - Entry Points
+      summary: "Remove a class from the prioritized entry points list"
+      description: "Remove a class from the prioritized entry points list"
       parameters:
         - in: path
           name: env_id
@@ -4071,9 +4071,9 @@ paths:
   /services/{env_id}/settings/entrypoints/prioritized/packages:
     get:
       tags:
-        - Entrypoints
-      summary: "List all prioritized entrypoint packages"
-      description: "List all prioritized entrypoint packages"
+        - Entry Points
+      summary: "List all prioritized entry point packages"
+      description: "List all prioritized entry point packages"
       parameters:
         - in: path
           name: env_id
@@ -4094,9 +4094,9 @@ paths:
   /services/{env_id}/settings/entrypoints/prioritized/packages/{package_name}:
     # get:
     #   tags:
-    #     - Entrypoints
-    #   summary: "Retrieve a prioritized entrypoints package"
-    #   description: "Retrieve a prioritized entrypoints package"
+    #     - Entry Points
+    #   summary: "Retrieve a prioritized entry points package"
+    #   description: "Retrieve a prioritized entry points package"
     #   parameters:
     #     - in: path
     #       name: env_id
@@ -4110,16 +4110,16 @@ paths:
     #       description: Fully qualified Java package name
     #   responses:
     #     200:
-    #       description: prioritized entrypoint package
+    #       description: prioritized entry point package
     #     404:
     #       $ref: "#/responses/NotFoundError"
     #     401:
     #       $ref: "#/responses/UnauthorizedError"
     put:
       tags:
-        - Entrypoints
-      summary: "Add a package to the prioritized entrypoints list"
-      description: "Add a package to the prioritized entrypoints list. The body package name must match the resource identifier"
+        - Entry Points
+      summary: "Add a package to the prioritized entry points list"
+      description: "Add a package to the prioritized entry points list. The body package name must match the resource identifier"
       parameters:
         - in: path
           name: env_id
@@ -4146,9 +4146,9 @@ paths:
           $ref: "#/responses/UnauthorizedError"
     delete:
       tags:
-        - Entrypoints
-      summary: "Remove a package from the prioritized entrypoints list"
-      description: "Remove a package from the prioritized entrypoints list"
+        - Entry Points
+      summary: "Remove a package from the prioritized entry points list"
+      description: "Remove a package from the prioritized entry points list"
       parameters:
         - in: path
           name: env_id
@@ -4311,7 +4311,7 @@ definitions:
           example: com.dotmarketing.servlets
       entry_point:
         type: array
-        description: (Not implemented yet) List of entrypoints
+        description: (Not implemented yet) List of entry points
         items:
           type: string
       servers:
@@ -4425,15 +4425,15 @@ definitions:
         example: 42
       avg_time:
         type: number
-        description: Average entrypoint running time (in ms)
+        description: Average entry point running time (in ms)
         example: 925.7
       total_time:
         type: number
-        description: Entrypoint running time (in ms)
+        description: Entry point running time (in ms)
         example: 9345
       avg_time_std_deviation:
         type: number
-        description: Standard deviation of entrypoint running time (in ms)
+        description: Standard deviation of entry point running time (in ms)
         example: 130
   Label:
     type: object
