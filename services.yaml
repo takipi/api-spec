@@ -1138,8 +1138,8 @@ paths:
       tags:
         - Views
         - Events
-      summary: Fetch entrypoints details
-      description: Fetch entrypoints data in a selected timeframe
+      summary: Fetch entry points details
+      description: Fetch entry points data in a selected timeframe
       parameters:
         - in: path
           name: env_id
@@ -1175,7 +1175,7 @@ paths:
           description: Deployment(s) added to the filter
       responses:
         200:
-          description: Entrypoints data
+          description: Entry points data
           schema:
             type: object
             properties:
@@ -1287,8 +1287,8 @@ paths:
       tags:
         - Views
         - View Metrics
-      summary: "Fetch event metrics split by entrypoint"
-      description: "Fetch event metrics split by entrypoint"
+      summary: "Fetch event metrics split by entry point"
+      description: "Fetch event metrics split by entry point"
       parameters:
         - in: path
           name: env_id
@@ -3036,22 +3036,22 @@ paths:
                   classes:
                     type: array
                     items:
-                      $ref: "#/definitions/ExcludedClassName"
+                      $ref: "#/definitions/ClassName"
                   packages:
                     type: array
                     items:
-                      $ref: "#/definitions/ExcludedPackageName"
+                      $ref: "#/definitions/PackageName"
               include:
                 type: object
                 properties:
                   classes:
                     type: array
                     items:
-                      $ref: "#/definitions/IncludedClassName"
+                      $ref: "#/definitions/ClassName"
                   packages:
                     type: array
                     items:
-                      $ref: "#/definitions/IncludedPackageName"
+                      $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude:
@@ -3075,11 +3075,11 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
     post:
@@ -3103,11 +3103,11 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedPackageName"
+                  $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3134,7 +3134,7 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedClassName"
+                  $ref: "#/definitions/ClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude/classes/{class_name}:
@@ -3161,7 +3161,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedClassName"
+                $ref: "#/definitions/ClassName"
         404:
           $ref: "#/responses/NotFoundError"
         401:
@@ -3188,7 +3188,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedClassName"
+                $ref: "#/definitions/ClassName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3240,7 +3240,7 @@ paths:
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude/packages/{package_name}:
@@ -3267,7 +3267,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedPackageName"
+                $ref: "#/definitions/PackageName"
         404:
           $ref: "#/responses/NotFoundError"
         401:
@@ -3294,7 +3294,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedPackageName"
+                $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3346,11 +3346,11 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
     post:
@@ -3374,11 +3374,11 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedPackageName"
+                  $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3405,7 +3405,7 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedClassName"
+                  $ref: "#/definitions/ClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/include/classes/{class_name}:
@@ -3432,7 +3432,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/IncludedClassName"
+                $ref: "#/definitions/ClassName"
         404:
           $ref: "#/responses/NotFoundError"
         401:
@@ -3459,7 +3459,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/IncludedClassName"
+                $ref: "#/definitions/ClassName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3510,7 +3510,7 @@ paths:
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/include/packages/{package_name}:
@@ -3558,7 +3558,7 @@ paths:
           schema:
             properties:
               name:
-                $ref: "#/definitions/IncludedPackageName"
+                $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3571,6 +3571,584 @@ paths:
         - Code Redaction
       summary: "Remove a package from the inclusion list"
       description: "Remove a package from the inclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+# Entry points Prioritization
+  /services/{env_id}/settings/entrypoints:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all prioritized and deprioritized entry  points"
+      description: "List all packages and classes that should be handled as prioritized or deprioritized entry points"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of prioritized and deprioritized entry point classes and packages
+          schema:
+            type: object
+            properties:
+              deprioritized:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      $ref: "#/definitions/ClassName"
+                  packages:
+                    type: array
+                    items:
+                      $ref: "#/definitions/PackageName"
+              prioritized:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      $ref: "#/definitions/ClassName"
+                  packages:
+                    type: array
+                    items:
+                      $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all deprioritized entry points"
+      description: "List all classes and packages that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of deprioritized classes and packages
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Entry Points
+      summary: "Add a bulk of deprioritized entry points"
+      description: "Add a bulk of deprioritized entry points"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: deprioritized
+          description: deprioritized entry points
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all prioritized entry points"
+      description: "List all packages and classes that will be set as entry points in highest priority"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of classes and packages that should be handled as preffered entry points
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Entry Points
+      summary: "Add a bulk of prioritized entry points"
+      description: "Add a bulk of classes and packages that should bet set as entry points in highest priority"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: prioritized
+          description: list of prioritized entry points
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/classes:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all classes associated with deprioritized entry points"
+      description: "List all classes that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of deprioritized classes
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/classes/{class_name}:
+    # get:
+    #   tags:
+    #     - Entry Points
+    #   summary: "Fetch an deprioritized class"
+    #   description: "Fetch an deprioritized class"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: class_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java class name
+    #   responses:
+    #     200:
+    #       description: An deprioritized class
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/ClassName"
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entry Points
+      summary: "Add a class to the exclusion list"
+      description: "Add a class to the exclusion list. The body class name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ClassName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Entry Points
+      summary: "Remove a class from exclusion"
+      description: "Remove a class from the exclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/packages:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all packages associated with deprioritized entry points"
+      description: "List all packages that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of deprioritized packages
+          schema:
+            type: object
+            properties:
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/packages/{package_name}:
+    # get:
+    #   tags:
+    #     - Entry Points
+    #   summary: "Retrieve an deprioritized package"
+    #   description: "Retrieve an deprioritized package"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: package_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java package name
+    #   responses:
+    #     200:
+    #       description: An deprioritized package
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/PackageName"
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entry Points
+      summary: "Add a package to the exclusion list"
+      description: "Add a package to the exclusion list. The body package name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Entry Points
+      summary: "Remove a package from the exclusion list"
+      description: "Remove a package from the exclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/classes:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all prioritized entry point classes"
+      description: "List all prioritized entry point classes"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of prioritized entry point classes
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/classes/{class_name}:
+    # get:
+    #   tags:
+    #     - Entry Points
+    #   summary: "Retrieve a prioritized entry point class"
+    #   description: "Retrieve a prioritized entry point class"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: class_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java class name
+    #   responses:
+    #     200:
+    #       description: An included class
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/ClassName"
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entry Points
+      summary: "Add a class to the prioritized entry points list"
+      description: "Add a class to the prioritized entry points list. The body class name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ClassName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Entry Points
+      summary: "Remove a class from the prioritized entry points list"
+      description: "Remove a class from the prioritized entry points list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/packages:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all prioritized entry point packages"
+      description: "List all prioritized entry point packages"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of included packages
+          schema:
+            properties:
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/packages/{package_name}:
+    # get:
+    #   tags:
+    #     - Entry Points
+    #   summary: "Retrieve a prioritized entry points package"
+    #   description: "Retrieve a prioritized entry points package"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: package_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java package name
+    #   responses:
+    #     200:
+    #       description: prioritized entry point package
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entry Points
+      summary: "Add a package to the prioritized entry points list"
+      description: "Add a package to the prioritized entry points list. The body package name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            properties:
+              name:
+                $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Entry Points
+      summary: "Remove a package from the prioritized entry points list"
+      description: "Remove a package from the prioritized entry points list"
       parameters:
         - in: path
           name: env_id
@@ -3606,18 +4184,12 @@ definitions:
       is_active:
         type: boolean
         example: true
-  IncludedClassName:
+  ClassName:
     type: string
-    example: "com.company.GoodClassName"
-  IncludedPackageName:
+    example: "com.company.ClassName"
+  PackageName:
     type: string
-    example: "com.company.package.good"
-  ExcludedClassName:
-    type: string
-    example: "com.company.BadClassName"
-  ExcludedPackageName:
-    type: string
-    example: "com.company.package.bad"
+    example: "com.company.package.name"
   ViewBasic:
     type: object
     properties:
@@ -3739,7 +4311,7 @@ definitions:
           example: com.dotmarketing.servlets
       entry_point:
         type: array
-        description: (Not implemented yet) List of entrypoints
+        description: (Not implemented yet) List of entry points
         items:
           type: string
       servers:
@@ -3853,15 +4425,15 @@ definitions:
         example: 42
       avg_time:
         type: number
-        description: Average entrypoint running time (in ms)
+        description: Average entry point running time (in ms)
         example: 925.7
       total_time:
         type: number
-        description: Entrypoint running time (in ms)
+        description: Entry point running time (in ms)
         example: 9345
       avg_time_std_deviation:
         type: number
-        description: Standard deviation of entrypoint running time (in ms)
+        description: Standard deviation of entry point running time (in ms)
         example: 130
   Label:
     type: object

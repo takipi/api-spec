@@ -96,7 +96,7 @@
                 <a href="#operation--services--env_id--views--view_id--events-stats-get"> Fetch stats for all events in the specified view </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--views--view_id--entrypoints-get"> Fetch entrypoints details </a>
+                <a href="#operation--services--env_id--views--view_id--entrypoints-get"> Fetch entry points details </a>
               </li>
             </ul>
           </section>
@@ -125,13 +125,13 @@
                 <a href="#operation--services--env_id--views--view_id--events-stats-get"> Fetch stats for all events in the specified view </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--views--view_id--entrypoints-get"> Fetch entrypoints details </a>
+                <a href="#operation--services--env_id--views--view_id--entrypoints-get"> Fetch entry points details </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--views--view_id--metrics-view-graph-get"> Fetch event metrics split by view </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--views--view_id--metrics-entrypoint-graph-get"> Fetch event metrics split by entrypoint </a>
+                <a href="#operation--services--env_id--views--view_id--metrics-entrypoint-graph-get"> Fetch event metrics split by entry point </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--views--view_id--metrics-event-graph-get"> Fetch event metrics split by event </a>
@@ -254,7 +254,7 @@
                 <a href="#operation--services--env_id--views--view_id--metrics-view-graph-get"> Fetch event metrics split by view </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--views--view_id--metrics-entrypoint-graph-get"> Fetch event metrics split by entrypoint </a>
+                <a href="#operation--services--env_id--views--view_id--metrics-entrypoint-graph-get"> Fetch event metrics split by entry point </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--views--view_id--metrics-event-graph-get"> Fetch event metrics split by event </a>
@@ -454,12 +454,66 @@
               </li>
             </ul>
           </section>
+          <section>
+            <a href="#tag-Entry-Points">Entry Points</a>
+            <ul>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-get"> List all prioritized and deprioritized entry points </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-deprioritized-get"> List all deprioritized entry points </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-deprioritized-post"> Add a bulk of deprioritized entry points </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-prioritized-get"> List all prioritized entry points </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-prioritized-post"> Add a bulk of prioritized entry points </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-deprioritized-classes-get"> List all classes associated with deprioritized entry points </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-deprioritized-classes--class_name--put"> Add a class to the exclusion list </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-deprioritized-classes--class_name--delete"> Remove a class from exclusion </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-deprioritized-packages-get"> List all packages associated with deprioritized entry points </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-deprioritized-packages--package_name--put"> Add a package to the exclusion list </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-deprioritized-packages--package_name--delete"> Remove a package from the exclusion list </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-prioritized-classes-get"> List all prioritized entry point classes </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-prioritized-classes--class_name--put"> Add a class to the prioritized entry points list </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-prioritized-classes--class_name--delete"> Remove a class from the prioritized entry points list </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-prioritized-packages-get"> List all prioritized entry point packages </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-prioritized-packages--package_name--put"> Add a package to the prioritized entry points list </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--settings-entrypoints-prioritized-packages--package_name--delete"> Remove a package from the prioritized entry points list </a>
+              </li>
+            </ul>
+          </section>
           <h5>Schema Definitions</h5>
           <a href="#definition-Pattern"> Pattern </a>
-          <a href="#definition-IncludedClassName"> IncludedClassName </a>
-          <a href="#definition-IncludedPackageName"> IncludedPackageName </a>
-          <a href="#definition-ExcludedClassName"> ExcludedClassName </a>
-          <a href="#definition-ExcludedPackageName"> ExcludedPackageName </a>
+          <a href="#definition-ClassName"> ClassName </a>
+          <a href="#definition-PackageName"> PackageName </a>
           <a href="#definition-ViewBasic"> ViewBasic </a>
           <a href="#definition-ViewFull"> ViewFull </a>
           <a href="#definition-Category"> Category </a>
@@ -3269,7 +3323,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Fetch entrypoints details</span>
+              <span class="operation-summary">Fetch entry points details</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -3282,7 +3336,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch entrypoints data in a selected timeframe</p>
+                  <p>Fetch entry points data in a selected timeframe</p>
                 </section>
               </div>
             </div>
@@ -3398,7 +3452,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Entrypoints data</p>
+                      <p>Entry points data</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -4621,7 +4675,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Fetch entrypoints details</span>
+              <span class="operation-summary">Fetch entry points details</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -4634,7 +4688,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch entrypoints data in a selected timeframe</p>
+                  <p>Fetch entry points data in a selected timeframe</p>
                 </section>
               </div>
             </div>
@@ -4750,7 +4804,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Entrypoints data</p>
+                      <p>Entry points data</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -5076,7 +5130,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Fetch event metrics split by entrypoint</span>
+              <span class="operation-summary">Fetch event metrics split by entry point</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -5089,7 +5143,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch event metrics split by entrypoint</p>
+                  <p>Fetch event metrics split by entry point</p>
                 </section>
               </div>
             </div>
@@ -9648,7 +9702,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Fetch event metrics split by entrypoint</span>
+              <span class="operation-summary">Fetch event metrics split by entry point</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -9661,7 +9715,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch event metrics split by entrypoint</p>
+                  <p>Fetch event metrics split by entry point</p>
                 </section>
               </div>
             </div>
@@ -10222,7 +10276,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>List views associated with the selected category in the response</p>
+                      <p>List views associated with each category in the response</p>
                     </div>
                   </div>
                 </section>
@@ -13944,18 +13998,18 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;exclude&quot;</span>: {
     <span class="hljs-attr">&quot;classes&quot;</span>: [
-      <span class="hljs-string">&quot;com.company.BadClassName&quot;</span>
+      <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
     ],
     <span class="hljs-attr">&quot;packages&quot;</span>: [
-      <span class="hljs-string">&quot;com.company.package.bad&quot;</span>
+      <span class="hljs-string">&quot;com.company.package.name&quot;</span>
     ]
   },
   <span class="hljs-attr">&quot;include&quot;</span>: {
     <span class="hljs-attr">&quot;classes&quot;</span>: [
-      <span class="hljs-string">&quot;com.company.GoodClassName&quot;</span>
+      <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
     ],
     <span class="hljs-attr">&quot;packages&quot;</span>: [
-      <span class="hljs-string">&quot;com.company.package.good&quot;</span>
+      <span class="hljs-string">&quot;com.company.package.name&quot;</span>
     ]
   }
 }
@@ -14050,10 +14104,10 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;classes&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.BadClassName&quot;</span>
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
   ],
   <span class="hljs-attr">&quot;packages&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.package.bad&quot;</span>
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
   ]
 }
 </code></pre>
@@ -14099,7 +14153,7 @@
                         <span class="json-property-name">classes:</span>
                         <span class="json-property-type">
                           <span class="json-schema-ref-array">
-                            <a class="json-schema-ref" href="#/definitions/ExcludedClassName">ExcludedClassName</a>
+                            <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
                           </span>
                         </span>
                         <span class="json-property-range" title="Value limits"></span>
@@ -14108,7 +14162,7 @@
                         <section class="json-schema-array-items">
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/ExcludedClassName">ExcludedClassName</a>
+                              <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -14119,7 +14173,7 @@
                         <span class="json-property-name">packages:</span>
                         <span class="json-property-type">
                           <span class="json-schema-ref-array">
-                            <a class="json-schema-ref" href="#/definitions/ExcludedPackageName">ExcludedPackageName</a>
+                            <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
                           </span>
                         </span>
                         <span class="json-property-range" title="Value limits"></span>
@@ -14128,7 +14182,7 @@
                         <section class="json-schema-array-items">
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/ExcludedPackageName">ExcludedPackageName</a>
+                              <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -14160,10 +14214,10 @@
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;classes&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.BadClassName&quot;</span>
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
   ],
   <span class="hljs-attr">&quot;packages&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.package.bad&quot;</span>
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
   ]
 }
 </code></pre>
@@ -14280,7 +14334,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;classes&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.BadClassName&quot;</span>
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
   ]
 }
 </code></pre>
@@ -14395,7 +14449,7 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.BadClassName&quot;</span>
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -14439,7 +14493,7 @@
                         <span class="json-property-name">name:</span>
                         <span class="json-property-type">
                           <span class="">
-                            <a class="json-schema-ref" href="#/definitions/ExcludedClassName">ExcludedClassName</a>
+                            <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
                           </span>
                         </span>
                         <span class="json-property-range" title="Value limits"></span>
@@ -14482,7 +14536,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.BadClassName&quot;</span>
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -14700,7 +14754,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;packages&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.package.bad&quot;</span>
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
   ]
 }
 </code></pre>
@@ -14815,7 +14869,7 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.package.bad&quot;</span>
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.package.name&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -14859,7 +14913,7 @@
                         <span class="json-property-name">name:</span>
                         <span class="json-property-type">
                           <span class="">
-                            <a class="json-schema-ref" href="#/definitions/ExcludedPackageName">ExcludedPackageName</a>
+                            <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
                           </span>
                         </span>
                         <span class="json-property-range" title="Value limits"></span>
@@ -14902,7 +14956,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.package.bad&quot;</span>
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.package.name&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -15120,10 +15174,10 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;classes&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.GoodClassName&quot;</span>
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
   ],
   <span class="hljs-attr">&quot;packages&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.package.good&quot;</span>
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
   ]
 }
 </code></pre>
@@ -15169,7 +15223,7 @@
                         <span class="json-property-name">classes:</span>
                         <span class="json-property-type">
                           <span class="json-schema-ref-array">
-                            <a class="json-schema-ref" href="#/definitions/IncludedClassName">IncludedClassName</a>
+                            <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
                           </span>
                         </span>
                         <span class="json-property-range" title="Value limits"></span>
@@ -15178,7 +15232,7 @@
                         <section class="json-schema-array-items">
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/IncludedClassName">IncludedClassName</a>
+                              <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -15189,7 +15243,7 @@
                         <span class="json-property-name">packages:</span>
                         <span class="json-property-type">
                           <span class="json-schema-ref-array">
-                            <a class="json-schema-ref" href="#/definitions/IncludedPackageName">IncludedPackageName</a>
+                            <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
                           </span>
                         </span>
                         <span class="json-property-range" title="Value limits"></span>
@@ -15198,7 +15252,7 @@
                         <section class="json-schema-array-items">
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/IncludedPackageName">IncludedPackageName</a>
+                              <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -15230,10 +15284,10 @@
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;classes&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.GoodClassName&quot;</span>
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
   ],
   <span class="hljs-attr">&quot;packages&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.package.good&quot;</span>
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
   ]
 }
 </code></pre>
@@ -15350,7 +15404,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;classes&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.GoodClassName&quot;</span>
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
   ]
 }
 </code></pre>
@@ -15465,7 +15519,7 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.GoodClassName&quot;</span>
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -15509,7 +15563,7 @@
                         <span class="json-property-name">name:</span>
                         <span class="json-property-type">
                           <span class="">
-                            <a class="json-schema-ref" href="#/definitions/IncludedClassName">IncludedClassName</a>
+                            <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
                           </span>
                         </span>
                         <span class="json-property-range" title="Value limits"></span>
@@ -15552,7 +15606,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.GoodClassName&quot;</span>
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -15763,7 +15817,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;packages&quot;</span>: [
-    <span class="hljs-string">&quot;com.company.package.good&quot;</span>
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
   ]
 }
 </code></pre>
@@ -15931,7 +15985,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.package.good&quot;</span>
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.package.name&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -16064,6 +16118,1777 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
+          <h1 id="tag-Entry-Points" class="swagger-summary-tag" data-traverse-target="tag-Entry-Points">Entry Points</h1>
+          <div id="operation--services--env_id--settings-entrypoints-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List all prioritized and deprioritized entry points</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all packages and classes that should be handled as prioritized or deprioritized entry points</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of prioritized and deprioritized entry point classes and packages</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;deprioritized&quot;</span>: {
+    <span class="hljs-attr">&quot;classes&quot;</span>: [
+      <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;packages&quot;</span>: [
+      <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+    ]
+  },
+  <span class="hljs-attr">&quot;prioritized&quot;</span>: {
+    <span class="hljs-attr">&quot;classes&quot;</span>: [
+      <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;packages&quot;</span>: [
+      <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+    ]
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-deprioritized-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-deprioritized-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List all deprioritized entry points</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/deprioritized</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all classes and packages that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of deprioritized classes and packages</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;classes&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;packages&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-deprioritized-post" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-deprioritized-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add a bulk of deprioritized entry points</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/deprioritized</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add a bulk of deprioritized entry points</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>deprioritized entry points</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="classes">
+                        <span class="json-property-name">classes:</span>
+                        <span class="json-property-type">
+                          <span class="json-schema-ref-array">
+                            <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                      <dt data-property-name="packages">
+                        <span class="json-property-name">packages:</span>
+                        <span class="json-property-type">
+                          <span class="json-schema-ref-array">
+                            <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;classes&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;packages&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-prioritized-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-prioritized-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List all prioritized entry points</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/prioritized</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all packages and classes that will be set as entry points in highest priority</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of classes and packages that should be handled as preffered entry points</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;classes&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;packages&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-prioritized-post" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-prioritized-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add a bulk of prioritized entry points</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/prioritized</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add a bulk of classes and packages that should bet set as entry points in highest priority</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>list of prioritized entry points</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="classes">
+                        <span class="json-property-name">classes:</span>
+                        <span class="json-property-type">
+                          <span class="json-schema-ref-array">
+                            <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                      <dt data-property-name="packages">
+                        <span class="json-property-name">packages:</span>
+                        <span class="json-property-type">
+                          <span class="json-schema-ref-array">
+                            <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;classes&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;packages&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-deprioritized-classes-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-deprioritized-classes-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List all classes associated with deprioritized entry points</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/deprioritized/classes</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all classes that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of deprioritized classes</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;classes&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-deprioritized-classes--class_name--put" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-deprioritized-classes--class_name--put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add a class to the exclusion list</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/deprioritized/classes/{class_name}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add a class to the exclusion list. The body class name must match the resource identifier</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">class_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fully qualified Java class name</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-deprioritized-classes--class_name--delete" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-deprioritized-classes--class_name--delete">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Remove a class from exclusion</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/deprioritized/classes/{class_name}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Remove a class from the exclusion list</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">class_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fully qualified Java class name</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-deprioritized-packages-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-deprioritized-packages-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List all packages associated with deprioritized entry points</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/deprioritized/packages</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all packages that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of deprioritized packages</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;packages&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-deprioritized-packages--package_name--put" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-deprioritized-packages--package_name--put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add a package to the exclusion list</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/deprioritized/packages/{package_name}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add a package to the exclusion list. The body package name must match the resource identifier</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/PackageName">PackageName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">package_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fully qualified Java package name</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-deprioritized-packages--package_name--delete" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-deprioritized-packages--package_name--delete">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Remove a package from the exclusion list</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/deprioritized/packages/{package_name}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Remove a package from the exclusion list</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">package_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fully qualified Java package name</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-prioritized-classes-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-prioritized-classes-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List all prioritized entry point classes</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/prioritized/classes</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all prioritized entry point classes</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of prioritized entry point classes</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;classes&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-prioritized-classes--class_name--put" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-prioritized-classes--class_name--put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add a class to the prioritized entry points list</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/prioritized/classes/{class_name}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add a class to the prioritized entry points list. The body class name must match the resource identifier</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="name">
+                        <span class="json-property-name">name:</span>
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/ClassName">ClassName</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">class_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fully qualified Java class name</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.ClassName&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-prioritized-classes--class_name--delete" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-prioritized-classes--class_name--delete">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Remove a class from the prioritized entry points list</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/prioritized/classes/{class_name}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Remove a class from the prioritized entry points list</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">class_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fully qualified Java class name</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-prioritized-packages-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-prioritized-packages-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List all prioritized entry point packages</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/prioritized/packages</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all prioritized entry point packages</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of included packages</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;packages&quot;</span>: [
+    <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-prioritized-packages--package_name--put" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-prioritized-packages--package_name--put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add a package to the prioritized entry points list</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/prioritized/packages/{package_name}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add a package to the prioritized entry points list. The body package name must match the resource identifier</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">package_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fully qualified Java package name</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;com.company.package.name&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--settings-entrypoints-prioritized-packages--package_name--delete" class="operation panel" data-traverse-target="operation--services--env_id--settings-entrypoints-prioritized-packages--package_name--delete">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Entry-Points">Entry Points</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Remove a package from the prioritized entry points list</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/services/{env_id}/settings/entrypoints/prioritized/packages/{package_name}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Remove a package from the prioritized entry points list</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">package_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fully qualified Java package name</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
           <h1>Schema Definitions</h1>
           <div id="definition-Pattern" class="definition panel" data-traverse-target="definition-Pattern">
             <h2 class="panel-title">
@@ -16119,9 +17944,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-IncludedClassName" class="definition panel" data-traverse-target="definition-IncludedClassName">
+          <div id="definition-ClassName" class="definition panel" data-traverse-target="definition-ClassName">
             <h2 class="panel-title">
-              <a name="/definitions/IncludedClassName"></a>IncludedClassName: string
+              <a name="/definitions/ClassName"></a>ClassName: string
               <!-- <span class="json-property-type"><span class="json-property-type">string</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -16132,35 +17957,9 @@
               <div class="doc-copy"> </div>
             </div>
           </div>
-          <div id="definition-IncludedPackageName" class="definition panel" data-traverse-target="definition-IncludedPackageName">
+          <div id="definition-PackageName" class="definition panel" data-traverse-target="definition-PackageName">
             <h2 class="panel-title">
-              <a name="/definitions/IncludedPackageName"></a>IncludedPackageName: string
-              <!-- <span class="json-property-type"><span class="json-property-type">string</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy"> </div>
-            </div>
-          </div>
-          <div id="definition-ExcludedClassName" class="definition panel" data-traverse-target="definition-ExcludedClassName">
-            <h2 class="panel-title">
-              <a name="/definitions/ExcludedClassName"></a>ExcludedClassName: string
-              <!-- <span class="json-property-type"><span class="json-property-type">string</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy"> </div>
-            </div>
-          </div>
-          <div id="definition-ExcludedPackageName" class="definition panel" data-traverse-target="definition-ExcludedPackageName">
-            <h2 class="panel-title">
-              <a name="/definitions/ExcludedPackageName"></a>ExcludedPackageName: string
+              <a name="/definitions/PackageName"></a>PackageName: string
               <!-- <span class="json-property-type"><span class="json-property-type">string</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -16603,7 +18402,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>(Not implemented yet) List of entrypoints</p>
+                      <p>(Not implemented yet) List of entry points</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -17055,7 +18854,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Average entrypoint running time (in ms)</p>
+                      <p>Average entry point running time (in ms)</p>
                     </dd>
                     <dt data-property-name="total_time" class="has-description">
                       <span class="json-property-name">total_time:</span>
@@ -17063,7 +18862,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Entrypoint running time (in ms)</p>
+                      <p>Entry point running time (in ms)</p>
                     </dd>
                     <dt data-property-name="avg_time_std_deviation" class="has-description">
                       <span class="json-property-name">avg_time_std_deviation:</span>
@@ -17071,7 +18870,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Standard deviation of entrypoint running time (in ms)</p>
+                      <p>Standard deviation of entry point running time (in ms)</p>
                     </dd>
                   </dl>
                 </section>
