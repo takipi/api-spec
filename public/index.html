@@ -195,6 +195,9 @@
                 <a href="#operation--services--env_id--views--view_id--alerts-delete"> Remove Alert settings </a>
               </li>
               <li>
+                <a href="#operation--services--env_id--alerts-test-post"> Test Alert settings </a>
+              </li>
+              <li>
                 <a href="#operation--services--env_id--views--view_id--custom-alert-post"> Send custom alert </a>
               </li>
             </ul>
@@ -7875,6 +7878,168 @@
                     </div>
                     <div class="prop-value">
                       <p>Forbidden</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--alerts-test-post" class="operation panel" data-traverse-target="operation--services--env_id--alerts-test-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Alerts">Alerts</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Test Alert settings</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/services/{env_id}/alerts/test</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>This endpoint allows to test alerts settings before applying them to a particular view</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Alert">Alert</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Alerts settings</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;periodic_udf_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L6&quot;</span>,
+    <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Relative Threshold&quot;</span>,
+    <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Defines a target threshold that if the volume of events within the views exceeds will constitute an anomaly.\nthreshold = 100\n\n# A percentage value between 1 and 100 against which the volume of events / throughput is compared.\nrate = 5\n\n# Compare the number of times application threads (e.g. Servlet, Actor, Future,..) containing the events matching the target views have executed  against the number of events occurring. For example, if a Servlet containing the events within the view was invoked a 1000 times and 20 events matching the view&#x2019;s filter took place, a RATE value above 2 will invoke an alert.\nrelative_to = Thread_Calls\n\n# Compare the number of times the application method containing the events was invoked against the number of events which occurred.\n# relative_to = Method_Calls\n\n# Time period to look at, in minutes.\ntimespan = 60&quot;</span>,
+    <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Threshold(100,5.00% of Thread_Calls)&quot;</span>,
+    <span class="hljs-attr">&quot;period_minutes&quot;</span>: <span class="hljs-number">60</span>
+  },
+  <span class="hljs-attr">&quot;slack_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;inhook_url&quot;</span>: <span class="hljs-string">&quot;https://hooks.slack.com/services/xxxxyyyyy/xxxx/sdf123rskfsdf1j&quot;</span>
+  },
+  <span class="hljs-attr">&quot;hip_chat_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;token&quot;</span>: <span class="hljs-string">&quot;dfgdk2342kljsldfjslk2342fsdfkjslkj&quot;</span>,
+    <span class="hljs-attr">&quot;room&quot;</span>: <span class="hljs-string">&quot;Takipi&quot;</span>
+  },
+  <span class="hljs-attr">&quot;pager_duty_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;service_integration_key&quot;</span>: <span class="hljs-string">&quot;sflk234lkdjflsj12o8312&quot;</span>
+  },
+  <span class="hljs-attr">&quot;webhook_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
+  },
+  <span class="hljs-attr">&quot;service_now_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://servicenow.company.com/hooks&quot;</span>,
+    <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
+    <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;pa$$1&quot;</span>,
+    <span class="hljs-attr">&quot;table&quot;</span>: <span class="hljs-string">&quot;sys_report_layer&quot;</span>
+  },
+  <span class="hljs-attr">&quot;email_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;is_active&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;alert_me&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;alert_all_team_members&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;alert_admins&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;alert_additional_emails&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;additional_emails_to_alert&quot;</span>: [
+      <span class="hljs-string">&quot;user1@company.com&quot;</span>
+    ]
+  },
+  <span class="hljs-attr">&quot;udf_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L24&quot;</span>,
+    <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;apply-label&quot;</span>,
+    <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;label=sample_label_name&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">403 Forbidden</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Forbidden</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
                     </div>
                   </div>
                 </section>
