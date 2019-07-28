@@ -42,6 +42,8 @@ tags:
     description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
   - name: Publish Metrics
     description: Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools, providing control over application data from OverOps.
+  - name: System Metrics
+    description: Fetch system metrics
   - name: View Metrics
     description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments.
   - name: Categories
@@ -280,6 +282,52 @@ paths:
           name: storage_settings
           schema:
             $ref: "#/definitions/StorageSettings"
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/settings/advanced-settings:
+    get:
+      tags:
+        - General
+      summary: "Get advanced settings for an environment"
+      description: "Get advanced settings for an environment"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Environment advanced settings
+          schema:
+            $ref: "#/definitions/EnvironmentAdvancedSettings"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - General
+      summary: "Set advanced settings for an environment"
+      description: "Set advanced settings for an environment"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: advanced_settings
+          schema:
+            $ref: "#/definitions/EnvironmentAdvancedSettings"
           required: true
       responses:
         200:
@@ -1090,8 +1138,8 @@ paths:
       tags:
         - Views
         - Events
-      summary: Fetch entrypoints details
-      description: Fetch entrypoints data in a selected timeframe
+      summary: Fetch entry points details
+      description: Fetch entry points data in a selected timeframe
       parameters:
         - in: path
           name: env_id
@@ -1127,7 +1175,7 @@ paths:
           description: Deployment(s) added to the filter
       responses:
         200:
-          description: Entrypoints data
+          description: Entry points data
           schema:
             type: object
             properties:
@@ -1144,8 +1192,8 @@ paths:
       tags:
         - Views
         - View Metrics
-      summary: "Fetch event metrics"
-      description: "Fetch event metrics"
+      summary: "Fetch event metrics split by view"
+      description: "Fetch event metrics split by view"
       parameters:
         - in: path
           name: env_id
@@ -1239,8 +1287,8 @@ paths:
       tags:
         - Views
         - View Metrics
-      summary: "Fetch event metrics split by entrypoint"
-      description: "Fetch event metrics split by entrypoint"
+      summary: "Fetch event metrics split by entry point"
+      description: "Fetch event metrics split by entry point"
       parameters:
         - in: path
           name: env_id
@@ -1564,6 +1612,55 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+  /services/{env_id}/alerts/servicenow/tables:
+    post:
+      tags:
+        - Alerts
+      summary: "Fetch ServiceNow Tables"
+      description: "Use this call to Load ServiceNow tables associated with specific credentials"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: credentials
+          description: ServiceNow Credentials
+          schema:
+            type: object
+            properties:
+              url:
+                type: "string"
+                example: "http://servicenow.company.com/hooks"
+              user_id:
+                type: "string"
+                example: "admin"
+              password:
+                type: "string"
+                example: "pa$$1"
+      responses:
+        200:
+          description: List of ServiceNow tables
+          schema:
+            type: object
+            properties:
+              tables:
+                type: array
+                items:
+                  type: object
+                  description: Service Now Tables
+                  properties:
+                    label:
+                      type: string
+                      example: "Report Layer"
+                    name:
+                      type: string
+                      example: "sys_report_layer"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/views/{view_id}/alerts:
     get:
       tags:
@@ -1638,6 +1735,35 @@ paths:
           description: View ID to use (e.g. P283)
           type: string
           required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+  /services/{env_id}/views/{view_id}/custom-alert:
+    post:
+      tags:
+        - Alerts
+      summary: "Send custom alert"
+      description: "Send custom alert"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: view_id
+          description: View ID to use (e.g. P283)
+          type: string
+          required: true
+        - in: body
+          name: alert
+          description: CustomAlert
+          schema:
+              $ref: "#/definitions/CustomAlert"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -1869,6 +1995,130 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404:
           $ref: "#/responses/NotFoundError"
+#System Metrics
+  /services/{env_id}/metrics/system:
+    get:
+      tags:
+        - System Metrics
+      summary: "Get all metadata"
+      description: "Get a list of all available system metrics"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of all system metrics' metadata
+          schema:
+            type: object
+            properties:
+              metrics:
+                type: array
+                items:
+                  $ref: "#/definitions/SystemMetrics"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/metrics/system/{metric_name}:
+    get:
+      tags:
+        - System Metrics
+      summary: "Get a specific metric's metadata"
+      description: "Fetch info about a specific metric"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: metric_name
+          description: Metric name to fetch
+          type: string
+          required: true
+      responses:
+        200:
+          description: The requested metric's metadata
+          schema:
+            $ref: "#/definitions/SystemMetrics"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+  /services/{env_id}/metrics/system/{metric_name}/graph:
+    get:
+      tags:
+        - System Metrics
+      summary: Fetch metric graph/data
+      description: Fetch data for a specific system metric within a target timeframe, application / server / deployment set.
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: metric_name
+          description: Metric name to fetch
+          type: string
+          required: true
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: End time of requested graph. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          required: true
+        - in: query
+          name: points
+          type: integer
+          description: Number of data points to return within the interval. **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
+        - in: query
+          name: resolution
+          type: string
+          enum: [M1, M5, H1, H8]
+          description: Select graph resolution (use M1/M5 for 1 point per 1/5 minutes; use H1/H8 for 1 point per 1/8 hours). **IMPORTANT:** either 'points' or 'resolution' parameters have to be passed. When both are passed, resolution takes precedence.
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: query
+          name: deployment
+          type: string
+          description: Deployment(s) added to the filter
+      responses:
+        200:
+          description: List of points
+          schema:
+            type: object
+            properties:
+              points:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    time:
+                      type: string
+                      description: Point acquisition time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+                      example: "2018-02-28T22:47:09.038Z"
+                    value:
+                      type: number
+                      description: value
+                      example: 3.526287896
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
 #Categories
   /services/{env_id}/categories:
     get:
@@ -1882,6 +2132,14 @@ paths:
           description: Environment ID to use (e.g. S1234)
           type: string
           required: true
+        - in: query
+          name: name
+          description: Category name
+          type: string
+        - in: query
+          name: views
+          description: List views associated with each category in the response
+          type: boolean
       responses:
         200:
           description: List of View Categories and their info
@@ -2809,22 +3067,22 @@ paths:
                   classes:
                     type: array
                     items:
-                      $ref: "#/definitions/ExcludedClassName"
+                      $ref: "#/definitions/ClassName"
                   packages:
                     type: array
                     items:
-                      $ref: "#/definitions/ExcludedPackageName"
+                      $ref: "#/definitions/PackageName"
               include:
                 type: object
                 properties:
                   classes:
                     type: array
                     items:
-                      $ref: "#/definitions/IncludedClassName"
+                      $ref: "#/definitions/ClassName"
                   packages:
                     type: array
                     items:
-                      $ref: "#/definitions/IncludedPackageName"
+                      $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude:
@@ -2848,11 +3106,42 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedPackageName"
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Code Redaction
+      summary: "Add a bulk of code exclusions"
+      description: "Add a bulk of code exclusions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: exclusions
+          description: code exclusions
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude/classes:
@@ -2876,7 +3165,7 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedClassName"
+                  $ref: "#/definitions/ClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude/classes/{class_name}:
@@ -2903,7 +3192,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedClassName"
+                $ref: "#/definitions/ClassName"
         404:
           $ref: "#/responses/NotFoundError"
         401:
@@ -2930,7 +3219,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedClassName"
+                $ref: "#/definitions/ClassName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -2982,7 +3271,7 @@ paths:
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/ExcludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/exclude/packages/{package_name}:
@@ -3009,7 +3298,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedPackageName"
+                $ref: "#/definitions/PackageName"
         404:
           $ref: "#/responses/NotFoundError"
         401:
@@ -3036,7 +3325,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/ExcludedPackageName"
+                $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3088,11 +3377,42 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedClassName"
+                  $ref: "#/definitions/ClassName"
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedPackageName"
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Code Redaction
+      summary: "Add a bulk of code inclusions"
+      description: "Add a bulk of code inclusions"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: inclusions
+          description: code inclusions
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/include/classes:
@@ -3116,7 +3436,7 @@ paths:
               classes:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedClassName"
+                  $ref: "#/definitions/ClassName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/include/classes/{class_name}:
@@ -3143,7 +3463,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/IncludedClassName"
+                $ref: "#/definitions/ClassName"
         404:
           $ref: "#/responses/NotFoundError"
         401:
@@ -3170,7 +3490,7 @@ paths:
             type: object
             properties:
               name:
-                $ref: "#/definitions/IncludedClassName"
+                $ref: "#/definitions/ClassName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3221,7 +3541,7 @@ paths:
               packages:
                 type: array
                 items:
-                  $ref: "#/definitions/IncludedPackageName"
+                  $ref: "#/definitions/PackageName"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/code-redaction/include/packages/{package_name}:
@@ -3269,7 +3589,7 @@ paths:
           schema:
             properties:
               name:
-                $ref: "#/definitions/IncludedPackageName"
+                $ref: "#/definitions/PackageName"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3282,6 +3602,584 @@ paths:
         - Code Redaction
       summary: "Remove a package from the inclusion list"
       description: "Remove a package from the inclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+# Entry points Prioritization
+  /services/{env_id}/settings/entrypoints:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all prioritized and deprioritized entry  points"
+      description: "List all packages and classes that should be handled as prioritized or deprioritized entry points"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of prioritized and deprioritized entry point classes and packages
+          schema:
+            type: object
+            properties:
+              deprioritized:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      $ref: "#/definitions/ClassName"
+                  packages:
+                    type: array
+                    items:
+                      $ref: "#/definitions/PackageName"
+              prioritized:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      $ref: "#/definitions/ClassName"
+                  packages:
+                    type: array
+                    items:
+                      $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all deprioritized entry points"
+      description: "List all classes and packages that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of deprioritized classes and packages
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Entry Points
+      summary: "Add a bulk of deprioritized entry points"
+      description: "Add a bulk of deprioritized entry points"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: deprioritized
+          description: deprioritized entry points
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all prioritized entry points"
+      description: "List all packages and classes that will be set as entry points in highest priority"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of classes and packages that should be handled as preffered entry points
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Entry Points
+      summary: "Add a bulk of prioritized entry points"
+      description: "Add a bulk of classes and packages that should bet set as entry points in highest priority"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: prioritized
+          description: list of prioritized entry points
+          required: true
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/classes:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all classes associated with deprioritized entry points"
+      description: "List all classes that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of deprioritized classes
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/classes/{class_name}:
+    # get:
+    #   tags:
+    #     - Entry Points
+    #   summary: "Fetch an deprioritized class"
+    #   description: "Fetch an deprioritized class"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: class_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java class name
+    #   responses:
+    #     200:
+    #       description: An deprioritized class
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/ClassName"
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entry Points
+      summary: "Add a class to the exclusion list"
+      description: "Add a class to the exclusion list. The body class name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ClassName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Entry Points
+      summary: "Remove a class from exclusion"
+      description: "Remove a class from the exclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/packages:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all packages associated with deprioritized entry points"
+      description: "List all packages that should be set as lowest priority entry points (i.e. will be set as entry points only if no other entry points were found in the event call stack)"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of deprioritized packages
+          schema:
+            type: object
+            properties:
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/deprioritized/packages/{package_name}:
+    # get:
+    #   tags:
+    #     - Entry Points
+    #   summary: "Retrieve an deprioritized package"
+    #   description: "Retrieve an deprioritized package"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: package_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java package name
+    #   responses:
+    #     200:
+    #       description: An deprioritized package
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/PackageName"
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entry Points
+      summary: "Add a package to the exclusion list"
+      description: "Add a package to the exclusion list. The body package name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Entry Points
+      summary: "Remove a package from the exclusion list"
+      description: "Remove a package from the exclusion list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/classes:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all prioritized entry point classes"
+      description: "List all prioritized entry point classes"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of prioritized entry point classes
+          schema:
+            type: object
+            properties:
+              classes:
+                type: array
+                items:
+                  $ref: "#/definitions/ClassName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/classes/{class_name}:
+    # get:
+    #   tags:
+    #     - Entry Points
+    #   summary: "Retrieve a prioritized entry point class"
+    #   description: "Retrieve a prioritized entry point class"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: class_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java class name
+    #   responses:
+    #     200:
+    #       description: An included class
+    #       schema:
+    #         type: object
+    #         properties:
+    #           name:
+    #             $ref: "#/definitions/ClassName"
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entry Points
+      summary: "Add a class to the prioritized entry points list"
+      description: "Add a class to the prioritized entry points list. The body class name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+        - in: body
+          name: class
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/definitions/ClassName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Entry Points
+      summary: "Remove a class from the prioritized entry points list"
+      description: "Remove a class from the prioritized entry points list"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: class_name
+          type: string
+          required: true
+          description: Fully qualified Java class name
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        404:
+          $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/packages:
+    get:
+      tags:
+        - Entry Points
+      summary: "List all prioritized entry point packages"
+      description: "List all prioritized entry point packages"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of included packages
+          schema:
+            properties:
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageName"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/entrypoints/prioritized/packages/{package_name}:
+    # get:
+    #   tags:
+    #     - Entry Points
+    #   summary: "Retrieve a prioritized entry points package"
+    #   description: "Retrieve a prioritized entry points package"
+    #   parameters:
+    #     - in: path
+    #       name: env_id
+    #       description: Environment ID to use (e.g. S1234)
+    #       type: string
+    #       required: true
+    #     - in: path
+    #       name: package_name
+    #       type: string
+    #       required: true
+    #       description: Fully qualified Java package name
+    #   responses:
+    #     200:
+    #       description: prioritized entry point package
+    #     404:
+    #       $ref: "#/responses/NotFoundError"
+    #     401:
+    #       $ref: "#/responses/UnauthorizedError"
+    put:
+      tags:
+        - Entry Points
+      summary: "Add a package to the prioritized entry points list"
+      description: "Add a package to the prioritized entry points list. The body package name must match the resource identifier"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: package_name
+          type: string
+          required: true
+          description: Fully qualified Java package name
+        - in: body
+          name: package
+          schema:
+            properties:
+              name:
+                $ref: "#/definitions/PackageName"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Entry Points
+      summary: "Remove a package from the prioritized entry points list"
+      description: "Remove a package from the prioritized entry points list"
       parameters:
         - in: path
           name: env_id
@@ -3317,18 +4215,12 @@ definitions:
       is_active:
         type: boolean
         example: true
-  IncludedClassName:
+  ClassName:
     type: string
-    example: "com.company.GoodClassName"
-  IncludedPackageName:
+    example: "com.company.ClassName"
+  PackageName:
     type: string
-    example: "com.company.package.good"
-  ExcludedClassName:
-    type: string
-    example: "com.company.BadClassName"
-  ExcludedPackageName:
-    type: string
-    example: "com.company.package.bad"
+    example: "com.company.package.name"
   ViewBasic:
     type: object
     properties:
@@ -3408,11 +4300,11 @@ definitions:
               from:
                 type: string
                 description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-                example: 2018-02-28T22:47:09.038+02:00
+                example: "2018-02-28T22:47:09.038+02:00"
               to:
                 type: string
                 description: End time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
-                example: 2018-02-28T22:47:09.038+02:00
+                example: "2018-02-28T22:47:09.038+02:00"
           relative:
             type: string
             enum: [last_hour, last_3h, last_6h, last_12h, last_24h, last_48h, last_7d, last_14d, last_30d]
@@ -3450,7 +4342,7 @@ definitions:
           example: com.dotmarketing.servlets
       entry_point:
         type: array
-        description: (Not implemented yet) List of entrypoints
+        description: (Not implemented yet) List of entry points
         items:
           type: string
       servers:
@@ -3470,7 +4362,7 @@ definitions:
         description: List of deployment names
         items:
           type: string
-          example: 2018-04-11-2
+          example: "2018-04-11-2"
       introduced_by:
         type: array
         description: Filters events by deployment they originated in
@@ -3526,6 +4418,10 @@ definitions:
         $ref: "#/definitions/CodeLocation"
       stats:
         $ref: "#/definitions/EventStats"
+      stack_frames:
+        type: array
+        items:
+          $ref: "#/definitions/CodeLocation"
   EventStats:
     type: object
     properties:
@@ -3560,15 +4456,15 @@ definitions:
         example: 42
       avg_time:
         type: number
-        description: Average entrypoint running time (in ms)
+        description: Average entry point running time (in ms)
         example: 925.7
       total_time:
         type: number
-        description: Entrypoint running time (in ms)
+        description: Entry point running time (in ms)
         example: 9345
       avg_time_std_deviation:
         type: number
-        description: Standard deviation of entrypoint running time (in ms)
+        description: Standard deviation of entry point running time (in ms)
         example: 130
   Label:
     type: object
@@ -3588,7 +4484,7 @@ definitions:
       created_on:
         type: string
         description: Label creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-02-28T22:47:09.038Z
+        example: "2018-02-28T22:47:09.038Z"
       created_by:
         type: string
         description: View creator
@@ -3700,7 +4596,7 @@ definitions:
         example: admin
   EnvironmentBasic:
     type: object
-    description: Basic information about a environment key
+    description: Basic information about a environment
     properties:
       id:
         type: string
@@ -3711,6 +4607,32 @@ definitions:
       full_key:
         type: string
         example: S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  EnvironmentAdvancedSettings:
+    type: object
+    description: Advanced settings for an environment
+    properties:
+      allowed_ips:
+        type: array
+        description: Limit access to a list of selected IPs
+        items:
+          type: string
+          example: "127.0.0.1"
+      show_rethrows:
+        type: boolean
+        description: Show exception rethrows in the dashboard
+        example: true
+      show_log_links:
+        type: boolean
+        description: Enable log links for exceptions (requires JVM restart, supported in version 4.9.0 or above)
+        example: false
+      clear_env_filters:
+        type: boolean
+        description: Clear servers, applications and deployments filters when moving between views
+        example: false
+      enhanced_decompilation:
+        type: boolean
+        description: Enable enhanced decompilation (This will use raw bytecode but won't store it)
+        example: true
   TeamMembersBasic:
     description: List of environment team members
     type: array
@@ -3842,7 +4764,7 @@ definitions:
       created_on:
         type: string
         description: View creation time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-02-28T22:47:09.038+02:00
+        example: "2018-02-28T22:47:09.038+02:00"
       creation_method:
         type: string
         enum: [manual,api]
@@ -3855,7 +4777,7 @@ definitions:
       updated_on:
         type: string
         description: View update time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
-        example: 2018-05-01T10:00:00.020+03:00
+        example: "2018-05-01T10:00:00.020+03:00"
       update_method:
         type: string
         enum: [manual,api]
@@ -3954,8 +4876,9 @@ definitions:
             type: "string"
             example: "pa$$1"
           table:
+            description: the name (internal name) of a servicenow table to be used
             type: "string"
-            example: "overops"
+            example: "sys_report_layer"
         type: "object"
       email_settings:
         properties:
@@ -4041,8 +4964,9 @@ definitions:
             type: "string"
             example: "pa$$1"
           table:
+            description: the name (internal name) of a servicenow table to be used
             type: "string"
-            example: "overops"
+            example: "sys_report_layer"
       hip_chat:
         type: "object"
         properties:
@@ -4060,6 +4984,29 @@ definitions:
             example: "http://hooks.company.com/overops1/P1/hook"
       #jira_settings: <- TBD
       #udf_settings <- TBD
+  CustomAlert:
+    description: Custom Alert
+    type: object
+    properties:
+      title:
+        type: string
+        example: "Logged Warning in Some.File"
+      body:
+        type: string
+        example: "A new logged warning has been detected in Staging2! (alert added by 4 members)"
+      links:
+        type: array
+        items:
+          type: object
+          properties:
+            pre_link_text:
+              type: string
+            link_text:
+              type: string
+            post_link_text:
+              type: string
+            link:
+              type: string
   ViewAlertsSummary:
     description: basic alerts info for a single view
     type: object
@@ -4099,10 +5046,10 @@ definitions:
                 type: boolean
                 example: true
               anomaly_function:
-                $ref: "#/definitions/UDFBasic"        
+                $ref: "#/definitions/UDFBasic"
               period:
                 type: integer
-                dscription: The interval (in minutes) between periodic/anomaly udf invocations
+                description: The interval (in minutes) between periodic/anomaly udf invocations
                 example: 3
           channels:
             type: array
@@ -4177,6 +5124,33 @@ definitions:
         pattern: overops_system,${serviceid},${application},${server},${systemmetrics}
       - name: Diagnostics
         pattern: overops_jvms,${serviceid},${application},${server},${applicationpid}
+  SystemMetrics:
+    type: object
+    properties:
+      name:
+        type:  string
+        description: Metric name
+        example: memory-metaspace-used
+      display_name:
+        type: string
+        description: Displayed names
+        example: Used Metaspace Size
+      unit:
+        $ref: "#/definitions/SystemMetadataUnit"
+  SystemMetadataUnit:
+    type: object
+    properties:
+      type:
+        type: string
+        description: unit type
+        example: BYTES
+        enum: [NONE, CUSTOM, TIMES, NANOSECONDS, MICROSECONDS, MILLISECONDS, SECONDS, MINUTES, HOURS, DAYS, BYTES, KIBIBYTE, MEBIBYTE, GIBIBYTE]
+      suffix:
+        type: string
+        description: singular suffix/descriptor for custom units
+      plural_suffix:
+        type: string
+        description: plural suffix/descriptor for custom units
 responses:
   OK:
     description: OK
