@@ -200,6 +200,9 @@
               <li>
                 <a href="#operation--services--env_id--views--view_id--custom-alert-post"> Send custom alert </a>
               </li>
+              <li>
+                <a href="#operation--services--env_id--alerts-get"> Fetch Active Alerts for an Environment </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -544,6 +547,8 @@
           <a href="#definition-Alert"> Alert </a>
           <a href="#definition-AlertDefaults"> AlertDefaults </a>
           <a href="#definition-CustomAlert"> CustomAlert </a>
+          <a href="#definition-ViewAlertsSummary"> ViewAlertsSummary </a>
+          <a href="#definition-UDFBasic"> UDFBasic </a>
           <a href="#definition-PublishMetricsSettings"> PublishMetricsSettings </a>
           <a href="#definition-PublishMetricFormats"> PublishMetricFormats </a>
           <a href="#definition-Metrics"> Metrics </a>
@@ -8173,6 +8178,149 @@
                 </section>
               </div>
               <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--alerts-get" class="operation panel" data-traverse-target="operation--services--env_id--alerts-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Alerts">Alerts</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch Active Alerts for an Environment</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/alerts</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Use this call to fetch all active alerts on current environment. admins can use the query parameter to fetch alerts which were set by other member/admin</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment to use</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">email</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Team member email. When this parameter is used, the alerts will be fetched for the selected user.</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of alerts in current environment, aggregated in views (alerts which were set by calling/selected user and global alerts)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;alerts&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;view_id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
+      <span class="hljs-attr">&quot;view&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+      <span class="hljs-attr">&quot;categories&quot;</span>: <span class="hljs-string">&quot;Applications&quot;</span>,
+      <span class="hljs-attr">&quot;alerts&quot;</span>: {
+        <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">&quot;alert_on_every_entrypoint&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;anomaly_alert&quot;</span>: {
+          <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">&quot;anomaly_function&quot;</span>: {
+            <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L8&quot;</span>,
+            <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Tier Routing&quot;</span>,
+            <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Anomaly(last 1d vs. prev 7d, &#x394; &gt; 100%)\&quot;&quot;</span>,
+            <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Category name where tiers views will be created.\ncategory_name=tiers\n\n# Link to the full tiers list: https://git.io/fpPT0\n# Enhance it with a delimited list: A=B;C=D;E=F, where the first item is a package (e.g com.mongo), and the second is a tier (e.g MongoDB).\nnamespaces=com.sparktale.bugtale.server.common.distribute.redis=Redis;org.redisson=Redisson;com.sparktale.bugtale.server.common.distribute.guava=Guava-Cache;com.sparktale.bugtale.util.cache=Cache;com.sparktale.bugtale.server.app.dashboard.cache=Cache;com.sparktale.bugtale.server.common.stats=SQL-Stats;com.sparktale.bugtale.server.common.pds=SQL-Pds;com.sparktale.bugtale.qsql=SQL-Queue;com.sparktale.bugtale.server.services.queue.qsql=SQL-Queue;com.sparktale.bugtale.shared.backend.rdbms=SQL-Common;com.sparktale.bugtale.server.common.queue=Local-Queue;com.sparktale.bugtale.server.common.alerts=Alerts-Engine;com.sparktale.bugtale.decoding=Snapshot-Analysis;com.sparktale.bugtale.server.common.hits=Snapshot-Analysis;com.sparktale.bugtale.server.common.tailor=Snapshot-Analysis;com.sparktale.bugtale.server.analysis=Code-Analysis;com.sparktale.bugtale.server.worker.analysis=Code-Analysis;com.sparktale.bugtale.server.common.source=Code-Analysis;com.sparktale.bugtale.analyzer=Code-Analysis;com.sparktale.bugtale.decompiler=Decompiler;com.takipi.integrations.grafana=OverOps-Influx-Backend;com.sparktale.common.util=Utils;com.sparktale.bugtale.shared.backend.util=Utils&quot;</span>
+          },
+          <span class="hljs-attr">&quot;period&quot;</span>: <span class="hljs-number">3</span>
+        },
+        <span class="hljs-attr">&quot;channels&quot;</span>: [
+          <span class="hljs-string">&quot;SLACK&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;channel_function&quot;</span>: {
+          <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L8&quot;</span>,
+          <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Tier Routing&quot;</span>,
+          <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Anomaly(last 1d vs. prev 7d, &#x394; &gt; 100%)\&quot;&quot;</span>,
+          <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Category name where tiers views will be created.\ncategory_name=tiers\n\n# Link to the full tiers list: https://git.io/fpPT0\n# Enhance it with a delimited list: A=B;C=D;E=F, where the first item is a package (e.g com.mongo), and the second is a tier (e.g MongoDB).\nnamespaces=com.sparktale.bugtale.server.common.distribute.redis=Redis;org.redisson=Redisson;com.sparktale.bugtale.server.common.distribute.guava=Guava-Cache;com.sparktale.bugtale.util.cache=Cache;com.sparktale.bugtale.server.app.dashboard.cache=Cache;com.sparktale.bugtale.server.common.stats=SQL-Stats;com.sparktale.bugtale.server.common.pds=SQL-Pds;com.sparktale.bugtale.qsql=SQL-Queue;com.sparktale.bugtale.server.services.queue.qsql=SQL-Queue;com.sparktale.bugtale.shared.backend.rdbms=SQL-Common;com.sparktale.bugtale.server.common.queue=Local-Queue;com.sparktale.bugtale.server.common.alerts=Alerts-Engine;com.sparktale.bugtale.decoding=Snapshot-Analysis;com.sparktale.bugtale.server.common.hits=Snapshot-Analysis;com.sparktale.bugtale.server.common.tailor=Snapshot-Analysis;com.sparktale.bugtale.server.analysis=Code-Analysis;com.sparktale.bugtale.server.worker.analysis=Code-Analysis;com.sparktale.bugtale.server.common.source=Code-Analysis;com.sparktale.bugtale.analyzer=Code-Analysis;com.sparktale.bugtale.decompiler=Decompiler;com.takipi.integrations.grafana=OverOps-Influx-Backend;com.sparktale.common.util=Utils;com.sparktale.bugtale.shared.backend.util=Utils&quot;</span>
+        }
+      }
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <h1 id="tag-Timers" class="swagger-summary-tag" data-traverse-target="tag-Timers">Timers</h1>
@@ -20156,7 +20304,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>TBD - Not developed yet - marks the alert as a global alert, i.e. will affect all users that share this view. Only admins will be able to edit these alerts.</p>
+                      <p>Marks the alert as a global alert, i.e. will affect all users that share this view. Only admins will be able to edit these alerts.</p>
                     </dd>
                     <dt data-property-name="alert_on_new">
                       <span class="json-property-name">alert_on_new:</span>
@@ -20753,6 +20901,244 @@
       <span class="hljs-attr">&quot;link&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
     }
   ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ViewAlertsSummary" class="definition panel" data-traverse-target="definition-ViewAlertsSummary">
+            <h2 class="panel-title">
+              <a name="/definitions/ViewAlertsSummary"></a>ViewAlertsSummary: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>basic alerts info for a single view</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="view_id" class="has-description">
+                      <span class="json-property-name">view_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>View ID</p>
+                    </dd>
+                    <dt data-property-name="view" class="has-description">
+                      <span class="json-property-name">view:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>View Name</p>
+                    </dd>
+                    <dt data-property-name="categories" class="has-description">
+                      <span class="json-property-name">categories:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Categories Names</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="alerts">
+                      <span class="json-property-name">alerts:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="global" class="has-description">
+                            <span class="json-property-name">global:</span>
+                            <span class="json-property-type">boolean</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Indicates alerts which are global, i.e. will affect all users that share this view.</p>
+                          </dd>
+                          <dt data-property-name="alert_on_new" class="has-description">
+                            <span class="json-property-name">alert_on_new:</span>
+                            <span class="json-property-type">boolean</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Indicates alerts which are sent on new events</p>
+                          </dd>
+                          <dt data-property-name="alert_on_every_entrypoint" class="has-description">
+                            <span class="json-property-name">alert_on_every_entrypoint:</span>
+                            <span class="json-property-type">boolean</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Indicates alerts which are sent for every new event regardless of it&#39;s entry point</p>
+                          </dd>
+                          <dt data-property-name="anomaly_alert">
+                            <span class="json-property-name">anomaly_alert:</span>
+                            <span class="json-property-type">object</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="alert_on_anomaly">
+                                  <span class="json-property-name">alert_on_anomaly:</span>
+                                  <span class="json-property-type">boolean</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dt data-property-name="anomaly_function">
+                                  <span class="json-property-name">anomaly_function:</span>
+                                  <span class="json-property-type">
+                                    <span class="">
+                                      <a class="json-schema-ref" href="#/definitions/UDFBasic">UDFBasic</a>
+                                    </span>
+                                  </span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dt data-property-name="period" class="has-description">
+                                  <span class="json-property-name">period:</span>
+                                  <span class="json-property-type">integer</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dd>
+                                  <p>The interval (in minutes) between periodic/anomaly udf invocations</p>
+                                </dd>
+                              </dl>
+                            </section>
+                          </dt>
+                          <dt data-property-name="channels">
+                            <span class="json-property-name">channels:</span>
+                            <span class="json-property-type">string[]</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-array-items">
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-enum" title="Possible values">
+                                <span class="json-property-enum-item">EMAIL</span>,
+                                <span class="json-property-enum-item">SLACK</span>,
+                                <span class="json-property-enum-item">HIPCHAT</span>,
+                                <span class="json-property-enum-item">PAGERDUTY</span>,
+                                <span class="json-property-enum-item">JIRA</span>,
+                                <span class="json-property-enum-item">WEBHOOK</span>,
+                                <span class="json-property-enum-item">SERVICENOW</span>,
+                                <span class="json-property-enum-item">UDF</span>
+                              </span>
+                              <span class="json-property-range" title="Value limits"></span>
+                              <div class="json-inner-schema"> </div>
+                            </section>
+                          </dt>
+                          <dt data-property-name="channel_function">
+                            <span class="json-property-name">channel_function:</span>
+                            <span class="json-property-type">
+                              <span class="">
+                                <a class="json-schema-ref" href="#/definitions/UDFBasic">UDFBasic</a>
+                              </span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;view_id&quot;</span>: <span class="hljs-string">&quot;P12&quot;</span>,
+  <span class="hljs-attr">&quot;view&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+  <span class="hljs-attr">&quot;categories&quot;</span>: <span class="hljs-string">&quot;Applications&quot;</span>,
+  <span class="hljs-attr">&quot;alerts&quot;</span>: {
+    <span class="hljs-attr">&quot;global&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;alert_on_new&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;alert_on_every_entrypoint&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+    <span class="hljs-attr">&quot;anomaly_alert&quot;</span>: {
+      <span class="hljs-attr">&quot;alert_on_anomaly&quot;</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">&quot;anomaly_function&quot;</span>: {
+        <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L8&quot;</span>,
+        <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Tier Routing&quot;</span>,
+        <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Anomaly(last 1d vs. prev 7d, &#x394; &gt; 100%)\&quot;&quot;</span>,
+        <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Category name where tiers views will be created.\ncategory_name=tiers\n\n# Link to the full tiers list: https://git.io/fpPT0\n# Enhance it with a delimited list: A=B;C=D;E=F, where the first item is a package (e.g com.mongo), and the second is a tier (e.g MongoDB).\nnamespaces=com.sparktale.bugtale.server.common.distribute.redis=Redis;org.redisson=Redisson;com.sparktale.bugtale.server.common.distribute.guava=Guava-Cache;com.sparktale.bugtale.util.cache=Cache;com.sparktale.bugtale.server.app.dashboard.cache=Cache;com.sparktale.bugtale.server.common.stats=SQL-Stats;com.sparktale.bugtale.server.common.pds=SQL-Pds;com.sparktale.bugtale.qsql=SQL-Queue;com.sparktale.bugtale.server.services.queue.qsql=SQL-Queue;com.sparktale.bugtale.shared.backend.rdbms=SQL-Common;com.sparktale.bugtale.server.common.queue=Local-Queue;com.sparktale.bugtale.server.common.alerts=Alerts-Engine;com.sparktale.bugtale.decoding=Snapshot-Analysis;com.sparktale.bugtale.server.common.hits=Snapshot-Analysis;com.sparktale.bugtale.server.common.tailor=Snapshot-Analysis;com.sparktale.bugtale.server.analysis=Code-Analysis;com.sparktale.bugtale.server.worker.analysis=Code-Analysis;com.sparktale.bugtale.server.common.source=Code-Analysis;com.sparktale.bugtale.analyzer=Code-Analysis;com.sparktale.bugtale.decompiler=Decompiler;com.takipi.integrations.grafana=OverOps-Influx-Backend;com.sparktale.common.util=Utils;com.sparktale.bugtale.shared.backend.util=Utils&quot;</span>
+      },
+      <span class="hljs-attr">&quot;period&quot;</span>: <span class="hljs-number">3</span>
+    },
+    <span class="hljs-attr">&quot;channels&quot;</span>: [
+      <span class="hljs-string">&quot;SLACK&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;channel_function&quot;</span>: {
+      <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L8&quot;</span>,
+      <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Tier Routing&quot;</span>,
+      <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Anomaly(last 1d vs. prev 7d, &#x394; &gt; 100%)\&quot;&quot;</span>,
+      <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Category name where tiers views will be created.\ncategory_name=tiers\n\n# Link to the full tiers list: https://git.io/fpPT0\n# Enhance it with a delimited list: A=B;C=D;E=F, where the first item is a package (e.g com.mongo), and the second is a tier (e.g MongoDB).\nnamespaces=com.sparktale.bugtale.server.common.distribute.redis=Redis;org.redisson=Redisson;com.sparktale.bugtale.server.common.distribute.guava=Guava-Cache;com.sparktale.bugtale.util.cache=Cache;com.sparktale.bugtale.server.app.dashboard.cache=Cache;com.sparktale.bugtale.server.common.stats=SQL-Stats;com.sparktale.bugtale.server.common.pds=SQL-Pds;com.sparktale.bugtale.qsql=SQL-Queue;com.sparktale.bugtale.server.services.queue.qsql=SQL-Queue;com.sparktale.bugtale.shared.backend.rdbms=SQL-Common;com.sparktale.bugtale.server.common.queue=Local-Queue;com.sparktale.bugtale.server.common.alerts=Alerts-Engine;com.sparktale.bugtale.decoding=Snapshot-Analysis;com.sparktale.bugtale.server.common.hits=Snapshot-Analysis;com.sparktale.bugtale.server.common.tailor=Snapshot-Analysis;com.sparktale.bugtale.server.analysis=Code-Analysis;com.sparktale.bugtale.server.worker.analysis=Code-Analysis;com.sparktale.bugtale.server.common.source=Code-Analysis;com.sparktale.bugtale.analyzer=Code-Analysis;com.sparktale.bugtale.decompiler=Decompiler;com.takipi.integrations.grafana=OverOps-Influx-Backend;com.sparktale.common.util=Utils;com.sparktale.bugtale.shared.backend.util=Utils&quot;</span>
+    }
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-UDFBasic" class="definition panel" data-traverse-target="definition-UDFBasic">
+            <h2 class="panel-title">
+              <a name="/definitions/UDFBasic"></a>UDFBasic: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="library_id">
+                      <span class="json-property-name">library_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="function_id">
+                      <span class="json-property-name">function_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="summary">
+                      <span class="json-property-name">summary:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="args">
+                      <span class="json-property-name">args:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;library_id&quot;</span>: <span class="hljs-string">&quot;L8&quot;</span>,
+  <span class="hljs-attr">&quot;function_id&quot;</span>: <span class="hljs-string">&quot;Tier Routing&quot;</span>,
+  <span class="hljs-attr">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Anomaly(last 1d vs. prev 7d, &#x394; &gt; 100%)\&quot;&quot;</span>,
+  <span class="hljs-attr">&quot;args&quot;</span>: <span class="hljs-string">&quot;# Category name where tiers views will be created.\ncategory_name=tiers\n\n# Link to the full tiers list: https://git.io/fpPT0\n# Enhance it with a delimited list: A=B;C=D;E=F, where the first item is a package (e.g com.mongo), and the second is a tier (e.g MongoDB).\nnamespaces=com.sparktale.bugtale.server.common.distribute.redis=Redis;org.redisson=Redisson;com.sparktale.bugtale.server.common.distribute.guava=Guava-Cache;com.sparktale.bugtale.util.cache=Cache;com.sparktale.bugtale.server.app.dashboard.cache=Cache;com.sparktale.bugtale.server.common.stats=SQL-Stats;com.sparktale.bugtale.server.common.pds=SQL-Pds;com.sparktale.bugtale.qsql=SQL-Queue;com.sparktale.bugtale.server.services.queue.qsql=SQL-Queue;com.sparktale.bugtale.shared.backend.rdbms=SQL-Common;com.sparktale.bugtale.server.common.queue=Local-Queue;com.sparktale.bugtale.server.common.alerts=Alerts-Engine;com.sparktale.bugtale.decoding=Snapshot-Analysis;com.sparktale.bugtale.server.common.hits=Snapshot-Analysis;com.sparktale.bugtale.server.common.tailor=Snapshot-Analysis;com.sparktale.bugtale.server.analysis=Code-Analysis;com.sparktale.bugtale.server.worker.analysis=Code-Analysis;com.sparktale.bugtale.server.common.source=Code-Analysis;com.sparktale.bugtale.analyzer=Code-Analysis;com.sparktale.bugtale.decompiler=Decompiler;com.takipi.integrations.grafana=OverOps-Influx-Backend;com.sparktale.common.util=Utils;com.sparktale.bugtale.shared.backend.util=Utils&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
