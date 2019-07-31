@@ -1742,6 +1742,32 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         403:
           $ref: "#/responses/ForbiddenError"
+  /services/{env_id}/alerts/test:
+    post:
+      tags:
+        - Alerts
+      summary: "Test Alert settings"
+      description: "This endpoint allows to test alerts settings before applying them to a particular view"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: body
+          name: alert
+          description: Alerts settings
+          schema:
+              $ref: "#/definitions/Alert"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        403:
+          $ref: "#/responses/ForbiddenError"
+        404:
+          $ref: "#/responses/NotFoundError"
   /services/{env_id}/views/{view_id}/custom-alert:
     post:
       tags:
