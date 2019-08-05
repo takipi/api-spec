@@ -235,6 +235,22 @@ paths:
           name: active
           description: Show only active deployments
           type: boolean
+        - in: query
+          name: from
+          type: string
+          description: Start time of requested deployments. When using the time range parameters, only deployments which were active during this time range will be returned. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: to
+          type: string
+          description: End time of requested deployments. When using the time range parameters, only deployments which were active during this time range will be returned. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          required: true
+        - in: query
+          name: apps
+          type: array
+          description: List of application names
+          items:
+            type: string
       responses:
         200:
           description: List of deployments
@@ -583,7 +599,7 @@ paths:
         - in: query
           name: to
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: server
@@ -1035,7 +1051,7 @@ paths:
         - in: query
           name: to
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: server
@@ -1094,7 +1110,7 @@ paths:
         - in: query
           name: to
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: server
@@ -1159,7 +1175,7 @@ paths:
         - in: query
           name: to
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: server
