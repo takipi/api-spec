@@ -258,10 +258,6 @@ paths:
           description: Environment to use
           type: string
           required: true
-        - in: query
-          name: monitored
-          description: Show only monitored environments
-          type: boolean
       responses:
         200:
           description: List of processes
