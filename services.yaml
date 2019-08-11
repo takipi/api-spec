@@ -246,12 +246,12 @@ paths:
                   $ref: "#/definitions/Deployment"
         401:
             $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/jvms:
+  /services/{env_id}/overops-status/agents:
     get:
       tags:
         - General
-      summary: "List JVMS/Collectors"
-      description: "Fetch JVMS/Collectors live processes report"
+      summary: "List Agents"
+      description: "Fetch agents live processes report"
       parameters:
         - in: path
           name: env_id
@@ -264,13 +264,40 @@ paths:
           type: boolean
       responses:
         200:
-          description: List of JVMs
+          description: List of processes
           schema:
             properties:
-              JVMs:
+              agents:
                 type: array
                 items:
-                  $ref: "#/definitions/JVM"
+                  $ref: "#/definitions/Agent"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/overops-status/collectors:
+    get:
+      tags:
+        - General
+      summary: "List Collectors"
+      description: "Fetch collectors live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: monitored
+          description: Show only monitored JVMs
+          type: boolean
+      responses:
+        200:
+          description: List of Collectors
+          schema:
+            properties:
+              collectors:
+                type: array
+                items:
+                  $ref: "#/definitions/Collector"
         401:
             $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/storage-settings:
@@ -4811,42 +4838,60 @@ definitions:
         items:
           type: string
           example: MyApp
-  JVM:
-    description: JVM properties
+  Agent:
+    description: Agent properties
     type: object
     properties:
-      name:
+      server:
         type: string
-        description: JVM name
+        description: name of the server that hosts the agent
+        example: ip-10-164-178-61
+      app:
+        type: string
+        description: application name
         example: prod-api
       deployment:
         type: string
         description: deployment name
         example: v4.0.2041
-      PID:
+      id:
         type: string
-        description: PID
+        description: Agent unique identifier
         example: 20187
-      agent_version:
+      version:
         type: string
-        description: Version of the agent installed on the JVM
+        description: Agent version
         example: 4.18.1
-      collector_version:
+      start_time:
         type: string
-        description: Overops Collector version
-        example: 4.18.2
+        description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: "2018-02-28T22:47:09.038Z"
       status:
         type: string
         enum: [monitored, OverOps not attached]
         description: OverOps monitoring status
-      server:
+  Collector:
+    description: Collector properties
+    type: object
+    properties:
+      id:
         type: string
-        description: name of the server that hosts the JVM
-        example: ip-10-164-178-61
-      machine:
+        description: Collector unique identifier
+        example: 20187
+      pid:
         type: string
-        description: TBD
-        example: TBD
+        description: PID
+        example: 20187
+      name:
+        type: string
+      version:
+        type: string
+        description: Collector version
+        example: 4.18.1
+      start_time:
+        type: string
+        description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: "2018-02-28T22:47:09.038Z"
   ViewHistory:
     type: object
     properties:
