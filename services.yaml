@@ -260,7 +260,7 @@ paths:
           required: true
       responses:
         200:
-          description: List of processes
+          description: List of agents
           schema:
             properties:
               agents:
@@ -273,7 +273,7 @@ paths:
     get:
       tags:
         - General
-      summary: "List Collectors"
+      summary: "List collectors"
       description: "Fetch collectors live processes report"
       parameters:
         - in: path
@@ -281,10 +281,6 @@ paths:
           description: Environment to use
           type: string
           required: true
-        - in: query
-          name: monitored
-          description: Show only monitored JVMs
-          type: boolean
       responses:
         200:
           description: List of Collectors
@@ -4853,7 +4849,7 @@ definitions:
       id:
         type: string
         description: Agent unique identifier
-        example: 20187
+        example: 12345
       version:
         type: string
         description: Agent version
@@ -4873,7 +4869,7 @@ definitions:
       id:
         type: string
         description: Collector unique identifier
-        example: 20187
+        example: 12345
       pid:
         type: string
         description: PID
