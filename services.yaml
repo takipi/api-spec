@@ -250,7 +250,7 @@ paths:
     get:
       tags:
         - General
-      summary: "List Agents"
+      summary: "List agents"
       description: "Fetch agents live processes report"
       parameters:
         - in: path
@@ -260,7 +260,7 @@ paths:
           required: true
         - in: query
           name: monitored
-          description: Show only monitored JVMs
+          description: Show only monitored environments
           type: boolean
       responses:
         200:
@@ -4868,8 +4868,8 @@ definitions:
         example: "2018-02-28T22:47:09.038Z"
       status:
         type: string
-        enum: [monitored, OverOps not attached]
         description: OverOps monitoring status
+        example: monitoring
   Collector:
     description: Collector properties
     type: object
