@@ -4224,6 +4224,71 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+#Jira
+
+
+2. GET Get Fields (receives Project, Issue Type, returns all fields for this issue. for each field - mandatory indication, type, values - verify against Jira API)
+3. PUT/GET Create Jira issue (receives envID, eventID, Project, issue type, fields) - Not related to alerts. at first stage only api should be implemented.
+
+
+  /services/{env_id}/alerts/jira/projects:
+      get:
+        tags:
+          - Jira
+        summary: "List jira projects"
+        description: "List all available jira projects"
+        parameters:
+          - in: path
+            name: env_id
+            description: Environment ID to use (e.g. S1234)
+            type: string
+            required: true
+        responses:
+          200:
+            description: List of jira projects
+            schema:
+              type: object
+              properties:
+                projects:
+                  type: array
+                  items:
+                    $ref: "#/definitions/JiraProject"
+          401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/jira/projects/{project_name}/{issue_type}:
+    get:
+      tags:
+        - Jira
+      summary: "Fetch jira fields"
+      description: "List all fields for selected jira project / issue type"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: project_name
+          description: jira project name
+          type: string
+        - in: path
+          name: issue_type
+          description: jira issue type
+          type: string
+      responses:
+        200:
+          description: List of jira fields
+          schema:
+            type: object
+            properties:
+              projects:
+                type: array
+                items:
+                  $ref: "#/definitions/JiraField"
+            401:
+              $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/alerts/jira/{event_id}:
+
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
@@ -5177,6 +5242,39 @@ definitions:
       plural_suffix:
         type: string
         description: plural suffix/descriptor for custom units
+  JiraProject:
+    type: object
+    properties:
+      name:
+        type: string
+        description: project name
+        example: Engineering
+      issue_types:
+        type: array
+          items:
+            type: string
+            example: "Bug"
+  JiraField:
+    type: object
+    properties:
+      name:
+        type: string
+        description: project name
+        example: Engineering
+      mandatory:
+        type: boolean
+        description: mandatory field in jira tickets
+        example: true
+      type:
+        type: field type
+        description: field type (free text, )
+
+      mandatory:
+        type: array
+          items:
+            type: string
+            example: "Bug"
+
 responses:
   OK:
     description: OK
