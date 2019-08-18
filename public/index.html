@@ -516,6 +516,23 @@
               </li>
             </ul>
           </section>
+          <section>
+            <a href="#tag-Jira">Jira</a>
+            <ul>
+              <li>
+                <a href="#operation--services--env_id--alerts-jira-projects-get"> List jira projects </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--jira-projects--project_name---issue_type--get"> Fetch jira fields </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--alerts-jira--project_name---issue_type---event_id--put"> Create Jira issue </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--alerts-jira--project_name---issue_type---event_id--get"> Fetch Jira issue </a>
+              </li>
+            </ul>
+          </section>
           <h5>Schema Definitions</h5>
           <a href="#definition-Pattern"> Pattern </a>
           <a href="#definition-ClassName"> ClassName </a>
@@ -554,6 +571,8 @@
           <a href="#definition-Metrics"> Metrics </a>
           <a href="#definition-SystemMetrics"> SystemMetrics </a>
           <a href="#definition-SystemMetadataUnit"> SystemMetadataUnit </a>
+          <a href="#definition-JiraProject"> JiraProject </a>
+          <a href="#definition-JiraField"> JiraField </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -7175,6 +7194,20 @@
   },
   <span class="hljs-attr">&quot;webhook&quot;</span>: {
     <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
+  },
+  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
+    <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
+    <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      }
+    ]
   }
 }
 </code></pre>
@@ -7275,6 +7308,20 @@
   },
   <span class="hljs-attr">&quot;webhook&quot;</span>: {
     <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
+  },
+  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
+    <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
+    <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      }
+    ]
   }
 }
 </code></pre>
@@ -7586,6 +7633,20 @@
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-attr">&quot;service_integration_key&quot;</span>: <span class="hljs-string">&quot;sflk234lkdjflsj12o8312&quot;</span>
   },
+  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
+    <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
+    <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      }
+    ]
+  },
   <span class="hljs-attr">&quot;webhook_settings&quot;</span>: {
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
@@ -7722,6 +7783,20 @@
   <span class="hljs-attr">&quot;pager_duty_settings&quot;</span>: {
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-attr">&quot;service_integration_key&quot;</span>: <span class="hljs-string">&quot;sflk234lkdjflsj12o8312&quot;</span>
+  },
+  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
+    <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
+    <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      }
+    ]
   },
   <span class="hljs-attr">&quot;webhook_settings&quot;</span>: {
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
@@ -7978,6 +8053,20 @@
   <span class="hljs-attr">&quot;pager_duty_settings&quot;</span>: {
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-attr">&quot;service_integration_key&quot;</span>: <span class="hljs-string">&quot;sflk234lkdjflsj12o8312&quot;</span>
+  },
+  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
+    <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
+    <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      }
+    ]
   },
   <span class="hljs-attr">&quot;webhook_settings&quot;</span>: {
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
@@ -18204,6 +18293,545 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
+          <h1 id="tag-Jira" class="swagger-summary-tag" data-traverse-target="tag-Jira">Jira</h1>
+          <div id="operation--services--env_id--alerts-jira-projects-get" class="operation panel" data-traverse-target="operation--services--env_id--alerts-jira-projects-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Jira">Jira</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List jira projects</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/alerts/jira/projects</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all available jira projects</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of jira projects</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;projects&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Engineering&quot;</span>,
+      <span class="hljs-attr">&quot;issue_types&quot;</span>: [
+        <span class="hljs-string">&quot;Bug&quot;</span>
+      ]
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--jira-projects--project_name---issue_type--get" class="operation panel" data-traverse-target="operation--services--env_id--jira-projects--project_name---issue_type--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Jira">Jira</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch jira fields</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/jira/projects/{project_name}/{issue_type}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all fields for selected jira project / issue type</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">project_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>jira project name</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">issue_type</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>jira issue type</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>List of jira fields</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;projects&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+      <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--alerts-jira--project_name---issue_type---event_id--put" class="operation panel" data-traverse-target="operation--services--env_id--alerts-jira--project_name---issue_type---event_id--put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Jira">Jira</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Create Jira issue</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/services/{env_id}/alerts/jira/{project_name}/{issue_type}/{event_id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Create Jira issue for a selected event</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <p>Jira ticket contents</p>
+                  <section class="json-schema-properties">
+                    <dl>
+                      <dt data-property-name="projects">
+                        <span class="json-property-name">projects:</span>
+                        <span class="json-property-type">
+                          <span class="json-schema-ref-array">
+                            <a class="json-schema-ref" href="#/definitions/JiraField">JiraField</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </dt>
+                      <dt class="json-inner-schema">
+                        <section class="json-schema-array-items">
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/JiraField">JiraField</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <div class="json-inner-schema"> </div>
+                        </section>
+                      </dt>
+                    </dl>
+                  </section>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">project_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Jira project name to open a ticket</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">issue_type</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Jira issue type to open</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">event_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Event ID to open a ticket for</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;projects&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+      <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">409 Conflict</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Conflict</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--alerts-jira--project_name---issue_type---event_id--get" class="operation panel" data-traverse-target="operation--services--env_id--alerts-jira--project_name---issue_type---event_id--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Jira">Jira</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch Jira issue</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/alerts/jira/{project_name}/{issue_type}/{event_id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Fetch Jira issue for a selected event</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">project_name</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Jira project name to open a ticket</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">issue_type</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Jira issue type to open</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">event_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Event ID to open a ticket for</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Jira ticket contents</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;projects&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+      <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <h1>Schema Definitions</h1>
           <div id="definition-Pattern" class="definition panel" data-traverse-target="definition-Pattern">
             <h2 class="panel-title">
@@ -20420,6 +21048,47 @@
                         </dl>
                       </section>
                     </dt>
+                    <dt data-property-name="jira_settings">
+                      <span class="json-property-name">jira_settings:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="project_name">
+                            <span class="json-property-name">project_name:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="issue_type">
+                            <span class="json-property-name">issue_type:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="issue_fields">
+                            <span class="json-property-name">issue_fields:</span>
+                            <span class="json-property-type">
+                              <span class="json-schema-ref-array">
+                                <a class="json-schema-ref" href="#/definitions/JiraField">JiraField</a>
+                              </span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-array-items">
+                              <span class="json-property-type">
+                                <span class="">
+                                  <a class="json-schema-ref" href="#/definitions/JiraField">JiraField</a>
+                                </span>
+                              </span>
+                              <span class="json-property-range" title="Value limits"></span>
+                              <div class="json-inner-schema"> </div>
+                            </section>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
                     <dt data-property-name="webhook_settings">
                       <span class="json-property-name">webhook_settings:</span>
                       <span class="json-property-type">object</span>
@@ -20588,6 +21257,20 @@
   <span class="hljs-attr">&quot;pager_duty_settings&quot;</span>: {
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-attr">&quot;service_integration_key&quot;</span>: <span class="hljs-string">&quot;sflk234lkdjflsj12o8312&quot;</span>
+  },
+  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
+    <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
+    <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      }
+    ]
   },
   <span class="hljs-attr">&quot;webhook_settings&quot;</span>: {
     <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">false</span>,
@@ -20780,6 +21463,47 @@
                         </dl>
                       </section>
                     </dt>
+                    <dt data-property-name="jira_settings">
+                      <span class="json-property-name">jira_settings:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="project_name">
+                            <span class="json-property-name">project_name:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="issue_type">
+                            <span class="json-property-name">issue_type:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="issue_fields">
+                            <span class="json-property-name">issue_fields:</span>
+                            <span class="json-property-type">
+                              <span class="json-schema-ref-array">
+                                <a class="json-schema-ref" href="#/definitions/JiraField">JiraField</a>
+                              </span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-array-items">
+                              <span class="json-property-type">
+                                <span class="">
+                                  <a class="json-schema-ref" href="#/definitions/JiraField">JiraField</a>
+                                </span>
+                              </span>
+                              <span class="json-property-range" title="Value limits"></span>
+                              <div class="json-inner-schema"> </div>
+                            </section>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
                   </dl>
                 </section>
               </div>
@@ -20813,6 +21537,20 @@
   },
   <span class="hljs-attr">&quot;webhook&quot;</span>: {
     <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
+  },
+  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+    <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
+    <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
+    <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      }
+    ]
   }
 }
 </code></pre>
@@ -21503,6 +22241,138 @@
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;BYTES&quot;</span>,
   <span class="hljs-attr">&quot;suffix&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;plural_suffix&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-JiraProject" class="definition panel" data-traverse-target="definition-JiraProject">
+            <h2 class="panel-title">
+              <a name="/definitions/JiraProject"></a>JiraProject: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>project name</p>
+                    </dd>
+                    <dt data-property-name="issue_types">
+                      <span class="json-property-name">issue_types:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Engineering&quot;</span>,
+  <span class="hljs-attr">&quot;issue_types&quot;</span>: [
+    <span class="hljs-string">&quot;Bug&quot;</span>
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-JiraField" class="definition panel" data-traverse-target="definition-JiraField">
+            <h2 class="panel-title">
+              <a name="/definitions/JiraField"></a>JiraField: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="type" class="has-description">
+                      <span class="json-property-name">type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The data type of the field</p>
+                    </dd>
+                    <dt data-property-name="items" class="has-description">
+                      <span class="json-property-name">items:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>When the data type is an array, the name of the field items within the array</p>
+                    </dd>
+                    <dt data-property-name="system" class="has-description">
+                      <span class="json-property-name">system:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>If the field is a system field, the name of the field</p>
+                    </dd>
+                    <dt data-property-name="custom" class="has-description">
+                      <span class="json-property-name">custom:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>If the field is a custom field, the URI of the field</p>
+                    </dd>
+                    <dt data-property-name="customId" class="has-description">
+                      <span class="json-property-name">customId:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>If the field is a custom field, the custom ID of the field (Format - int64).</p>
+                    </dd>
+                    <dt data-property-name="configuration" class="has-description">
+                      <span class="json-property-name">configuration:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>If the field is a custom field, the configuration of the field</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->

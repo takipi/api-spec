@@ -4225,12 +4225,6 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
 #Jira
-
-
-2. GET Get Fields (receives Project, Issue Type, returns all fields for this issue. for each field - mandatory indication, type, values - verify against Jira API)
-3. PUT/GET Create Jira issue (receives envID, eventID, Project, issue type, fields) - Not related to alerts. at first stage only api should be implemented.
-
-
   /services/{env_id}/alerts/jira/projects:
       get:
         tags:
@@ -4271,10 +4265,12 @@ paths:
           name: project_name
           description: jira project name
           type: string
+          required: true
         - in: path
           name: issue_type
           description: jira issue type
           type: string
+          required: true
       responses:
         200:
           description: List of jira fields
@@ -4285,10 +4281,91 @@ paths:
                 type: array
                 items:
                   $ref: "#/definitions/JiraField"
-            401:
-              $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/alerts/jira/{event_id}:
-
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/alerts/jira/{project_name}/{issue_type}/{event_id}:
+    put:
+        tags:
+          - Jira
+        summary: "Create Jira issue"
+        description: "Create Jira issue for a selected event"
+        parameters:
+          - in: path
+            name: env_id
+            description: Environment ID to use (e.g. S1234)
+            type: string
+            required: true
+          - in: path
+            name: project_name
+            description: Jira project name to open a ticket
+            type: string
+            required: true
+          - in: path
+            name: issue_type
+            description: Jira issue type to open
+            type: string
+            required: true
+          - in: path
+            name: event_id
+            description: Event ID to open a ticket for
+            type: string
+            required: true
+          - in: body
+            name: ticket
+            description: Jira ticket contents
+            schema:
+              type: object
+              properties:
+                projects:
+                  type: array
+                  items:
+                    $ref: "#/definitions/JiraField"
+            required: true
+        responses:
+          200:
+            $ref: "#/responses/OK"
+          401:
+            $ref: "#/responses/UnauthorizedError"
+          409:
+            $ref: "#/responses/Conflict"
+    get:
+        tags:
+          - Jira
+        summary: "Fetch Jira issue"
+        description: "Fetch Jira issue for a selected event"
+        parameters:
+          - in: path
+            name: env_id
+            description: Environment ID to use (e.g. S1234)
+            type: string
+            required: true
+          - in: path
+            name: project_name
+            description: Jira project name to open a ticket
+            type: string
+            required: true
+          - in: path
+            name: issue_type
+            description: Jira issue type to open
+            type: string
+            required: true
+          - in: path
+            name: event_id
+            description: Event ID to open a ticket for
+            type: string
+            required: true
+        responses:
+          200:
+            description: Jira ticket contents
+            schema:
+              type: object
+              properties:
+                projects:
+                  type: array
+                  items:
+                    $ref: "#/definitions/JiraField"
+          401:
+            $ref: "#/responses/UnauthorizedError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
@@ -4939,10 +5016,19 @@ definitions:
             type: "string"
             example: "sflk234lkdjflsj12o8312"
         type: "object"
-      #jira_settings: <- TBD
-      #  properties:
-      #
-      #  type: "object"
+      jira_settings:
+        properties:
+          project_name:
+            type: string
+            example: Engineering Bugs
+          issue_type:
+            type: string
+            example:  Bug
+          issue_fields:
+            type: array
+            items:
+              $ref: "#/definitions/JiraField"
+        type: "object"
       webhook_settings:
         properties:
           enabled:
@@ -5073,7 +5159,19 @@ definitions:
           webhook_url:
             type: "string"
             example: "http://hooks.company.com/overops1/P1/hook"
-      #jira_settings: <- TBD
+      jira_settings:
+        properties:
+          project_name:
+            type: string
+            example: Engineering Bugs
+          issue_type:
+            type: string
+            example:  Bug
+          issue_fields:
+            type: array
+            items:
+              $ref: "#/definitions/JiraField"
+        type: "object"
       #udf_settings <- TBD
   CustomAlert:
     description: Custom Alert
@@ -5251,30 +5349,30 @@ definitions:
         example: Engineering
       issue_types:
         type: array
-          items:
-            type: string
-            example: "Bug"
+        items:
+          type: string
+          example: "Bug"
   JiraField:
     type: object
     properties:
-      name:
-        type: string
-        description: project name
-        example: Engineering
-      mandatory:
-        type: boolean
-        description: mandatory field in jira tickets
-        example: true
       type:
-        type: field type
-        description: field type (free text, )
-
-      mandatory:
-        type: array
-          items:
-            type: string
-            example: "Bug"
-
+        type: string
+        description: The data type of the field
+      items:
+        type: string
+        description: When the data type is an array, the name of the field items within the array
+      system:
+        type: string
+        description: If the field is a system field, the name of the field
+      custom:
+        type: string
+        description: If the field is a custom field, the URI of the field
+      customId:
+        type: integer
+        description: If the field is a custom field, the custom ID of the field (Format - int64).
+      configuration:
+        type: object
+        description: If the field is a custom field, the configuration of the field
 responses:
   OK:
     description: OK
