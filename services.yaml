@@ -5159,7 +5159,7 @@ definitions:
           webhook_url:
             type: "string"
             example: "http://hooks.company.com/overops1/P1/hook"
-      jira_settings:
+      jira:
         properties:
           project_name:
             type: string
@@ -5355,24 +5355,52 @@ definitions:
   JiraField:
     type: object
     properties:
-      type:
-        type: string
-        description: The data type of the field
-      items:
-        type: string
-        description: When the data type is an array, the name of the field items within the array
-      system:
-        type: string
-        description: If the field is a system field, the name of the field
-      custom:
-        type: string
-        description: If the field is a custom field, the URI of the field
-      customId:
-        type: integer
-        description: If the field is a custom field, the custom ID of the field (Format - int64).
-      configuration:
+      required:
+        type: boolean
+        description: Indicates whether the field is required
+      schema:
         type: object
-        description: If the field is a custom field, the configuration of the field
+        properties:
+          type:
+            type: string
+            description: The data type of the field
+          items:
+            type: string
+            description: When the data type is an array, the name of the field items within the array
+          system:
+            type: string
+            description: If the field is a system field, the name of the field
+          custom:
+            type: string
+            description: If the field is a custom field, the URI of the field
+          custom_id:
+            type: integer
+            description: If the field is a custom field, the custom ID of the field (Format - int64).
+          configuration:
+            type: object
+            description: If the field is a custom field, the configuration of the field
+      name:
+        type: string
+        description: The name of the field
+      key:
+        type: string
+        description: The key of the field
+      #auto_complete_url:
+      #  type: string
+      #  description: The URL that can be used to automatically complete the field
+      has_default_value:
+        type: boolean
+        description: Indicates whether the field has a default value
+      operations:
+        type: array
+        items:
+          type: string
+        description: The list of operations that can be performed on the field
+      allowed_values:
+        type: array
+        items:
+          type: string
+        description: The list of values allowed in the field.
 responses:
   OK:
     description: OK

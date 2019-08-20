@@ -7195,17 +7195,29 @@
   <span class="hljs-attr">&quot;webhook&quot;</span>: {
     <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
   },
-  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+  <span class="hljs-attr">&quot;jira&quot;</span>: {
     <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;schema&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        },
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;operations&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ]
       }
     ]
   }
@@ -7309,17 +7321,29 @@
   <span class="hljs-attr">&quot;webhook&quot;</span>: {
     <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
   },
-  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+  <span class="hljs-attr">&quot;jira&quot;</span>: {
     <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;schema&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        },
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;operations&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ]
       }
     ]
   }
@@ -7638,12 +7662,24 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;schema&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        },
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;operations&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ]
       }
     ]
   },
@@ -7789,12 +7825,24 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;schema&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        },
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;operations&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ]
       }
     ]
   },
@@ -8059,12 +8107,24 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;schema&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        },
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;operations&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ]
       }
     ]
   },
@@ -18507,12 +18567,24 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;projects&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-      <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;schema&quot;</span>: {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      },
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;operations&quot;</span>: [
+        <span class="hljs-string">&quot;string&quot;</span>
+      ],
+      <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+        <span class="hljs-string">&quot;string&quot;</span>
+      ]
     }
   ]
 }
@@ -18643,12 +18715,24 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;projects&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-      <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;schema&quot;</span>: {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      },
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;operations&quot;</span>: [
+        <span class="hljs-string">&quot;string&quot;</span>
+      ],
+      <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+        <span class="hljs-string">&quot;string&quot;</span>
+      ]
     }
   ]
 }
@@ -18817,12 +18901,24 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;projects&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-      <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;schema&quot;</span>: {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+      },
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;operations&quot;</span>: [
+        <span class="hljs-string">&quot;string&quot;</span>
+      ],
+      <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+        <span class="hljs-string">&quot;string&quot;</span>
+      ]
     }
   ]
 }
@@ -21263,12 +21359,24 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;schema&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        },
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;operations&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ]
       }
     ]
   },
@@ -21463,8 +21571,8 @@
                         </dl>
                       </section>
                     </dt>
-                    <dt data-property-name="jira_settings">
-                      <span class="json-property-name">jira_settings:</span>
+                    <dt data-property-name="jira">
+                      <span class="json-property-name">jira:</span>
                       <span class="json-property-type">object</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
@@ -21538,17 +21646,29 @@
   <span class="hljs-attr">&quot;webhook&quot;</span>: {
     <span class="hljs-attr">&quot;webhook_url&quot;</span>: <span class="hljs-string">&quot;http://hooks.company.com/overops1/P1/hook&quot;</span>
   },
-  <span class="hljs-attr">&quot;jira_settings&quot;</span>: {
+  <span class="hljs-attr">&quot;jira&quot;</span>: {
     <span class="hljs-attr">&quot;project_name&quot;</span>: <span class="hljs-string">&quot;Engineering Bugs&quot;</span>,
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;schema&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+        },
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;operations&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ],
+        <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+          <span class="hljs-string">&quot;string&quot;</span>
+        ]
       }
     ]
   }
@@ -22312,54 +22432,124 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="type" class="has-description">
-                      <span class="json-property-name">type:</span>
-                      <span class="json-property-type">string</span>
+                    <dt data-property-name="required" class="has-description">
+                      <span class="json-property-name">required:</span>
+                      <span class="json-property-type">boolean</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>The data type of the field</p>
+                      <p>Indicates whether the field is required</p>
                     </dd>
-                    <dt data-property-name="items" class="has-description">
-                      <span class="json-property-name">items:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>When the data type is an array, the name of the field items within the array</p>
-                    </dd>
-                    <dt data-property-name="system" class="has-description">
-                      <span class="json-property-name">system:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>If the field is a system field, the name of the field</p>
-                    </dd>
-                    <dt data-property-name="custom" class="has-description">
-                      <span class="json-property-name">custom:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>If the field is a custom field, the URI of the field</p>
-                    </dd>
-                    <dt data-property-name="customId" class="has-description">
-                      <span class="json-property-name">customId:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>If the field is a custom field, the custom ID of the field (Format - int64).</p>
-                    </dd>
-                    <dt data-property-name="configuration" class="has-description">
-                      <span class="json-property-name">configuration:</span>
+                    <dt data-property-name="schema">
+                      <span class="json-property-name">schema:</span>
                       <span class="json-property-type">object</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="type" class="has-description">
+                            <span class="json-property-name">type:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The data type of the field</p>
+                          </dd>
+                          <dt data-property-name="items" class="has-description">
+                            <span class="json-property-name">items:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>When the data type is an array, the name of the field items within the array</p>
+                          </dd>
+                          <dt data-property-name="system" class="has-description">
+                            <span class="json-property-name">system:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>If the field is a system field, the name of the field</p>
+                          </dd>
+                          <dt data-property-name="custom" class="has-description">
+                            <span class="json-property-name">custom:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>If the field is a custom field, the URI of the field</p>
+                          </dd>
+                          <dt data-property-name="custom_id" class="has-description">
+                            <span class="json-property-name">custom_id:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>If the field is a custom field, the custom ID of the field (Format - int64).</p>
+                          </dd>
+                          <dt data-property-name="configuration" class="has-description">
+                            <span class="json-property-name">configuration:</span>
+                            <span class="json-property-type">object</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>If the field is a custom field, the configuration of the field</p>
+                          </dd>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                     <dd>
-                      <p>If the field is a custom field, the configuration of the field</p>
+                      <p>The name of the field</p>
                     </dd>
+                    <dt data-property-name="key" class="has-description">
+                      <span class="json-property-name">key:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The key of the field</p>
+                    </dd>
+                    <dt data-property-name="has_default_value" class="has-description">
+                      <span class="json-property-name">has_default_value:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Indicates whether the field has a default value</p>
+                    </dd>
+                    <dt data-property-name="operations">
+                      <span class="json-property-name">operations:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="allowed_values" class="has-description">
+                      <span class="json-property-name">allowed_values:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The list of values allowed in the field.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
                   </dl>
                 </section>
               </div>
@@ -22367,12 +22557,24 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;customId&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-  <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+  <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;schema&quot;</span>: {
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+  },
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;operations&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ]
 }
 </code></pre>
                   <!-- </div> -->
