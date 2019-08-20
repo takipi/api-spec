@@ -37,7 +37,7 @@ tags:
   - name: Labels
     description: Fetch and manipulate events labels
   - name: Alerts
-    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies. The can include, for example, the introduction of new events and regressions to different communication channels, such as Email, Jira, Slack, and Uder Defined Functions (UDFs).
+    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies. These can include, for example, the introduction of new events and regressions to different communication channels, such as Email, Jira, Slack, and Uder Defined Functions (UDFs).
   - name: Timers
     description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
   - name: Publish Metrics
