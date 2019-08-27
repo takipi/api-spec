@@ -6,14 +6,12 @@ info:
     email: hello@overops.com
   description: |
     Main OverOps API.
-    The REST API layer enables OverOps admins and users to perform and automate all actions
-    provided by the OverOps UI available at https://app.overops.com (or On-premises equivalent URL) via a platform independent programmatic interface.
-    A wrapper Java client API library that leverages these APIs for convenience by
-    Java and Scala developers is available at https://github.com/takipi/api-client and on Maven Central.
+    The REST API layer enables OverOps admins and users to perform and automate all the actions provided by the OverOps UI (available at https://app.overops.com or at On-Premises equivalent URL), via a platform-independent programmatic interface.
+    A wrapper Java client API library that leverages these APIs for the convenience of Java and Scala developers, is available at https://github.com/takipi/api-client and on Maven Central.
 
     All calls must be authenticated using one of the following methods:
-      1. Using `x-api-key` header (To generate the token, go to `Settings` --> `Account Settings` in the OverOps App). This is the recommended method.
-      2. Using Basic auth with `username:password` combo.
+      1. Using an `x-api-key` header (to generate the token, go to `Settings` --> `Account Settings` in the OverOps application). This is the **recommended** method.
+      2. Using Basic authentication with a `username:password` combo.
 
 securityDefinitions:
   basicAuth:
@@ -1617,7 +1615,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch ServiceNow Tables"
-      description: "Use this call to Load ServiceNow tables associated with specific credentials"
+      description: "Use this call to Load ServiceNow tables associated with specific credentials."
       parameters:
         - in: path
           name: env_id
@@ -1666,7 +1664,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch Alert settings for a View"
-      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc)"
+      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc.) For every change you make, you'll need to specify all the fields that were previously set - missing fields will be assigned empty values and nullified."
       parameters:
         - in: path
           name: env_id
