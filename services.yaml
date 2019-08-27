@@ -341,7 +341,7 @@ paths:
       tags:
         - General
       summary: "Fetch reliability settings JSON"
-      description: "Fetch reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      description: "Gets the reliability settings JSON, which defines the thresholds and preferences for the OverOps reliability tools, such as the Grafana dashboards, Jenkins plugin, etc."
       parameters:
         - in: path
           name: env_id
@@ -365,7 +365,7 @@ paths:
       tags:
         - General
       summary: "Upload reliability settings JSON"
-      description: "Upload reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      description: "Uploads the reliability settings JSON, which defines the thresholds and preferences for the OverOps reliability tools, such as Grafana dashboards, Jenkins plugin, etc."
       parameters:
         - in: path
           name: env_id
@@ -719,7 +719,7 @@ paths:
       tags:
         - Labels
       summary: "Create new label"
-      description: "Create a new label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization."
+      description: "Labels are used to tag events with custom classifications, and help to support use cases such as classifying an event as severe / regressed, or assigning it to a specific developer or team (e.g., prod-team-A) or any other user defined categorization."
       parameters:
         - in: path
           name: env_id
