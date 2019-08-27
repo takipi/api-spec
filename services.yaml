@@ -4900,7 +4900,7 @@ definitions:
             type: "string"
             example: "pa$$1"
           table:
-            description: the name (internal name) of a servicenow table to be used
+            description: The name (internal name) of the ServiceNow table that should be used
             type: "string"
             example: "sys_report_layer"
         type: "object"
@@ -4943,7 +4943,7 @@ definitions:
             example: "label=sample_label_name"
         type: "object"
   AlertDefaults:
-    description: Default alert settings for an environment
+    description: These are the default alert settings for an environment
     type: object
     properties:
       email:
@@ -4988,7 +4988,7 @@ definitions:
             type: "string"
             example: "pa$$1"
           table:
-            description: the name (internal name) of a servicenow table to be used
+            description: The name (internal name) of the ServiceNow table that should be used
             type: "string"
             example: "sys_report_layer"
       hip_chat:
@@ -5032,7 +5032,7 @@ definitions:
             link:
               type: string
   ViewAlertsSummary:
-    description: basic alerts info for a single view
+    description: This is the basic alerts information for a single view
     type: object
     properties:
       view_id:
@@ -5045,7 +5045,7 @@ definitions:
         example: "API"
       categories:
         type: array
-        description: Categories Names
+        description: Category Names
         items:
           type: string
         example: "Applications"
@@ -5054,15 +5054,15 @@ definitions:
         properties:
           global:
             type: boolean
-            description: Indicates alerts which are global, i.e. will affect all users that share this view.
+            description: Indicates global alerts, i.e., alerts that will appear for all environment users.
             example: false
           alert_on_new:
             type: boolean
-            description: Indicates alerts which are sent on new events
+            description: Indicates alerts that are sent on new events only
             example: true
           alert_on_every_entrypoint:
             type: boolean
-            description: Indicates alerts which are sent for every new event regardless of it's entry point
+            description: Indicates alerts that are sent for every new event regardless of the event's entry point
           anomaly_alert:
             type: object
             properties:
@@ -5073,7 +5073,7 @@ definitions:
                 $ref: "#/definitions/UDFBasic"
               period:
                 type: integer
-                description: The interval (in minutes) between periodic/anomaly udf invocations
+                description: Specifies the interval (in minutes) between periodic/anomaly UDF invocations
                 example: 3
           channels:
             type: array
@@ -5106,7 +5106,7 @@ definitions:
         example: true
       hostname:
         type: string
-        description: The hostname and (optional) port of your StatsD server.
+        description: This is the hostname and (optional) port of your StatsD server.
         example: 127.0.0.1:8125
       output_format:
         type: string
@@ -5120,7 +5120,7 @@ definitions:
       properties:
         output_format:
           type: string
-          description: For customized metrics (which are different than the format defaults), use "custom" format
+          description: For customized metrics (which differ from the format defaults), use a "custom" format
           example: splunk
         default_metrics:
           $ref: "#/definitions/Metrics"
