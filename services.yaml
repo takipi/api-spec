@@ -35,7 +35,7 @@ tags:
   - name: Labels
     description: Fetch and manipulate event labels
   - name: Alerts
-    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies, such as the introduction of new events and regressions to different communication channels (e.g., Email, Jira, Slack, and Uder Defined Functions).
+    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies (such as the introduction of new events and regressions) to different communication channels (e.g., Email, Jira, Slack, and Uder Defined Functions).
   - name: Timers
     description: Fetch and manipulate OverOps Timers - use for detetcting bottlenecks and diagnosing performance
   - name: Publish Metrics
@@ -47,13 +47,13 @@ tags:
   - name: Categories
     description: Fetch and manipulate grouping of views into logical categories (e.g "CI/CD", "Favorites")
   - name: UDFs
-    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.
+    description: Fetch and manipulate User Defined Functions (UDFs) - OverOps extensions using Lambdas.
   - name: Team Management
     description: APIs related to team management of a service
   - name: Data Redaction
     description: Fetch and manipulate data redaction of PII with target environments.
   - name: Code Redaction
-    description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes  from OverOps analysis and data capture.
+    description: Fetch and manipulate code filters, which are used for including and excluding 3rd parties and utility classes from OverOps analysis and data capture.
 schemes:
 - "https"
 paths:
@@ -123,7 +123,7 @@ paths:
       tags:
         - General
       summary: Rename an environment
-      description: "Rename an environment. This call is allowed for admins only"
+      description: "Enables admins to rename an environment (limited for admins only)"
       parameters:
         - in: path
           name: env_id
@@ -165,17 +165,16 @@ paths:
       tags:
         - General
       summary: "List servers"
-      description: "List all (or just active) servers that were used to monitor applications.
-        These can be either the IP/Hostname of a host or a cluster identifier. [How to name your Server](https://doc.overops.com/docs/naming-your-application-server-deployment)"
+      description: "List all the servers (or only the active servers) that are used for monitoring applications. The servers can be identified either through the IP/Hostname of a host or a through a cluster identifier. See [How to name your Server](https://doc.overops.com/docs/naming-your-application-server-deployment) for more information."
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify which environment ID to use (e.g., S1234)
           type: string
           required: true
         - in: query
           name: active
-          description: Show only active servers
+          description: Show only the servers that are active
           type: boolean
       responses:
         200:
@@ -193,8 +192,7 @@ paths:
       tags:
         - General
       summary: "List applications"
-      description: "List all (or just active) applications that were used to monitor applications.
-        These can be either an application name, an integration suite name or a specific instance. [How to name your Application](https://doc.overops.com/docs/naming-your-application-server-deployment)"
+      description: "List all the applications (or only the active applications) that are used for monitoring applications. These can be either an application name, an integration suite name, or a specific instance. See [How to name your Application](https://doc.overops.com/docs/naming-your-application-server-deployment) for details."
       parameters:
         - in: path
           name: env_id
@@ -221,8 +219,7 @@ paths:
       tags:
         - General
       summary: "List deployments"
-      description: "List all (or just active) deployments that were monitoring in the environment.
-        These can be either the Jenkins build number, Git commit, Maven version, etc. [How to tag your deployment](https://doc.overops.com/docs/naming-your-application-server-deployment)"
+      description: "List all the deployments (or only the active deployments) that are used for monitoring applications. These can be either the Jenkins build number, Git commit, Maven version, etc. See [How to tag your deployment](https://doc.overops.com/docs/naming-your-application-server-deployment) for details."
       parameters:
         - in: path
           name: env_id
@@ -249,7 +246,7 @@ paths:
       tags:
         - General
       summary: "Get storage settings of an environment"
-      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
+      description: "In Hybrid OverOps installations, data collected from your JVMs is redacted locally for PII and encrypted using your private encryption, key before it's stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. See [Hybrid Installation](https://doc.overops.com/docs/hybrid-installation) for additional details."
       parameters:
         - in: path
           name: env_id
@@ -269,7 +266,7 @@ paths:
       tags:
         - General
       summary: "Set storage settings for a service"
-      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. This API call allows you to configure your storage server as part of your Hybrid OverOps setup. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
+      description: "In Hybrid OverOps installations, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key, before it is stored in a server that resides behind your firewall. This API call allows you to configure your storage server as part of your Hybrid OverOps setup. See [Hybrid Installation](https://doc.overops.com/docs/hybrid-installation) for additional details"
       parameters:
         - in: path
           name: env_id
@@ -1591,7 +1588,7 @@ paths:
       tags:
         - Alerts
       summary: "Update Default Alert Settings"
-      description: "Use this call to update default alert settings for selected environment which will be used as initial settings for every new alert opened in this environment. "
+      description: "Use this call to update default alert settings for selected environment, which will be used as the initial settings for every new alert opened in this environment."
       parameters:
         - in: path
           name: env_id
@@ -1664,7 +1661,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch Alert settings for a View"
-      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc.) For every change you make, you'll need to specify all the fields that were previously set - missing fields will be assigned empty values and nullified."
+      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc.) For every change that you make, you'll need to specify all the fields that were previously set, because missing fields will be assigned empty values and nullified."
       parameters:
         - in: path
           name: env_id
