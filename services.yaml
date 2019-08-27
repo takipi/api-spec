@@ -31,15 +31,15 @@ tags:
   - name: Events
     description: Fetch and manipulate OverOps Automated Root Cause Events and Snapshots
   - name: Views
-    description: Fetch and manipulate grouping of events (i.e. Views) according to attribute sets (e.g. "uncaught exceptions", "errors from package com.acme")
+    description: Fetch and manipulate grouping of events (i.e., Views) according to attribute sets (for example, "uncaught exceptions", "errors from package com.acme", etc.)
   - name: Labels
-    description: Fetch and manipulate events labels
+    description: Fetch and manipulate event labels
   - name: Alerts
-    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
+    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies, such as the introduction of new events and regressions to different communication channels (e.g., Email, Jira, Slack, and Uder Defined Functions).
   - name: Timers
-    description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
+    description: Fetch and manipulate OverOps Timers - use for detetcting bottlenecks and diagnosing performance
   - name: Publish Metrics
-    description: Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools, providing control over application data from OverOps.
+    description: Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools that provide control over application data from OverOps.
   - name: System Metrics
     description: Fetch system metrics
   - name: View Metrics
@@ -1571,7 +1571,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch Default Alert Settings"
-      description: "Use this call to fetch default alert settings for selected environment"
+      description: "Gets the default alert settings that have been set up for this environment"
       parameters:
         - in: path
           name: env_id
