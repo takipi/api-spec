@@ -751,12 +751,12 @@ paths:
           required: true
         - in: query
           name: force
-          description: Force adding labels, even if the label exists
+          description: Force adding labels, even if a label exists
           type: boolean
           default: false
         - in: query
           name: handle_similar_events
-          description: Change the labels on all similar events
+          description: Change the labels on all similar events to this label
           type: boolean
           default: true
         - in: body
@@ -811,12 +811,12 @@ paths:
           required: true
         - in: query
           name: force
-          description: Force adding labels, even if the label exists
+          description: Force adding labels, even if a label exists
           type: boolean
           default: false
         - in: query
           name: handle_similar_events
-          description: Change the labels on all similar events
+          description: Change the labels on all similar eventsto this label
           type: boolean
           default: true
         - in: body
@@ -859,7 +859,7 @@ paths:
           required: true
       responses:
         200:
-          description: Createa a list of views that includes basic information about each view.
+          description: Create a list of views that includes basic information about each view
           schema:
             type: object
             properties:
@@ -882,7 +882,7 @@ paths:
           required: true
         - in: body
           name: view
-          description: Single view properties
+          description: Single view full properties
           schema:
             $ref: "#/definitions/ViewFull"
       responses:
@@ -899,7 +899,7 @@ paths:
       tags:
         - Views
       summary: "Get view properties"
-      description: "Get full list of view properties"
+      description: "Get the full list of view properties"
       parameters:
         - in: path
           name: env_id
@@ -913,7 +913,7 @@ paths:
           required: true
       responses:
         200:
-          description: Full list of view properties
+          description: Get the complete list of view properties
           schema:
             type: object
             properties:
@@ -921,7 +921,7 @@ paths:
                 type: array
                 items:
                   type: object
-                  description: Single view full properties
+                  description: Get the single view full properties
                   properties:
                     id:
                       type: string
@@ -955,7 +955,7 @@ paths:
       tags:
         - Views
       summary: "Edit view data"
-      description: "Edit view data"
+      description: "Edit the data of the current view"
       parameters:
         - in: path
           name: env_id
@@ -969,7 +969,7 @@ paths:
           required: true
         - in: body
           name: view
-          description: Single view properties
+          description: Specify the properties of a single view
           schema:
               $ref: "#/definitions/ViewFull"
       responses:
@@ -985,7 +985,7 @@ paths:
       tags:
         - Views
       summary: "Delete view"
-      description: "Delete view"
+      description: "Delete the selected view"
       parameters:
         - in: path
           name: env_id
@@ -1010,7 +1010,7 @@ paths:
         - Views
         - Events
       summary: Fetch events details
-      description: Get data on events within a target timeframe, application / server / deployment set.
+      description: Get data on events that fall within a target timeframe, application / server / deployment set and apply the following filter(s)
       parameters:
         - in: path
           name: env_id
@@ -1025,33 +1025,33 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: The start time of the requested events - the date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: to
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: The start time of the requested events - the date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: server
           type: string
-          description: Server(s) added to the filter
+          description: A server(s) was added to the filter selection
         - in: query
           name: app
           type: string
-          description: Application(s) added to the filter
+          description: And application(s) was added to the filter selection
         - in: query
           name: deployment
           type: string
-          description: Deployment(s) added to the filter
+          description: A deployment(s) was added to the filter election
         - in: query
           name: stats
           type: string
           enum: [none, hits, invocations, all]
-          description: Include event volumes (e.g. number of event instances and calls into the method containing the event) in the response
+          description: Include event volumes (i.e., the number of event instances and calls into the method that contains the event) in the response
       responses:
         200:
-          description: Event data
+          description: Include the event data
           schema:
             type: object
             properties:
@@ -1069,11 +1069,11 @@ paths:
         - Views
         - Events
       summary: Fetch stats for all events in the specified view
-      description: Fetch stats for a target timeframe, application / server / deployment set.
+      description: Get the stats for a target timeframe, application / server / deployment set and apply the following filters
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Environment ID to use (e.g., S1234)
           type: string
           required: true
         - in: path
@@ -1084,30 +1084,30 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: The start time of the requested events - date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: to
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: The start time of the requested events - date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
           required: true
         - in: query
           name: server
           type: string
-          description: Server(s) added to the filter
+          description: A server(s) was added to the filter
         - in: query
           name: app
           type: string
-          description: Application(s) added to the filter
+          description: An application(s) was added to the filter
         - in: query
           name: deployment
           type: string
-          description: Deployment(s) added to the filter
+          description: A deployment(s) was added to the filter
         - in: query
           name: stats
           type: string
           enum: [hits, invocations, all]
-          description: return only selected stats. 'all' is default.
+          description: Return only the selected stats - 'all' is the default.
       responses:
         200:
           description: Event stats
