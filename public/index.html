@@ -31,7 +31,7 @@
                 <a href="#operation--services-post"> Generate a new environment key </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--get"> Get information about the environment (Not yet implemented) </a>
+                <a href="#operation--services--env_id--get"> Get information about an environment </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--post"> Rename an environment </a>
@@ -854,7 +854,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Get information about the environment (Not yet implemented)</span>
+              <span class="operation-summary">Get information about an environment</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -867,7 +867,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get information about the environment (Not yet implemented)</p>
+                  <p>Get information about an environment</p>
                 </section>
               </div>
             </div>
@@ -898,22 +898,41 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>TBD</p>
+                      <p>Environment data</p>
                     </div>
                   </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
                     <div class="prop-value">
-                      <p>Unauthorized</p>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                 </section>
               </div>
-              <div class="doc-examples"> </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;services&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;S100&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Pre-prod&quot;</span>,
+      <span class="hljs-attr">&quot;full_key&quot;</span>: <span class="hljs-string">&quot;S35817XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>,
+      <span class="hljs-attr">&quot;role&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <div id="operation--services--env_id--post" class="operation panel" data-traverse-target="operation--services--env_id--post">

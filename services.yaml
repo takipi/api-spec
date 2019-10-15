@@ -108,8 +108,8 @@ paths:
     get:
       tags:
         - General
-      summary: "Get information about the environment (Not yet implemented)"
-      description: "Get information about the environment (Not yet implemented)"
+      summary: "Get information about an environment"
+      description: "Get information about an environment"
       parameters:
         - in: path
           name: env_id
@@ -118,9 +118,15 @@ paths:
           required: true
       responses:
         200:
-          $ref: "#/responses/TBD"
-        401:
-          $ref: "#/responses/UnauthorizedError"
+          description: Environment data
+          schema:
+            type: object
+            properties:
+              services:
+                type: array
+                description: Environment data
+                items:
+                  $ref: "#/definitions/EnvironmentWithRole"
     post:
       tags:
         - General
