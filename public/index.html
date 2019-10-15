@@ -160,7 +160,7 @@
                 <a href="#operation--services--env_id--labels-get"> List labels </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--labels-post"> Create new label </a>
+                <a href="#operation--services--env_id--labels-post"> Create a new label </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--events-labels-post"> Batch Add/Remove labels </a>
@@ -568,13 +568,14 @@
           <div id="introduction" data-traverse-target="introduction">
             <div class="doc-row">
               <div class="doc-copy">
-                <p>Main OverOps API. The REST API layer enables OverOps admins and users to perform and automate all actions provided by the OverOps UI available at
-                  <a href="https://app.overops.com">https://app.overops.com</a> (or On-premises equivalent URL) via a platform independent programmatic interface. A wrapper Java client API library that leverages these APIs for convenience by Java and Scala developers is available at
+                <p>Main OverOps API. The REST API layer enables OverOps admins and users to perform and automate the actions provided by the OverOps UI (available at
+                  <a href="https://app.overops.com">https://app.overops.com</a> or at On-Premises equivalent URL), via a platform-independent programmatic interface. A wrapper Java client API library that leverages these APIs for the convenience of Java and Scala developers, is available at
                   <a href="https://github.com/takipi/api-client">https://github.com/takipi/api-client</a> and on Maven Central.</p>
                 <p>All calls must be authenticated using one of the following methods:</p>
                 <ol>
-                  <li>Using <code>x-api-key</code> header (To generate the token, go to <code>Settings</code> --&gt; <code>Account Settings</code> in the OverOps App). This is the recommended method.</li>
-                  <li>Using Basic auth with <code>username:password</code> combo.</li>
+                  <li>Using an <code>x-api-key</code> header (to generate the token, go to <code>Settings</code> --&gt; <code>Account Settings</code> in the OverOps application). This is the
+                    <strong>recommended</strong> method.</li>
+                  <li>Using Basic authentication with a <code>username:password</code> combo.</li>
                 </ol>
               </div>
               <div class="doc-examples">
@@ -708,7 +709,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>List of all accessible environments to the calling user</p>
+                      <p>List of all the environments that are accessible to the calling user</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -772,7 +773,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Defines a new environment</p>
+                  <p>Define a new environment and generate an environment ID for it</p>
                 </section>
               </div>
             </div>
@@ -867,7 +868,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get information about the environment (Not yet implemented)</p>
+                  <p>Get information about the current environment (Not yet implemented)</p>
                 </section>
               </div>
             </div>
@@ -939,7 +940,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Rename an environment. This call is allowed for admins only</p>
+                  <p>Enable admins to rename an existing environment (this is limited to admin users only)</p>
                 </section>
               </div>
             </div>
@@ -958,7 +959,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -1040,7 +1041,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get environment settings</p>
+                  <p>Get the settings that have been configured for the current environment</p>
                 </section>
               </div>
             </div>
@@ -1058,7 +1059,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -1112,9 +1113,8 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List all (or just active) servers that were used to monitor applications. These can be either the IP/Hostname of a host or a cluster identifier.
-                    <a href="https://doc.overops.com/docs/naming-your-application-server-deployment">How to name your Server</a>
-                  </p>
+                  <p>List all the servers (or only the active servers) that are used for monitoring applications. The servers can be identified either through the IP/Hostname of a host or a through a cluster identifier. See
+                    <a href="https://doc.overops.com/docs/naming-your-application-server-deployment">How to name your Server</a> for more information.</p>
                 </section>
               </div>
             </div>
@@ -1132,7 +1132,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1145,7 +1145,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Show only active servers</p>
+                      <p>Show only the servers that are active</p>
                     </div>
                   </div>
                 </section>
@@ -1219,9 +1219,8 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List all (or just active) applications that were used to monitor applications. These can be either an application name, an integration suite name or a specific instance.
-                    <a href="https://doc.overops.com/docs/naming-your-application-server-deployment">How to name your Application</a>
-                  </p>
+                  <p>List all the applications (or only the active applications) that are used for monitoring applications. These can be either an application name, an integration suite name, or a specific instance. See
+                    <a href="https://doc.overops.com/docs/naming-your-application-server-deployment">How to name your Application</a> for details.</p>
                 </section>
               </div>
             </div>
@@ -1239,7 +1238,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1252,7 +1251,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Show only active applications</p>
+                      <p>Show only active applications in the list</p>
                     </div>
                   </div>
                 </section>
@@ -1269,7 +1268,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>List of applications</p>
+                      <p>Display a list of applications</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1326,9 +1325,8 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List all (or just active) deployments that were monitoring in the environment. These can be either the Jenkins build number, Git commit, Maven version, etc.
-                    <a href="https://doc.overops.com/docs/naming-your-application-server-deployment">How to tag your deployment</a>
-                  </p>
+                  <p>List all the deployments (or only the active deployments) that are used for monitoring applications. These can be either the Jenkins build number, Git commit, Maven version, etc. See
+                    <a href="https://doc.overops.com/docs/naming-your-application-server-deployment">How to tag your deployment</a> for details.</p>
                 </section>
               </div>
             </div>
@@ -1346,7 +1344,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1433,8 +1431,8 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps
-                    <a href="https://doc.overops.com/docs/hybrid-deployment-overview">Hybrid Deployment Overview</a> for full information</p>
+                  <p>In Hybrid OverOps installations, data collected from your JVMs is redacted locally for PII and encrypted using your private encryption, key before it&#39;s stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. See
+                    <a href="https://doc.overops.com/docs/hybrid-installation">Hybrid Installation</a> for additional details.</p>
                 </section>
               </div>
             </div>
@@ -1452,7 +1450,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment to use</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -1533,8 +1531,8 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. This API call allows you to configure your storage server as part of your Hybrid OverOps setup. Visit OverOps
-                    <a href="https://doc.overops.com/docs/hybrid-deployment-overview">Hybrid Deployment Overview</a> for full information</p>
+                  <p>In Hybrid OverOps installations, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key, before it is stored in a server that resides behind your firewall. This API call allows you to configure your storage server as part of your Hybrid OverOps setup. See
+                    <a href="https://doc.overops.com/docs/hybrid-installation">Hybrid Installation</a> for additional details</p>
                 </section>
               </div>
             </div>
@@ -1568,7 +1566,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment to use</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -1649,7 +1647,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get advanced settings for an environment</p>
+                  <p>Get the advanced settings that have been configured for the environment</p>
                 </section>
               </div>
             </div>
@@ -1667,7 +1665,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment to use</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -1786,7 +1784,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment to use</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -1871,7 +1869,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc.</p>
+                  <p>Get the JSON for the Reliability Settings, which defines the thresholds and preferences for the OverOps reliability tools, such as the Grafana dashboards, Jenkins plugin, etc.</p>
                 </section>
               </div>
             </div>
@@ -1889,7 +1887,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment to use</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -1971,7 +1969,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Upload reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc.</p>
+                  <p>Uploads the reliability settings JSON, which defines the thresholds and preferences for the OverOps reliability tools, such as Grafana dashboards, Jenkins plugin, etc.</p>
                 </section>
               </div>
             </div>
@@ -2001,7 +1999,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment to use</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -2086,14 +2084,14 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Force next snapshot for multiple events</p>
+                  <p>Force the next snapshot for multiple events in the ARC screen</p>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-body">
-                  <p>list of events to force snapshot on next time when each of them occurs</p>
+                  <p>Create a list of events that will receive forced snapshots the next time one of them occurs</p>
                   <section class="json-schema-properties">
                     <dl>
                       <dt data-property-name="items">
@@ -2133,7 +2131,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -2216,7 +2214,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch event data</p>
+                  <p>Get data on the specified event</p>
                 </section>
               </div>
             </div>
@@ -2234,7 +2232,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2248,7 +2246,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Event to use</p>
+                      <p>Specify the event ID</p>
                     </div>
                   </div>
                 </section>
@@ -2269,7 +2267,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Event data</p>
+                      <p>Data available on the specified event</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2370,7 +2368,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch event snapshot. Fetches the last relevant snapshot for the specific filters provided. All filters are optional.</p>
+                  <p>Fetch event snapshot. Gets the last relevant snapshot for the specific filters provided. All filters are optional.</p>
                 </section>
               </div>
             </div>
@@ -2388,7 +2386,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2402,7 +2400,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Event to use</p>
+                      <p>Specify the event ID</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2582,7 +2580,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2596,7 +2594,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Event to use</p>
+                      <p>Specify the event ID</p>
                     </div>
                   </div>
                 </section>
@@ -2658,7 +2656,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Force snapshot for the next time the event occurs</p>
+                  <p>Force a snapshot the next time the event occurs</p>
                 </section>
               </div>
             </div>
@@ -2676,7 +2674,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2690,7 +2688,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Event to use</p>
+                      <p>Specify the event ID</p>
                     </div>
                   </div>
                 </section>
@@ -2744,7 +2742,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch event actions</p>
+                  <p>Get the actions behind the event</p>
                 </section>
               </div>
             </div>
@@ -2762,7 +2760,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2776,7 +2774,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Event to use</p>
+                      <p>Specify the event ID</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2789,7 +2787,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Filter by specific type</p>
+                      <p>Filter by a specific type</p>
                     </div>
                   </div>
                 </section>
@@ -2888,7 +2886,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch events data for a target timeframe, application / server / deployment set.</p>
+                  <p>Get data on events that fall within a target timeframe, application / server / deployment set and apply the following filter(s)</p>
                 </section>
               </div>
             </div>
@@ -2906,7 +2904,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2920,7 +2918,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>View to use</p>
+                      <p>Specify the view to use</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2934,7 +2932,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                      <p>The start time of the requested events - the date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2948,7 +2946,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                      <p>The start time of the requested events - the date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2961,7 +2959,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Server(s) added to the filter</p>
+                      <p>A server(s) was added to the filter selection</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2974,7 +2972,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Application(s) added to the filter</p>
+                      <p>And application(s) was added to the filter selection</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2987,7 +2985,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Deployment(s) added to the filter</p>
+                      <p>A deployment(s) was added to the filter election</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3006,7 +3004,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Include event volumes (e.g. number of event instances and calls into the method containing the event) in the response</p>
+                      <p>Include event volumes (i.e., the number of event instances and calls into the method that contains the event) in the response</p>
                     </div>
                   </div>
                 </section>
@@ -3023,7 +3021,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Event data</p>
+                      <p>Include the event data</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -3137,7 +3135,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch stats for a target timeframe, application / server / deployment set.</p>
+                  <p>Get the stats for a target timeframe, application / server / deployment set and apply the following filters</p>
                 </section>
               </div>
             </div>
@@ -3155,7 +3153,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Environment ID to use (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3183,7 +3181,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                      <p>The start time of the requested events - date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3197,7 +3195,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                      <p>The start time of the requested events - date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3210,7 +3208,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Server(s) added to the filter</p>
+                      <p>A server(s) was added to the filter</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3223,7 +3221,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Application(s) added to the filter</p>
+                      <p>An application(s) was added to the filter</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3236,7 +3234,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Deployment(s) added to the filter</p>
+                      <p>A deployment(s) was added to the filter</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3254,7 +3252,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>return only selected stats. &#39;all&#39; is default.</p>
+                      <p>Return only the selected stats - &#39;all&#39; is the default.</p>
                     </div>
                   </div>
                 </section>
@@ -3520,7 +3518,7 @@
           <h1 id="tag-Views" class="swagger-summary-tag" data-traverse-target="tag-Views">Views</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch and manipulate grouping of events (i.e. Views) according to attribute sets (e.g. &quot;uncaught exceptions&quot;, &quot;errors from package com.acme&quot;)</p>
+              <p>Fetch and manipulate grouping of events (i.e., Views) according to attribute sets (for example, &quot;uncaught exceptions&quot;, &quot;errors from package com.acme&quot;, etc.)</p>
             </div>
           </div>
           <div id="operation--services--env_id--views-get" class="operation panel" data-traverse-target="operation--services--env_id--views-get">
@@ -3564,7 +3562,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -3581,7 +3579,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>List of views including basic info about each view.</p>
+                      <p>Create a list of views that includes basic information about each view</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -3645,7 +3643,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Create view</p>
+                  <p>Create a view</p>
                 </section>
               </div>
             </div>
@@ -3662,7 +3660,7 @@
                     </div>
                     <div class="prop-value columns small-6">
                       <!-- <div class="swagger-request-description"> -->
-                      <p>Single view properties</p>
+                      <p>Single view full properties</p>
                       <!-- </div> -->
                     </div>
                   </div>
@@ -3679,7 +3677,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -3802,7 +3800,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get full list of view properties</p>
+                  <p>Get the full list of view properties</p>
                 </section>
               </div>
             </div>
@@ -3820,7 +3818,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3834,7 +3832,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>View to use</p>
+                      <p>Specify the view to use</p>
                     </div>
                   </div>
                 </section>
@@ -3851,7 +3849,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Full list of view properties</p>
+                      <p>Get the complete list of view properties</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -3973,7 +3971,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Edit view data</p>
+                  <p>Edit the data of the current view</p>
                 </section>
               </div>
             </div>
@@ -3990,7 +3988,7 @@
                     </div>
                     <div class="prop-value columns small-6">
                       <!-- <div class="swagger-request-description"> -->
-                      <p>Single view properties</p>
+                      <p>Specify the properties of a single view</p>
                       <!-- </div> -->
                     </div>
                   </div>
@@ -4007,7 +4005,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4021,7 +4019,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>View to use</p>
+                      <p>Specify the view to use</p>
                     </div>
                   </div>
                 </section>
@@ -4144,7 +4142,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Delete view</p>
+                  <p>Delete the selected view</p>
                 </section>
               </div>
             </div>
@@ -4162,7 +4160,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234))</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4176,7 +4174,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>View to use</p>
+                      <p>Specify the view to use</p>
                     </div>
                   </div>
                 </section>
@@ -4240,7 +4238,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch events data for a target timeframe, application / server / deployment set.</p>
+                  <p>Get data on events that fall within a target timeframe, application / server / deployment set and apply the following filter(s)</p>
                 </section>
               </div>
             </div>
@@ -4258,7 +4256,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4272,7 +4270,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>View to use</p>
+                      <p>Specify the view to use</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4286,7 +4284,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                      <p>The start time of the requested events - the date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4300,7 +4298,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                      <p>The start time of the requested events - the date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4313,7 +4311,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Server(s) added to the filter</p>
+                      <p>A server(s) was added to the filter selection</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4326,7 +4324,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Application(s) added to the filter</p>
+                      <p>And application(s) was added to the filter selection</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4339,7 +4337,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Deployment(s) added to the filter</p>
+                      <p>A deployment(s) was added to the filter election</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4358,7 +4356,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Include event volumes (e.g. number of event instances and calls into the method containing the event) in the response</p>
+                      <p>Include event volumes (i.e., the number of event instances and calls into the method that contains the event) in the response</p>
                     </div>
                   </div>
                 </section>
@@ -4375,7 +4373,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Event data</p>
+                      <p>Include the event data</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -4489,7 +4487,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch stats for a target timeframe, application / server / deployment set.</p>
+                  <p>Get the stats for a target timeframe, application / server / deployment set and apply the following filters</p>
                 </section>
               </div>
             </div>
@@ -4507,7 +4505,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Environment ID to use (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4535,7 +4533,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                      <p>The start time of the requested events - date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4549,7 +4547,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
+                      <p>The start time of the requested events - date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4562,7 +4560,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Server(s) added to the filter</p>
+                      <p>A server(s) was added to the filter</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4575,7 +4573,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Application(s) added to the filter</p>
+                      <p>An application(s) was added to the filter</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4588,7 +4586,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Deployment(s) added to the filter</p>
+                      <p>A deployment(s) was added to the filter</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -4606,7 +4604,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>return only selected stats. &#39;all&#39; is default.</p>
+                      <p>Return only the selected stats - &#39;all&#39; is the default.</p>
                     </div>
                   </div>
                 </section>
@@ -5874,7 +5872,7 @@
           <h1 id="tag-Labels" class="swagger-summary-tag" data-traverse-target="tag-Labels">Labels</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch and manipulate events labels</p>
+              <p>Fetch and manipulate event labels</p>
             </div>
           </div>
           <div id="operation--services--env_id--events--event_id--inbox-post" class="operation panel" data-traverse-target="operation--services--env_id--events--event_id--inbox-post">
@@ -5918,7 +5916,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5932,7 +5930,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Event to use</p>
+                      <p>Specify the event ID</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -5946,7 +5944,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Force adding labels, even if it exists</p>
+                      <p>Force adding labels, even if a label exists</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6040,7 +6038,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6054,7 +6052,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Event to use</p>
+                      <p>Specify the event ID</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6068,7 +6066,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Force adding labels, even if it exists</p>
+                      <p>Force adding labels, even if a label exists</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6144,7 +6142,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Marks the specified event as resolved</p>
+                  <p>Mark the specified event as resolved</p>
                 </section>
               </div>
             </div>
@@ -6162,7 +6160,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6176,7 +6174,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Event to use</p>
+                      <p>Specify the event ID</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6190,7 +6188,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Force adding labels, even if it exists</p>
+                      <p>Force adding labels, even if the label exists</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6284,7 +6282,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -6353,7 +6351,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Create new label</span>
+              <span class="operation-summary">Create a new label</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -6366,7 +6364,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Create a new label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization.</p>
+                  <p>Labels are used to tag events with custom classifications, and help to support use cases such as classifying an event as severe / regressed, or assigning it to a specific developer or team (e.g., prod-team-A) or any other user defined categorization.</p>
                 </section>
               </div>
             </div>
@@ -6400,7 +6398,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                 </section>
@@ -6483,14 +6481,14 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Append/Detach labels to/from events</p>
+                  <p>Attach or detach labels to/from events</p>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-body">
-                  <p>list of events and label names to append/detach</p>
+                  <p>Create a list of events and label names to attach/detach</p>
                   <section class="json-schema-properties">
                     <dl>
                       <dt data-property-name="items">
@@ -6554,7 +6552,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6568,7 +6566,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Force adding labels, even if it exists</p>
+                      <p>Force adding labels, even if a label exists</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6582,7 +6580,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Change the labels on all similar events</p>
+                      <p>Change the labels on all similar events to this label</p>
                     </div>
                   </div>
                 </section>
@@ -6671,14 +6669,14 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Append and remove label(s) from an event</p>
+                  <p>Attach or remove a label(s) from an event</p>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-body">
-                  <p>list of label names to add / remove</p>
+                  <p>Create a list of label names to add / remove</p>
                   <section class="json-schema-properties">
                     <dl>
                       <dt data-property-name="add">
@@ -6720,7 +6718,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Environment ID to use (e.g. S1234)</p>
+                      <p>Specify the Environment ID (e.g., S1234)</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6734,7 +6732,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Event to use</p>
+                      <p>Specify the event ID</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6748,7 +6746,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Force adding labels, even if it exists</p>
+                      <p>Force adding labels, even if a label exists</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -6762,7 +6760,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Change the labels on all similar events</p>
+                      <p>Change the labels on all similar eventsto this label</p>
                     </div>
                   </div>
                 </section>
@@ -6826,7 +6824,7 @@
           <h1 id="tag-Alerts" class="swagger-summary-tag" data-traverse-target="tag-Alerts">Alerts</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).</p>
+              <p>Fetch and manipulate alerting rules for detecting and communicating anomalies (such as the introduction of new events and regressions) to different communication channels (e.g., Email, Jira, Slack, and User Defined Functions)</p>
             </div>
           </div>
           <div id="operation--services--env_id--views--view_id--anomaly-post" class="operation panel" data-traverse-target="operation--services--env_id--views--view_id--anomaly-post">
@@ -7083,7 +7081,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Use this call to fetch default alert settings for selected environment</p>
+                  <p>Gets the default alert settings that have been set up for this environment</p>
                 </section>
               </div>
             </div>
@@ -7206,7 +7204,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Use this call to update default alert settings for selected environment which will be used as initial settings for every new alert opened in this environment. </p>
+                  <p>Use this call to update default alert settings for selected environment, which will be used as the initial settings for every new alert opened in this environment.</p>
                 </section>
               </div>
             </div>
@@ -7337,7 +7335,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Use this call to Load ServiceNow tables associated with specific credentials</p>
+                  <p>Use this call to Load ServiceNow tables associated with specific credentials.</p>
                 </section>
               </div>
             </div>
@@ -7475,7 +7473,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Fetch Alert settings for a View (Slack, Email, UDF, etc)</p>
+                  <p>Fetch Alert settings for a View (Slack, Email, UDF, etc.) For every change that you make, you&#39;ll need to specify all the fields that were previously set, because missing fields will be assigned empty values and nullified.</p>
                 </section>
               </div>
             </div>
@@ -8326,7 +8324,7 @@
           <h1 id="tag-Timers" class="swagger-summary-tag" data-traverse-target="tag-Timers">Timers</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis</p>
+              <p>Fetch and manipulate OverOps Timers - used for detetcting bottlenecks and diagnosing performance</p>
             </div>
           </div>
           <div id="operation--services--env_id--timers-get" class="operation panel" data-traverse-target="operation--services--env_id--timers-get">
@@ -8901,7 +8899,7 @@
           <h1 id="tag-Publish-Metrics" class="swagger-summary-tag" data-traverse-target="tag-Publish-Metrics">Publish Metrics</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools, providing control over application data from OverOps.</p>
+              <p>Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools that provide control over application data from OverOps</p>
             </div>
           </div>
           <div id="operation--services--env_id--settings-publish-metrics-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-publish-metrics-get">
@@ -9743,7 +9741,7 @@
           <h1 id="tag-View-Metrics" class="swagger-summary-tag" data-traverse-target="tag-View-Metrics">View Metrics</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments.</p>
+              <p>Fetch volumetric time series data about observed code events within OverOps monitored applications - filtered by server cluster, application and deployments</p>
             </div>
           </div>
           <div id="operation--services--env_id--views--view_id--metrics-view-graph-get" class="operation panel" data-traverse-target="operation--services--env_id--views--view_id--metrics-view-graph-get">
@@ -10521,7 +10519,7 @@
           <h1 id="tag-Categories" class="swagger-summary-tag" data-traverse-target="tag-Categories">Categories</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch and manipulate grouping of views into logical categories (e.g &quot;CI/CD&quot;, &quot;Favorites&quot;)</p>
+              <p>Fetch and manipulate grouping of views into logical categories (e.g., &quot;CI/CD&quot;, &quot;Favorites&quot;, etc.)</p>
             </div>
           </div>
           <div id="operation--services--env_id--categories-get" class="operation panel" data-traverse-target="operation--services--env_id--categories-get">
@@ -11117,7 +11115,7 @@
           <h1 id="tag-UDFs" class="swagger-summary-tag" data-traverse-target="tag-UDFs">UDFs</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.</p>
+              <p>Fetch and manipulate User Defined Functions (UDFs) - OverOps extensions using Lambdas</p>
             </div>
           </div>
           <div id="operation--global-settings-udfs-get" class="operation panel" data-traverse-target="operation--global-settings-udfs-get">
@@ -14224,7 +14222,7 @@
           <h1 id="tag-Code-Redaction" class="swagger-summary-tag" data-traverse-target="tag-Code-Redaction">Code Redaction</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Fetch and manipulate code filters to include / exclude 3rd party and utility classes from OverOps analysis and data capture.</p>
+              <p>Fetch and manipulate code filters, which are used for including and excluding 3rd parties and utility classes from analysis and data capture.</p>
             </div>
           </div>
           <div id="operation--services--env_id--settings-code-redaction-get" class="operation panel" data-traverse-target="operation--services--env_id--settings-code-redaction-get">
@@ -20475,7 +20473,7 @@
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
                           <dd>
-                            <p>the name (internal name) of a servicenow table to be used</p>
+                            <p>The name (internal name) of the ServiceNow table that should be used</p>
                           </dd>
                         </dl>
                       </section>
@@ -20635,7 +20633,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Default alert settings for an environment</p>
+                  <p>These are the default alert settings for an environment</p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -20738,7 +20736,7 @@
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
                           <dd>
-                            <p>the name (internal name) of a servicenow table to be used</p>
+                            <p>The name (internal name) of the ServiceNow table that should be used</p>
                           </dd>
                         </dl>
                       </section>
@@ -20920,7 +20918,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>basic alerts info for a single view</p>
+                  <p>This is the basic alerts information for a single view</p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -20946,7 +20944,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Categories Names</p>
+                      <p>Category Names</p>
                     </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-array-items">
@@ -20969,7 +20967,7 @@
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
                           <dd>
-                            <p>Indicates alerts which are global, i.e. will affect all users that share this view.</p>
+                            <p>Indicates global alerts, i.e., alerts that will appear for all environment users.</p>
                           </dd>
                           <dt data-property-name="alert_on_new" class="has-description">
                             <span class="json-property-name">alert_on_new:</span>
@@ -20977,7 +20975,7 @@
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
                           <dd>
-                            <p>Indicates alerts which are sent on new events</p>
+                            <p>Indicates alerts that are sent on new events only</p>
                           </dd>
                           <dt data-property-name="alert_on_every_entrypoint" class="has-description">
                             <span class="json-property-name">alert_on_every_entrypoint:</span>
@@ -20985,7 +20983,7 @@
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
                           <dd>
-                            <p>Indicates alerts which are sent for every new event regardless of it&#39;s entry point</p>
+                            <p>Indicates alerts that are sent for every new event regardless of the event&#39;s entry point</p>
                           </dd>
                           <dt data-property-name="anomaly_alert">
                             <span class="json-property-name">anomaly_alert:</span>
@@ -21015,7 +21013,7 @@
                                   <span class="json-property-range" title="Value limits"></span>
                                 </dt>
                                 <dd>
-                                  <p>The interval (in minutes) between periodic/anomaly udf invocations</p>
+                                  <p>Specifies the interval (in minutes) between periodic/anomaly UDF invocations</p>
                                 </dd>
                               </dl>
                             </section>
@@ -21170,7 +21168,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>The hostname and (optional) port of your StatsD server.</p>
+                      <p>This is the hostname and (optional) port of your StatsD server.</p>
                     </dd>
                     <dt data-property-name="output_format">
                       <span class="json-property-name">output_format:</span>
@@ -21252,7 +21250,7 @@
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
                         <dd>
-                          <p>For customized metrics (which are different than the format defaults), use &quot;custom&quot; format</p>
+                          <p>For customized metrics (which differ from the format defaults), use a &quot;custom&quot; format</p>
                         </dd>
                         <dt data-property-name="default_metrics">
                           <span class="json-property-name">default_metrics:</span>

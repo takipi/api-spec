@@ -437,7 +437,7 @@ paths:
           required: true
         - in: path
           name: event_id
-          description: Specify the Environment ID (e.g., S1234)
+          description: Specify the event ID
           type: string
           required: true
       responses:
@@ -463,7 +463,7 @@ paths:
           required: true
         - in: path
           name: event_id
-          description: Specify the Environment ID (e.g., S1234)
+          description: Specify the event ID
           type: string
           required: true
         - in: query
@@ -497,7 +497,7 @@ paths:
           required: true
         - in: path
           name: event_id
-          description: Specify the Environment ID (e.g., S1234)
+          description: Specify the event ID
           type: string
           required: true
         - in: query
@@ -531,7 +531,7 @@ paths:
           required: true
         - in: path
           name: event_id
-          description: Specify the Environment ID (e.g., S1234)
+          description: Specify the event ID
           type: string
           required: true
         - in: query
@@ -567,7 +567,7 @@ paths:
           required: true
         - in: path
           name: event_id
-          description: Specify the Environment ID (e.g., S1234)
+          description: Specify the event ID
           type: string
           required: true
         - in: query
@@ -623,7 +623,7 @@ paths:
           required: true
         - in: path
           name: event_id
-          description: Specify the Environment ID (e.g., S1234)
+          description: Specify the event ID
           type: string
           required: true
       responses:
@@ -647,7 +647,7 @@ paths:
           required: true
         - in: path
           name: event_id
-          description: Specify the Environment ID (e.g., S1234)
+          description: Specify the event ID
           type: string
           required: true
       responses:
@@ -669,7 +669,7 @@ paths:
           required: true
         - in: path
           name: event_id
-          description: Specify the Environment ID (e.g., S1234)
+          description: Specify the event ID
           type: string
           required: true
         - in: query
@@ -806,7 +806,7 @@ paths:
           required: true
         - in: path
           name: event_id
-          description: Specify the Environment ID (e.g., S1234)
+          description: Specify the event ID
           type: string
           required: true
         - in: query
