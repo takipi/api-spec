@@ -238,12 +238,12 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested deployments. When using the time range parameters, only deployments which were active during this time range will be returned. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: Start time of requested deployments. When using the time range parameters, only deployments which were active during this time range will be returned. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: to
           type: string
-          description: End time of requested deployments. When using the time range parameters, only deployments which were active during this time range will be returned. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: End time of requested deployments. When using the time range parameters, only deployments which were active during this time range will be returned. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: apps
@@ -594,12 +594,12 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: to
           type: string
-          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: server
@@ -1046,12 +1046,12 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: to
           type: string
-          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: server
@@ -1105,12 +1105,12 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: to
           type: string
-          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: server
@@ -1170,12 +1170,12 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: to
           type: string
-          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+          description: End time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: server
@@ -4341,11 +4341,11 @@ definitions:
             properties:
               from:
                 type: string
-                description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
                 example: "2018-02-28T22:47:09.038+02:00"
               to:
                 type: string
-                description: End time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ)
+                description: End time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
                 example: "2018-02-28T22:47:09.038+02:00"
           relative:
             type: string
