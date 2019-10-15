@@ -262,18 +262,16 @@ paths:
         200:
           description: List of OverOps components status
           schema:
+            type: object
             properties:
-              status:
-                type: object
-                properties:
-                  agents:
-                    type: array
-                    items:
-                      $ref: "#/definitions/Agent"
-                  collectors:
-                    type: array
-                    items:
-                      $ref: "#/definitions/Collector"
+              agents:
+                type: array
+                items:
+                  $ref: "#/definitions/Agent"
+              collectors:
+                type: array
+                items:
+                  $ref: "#/definitions/Collector"
         401:
             $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/overops-status/agents:
