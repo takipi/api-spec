@@ -124,9 +124,9 @@ paths:
             properties:
               services:
                 type: array
-                description: Environment data
+                description: Data for a single environment
                 items:
-                  $ref: "#/definitions/EnvironmentWithRole"
+                  $ref: "#/definitions/EnvironmentBasic"
     post:
       tags:
         - General
