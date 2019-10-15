@@ -245,7 +245,81 @@ paths:
                 items:
                   $ref: "#/definitions/Deployment"
         401:
-          $ref: "#/responses/UnauthorizedError"
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/overops-status:
+    get:
+      tags:
+        - General
+      summary: "List agents and collectors"
+      description: "Fetch OverOps live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of OverOps components status
+          schema:
+            type: object
+            properties:
+              agents:
+                type: array
+                items:
+                  $ref: "#/definitions/Agent"
+              collectors:
+                type: array
+                items:
+                  $ref: "#/definitions/Collector"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/overops-status/agents:
+    get:
+      tags:
+        - General
+      summary: "List agents"
+      description: "Fetch agents live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of agents
+          schema:
+            properties:
+              agents:
+                type: array
+                items:
+                  $ref: "#/definitions/Agent"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/overops-status/collectors:
+    get:
+      tags:
+        - General
+      summary: "List collectors"
+      description: "Fetch collectors live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: List of Collectors
+          schema:
+            properties:
+              collectors:
+                type: array
+                items:
+                  $ref: "#/definitions/Collector"
+        401:
+            $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/storage-settings:
     get:
       tags:
@@ -4784,6 +4858,68 @@ definitions:
         items:
           type: string
           example: MyApp
+  Agent:
+    description: Agent properties
+    type: object
+    properties:
+      server:
+        type: string
+        description: name of the server that hosts the agent
+        example: ip-10-164-178-61
+      application:
+        type: string
+        description: application name
+        example: prod-api
+      deployment:
+        type: string
+        description: deployment name
+        example: v4.0.2041
+      id:
+        type: string
+        description: Agent unique identifier
+        example: 12345
+      version:
+        type: string
+        description: Agent version
+        example: 4.18.1
+      type:
+        type: string
+        description: Agent type (Java / .NET)
+        example: Java
+      collector_id:
+        type: string
+        description: unique identifier of the collector that the agent is connected to
+        example: 12121
+      start_time:
+        type: string
+        description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: "2018-02-28T22:47:09.038Z"
+      status:
+        type: string
+        description: OverOps monitoring status
+        example: monitoring
+  Collector:
+    description: Collector properties
+    type: object
+    properties:
+      id:
+        type: string
+        description: Collector unique identifier
+        example: 12121
+      pid:
+        type: string
+        description: PID
+        example: 20187
+      name:
+        type: string
+      version:
+        type: string
+        description: Collector version
+        example: 4.18.1
+      start_time:
+        type: string
+        description: Start time. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+        example: "2018-02-28T22:47:09.038Z"
   ViewHistory:
     type: object
     properties:
