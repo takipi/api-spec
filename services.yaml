@@ -6,14 +6,12 @@ info:
     email: hello@overops.com
   description: |
     Main OverOps API.
-    The REST API layer enables OverOps admins and users to perform and automate all actions
-    provided by the OverOps UI available at https://app.overops.com (or On-premises equivalent URL) via a platform independent programmatic interface.
-    A wrapper Java client API library that leverages these APIs for convenience by
-    Java and Scala developers is available at https://github.com/takipi/api-client and on Maven Central.
+    The REST API layer enables OverOps admins and users to perform and automate the actions provided by the OverOps UI (available at https://app.overops.com or at On-Premises equivalent URL), via a platform-independent programmatic interface.
+    A wrapper Java client API library that leverages these APIs for the convenience of Java and Scala developers, is available at https://github.com/takipi/api-client and on Maven Central.
 
     All calls must be authenticated using one of the following methods:
-      1. Using `x-api-key` header (To generate the token, go to `Settings` --> `Account Settings` in the OverOps App). This is the recommended method.
-      2. Using Basic auth with `username:password` combo.
+      1. Using an `x-api-key` header (to generate the token, go to `Settings` --> `Account Settings` in the OverOps application). This is the **recommended** method.
+      2. Using Basic authentication with a `username:password` combo.
 
 securityDefinitions:
   basicAuth:
@@ -33,29 +31,29 @@ tags:
   - name: Events
     description: Fetch and manipulate OverOps Automated Root Cause Events and Snapshots
   - name: Views
-    description: Fetch and manipulate grouping of events (i.e. Views) according to attribute sets (e.g. "uncaught exceptions", "errors from package com.acme")
+    description: Fetch and manipulate grouping of events (i.e., Views) according to attribute sets (for example, "uncaught exceptions", "errors from package com.acme", etc.)
   - name: Labels
-    description: Fetch and manipulate events labels
+    description: Fetch and manipulate event labels
   - name: Alerts
-    description: Fetch and manipulate alerting rules for detecting and disseminating anomalies such as introduction of new events and regressions to different communication channels (e.g. Email, Jira, Slack, Uder defined Functions).
+    description: Fetch and manipulate alerting rules for detecting and communicating anomalies (such as the introduction of new events and regressions) to different communication channels (e.g., Email, Jira, Slack, and User Defined Functions)
   - name: Timers
-    description: Fetch and manipulate OverOps Timers - bottleneck detection and performance diagnosis
+    description: Fetch and manipulate OverOps Timers - used for detetcting bottlenecks and diagnosing performance
   - name: Publish Metrics
-    description: Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools, providing control over application data from OverOps.
+    description: Fetch and manipulate dynamic data exported to StatsD, which enables using a variety of third-party tools that provide control over application data from OverOps
   - name: System Metrics
     description: Fetch system metrics
   - name: View Metrics
-    description: Fetch volumetric time series data about observed code events within OverOps monitored applications filtered by server cluster, application and deployments.
+    description: Fetch volumetric time series data about observed code events within OverOps monitored applications - filtered by server cluster, application and deployments
   - name: Categories
-    description: Fetch and manipulate grouping of views into logical categories (e.g "CI/CD", "Favorites")
+    description: Fetch and manipulate grouping of views into logical categories (e.g., "CI/CD", "Favorites", etc.)
   - name: UDFs
-    description: Fetch and manipulate User Defined Functinos - OverOps extensions using Lambdas.
+    description: Fetch and manipulate User Defined Functions (UDFs) - OverOps extensions using Lambdas
   - name: Team Management
     description: APIs related to team management of a service
   - name: Data Redaction
     description: Fetch and manipulate data redaction of PII with target environments.
   - name: Code Redaction
-    description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes  from OverOps analysis and data capture.
+    description: Fetch and manipulate code filters, which are used for including and excluding 3rd parties and utility classes from analysis and data capture.
 schemes:
 - "https"
 paths:
@@ -73,13 +71,13 @@ paths:
           type: string
       responses:
         200:
-          description: List of all accessible environments to the calling user
+          description: List of all the environments that are accessible to the calling user
           schema:
             type: object
             properties:
               services:
                 type: array
-                description: list of environment
+                description: List of the environments that are connected to the OverOps application
                 items:
                   $ref: "#/definitions/EnvironmentWithRole"
         401:
@@ -88,7 +86,7 @@ paths:
       tags:
         - General
       summary: Generate a new environment key
-      description: "Defines a new environment"
+      description: "Define a new environment and generate an environment ID for it"
       parameters:
         - in: body
           name: name
@@ -109,7 +107,7 @@ paths:
       tags:
         - General
       summary: "Get information about an environment"
-      description: "Get information about an environment"
+      description: "Get information about the current environment"
       parameters:
         - in: path
           name: env_id
@@ -131,11 +129,11 @@ paths:
       tags:
         - General
       summary: Rename an environment
-      description: "Rename an environment. This call is allowed for admins only"
+      description: "Enable admins to rename an existing environment (this is limited to admin users only)"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: body
@@ -156,11 +154,11 @@ paths:
       tags:
         - General
       summary: "Get environment settings"
-      description: "Get environment settings"
+      description: "Get the settings that have been configured for the current environment"
       parameters:
         - in: path
           name: env_id
-          description:  Environment ID to use (e.g. S1234)
+          description:  Specify the Environment ID (e.g., S1234)
           type: string
           required: true
       responses:
@@ -173,17 +171,16 @@ paths:
       tags:
         - General
       summary: "List servers"
-      description: "List all (or just active) servers that were used to monitor applications.
-        These can be either the IP/Hostname of a host or a cluster identifier. [How to name your Server](https://doc.overops.com/docs/naming-your-application-server-deployment)"
+      description: "List all the servers (or only the active servers) that are used for monitoring applications. The servers can be identified either through the IP/Hostname of a host or a through a cluster identifier. See [How to name your Server](https://doc.overops.com/docs/naming-your-application-server-deployment) for more information."
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: query
           name: active
-          description: Show only active servers
+          description: Show only the servers that are active
           type: boolean
       responses:
         200:
@@ -201,21 +198,20 @@ paths:
       tags:
         - General
       summary: "List applications"
-      description: "List all (or just active) applications that were used to monitor applications.
-        These can be either an application name, an integration suite name or a specific instance. [How to name your Application](https://doc.overops.com/docs/naming-your-application-server-deployment)"
+      description: "List all the applications (or only the active applications) that are used for monitoring applications. These can be either an application name, an integration suite name, or a specific instance. See [How to name your Application](https://doc.overops.com/docs/naming-your-application-server-deployment) for details."
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: query
           name: active
-          description: Show only active applications
+          description: Show only active applications in the list
           type: boolean
       responses:
         200:
-          description: List of applications
+          description: Display a list of applications
           schema:
             properties:
               applications:
@@ -229,12 +225,11 @@ paths:
       tags:
         - General
       summary: "List deployments"
-      description: "List all (or just active) deployments that were monitoring in the environment.
-        These can be either the Jenkins build number, Git commit, Maven version, etc. [How to tag your deployment](https://doc.overops.com/docs/naming-your-application-server-deployment)"
+      description: "List all the deployments (or only the active deployments) that are used for monitoring applications. These can be either the Jenkins build number, Git commit, Maven version, etc. See [How to tag your deployment](https://doc.overops.com/docs/naming-your-application-server-deployment) for details."
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: query
@@ -331,11 +326,11 @@ paths:
       tags:
         - General
       summary: "Get storage settings of an environment"
-      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
+      description: "In Hybrid OverOps installations, data collected from your JVMs is redacted locally for PII and encrypted using your private encryption, key before it's stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. See [Hybrid Installation](https://doc.overops.com/docs/hybrid-installation) for additional details."
       parameters:
         - in: path
           name: env_id
-          description: Environment to use
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
       responses:
@@ -351,11 +346,11 @@ paths:
       tags:
         - General
       summary: "Set storage settings for a service"
-      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. This API call allows you to configure your storage server as part of your Hybrid OverOps setup. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
+      description: "In Hybrid OverOps installations, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key, before it is stored in a server that resides behind your firewall. This API call allows you to configure your storage server as part of your Hybrid OverOps setup. See [Hybrid Installation](https://doc.overops.com/docs/hybrid-installation) for additional details"
       parameters:
         - in: path
           name: env_id
-          description: Environment to use
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: body
@@ -377,11 +372,11 @@ paths:
       tags:
         - General
       summary: "Get advanced settings for an environment"
-      description: "Get advanced settings for an environment"
+      description: "Get the advanced settings that have been configured for the environment"
       parameters:
         - in: path
           name: env_id
-          description: Environment to use
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
       responses:
@@ -401,7 +396,7 @@ paths:
       parameters:
         - in: path
           name: env_id
-          description: Environment to use
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: body
@@ -423,11 +418,11 @@ paths:
       tags:
         - General
       summary: "Fetch reliability settings JSON"
-      description: "Fetch reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      description: "Get the JSON for the Reliability Settings, which defines the thresholds and preferences for the OverOps reliability tools, such as the Grafana dashboards, Jenkins plugin, etc."
       parameters:
         - in: path
           name: env_id
-          description: Environment to use
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
       responses:
@@ -447,11 +442,11 @@ paths:
       tags:
         - General
       summary: "Upload reliability settings JSON"
-      description: "Upload reliability settings JSON which defines all the thresholds and preferences for OverOps reliability tools - Grafana dashboards, Jenkins plugin, etc."
+      description: "Uploads the reliability settings JSON, which defines the thresholds and preferences for the OverOps reliability tools, such as Grafana dashboards, Jenkins plugin, etc."
       parameters:
         - in: path
           name: env_id
-          description: Environment to use
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: body
@@ -478,16 +473,16 @@ paths:
       tags:
         - Events
       summary: "Batch Force events snapshots"
-      description: "Force next snapshot for multiple events"
+      description: "Force the next snapshot for multiple events in the ARC screen"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: body
           name: items
-          description: list of events to force snapshot on next time when each of them occurs
+          description: Create a list of events that will receive forced snapshots the next time one of them occurs
           schema:
             type: object
             properties:
@@ -513,21 +508,21 @@ paths:
       tags:
         - Events
       summary: "Fetch event data"
-      description: "Fetch event data"
+      description: "Get data on the specified event"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: event_id
-          description: Event to use
+          description: Specify the event ID
           type: string
           required: true
       responses:
         200:
-          description: Event data
+          description: Data available on the specified event
           schema:
             $ref: "#/definitions/Event"
         401:
@@ -543,17 +538,17 @@ paths:
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: event_id
-          description: Event to use
+          description: Specify the event ID
           type: string
           required: true
         - in: query
           name: force
-          description: Force adding labels, even if it exists
+          description: Force adding labels, even if a label exists
           type: boolean
           default: false
         - in: query
@@ -577,17 +572,17 @@ paths:
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: event_id
-          description: Event to use
+          description: Specify the event ID
           type: string
           required: true
         - in: query
           name: force
-          description: Force adding labels, even if it exists
+          description: Force adding labels, even if a label exists
           type: boolean
           default: false
         - in: query
@@ -607,21 +602,21 @@ paths:
       tags:
         - Labels
       summary: "Mark as resolved"
-      description: "Marks the specified event as resolved"
+      description: "Mark the specified event as resolved"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: event_id
-          description: Event to use
+          description: Specify the event ID
           type: string
           required: true
         - in: query
           name: force
-          description: Force adding labels, even if it exists
+          description: Force adding labels, even if the label exists
           type: boolean
           default: false
         - in: query
@@ -642,17 +637,17 @@ paths:
         - Events
       summary: "Fetch event snapshot"
       description: "Fetch event snapshot.
-        Fetches the last relevant snapshot for the specific filters provided.
+        Gets the last relevant snapshot for the specific filters provided.
         All filters are optional."
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: event_id
-          description: Event to use
+          description: Specify the event ID
           type: string
           required: true
         - in: query
@@ -680,7 +675,7 @@ paths:
         - in: query
           name: similar_event_id
           type: string
-          description: Event(s) added to the filter
+          description: Event(s) added to the filter - this is an internal event ID used for maintaining code revisions.
       responses:
         200:
           description: Link to snapshot
@@ -703,12 +698,12 @@ paths:
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: event_id
-          description: Event to use
+          description: Specify the event ID
           type: string
           required: true
       responses:
@@ -723,16 +718,16 @@ paths:
       tags:
         - Events
       summary: Force Event Snapshot
-      description: Force snapshot for the next time the event occurs
+      description: Force a snapshot the next time the event occurs
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: event_id
-          description: Event to use
+          description: Specify the event ID
           type: string
           required: true
       responses:
@@ -745,21 +740,21 @@ paths:
       tags:
         - Events
       summary: "Fetch event actions"
-      description: "Fetch event actions"
+      description: "Get the actions behind the event"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: event_id
-          description: Event to use
+          description: Specify the event ID
           type: string
           required: true
         - in: query
           name: type
-          description: Filter by specific type
+          description: Filter by a specific type
           type: string
       responses:
         200:
@@ -782,7 +777,7 @@ paths:
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
       responses:
@@ -800,12 +795,12 @@ paths:
     post:
       tags:
         - Labels
-      summary: "Create new label"
-      description: "Create a new label. Labels are used to tag events with custom classifications. Labels help support use cases such as classifying an event as severe / regressed, assign it to a specific developer or team (e.g prod-team-A) or any other user defined categorization."
+      summary: "Create a new label"
+      description: "Labels are used to tag events with custom classifications, and help to support use cases such as classifying an event as severe / regressed, or assigning it to a specific developer or team (e.g., prod-team-A) or any other user defined categorization."
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: body
@@ -827,26 +822,26 @@ paths:
       tags:
         - Labels
       summary: "Batch Add/Remove labels"
-      description: "Append/Detach labels to/from events"
+      description: "Attach or detach labels to/from events"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: query
           name: force
-          description: Force adding labels, even if it exists
+          description: Force adding labels, even if a label exists
           type: boolean
           default: false
         - in: query
           name: handle_similar_events
-          description: Change the labels on all similar events
+          description: Change the labels on all similar events to this label
           type: boolean
           default: true
         - in: body
           name: item
-          description: list of events and label names to append/detach
+          description: Create a list of events and label names to attach/detach
           schema:
             type: object
             properties:
@@ -882,31 +877,31 @@ paths:
       tags:
         - Labels
       summary: "Add/Remove labels"
-      description: "Append and remove label(s) from an event"
+      description: "Attach or remove a label(s) from an event"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: event_id
-          description: Event to use
+          description: Specify the event ID
           type: string
           required: true
         - in: query
           name: force
-          description: Force adding labels, even if it exists
+          description: Force adding labels, even if a label exists
           type: boolean
           default: false
         - in: query
           name: handle_similar_events
-          description: Change the labels on all similar events
+          description: Change the labels on all similar eventsto this label
           type: boolean
           default: true
         - in: body
           name: item
-          description: list of label names to add / remove
+          description: Create a list of label names to add / remove
           schema:
             type: object
             properties:
@@ -939,12 +934,12 @@ paths:
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
       responses:
         200:
-          description: List of views including basic info about each view.
+          description: Create a list of views that includes basic information about each view
           schema:
             type: object
             properties:
@@ -958,16 +953,16 @@ paths:
       tags:
         - Views
       summary: "Create view"
-      description: "Create view"
+      description: "Create a view"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: body
           name: view
-          description: Single view properties
+          description: Single view full properties
           schema:
             $ref: "#/definitions/ViewFull"
       responses:
@@ -984,21 +979,21 @@ paths:
       tags:
         - Views
       summary: "Get view properties"
-      description: "Get full list of view properties"
+      description: "Get the full list of view properties"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: view_id
-          description: View to use
+          description: Specify the view to use
           type: string
           required: true
       responses:
         200:
-          description: Full list of view properties
+          description: Get the complete list of view properties
           schema:
             type: object
             properties:
@@ -1006,7 +1001,7 @@ paths:
                 type: array
                 items:
                   type: object
-                  description: Single view full properties
+                  description: Get the single view full properties
                   properties:
                     id:
                       type: string
@@ -1040,21 +1035,21 @@ paths:
       tags:
         - Views
       summary: "Edit view data"
-      description: "Edit view data"
+      description: "Edit the data of the current view"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: view_id
-          description: View to use
+          description: Specify the view to use
           type: string
           required: true
         - in: body
           name: view
-          description: Single view properties
+          description: Specify the properties of a single view
           schema:
               $ref: "#/definitions/ViewFull"
       responses:
@@ -1070,16 +1065,16 @@ paths:
       tags:
         - Views
       summary: "Delete view"
-      description: "Delete view"
+      description: "Delete the selected view"
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234))
           type: string
           required: true
         - in: path
           name: view_id
-          description: View to use
+          description: Specify the view to use
           type: string
           required: true
       responses:
@@ -1095,48 +1090,48 @@ paths:
         - Views
         - Events
       summary: Fetch events details
-      description: Fetch events data for a target timeframe, application / server / deployment set.
+      description: Get data on events that fall within a target timeframe, application / server / deployment set and apply the following filter(s)
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Specify the Environment ID (e.g., S1234)
           type: string
           required: true
         - in: path
           name: view_id
-          description: View to use
+          description: Specify the view to use
           type: string
           required: true
         - in: query
           name: from
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          description: The start time of the requested events - the date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: to
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          description: The end time of the requested events - the date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: server
           type: string
-          description: Server(s) added to the filter
+          description: A server(s) was added to the filter selection
         - in: query
           name: app
           type: string
-          description: Application(s) added to the filter
+          description: And application(s) was added to the filter selection
         - in: query
           name: deployment
           type: string
-          description: Deployment(s) added to the filter
+          description: A deployment(s) was added to the filter election
         - in: query
           name: stats
           type: string
           enum: [none, hits, invocations, all]
-          description: Include event volumes (e.g. number of event instances and calls into the method containing the event) in the response
+          description: Include event volumes (i.e., the number of event instances and calls into the method that contains the event) in the response
       responses:
         200:
-          description: Event data
+          description: Include the event data
           schema:
             type: object
             properties:
@@ -1154,11 +1149,11 @@ paths:
         - Views
         - Events
       summary: Fetch stats for all events in the specified view
-      description: Fetch stats for a target timeframe, application / server / deployment set.
+      description: Get the stats for a target timeframe, application / server / deployment set and apply the following filters
       parameters:
         - in: path
           name: env_id
-          description: Environment ID to use (e.g. S1234)
+          description: Environment ID to use (e.g., S1234)
           type: string
           required: true
         - in: path
@@ -1169,30 +1164,30 @@ paths:
         - in: query
           name: from
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          description: The start time of the requested events - date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: to
           type: string
-          description: Start time of requested events. Date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
+          description: The end time of the requested events - date in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZ)
           required: true
         - in: query
           name: server
           type: string
-          description: Server(s) added to the filter
+          description: A server(s) was added to the filter
         - in: query
           name: app
           type: string
-          description: Application(s) added to the filter
+          description: An application(s) was added to the filter
         - in: query
           name: deployment
           type: string
-          description: Deployment(s) added to the filter
+          description: A deployment(s) was added to the filter
         - in: query
           name: stats
           type: string
           enum: [hits, invocations, all]
-          description: return only selected stats. 'all' is default.
+          description: Return only the selected stats - 'all' is the default.
       responses:
         200:
           description: Event stats
@@ -1653,7 +1648,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch Default Alert Settings"
-      description: "Use this call to fetch default alert settings for selected environment"
+      description: "Gets the default alert settings that have been set up for this environment"
       parameters:
         - in: path
           name: env_id
@@ -1673,7 +1668,7 @@ paths:
       tags:
         - Alerts
       summary: "Update Default Alert Settings"
-      description: "Use this call to update default alert settings for selected environment which will be used as initial settings for every new alert opened in this environment. "
+      description: "Use this call to update default alert settings for selected environment, which will be used as the initial settings for every new alert opened in this environment."
       parameters:
         - in: path
           name: env_id
@@ -1697,7 +1692,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch ServiceNow Tables"
-      description: "Use this call to Load ServiceNow tables associated with specific credentials"
+      description: "Use this call to Load ServiceNow tables associated with specific credentials."
       parameters:
         - in: path
           name: env_id
@@ -1746,7 +1741,7 @@ paths:
       tags:
         - Alerts
       summary: "Fetch Alert settings for a View"
-      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc)"
+      description: "Fetch Alert settings for a View (Slack, Email, UDF, etc.) For every change that you make, you'll need to specify all the fields that were previously set, because missing fields will be assigned empty values and nullified."
       parameters:
         - in: path
           name: env_id
@@ -5044,7 +5039,7 @@ definitions:
             type: "string"
             example: "pa$$1"
           table:
-            description: the name (internal name) of a servicenow table to be used
+            description: The name (internal name) of the ServiceNow table that should be used
             type: "string"
             example: "sys_report_layer"
         type: "object"
@@ -5087,7 +5082,7 @@ definitions:
             example: "label=sample_label_name"
         type: "object"
   AlertDefaults:
-    description: Default alert settings for an environment
+    description: These are the default alert settings for an environment
     type: object
     properties:
       email:
@@ -5132,7 +5127,7 @@ definitions:
             type: "string"
             example: "pa$$1"
           table:
-            description: the name (internal name) of a servicenow table to be used
+            description: The name (internal name) of the ServiceNow table that should be used
             type: "string"
             example: "sys_report_layer"
       hip_chat:
@@ -5176,7 +5171,7 @@ definitions:
             link:
               type: string
   ViewAlertsSummary:
-    description: basic alerts info for a single view
+    description: This is the basic alerts information for a single view
     type: object
     properties:
       view_id:
@@ -5189,7 +5184,7 @@ definitions:
         example: "API"
       categories:
         type: array
-        description: Categories Names
+        description: Category Names
         items:
           type: string
         example: "Applications"
@@ -5198,15 +5193,15 @@ definitions:
         properties:
           global:
             type: boolean
-            description: Indicates alerts which are global, i.e. will affect all users that share this view.
+            description: Indicates global alerts, i.e., alerts that will appear for all environment users.
             example: false
           alert_on_new:
             type: boolean
-            description: Indicates alerts which are sent on new events
+            description: Indicates alerts that are sent on new events only
             example: true
           alert_on_every_entrypoint:
             type: boolean
-            description: Indicates alerts which are sent for every new event regardless of it's entry point
+            description: Indicates alerts that are sent for every new event regardless of the event's entry point
           anomaly_alert:
             type: object
             properties:
@@ -5217,7 +5212,7 @@ definitions:
                 $ref: "#/definitions/UDFBasic"
               period:
                 type: integer
-                description: The interval (in minutes) between periodic/anomaly udf invocations
+                description: Specifies the interval (in minutes) between periodic/anomaly UDF invocations
                 example: 3
           channels:
             type: array
@@ -5250,7 +5245,7 @@ definitions:
         example: true
       hostname:
         type: string
-        description: The hostname and (optional) port of your StatsD server.
+        description: This is the hostname and (optional) port of your StatsD server.
         example: 127.0.0.1:8125
       output_format:
         type: string
@@ -5264,7 +5259,7 @@ definitions:
       properties:
         output_format:
           type: string
-          description: For customized metrics (which are different than the format defaults), use "custom" format
+          description: For customized metrics (which differ from the format defaults), use a "custom" format
           example: splunk
         default_metrics:
           $ref: "#/definitions/Metrics"
