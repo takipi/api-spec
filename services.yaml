@@ -675,7 +675,7 @@ paths:
         - in: query
           name: similar_event_id
           type: string
-          description: Event(s) added to the filter
+          description: Event(s) added to the filter - this is an internal event ID used for maintaining code revisions.
       responses:
         200:
           description: Link to snapshot
