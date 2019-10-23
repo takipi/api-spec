@@ -4304,6 +4304,25 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+# Internal - Global settings
+  /global-settings/analysis-server:
+        get:
+          tags:
+            - General
+          summary: "Get information about OverOps Analysis server"
+          description: "Get information about OverOps Analysis server - deployment configuration and address"
+          responses:
+            200:
+              description: Analysis server info
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum: [SaaS, OnPrem]
+                  url:
+                    type: string
+                    example: "http://34.235.153.247"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx

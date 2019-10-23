@@ -75,6 +75,9 @@
               <li>
                 <a href="#operation--services--env_id--settings-reliability-settings-post"> Upload reliability settings JSON </a>
               </li>
+              <li>
+                <a href="#operation--global-settings-analysis-server-get"> Get information about OverOps Analysis server </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -2387,6 +2390,74 @@
                 </section>
               </div>
               <div class="doc-examples"> </div>
+            </div>
+          </div>
+          <div id="operation--global-settings-analysis-server-get" class="operation panel" data-traverse-target="operation--global-settings-analysis-server-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-General">General</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get information about OverOps Analysis server</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/global-settings/analysis-server</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Get information about OverOps Analysis server - deployment configuration and address</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Analysis server info</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://34.235.153.247&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <h1 id="tag-Events" class="swagger-summary-tag" data-traverse-target="tag-Events">Events</h1>
