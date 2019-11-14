@@ -292,6 +292,10 @@ paths:
           description: Environment to use
           type: string
           required: true
+        - in: query
+          name: connected
+          description: Retrieve only processes with an attached agents
+          type: string
       responses:
         200:
           description: List of agents
