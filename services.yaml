@@ -264,6 +264,10 @@ paths:
           description: Environment to use
           type: string
           required: true
+        - in: query
+          name: connected
+          description: Retrieve only processes with a connected OverOps collector/agent
+          type: string
       responses:
         200:
           description: List of OverOps components status
@@ -319,6 +323,10 @@ paths:
           description: Environment to use
           type: string
           required: true
+        - in: query
+          name: connected
+          description: Retrieve only processes of a connected OverOps collector
+          type: string
       responses:
         200:
           description: List of Collectors
