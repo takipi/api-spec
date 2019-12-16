@@ -4225,7 +4225,7 @@ paths:
         401:
           $ref: "#/responses/UnauthorizedError"
 #Jira
-  /services/{env_id}/alerts/jira/projects:
+  /services/{env_id}/jira/projects:
       get:
         tags:
           - Jira
