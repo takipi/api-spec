@@ -4304,6 +4304,40 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+# internal
+  /services/{env_id}/marketo/{form_id}:
+    post:
+      tags:
+        - Internal
+      summary: "Submit a marketo form"
+      description: "Submit a marketo form"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
+          type: string
+          required: true
+        - in: path
+          name: form_id
+          description: Marketo form ID to submit
+          type: string
+          required: true
+        - in: body
+          name: fields
+          description: marketo fields for the selected form
+          required: true
+          schema:
+            type: object
+            properties:
+              fields:
+                type: array
+                items:
+                  $ref: "#/definitions/MarketoField"
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
@@ -5319,6 +5353,16 @@ definitions:
       plural_suffix:
         type: string
         description: plural suffix/descriptor for custom units
+  MarketoField:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Field ID
+        example: emailID
+      value:
+        type: string
+        example: someone@somecompany.com
 responses:
   OK:
     description: OK
