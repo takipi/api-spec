@@ -2675,11 +2675,7 @@ paths:
               identifiers:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: "password"
+                  $ref: "#/definitions/CodeIdentifier"
               classes:
                 type: array
                 items:
@@ -2836,11 +2832,7 @@ paths:
               identifiers:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: "password"
+                  $ref: "#/definitions/CodeIdentifier"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/data-redaction/identifiers/{identifier}:
@@ -2864,11 +2856,7 @@ paths:
         200:
           description: If the redaction exists
           schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "password"
+            $ref: "#/definitions/CodeIdentifier"
         401:
           $ref: "#/responses/UnauthorizedError"
     put:
@@ -2892,11 +2880,7 @@ paths:
           in: body
           description: Identifier object
           schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "password"
+            $ref: "#/definitions/CodeIdentifier"
       responses:
         200:
           $ref: "#/responses/OK"
@@ -3148,6 +3132,52 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/settings/data-redaction/advanced:
+    get:
+      tags:
+        - Data Redaction
+      summary: "Get data redaction advanced settings for an environment"
+      description: "Get data redaction advanced settings for an environment"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          description: Data Redaction advanced settings
+          schema:
+            $ref: "#/definitions/DataRedactionSettings"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
+    post:
+      tags:
+        - Data Redaction
+      summary: "Set data redaction advanced settings for an environment"
+      description: "Set data redaction advanced settings for an environment"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: body
+          name: data_redaction_settings
+          schema:
+            $ref: "#/definitions/DataRedactionSettings"
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        400:
+          $ref: "#/responses/BadRequestError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+        404:
+          $ref: "#/responses/NotFoundError"
 #Code Redaction
   /services/{env_id}/settings/code-redaction:
     get:
@@ -4327,6 +4357,20 @@ definitions:
   PackageName:
     type: string
     example: "com.company.package.name"
+  CodeIdentifier:
+    type: object
+    properties:
+      name:
+        type: string
+        example: "password"
+  DataRedactionSettings:
+    type: object
+    description: Data redaction advanced settings
+    properties:
+      apply_identifiers_on_maps:
+        type: boolean
+        description: Apply defined code identifiers to maps. When the value is set to false, only variables with names which are matching to the code identifiers will be redcacted. When set to true, both variables with matching names, and map keys with matching names will be redacted.
+        example: true
   ViewBasic:
     type: object
     properties:
