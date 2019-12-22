@@ -520,10 +520,16 @@
             <a href="#tag-Jira">Jira</a>
             <ul>
               <li>
-                <a href="#operation--services--env_id--jira-projects-get"> List jira projects </a>
+                <a href="#operation--services--env_id--jira-projects-get"> Request Jira Projects </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--jira-projects--project_name---issue_type--get"> Fetch jira fields </a>
+                <a href="#operation--services--env_id--jira-projects-requests--request_id--get"> List jira projects </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--jira-projects--project_key--fields-get"> Request Jira fields </a>
+              </li>
+              <li>
+                <a href="#operation--services--env_id--jira-projects--project_key--fields-requests--request_id--get"> Fetch jira fields </a>
               </li>
               <li>
                 <a href="#operation--services--env_id--alerts-jira--project_name---issue_type---event_id--put"> Create Jira issue </a>
@@ -7200,7 +7206,7 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
         <span class="hljs-attr">&quot;schema&quot;</span>: {
           <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -7326,7 +7332,7 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
         <span class="hljs-attr">&quot;schema&quot;</span>: {
           <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -7662,7 +7668,7 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
         <span class="hljs-attr">&quot;schema&quot;</span>: {
           <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -7825,7 +7831,7 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
         <span class="hljs-attr">&quot;schema&quot;</span>: {
           <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -8107,7 +8113,7 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
         <span class="hljs-attr">&quot;schema&quot;</span>: {
           <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -18364,7 +18370,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">List jira projects</span>
+              <span class="operation-summary">Request Jira Projects</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -18377,7 +18383,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List all available jira projects</p>
+                  <p>Submit a request to list all available jira projects</p>
                 </section>
               </div>
             </div>
@@ -18396,6 +18402,112 @@
                     </div>
                     <div class="prop-value">
                       <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>request ID</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;request_id&quot;</span>: <span class="hljs-string">&quot;12345678-1234-1234-1234-123456789abc&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--jira-projects-requests--request_id--get" class="operation panel" data-traverse-target="operation--services--env_id--jira-projects-requests--request_id--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Jira">Jira</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List jira projects</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/jira/projects/requests/{request_id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all available jira projects in a provided request</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">request_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Request ID (e.g. 12345678-1234-1234-1234-123456789abc)</p>
                     </div>
                   </div>
                 </section>
@@ -18438,12 +18550,12 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;projects&quot;</span>: [
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;COMPLETED&quot;</span>,
+  <span class="hljs-attr">&quot;result&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Engineering&quot;</span>,
-      <span class="hljs-attr">&quot;issue_types&quot;</span>: [
-        <span class="hljs-string">&quot;Bug&quot;</span>
-      ]
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">10400</span>,
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;PRJ&quot;</span>
     }
   ]
 }
@@ -18453,7 +18565,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--services--env_id--jira-projects--project_name---issue_type--get" class="operation panel" data-traverse-target="operation--services--env_id--jira-projects--project_name---issue_type--get">
+          <div id="operation--services--env_id--jira-projects--project_key--fields-get" class="operation panel" data-traverse-target="operation--services--env_id--jira-projects--project_key--fields-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -18463,20 +18575,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Fetch jira fields</span>
+              <span class="operation-summary">Request Jira fields</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/services/{env_id}/jira/projects/{project_name}/{issue_type}</span>
+                  <span class="operation-path">/services/{env_id}/jira/projects/{project_key}/fields</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>List all fields for selected jira project / issue type</p>
+                  <p>Submit a request to list all available fields for selected jira project</p>
                 </section>
               </div>
             </div>
@@ -18499,7 +18611,7 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">project_name</div>
+                      <div class="prop-title">project_key</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
@@ -18508,12 +18620,90 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>jira project name</p>
+                      <p>jira project key</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>request ID</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">issue_type</div>
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;request_id&quot;</span>: <span class="hljs-string">&quot;12345678-1234-1234-1234-123456789abc&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--services--env_id--jira-projects--project_key--fields-requests--request_id--get" class="operation panel" data-traverse-target="operation--services--env_id--jira-projects--project_key--fields-requests--request_id--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Jira">Jira</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Fetch jira fields</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/services/{env_id}/jira/projects/{project_key}/fields/requests/{request_id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>List all fields in a project for selected request id</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">env_id</div>
                       <span class="json-property-required"></span>
                       <div class="prop-subtitle"> in path </div>
                       <div class="prop-subtitle">
@@ -18522,7 +18712,35 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>jira issue type</p>
+                      <p>Environment ID to use (e.g. S1234)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">project_key</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>jira project key</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">request_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Request ID (e.g. 12345678-1234-1234-1234-123456789abc)</p>
                     </div>
                   </div>
                 </section>
@@ -18565,28 +18783,41 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;projects&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
-      <span class="hljs-attr">&quot;schema&quot;</span>: {
-        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-        <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-        <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
-      },
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
-      <span class="hljs-attr">&quot;operations&quot;</span>: [
-        <span class="hljs-string">&quot;string&quot;</span>
-      ],
-      <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
-        <span class="hljs-string">&quot;string&quot;</span>
-      ]
-    }
-  ]
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;COMPLETED&quot;</span>,
+  <span class="hljs-attr">&quot;result&quot;</span>: {
+    <span class="hljs-attr">&quot;project&quot;</span>: {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Engineering&quot;</span>,
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">10400</span>,
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;PRJ&quot;</span>
+    },
+    <span class="hljs-attr">&quot;issuetypes&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Task&quot;</span>,
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">10113</span>,
+        <span class="hljs-attr">&quot;subtask&quot;</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">&quot;fields&quot;</span>: {
+          <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">&quot;schema&quot;</span>: {
+            <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;system&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;custom&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;custom_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+            <span class="hljs-attr">&quot;configuration&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+          },
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;has_default_value&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+          <span class="hljs-attr">&quot;operations&quot;</span>: [
+            <span class="hljs-string">&quot;string&quot;</span>
+          ],
+          <span class="hljs-attr">&quot;allowed_values&quot;</span>: [
+            <span class="hljs-string">&quot;string&quot;</span>
+          ]
+        }
+      }
+    ]
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -18715,7 +18946,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;projects&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">&quot;schema&quot;</span>: {
         <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
         <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -18901,7 +19132,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;projects&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+      <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">&quot;schema&quot;</span>: {
         <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
         <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -21359,7 +21590,7 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
         <span class="hljs-attr">&quot;schema&quot;</span>: {
           <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -21651,7 +21882,7 @@
     <span class="hljs-attr">&quot;issue_type&quot;</span>: <span class="hljs-string">&quot;Bug&quot;</span>,
     <span class="hljs-attr">&quot;issue_fields&quot;</span>: [
       {
-        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
         <span class="hljs-attr">&quot;schema&quot;</span>: {
           <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -22389,18 +22620,22 @@
                     <dd>
                       <p>project name</p>
                     </dd>
-                    <dt data-property-name="issue_types">
-                      <span class="json-property-name">issue_types:</span>
-                      <span class="json-property-type">string[]</span>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt class="json-inner-schema">
-                      <section class="json-schema-array-items">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                        <div class="json-inner-schema"> </div>
-                      </section>
+                    <dd>
+                      <p>project id</p>
+                    </dd>
+                    <dt data-property-name="key" class="has-description">
+                      <span class="json-property-name">key:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>project key</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -22409,9 +22644,8 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Engineering&quot;</span>,
-  <span class="hljs-attr">&quot;issue_types&quot;</span>: [
-    <span class="hljs-string">&quot;Bug&quot;</span>
-  ]
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">10400</span>,
+  <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;PRJ&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -22560,7 +22794,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+  <span class="hljs-attr">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;schema&quot;</span>: {
     <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;items&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,

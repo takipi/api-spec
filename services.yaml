@@ -4229,8 +4229,8 @@ paths:
       get:
         tags:
           - Jira
-        summary: "List jira projects"
-        description: "List all available jira projects"
+        summary: "Request Jira Projects"
+        description: "Submit a request to list all available jira projects"
         parameters:
           - in: path
             name: env_id
@@ -4239,22 +4239,54 @@ paths:
             required: true
         responses:
           200:
+            description: request ID
+            schema:
+              type: object
+              properties:
+                request_id:
+                  type: string
+                  example: 12345678-1234-1234-1234-123456789abc
+          401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/jira/projects/requests/{request_id}:
+      get:
+        tags:
+          - Jira
+        summary: "List jira projects"
+        description: "List all available jira projects in a provided request"
+        parameters:
+          - in: path
+            name: env_id
+            description: Environment ID to use (e.g. S1234)
+            type: string
+            required: true
+          - in: path
+            name: request_id
+            description: Request ID (e.g. 12345678-1234-1234-1234-123456789abc)
+            type: string
+            required: true
+        responses:
+          200:
             description: List of jira projects
             schema:
               type: object
               properties:
-                projects:
+                status:
+                  type: string
+                  example: "COMPLETED"
+                  enum: [COMPLETED, WAITING, ERROR]
+                result:
                   type: array
                   items:
                     $ref: "#/definitions/JiraProject"
           401:
             $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/jira/projects/{project_name}/{issue_type}:
+  /services/{env_id}/jira/projects/{project_key}/fields:
     get:
       tags:
         - Jira
-      summary: "Fetch jira fields"
-      description: "List all fields for selected jira project / issue type"
+      summary: "Request Jira fields"
+      description: "Submit a request to list all available fields for selected jira project"
       parameters:
         - in: path
           name: env_id
@@ -4262,13 +4294,41 @@ paths:
           type: string
           required: true
         - in: path
-          name: project_name
-          description: jira project name
+          name: project_key
+          description: jira project key
+          type: string
+          required: true
+      responses:
+        200:
+          description: request ID
+          schema:
+            type: object
+            properties:
+              request_id:
+                type: string
+                example: 12345678-1234-1234-1234-123456789abc
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/jira/projects/{project_key}/fields/requests/{request_id}:
+    get:
+      tags:
+        - Jira
+      summary: "Fetch jira fields"
+      description: "List all fields in a project for selected request id"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment ID to use (e.g. S1234)
           type: string
           required: true
         - in: path
-          name: issue_type
-          description: jira issue type
+          name: project_key
+          description: jira project key
+          type: string
+          required: true
+        - in: path
+          name: request_id
+          description: Request ID (e.g. 12345678-1234-1234-1234-123456789abc)
           type: string
           required: true
       responses:
@@ -4277,10 +4337,31 @@ paths:
           schema:
             type: object
             properties:
-              projects:
-                type: array
-                items:
-                  $ref: "#/definitions/JiraField"
+              status:
+                type: string
+                example: "COMPLETED"
+                enum: [COMPLETED, WAITING, ERROR]
+              result:
+                type: object
+                properties:
+                  project:
+                    $ref: "#/definitions/JiraProject"
+                  issuetypes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: Task
+                        id:
+                          type: string
+                          example: 10113
+                        subtask:
+                          type: boolean
+                          example: false
+                        fields:
+                          $ref: "#/definitions/JiraField"
         401:
           $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/alerts/jira/{project_name}/{issue_type}/{event_id}:
@@ -5347,17 +5428,21 @@ definitions:
         type: string
         description: project name
         example: Engineering
-      issue_types:
-        type: array
-        items:
-          type: string
-          example: "Bug"
+      id:
+        type: string
+        description: project id
+        example: 10400
+      key:
+        type: string
+        description: project key
+        example: PRJ
   JiraField:
     type: object
     properties:
       required:
         type: boolean
         description: Indicates whether the field is required
+        example: true
       schema:
         type: object
         properties:
