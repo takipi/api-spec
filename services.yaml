@@ -252,92 +252,6 @@ paths:
                   $ref: "#/definitions/Deployment"
         401:
             $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/overops-status:
-    get:
-      tags:
-        - General
-      summary: "List agents and collectors"
-      description: "Fetch OverOps live processes report"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: query
-          name: connected
-          description: Retrieve only processes with a connected OverOps collector/agent
-          type: string
-      responses:
-        200:
-          description: List of OverOps components status
-          schema:
-            type: object
-            properties:
-              agents:
-                type: array
-                items:
-                  $ref: "#/definitions/Agent"
-              collectors:
-                type: array
-                items:
-                  $ref: "#/definitions/Collector"
-        401:
-            $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/overops-status/agents:
-    get:
-      tags:
-        - General
-      summary: "List agents"
-      description: "Fetch agents live processes report"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: query
-          name: connected
-          description: Retrieve only processes with an attached agents
-          type: string
-      responses:
-        200:
-          description: List of agents
-          schema:
-            properties:
-              agents:
-                type: array
-                items:
-                  $ref: "#/definitions/Agent"
-        401:
-            $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/overops-status/collectors:
-    get:
-      tags:
-        - General
-      summary: "List collectors"
-      description: "Fetch collectors live processes report"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: query
-          name: connected
-          description: Retrieve only processes of a connected OverOps collector
-          type: string
-      responses:
-        200:
-          description: List of Collectors
-          schema:
-            properties:
-              collectors:
-                type: array
-                items:
-                  $ref: "#/definitions/Collector"
-        401:
-            $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/storage-settings:
     get:
       tags:
@@ -4316,6 +4230,154 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+# Agents and Collectors
+  /services/{env_id}/overops-status:
+    get:
+      tags:
+        - General
+      summary: "List agents and collectors"
+      description: "Fetch OverOps live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: connected
+          description: Retrieve only processes with a connected OverOps collector/agent
+          type: string
+      responses:
+        200:
+          description: List of OverOps components status
+          schema:
+            type: object
+            properties:
+              agents:
+                type: array
+                items:
+                  $ref: "#/definitions/Agent"
+              collectors:
+                type: array
+                items:
+                  $ref: "#/definitions/Collector"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/overops-status/agents:
+    get:
+      tags:
+        - General
+      summary: "List agents"
+      description: "Fetch agents live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: connected
+          description: Retrieve only processes with an attached agents
+          type: string
+      responses:
+        200:
+          description: List of agents
+          schema:
+            properties:
+              agents:
+                type: array
+                items:
+                  $ref: "#/definitions/Agent"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/overops-status/collectors:
+    get:
+      tags:
+        - General
+      summary: "List collectors"
+      description: "Fetch collectors live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: connected
+          description: Retrieve only processes of a connected OverOps collector
+          type: string
+      responses:
+        200:
+          description: List of Collectors
+          schema:
+            properties:
+              collectors:
+                type: array
+                items:
+                  $ref: "#/definitions/Collector"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/agents/stop/{agent_id}:
+    post:
+      tags:
+        - General
+      summary: "Turn off selected agent"
+      description: "Turn off selected OverOps agent. NOTE: this command is irreversible during application runtime"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: agent_id
+          description: Unique identifier of an agent to be turned off
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/{server_name}/agents/stop/:
+    post:
+      tags:
+        - General
+      summary: "Turn off agents on a Server"
+      description: "Turn off all OverOps agents on a selected Server. NOTE: this command is irreversible during application runtime"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: server_name
+          description: Name of the server where OverOps Agents should be turned off
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/agents/stop:
+    post:
+      tags:
+        - General
+      summary: "Turn off all agents"
+      description: "Turn off all OverOps agents in the environment. NOTE: this command is irreversible during application runtime"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+            $ref: "#/responses/UnauthorizedError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
