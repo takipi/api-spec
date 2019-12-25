@@ -56,6 +56,8 @@ tags:
     description: Fetch and manipulate data redaction of PII with target environments.
   - name: Code Redaction
     description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes  from OverOps analysis and data capture.
+  - name: Environment management
+    description: Fetch monitoring status and control OverOps Agents and Collectors
 schemes:
 - "https"
 paths:
@@ -4230,11 +4232,11 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
-# Agents and Collectors
+# Agents and Collectors Management
   /services/{env_id}/overops-status:
     get:
       tags:
-        - General
+        - Environment Management
       summary: "List agents and collectors"
       description: "Fetch OverOps live processes report"
       parameters:
@@ -4266,7 +4268,7 @@ paths:
   /services/{env_id}/overops-status/agents:
     get:
       tags:
-        - General
+        - Environment Management
       summary: "List agents"
       description: "Fetch agents live processes report"
       parameters:
@@ -4293,7 +4295,7 @@ paths:
   /services/{env_id}/overops-status/collectors:
     get:
       tags:
-        - General
+        - Environment Management
       summary: "List collectors"
       description: "Fetch collectors live processes report"
       parameters:
@@ -4320,7 +4322,7 @@ paths:
   /services/{env_id}/agents/stop/{agent_id}:
     post:
       tags:
-        - General
+        - Environment Management
       summary: "Turn off selected agent"
       description: "Turn off selected OverOps agent. NOTE: this command is irreversible during application runtime"
       parameters:
@@ -4339,10 +4341,10 @@ paths:
           $ref: "#/responses/OK"
         401:
             $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/{server_name}/agents/stop/:
+  /services/{env_id}/agents/stop/server/{server_name}:
     post:
       tags:
-        - General
+        - Environment Management
       summary: "Turn off agents on a Server"
       description: "Turn off all OverOps agents on a selected Server. NOTE: this command is irreversible during application runtime"
       parameters:
@@ -4361,10 +4363,33 @@ paths:
           $ref: "#/responses/OK"
         401:
             $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/agents/stop/application/{application_name}:
+    post:
+      tags:
+        - Environment Management
+      summary: "Turn off agents for an application"
+      description: "Turn off all OverOps agents which are monitoring a selected application. NOTE: this command is irreversible during application runtime"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: application_name
+          description: Name of the application where OverOps Agents should be turned off
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+            $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/agents/stop:
     post:
       tags:
-        - General
+        - Environment Management
+
       summary: "Turn off all agents"
       description: "Turn off all OverOps agents in the environment. NOTE: this command is irreversible during application runtime"
       parameters:
