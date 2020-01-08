@@ -56,7 +56,7 @@ tags:
     description: Fetch and manipulate data redaction of PII with target environments.
   - name: Code Redaction
     description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes  from OverOps analysis and data capture.
-  - name: Environment management
+  - name: Environment Management
     description: Fetch monitoring status and control OverOps Agents and Collectors
 schemes:
 - "https"
@@ -4396,6 +4396,50 @@ paths:
         - in: path
           name: env_id
           description: Environment to use
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/agents/start/server/{server_name}:
+    post:
+      tags:
+        - Environment Management
+      summary: "Turn on agents on a Server"
+      description: "Turn on OverOps agents on a selected Server. NOTE: this command will apply only after application restart"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: server_name
+          description: Name of the server where OverOps Agents should be turned on
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/agents/start/application/{application_name}:
+    post:
+      tags:
+        - Environment Management
+      summary: "Turn on agents for an application"
+      description: "Turn on OverOps agents which are monitoring a selected application. NOTE: this command will apply only after application restart"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: path
+          name: application_name
+          description: Name of the application where OverOps Agents should be turned on
           type: string
           required: true
       responses:
