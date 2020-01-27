@@ -473,9 +473,6 @@
                 <a href="#operation--services--env_id--overops-status-collectors-get"> List collectors </a>
               </li>
               <li>
-                <a href="#operation--services--env_id--agents-stop--agent_id--post"> Turn off selected agent - NOT YET IMPLEMENTED </a>
-              </li>
-              <li>
                 <a href="#operation--services--env_id--agents-stop-server--server_name--post"> Turn off agents on a Server </a>
               </li>
               <li>
@@ -16831,92 +16828,6 @@
                   <!-- </div> -->
                 </section>
               </div>
-            </div>
-          </div>
-          <div id="operation--services--env_id--agents-stop--agent_id--post" class="operation panel" data-traverse-target="operation--services--env_id--agents-stop--agent_id--post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Environment-Management">Environment Management</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Turn off selected agent - NOT YET IMPLEMENTED </span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/services/{env_id}/agents/stop/{agent_id}</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>TBD - NOT YET IMPLEMENTED - Turn off selected OverOps agent. NOTE: this command is irreversible during application runtime</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">env_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Environment to use</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">agent_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">string</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unique identifier of an agent to be turned off</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>OK</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unauthorized</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"> </div>
             </div>
           </div>
           <div id="operation--services--env_id--agents-stop-server--server_name--post" class="operation panel" data-traverse-target="operation--services--env_id--agents-stop-server--server_name--post">

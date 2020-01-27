@@ -4319,28 +4319,6 @@ paths:
                   $ref: "#/definitions/Collector"
         401:
             $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/agents/stop/{agent_id}:
-    post:
-      tags:
-        - Environment Management
-      summary: "Turn off selected agent - NOT YET IMPLEMENTED "
-      description: "TBD - NOT YET IMPLEMENTED - Turn off selected OverOps agent. NOTE: this command is irreversible during application runtime"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: agent_id
-          description: Unique identifier of an agent to be turned off
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-            $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/agents/stop/server/{server_name}:
     post:
       tags:
