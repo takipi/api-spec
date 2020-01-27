@@ -4323,8 +4323,8 @@ paths:
     post:
       tags:
         - Environment Management
-      summary: "Turn off selected agent"
-      description: "Turn off selected OverOps agent. NOTE: this command is irreversible during application runtime"
+      summary: "Turn off selected agent - NOT YET IMPLEMENTED "
+      description: "TBD - NOT YET IMPLEMENTED - Turn off selected OverOps agent. NOTE: this command is irreversible during application runtime"
       parameters:
         - in: path
           name: env_id
@@ -4385,7 +4385,7 @@ paths:
           $ref: "#/responses/OK"
         401:
             $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/agents/stop:
+  /services/{env_id}/agents/stop/all:
     post:
       tags:
         - Environment Management
