@@ -4319,112 +4319,39 @@ paths:
                   $ref: "#/definitions/Collector"
         401:
             $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/agents/stop/server/{server_name}:
+  /services/{env_id}/agents:
     post:
       tags:
         - Environment Management
-      summary: "Turn off agents on a Server"
-      description: "Turn off all OverOps agents on a selected Server. NOTE: this command is irreversible during application runtime"
+      summary: "Batch update for group of agents"
+      description: "Batch update for group of agents"
       parameters:
         - in: path
           name: env_id
           description: Environment to use
           type: string
           required: true
-        - in: path
-          name: server_name
-          description: Name of the server where OverOps Agents should be turned off
+        - in: query
+          name: server
           type: string
-          required: true
+          description: Server(s) added to the filter
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter
+        - in: body
+          name: properties
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: true
       responses:
         200:
           $ref: "#/responses/OK"
         401:
-            $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/agents/stop/application/{application_name}:
-    post:
-      tags:
-        - Environment Management
-      summary: "Turn off agents for an application"
-      description: "Turn off all OverOps agents which are monitoring a selected application. NOTE: this command is irreversible during application runtime"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: application_name
-          description: Name of the application where OverOps Agents should be turned off
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-            $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/agents/stop/all:
-    post:
-      tags:
-        - Environment Management
-
-      summary: "Turn off all agents"
-      description: "Turn off all OverOps agents in the environment. NOTE: this command is irreversible during application runtime"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-            $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/agents/start/server/{server_name}:
-    post:
-      tags:
-        - Environment Management
-      summary: "Turn on agents on a Server"
-      description: "Turn on OverOps agents on a selected Server. NOTE: this command will apply only after application restart"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: server_name
-          description: Name of the server where OverOps Agents should be turned on
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-            $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/agents/start/application/{application_name}:
-    post:
-      tags:
-        - Environment Management
-      summary: "Turn on agents for an application"
-      description: "Turn on OverOps agents which are monitoring a selected application. NOTE: this command will apply only after application restart"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: path
-          name: application_name
-          description: Name of the application where OverOps Agents should be turned on
-          type: string
-          required: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-            $ref: "#/responses/UnauthorizedError"
+          $ref: "#/responses/UnauthorizedError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
