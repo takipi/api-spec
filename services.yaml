@@ -4344,8 +4344,8 @@ paths:
           schema:
             type: object
             properties:
-              status:
-                type: string
+              monitoring_enabled:
+                type: boolean
                 example: true
       responses:
         200:
@@ -4952,6 +4952,10 @@ definitions:
         type: string
         description: OverOps monitoring status
         example: monitoring
+      monitoring_enabled:
+        type: boolean
+        description: marks if the monitoring of this particular agent enabled/disabled
+        example: true
   Collector:
     description: Collector properties
     type: object

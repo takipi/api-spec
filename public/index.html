@@ -16583,7 +16583,8 @@
       <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Java&quot;</span>,
       <span class="hljs-attr">&quot;collector_id&quot;</span>: <span class="hljs-number">12121</span>,
       <span class="hljs-attr">&quot;start_time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;monitoring&quot;</span>
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;monitoring&quot;</span>,
+      <span class="hljs-attr">&quot;monitoring_enabled&quot;</span>: <span class="hljs-literal">true</span>
     }
   ],
   <span class="hljs-attr">&quot;collectors&quot;</span>: [
@@ -16702,7 +16703,8 @@
       <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Java&quot;</span>,
       <span class="hljs-attr">&quot;collector_id&quot;</span>: <span class="hljs-number">12121</span>,
       <span class="hljs-attr">&quot;start_time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;monitoring&quot;</span>
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;monitoring&quot;</span>,
+      <span class="hljs-attr">&quot;monitoring_enabled&quot;</span>: <span class="hljs-literal">true</span>
     }
   ]
 }
@@ -16850,9 +16852,9 @@
                 <section class="swagger-request-body">
                   <section class="json-schema-properties">
                     <dl>
-                      <dt data-property-name="status">
-                        <span class="json-property-name">status:</span>
-                        <span class="json-property-type">string</span>
+                      <dt data-property-name="monitoring_enabled">
+                        <span class="json-property-name">monitoring_enabled:</span>
+                        <span class="json-property-type">boolean</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </dt>
                     </dl>
@@ -16905,7 +16907,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">&quot;monitoring_enabled&quot;</span>: <span class="hljs-literal">true</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -20784,6 +20786,14 @@
                     <dd>
                       <p>OverOps monitoring status</p>
                     </dd>
+                    <dt data-property-name="monitoring_enabled" class="has-description">
+                      <span class="json-property-name">monitoring_enabled:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>marks if the monitoring of this particular agent enabled/disabled</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -20799,7 +20809,8 @@
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;Java&quot;</span>,
   <span class="hljs-attr">&quot;collector_id&quot;</span>: <span class="hljs-number">12121</span>,
   <span class="hljs-attr">&quot;start_time&quot;</span>: <span class="hljs-string">&quot;2018-02-28T22:47:09.038Z&quot;</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;monitoring&quot;</span>
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;monitoring&quot;</span>,
+  <span class="hljs-attr">&quot;monitoring_enabled&quot;</span>: <span class="hljs-literal">true</span>
 }
 </code></pre>
                   <!-- </div> -->
