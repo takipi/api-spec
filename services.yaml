@@ -4292,6 +4292,38 @@ paths:
                   $ref: "#/definitions/Agent"
         401:
             $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Environment Management
+      summary: "Batch update for group of agents"
+      description: "Batch update for group of agents"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter. The filter should contain *at least* one server or application.
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter. The filter should contain *at least* one server or application.
+        - in: body
+          name: properties
+          schema:
+            type: object
+            properties:
+              monitoring_enabled:
+                type: boolean
+                example: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/overops-status/collectors:
     get:
       tags:
@@ -4319,39 +4351,6 @@ paths:
                   $ref: "#/definitions/Collector"
         401:
             $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/agents:
-    post:
-      tags:
-        - Environment Management
-      summary: "Batch update for group of agents"
-      description: "Batch update for group of agents"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: query
-          name: server
-          type: string
-          description: Server(s) added to the filter
-        - in: query
-          name: app
-          type: string
-          description: Application(s) added to the filter
-        - in: body
-          name: properties
-          schema:
-            type: object
-            properties:
-              monitoring_enabled:
-                type: boolean
-                example: true
-      responses:
-        200:
-          $ref: "#/responses/OK"
-        401:
-          $ref: "#/responses/UnauthorizedError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
