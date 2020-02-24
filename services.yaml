@@ -56,6 +56,8 @@ tags:
     description: Fetch and manipulate data redaction of PII with target environments.
   - name: Code Redaction
     description: Fetch and manipulate code filters to include / exclude 3rd party and utility classes  from OverOps analysis and data capture.
+  - name: Environment Management
+    description: Fetch monitoring status and control OverOps Agents and Collectors
 schemes:
 - "https"
 paths:
@@ -250,92 +252,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/definitions/Deployment"
-        401:
-            $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/overops-status:
-    get:
-      tags:
-        - General
-      summary: "List agents and collectors"
-      description: "Fetch OverOps live processes report"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: query
-          name: connected
-          description: Retrieve only processes with a connected OverOps collector/agent
-          type: string
-      responses:
-        200:
-          description: List of OverOps components status
-          schema:
-            type: object
-            properties:
-              agents:
-                type: array
-                items:
-                  $ref: "#/definitions/Agent"
-              collectors:
-                type: array
-                items:
-                  $ref: "#/definitions/Collector"
-        401:
-            $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/overops-status/agents:
-    get:
-      tags:
-        - General
-      summary: "List agents"
-      description: "Fetch agents live processes report"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: query
-          name: connected
-          description: Retrieve only processes with an attached agents
-          type: string
-      responses:
-        200:
-          description: List of agents
-          schema:
-            properties:
-              agents:
-                type: array
-                items:
-                  $ref: "#/definitions/Agent"
-        401:
-            $ref: "#/responses/UnauthorizedError"
-  /services/{env_id}/overops-status/collectors:
-    get:
-      tags:
-        - General
-      summary: "List collectors"
-      description: "Fetch collectors live processes report"
-      parameters:
-        - in: path
-          name: env_id
-          description: Environment to use
-          type: string
-          required: true
-        - in: query
-          name: connected
-          description: Retrieve only processes of a connected OverOps collector
-          type: string
-      responses:
-        200:
-          description: List of Collectors
-          schema:
-            properties:
-              collectors:
-                type: array
-                items:
-                  $ref: "#/definitions/Collector"
         401:
             $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/settings/storage-settings:
@@ -4316,6 +4232,125 @@ paths:
           $ref: "#/responses/NotFoundError"
         401:
           $ref: "#/responses/UnauthorizedError"
+# Agents and Collectors Management
+  /services/{env_id}/overops-status:
+    get:
+      tags:
+        - Environment Management
+      summary: "List agents and collectors"
+      description: "Fetch OverOps live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: connected
+          description: Retrieve only processes with a connected OverOps collector/agent
+          type: string
+      responses:
+        200:
+          description: List of OverOps components status
+          schema:
+            type: object
+            properties:
+              agents:
+                type: array
+                items:
+                  $ref: "#/definitions/Agent"
+              collectors:
+                type: array
+                items:
+                  $ref: "#/definitions/Collector"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/overops-status/agents:
+    get:
+      tags:
+        - Environment Management
+      summary: "List agents"
+      description: "Fetch agents live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: connected
+          description: Retrieve only processes with an attached agents
+          type: string
+      responses:
+        200:
+          description: List of agents
+          schema:
+            properties:
+              agents:
+                type: array
+                items:
+                  $ref: "#/definitions/Agent"
+        401:
+            $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Environment Management
+      summary: "Batch update for group of agents"
+      description: "Batch update for group of agents"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter. The filter should contain *at least* one server or application.
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter. The filter should contain *at least* one server or application.
+        - in: body
+          name: properties
+          schema:
+            type: object
+            properties:
+              monitoring_enabled:
+                type: boolean
+                example: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /services/{env_id}/overops-status/collectors:
+    get:
+      tags:
+        - Environment Management
+      summary: "List collectors"
+      description: "Fetch collectors live processes report"
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: connected
+          description: Retrieve only processes of a connected OverOps collector
+          type: string
+      responses:
+        200:
+          description: List of Collectors
+          schema:
+            properties:
+              collectors:
+                type: array
+                items:
+                  $ref: "#/definitions/Collector"
+        401:
+            $ref: "#/responses/UnauthorizedError"
 definitions:
   Pattern:
     description: A data redaction pattern used to define PII RegEx
@@ -4916,6 +4951,10 @@ definitions:
         type: string
         description: OverOps monitoring status
         example: monitoring
+      monitoring_enabled:
+        type: boolean
+        description: marks if the monitoring of this particular agent enabled/disabled
+        example: true
   Collector:
     description: Collector properties
     type: object
