@@ -16737,7 +16737,10 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Batch update for group of agents</p>
+                  <p>Batch update for group of agents. NOTE -
+                    <em>The filter should contain
+                      <em>at least</em> one server, application or agent.</em>
+                  </p>
                 </section>
               </div>
             </div>
@@ -16779,8 +16782,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Server(s) added to the filter. The filter should contain
-                        <em>at least</em> one server or application.</p>
+                      <p>Server(s) added to the filter. The update will apply to all existing and future agents in the selected server/s.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -16793,8 +16795,26 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Application(s) added to the filter. The filter should contain
-                        <em>at least</em> one server or application.</p>
+                      <p>Application(s) added to the filter. The update will apply to all existing and future agents in the selected application/s. NOTE -
+                        <em>The filter should contain
+                          <em>at least</em> one server, application or agent.</em>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">agent</div>
+                      <div class="prop-subtitle"> in query </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Agent IDs added to the filter. The update will apply only to selected agent IDs. NOTE -
+                        <em>The filter should contain
+                          <em>at least</em> one server, application or agent.</em>
+                      </p>
                     </div>
                   </div>
                 </section>
