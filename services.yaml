@@ -4248,7 +4248,7 @@ paths:
         - in: query
           name: connected
           description: Retrieve only processes with a connected OverOps collector/agent
-          type: string
+          type: boolean
       responses:
         200:
           description: List of OverOps components status
@@ -4279,8 +4279,8 @@ paths:
           required: true
         - in: query
           name: connected
-          description: Retrieve only processes with an attached agents
-          type: string
+          description: Retrieve only processes with currently attached agents
+          type: boolean
       responses:
         200:
           description: List of agents
@@ -4339,7 +4339,7 @@ paths:
         - in: query
           name: connected
           description: Retrieve only processes of a connected OverOps collector
-          type: string
+          type: boolean
       responses:
         200:
           description: List of Collectors
