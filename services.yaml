@@ -4292,6 +4292,42 @@ paths:
                   $ref: "#/definitions/Agent"
         401:
             $ref: "#/responses/UnauthorizedError"
+    post:
+      tags:
+        - Environment Management
+      summary: "Batch update for group of agents"
+      description: "Batch update for group of agents. NOTE - The filter should contain **at least** one server, application or agent."
+      parameters:
+        - in: path
+          name: env_id
+          description: Environment to use
+          type: string
+          required: true
+        - in: query
+          name: server
+          type: string
+          description: Server(s) added to the filter. The update will apply to all existing and future agents in the selected server/s.
+        - in: query
+          name: app
+          type: string
+          description: Application(s) added to the filter. The update will apply to all existing and future agents in the selected application/s. NOTE - The filter should contain **at least** one server, application or agent.
+        - in: query
+          name: agent
+          type: string
+          description: Agent IDs added to the filter. The update will apply only to selected agent IDs. NOTE - The filter should contain **at least** one server, application or agent.
+        - in: body
+          name: properties
+          schema:
+            type: object
+            properties:
+              monitoring_enabled:
+                type: boolean
+                example: true
+      responses:
+        200:
+          $ref: "#/responses/OK"
+        401:
+          $ref: "#/responses/UnauthorizedError"
   /services/{env_id}/overops-status/collectors:
     get:
       tags:
