@@ -4296,7 +4296,7 @@ paths:
       tags:
         - Environment Management
       summary: "Batch update for group of agents"
-      description: "Batch update for group of agents. NOTE - _The filter should contain *at least* one server, application or agent._"
+      description: "Batch update for group of agents. NOTE - The filter should contain **at least** one server, application or agent."
       parameters:
         - in: path
           name: env_id
@@ -4310,11 +4310,11 @@ paths:
         - in: query
           name: app
           type: string
-          description: Application(s) added to the filter. The update will apply to all existing and future agents in the selected application/s. NOTE - _The filter should contain *at least* one server, application or agent._
+          description: Application(s) added to the filter. The update will apply to all existing and future agents in the selected application/s. NOTE - The filter should contain **at least** one server, application or agent.
         - in: query
           name: agent
           type: string
-          description: Agent IDs added to the filter. The update will apply only to selected agent IDs. NOTE - _The filter should contain *at least* one server, application or agent._
+          description: Agent IDs added to the filter. The update will apply only to selected agent IDs. NOTE - The filter should contain **at least** one server, application or agent.
         - in: body
           name: properties
           schema:
