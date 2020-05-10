@@ -2357,7 +2357,8 @@
     <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
     <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
     <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
-    <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+    <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>,
+    <span class="hljs-attr">&quot;source_file_path&quot;</span>: <span class="hljs-string">&quot;C:\\users\\testuser\\source\\repos\\testrepo\\program1.cs&quot;</span>
   },
   <span class="hljs-attr">&quot;error_origin&quot;</span>: {
     <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
@@ -3120,7 +3121,8 @@
         <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
         <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
         <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
-        <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+        <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>,
+        <span class="hljs-attr">&quot;source_file_path&quot;</span>: <span class="hljs-string">&quot;C:\\users\\testuser\\source\\repos\\testrepo\\program1.cs&quot;</span>
       },
       <span class="hljs-attr">&quot;error_origin&quot;</span>: {
         <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
@@ -4472,7 +4474,8 @@
         <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
         <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
         <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
-        <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+        <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>,
+        <span class="hljs-attr">&quot;source_file_path&quot;</span>: <span class="hljs-string">&quot;C:\\users\\testuser\\source\\repos\\testrepo\\program1.cs&quot;</span>
       },
       <span class="hljs-attr">&quot;error_origin&quot;</span>: {
         <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
@@ -19458,12 +19461,42 @@
                     </dt>
                     <dt data-property-name="entry_point">
                       <span class="json-property-name">entry_point:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/CodeLocation">CodeLocation</a>
-                        </span>
-                      </span>
+                      <span class="json-property-type">object</span>
                       <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="prettified_name">
+                            <span class="json-property-name">prettified_name:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="class_name">
+                            <span class="json-property-name">class_name:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="method_name">
+                            <span class="json-property-name">method_name:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="method_desc">
+                            <span class="json-property-name">method_desc:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="source_file_path" class="has-description">
+                            <span class="json-property-name">source_file_path:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Will be sent for events from .NET applications only</p>
+                          </dd>
+                        </dl>
+                      </section>
                     </dt>
                     <dt data-property-name="error_origin">
                       <span class="json-property-name">error_origin:</span>
@@ -19534,7 +19567,8 @@
     <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,
     <span class="hljs-attr">&quot;class_name&quot;</span>: <span class="hljs-string">&quot;com.company.Main&quot;</span>,
     <span class="hljs-attr">&quot;method_name&quot;</span>: <span class="hljs-string">&quot;main&quot;</span>,
-    <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>
+    <span class="hljs-attr">&quot;method_desc&quot;</span>: <span class="hljs-string">&quot;([Ljava/lang/String;)V&quot;</span>,
+    <span class="hljs-attr">&quot;source_file_path&quot;</span>: <span class="hljs-string">&quot;C:\\users\\testuser\\source\\repos\\testrepo\\program1.cs&quot;</span>
   },
   <span class="hljs-attr">&quot;error_origin&quot;</span>: {
     <span class="hljs-attr">&quot;prettified_name&quot;</span>: <span class="hljs-string">&quot;Main.main&quot;</span>,

@@ -4570,7 +4570,24 @@ definitions:
       error_location:
         $ref: "#/definitions/CodeLocation"
       entry_point:
-        $ref: "#/definitions/CodeLocation"
+        type: object
+        properties:
+          prettified_name:
+            type: string
+            example: "Main.main"
+          class_name:
+            type: string
+            example: "com.company.Main"
+          method_name:
+            type: string
+            example: "main"
+          method_desc:
+            type: string
+            example: "([Ljava/lang/String;)V"
+          source_file_path:
+            description: Will be sent for events from .NET applications only
+            type: string
+            example: "C:\\users\\testuser\\source\\repos\\testrepo\\program1.cs"
       error_origin:
         $ref: "#/definitions/CodeLocation"
       stats:
