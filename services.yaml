@@ -259,7 +259,7 @@ paths:
       tags:
         - General
       summary: "Get storage settings of an environment"
-      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-deployment-overview) for full information"
+      description: "In Hybrid OverOps installation, data collected from your JVMs is locally redacted for PII and encrypted using your private encryption key before it is stored in a server that resides behind your firewall. Use this API call to fetch the current settings of your storage server. Visit OverOps [Hybrid Deployment Overview](https://doc.overops.com/docs/hybrid-installation) for full information"
       parameters:
         - in: path
           name: env_id
