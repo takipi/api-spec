@@ -86,7 +86,7 @@ paths:
                   $ref: "#/definitions/EnvironmentWithRole"
         401:
           $ref: "#/responses/UnauthorizedError"
-    post:
+    put:
       tags:
         - General
       summary: Generate a new environment key
